@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+    <!-- Preload CSS to ensure styles are applied immediately -->
+    <link href="../css/owenminercs.css" rel="stylesheet" type="text/css">
+
+    <!-- Dynamically load the shared head section -->
+    <script>
+        fetch('../sharedHeadSection.html')
+            .then(response => response.text())
+            .then(data => {
+                document.head.innerHTML = data + document.head.innerHTML;
+                // Add page-specific metadata here
+                document.title = "Owen Miner | CS2 Content Creator & Software Developer";
+                document.querySelector('meta[name="description"]').setAttribute("content", "I'm a CS2 content creator and Iowa-based developer sharing my setup, Counter-Strike gameplay, Wooting 60HE keyboard, and custom PC build.");
+                document.querySelector('meta[name="keywords"]').setAttribute("content", "Owen Miner, CS2, Counter-Strike, content creator, software developer, PC build, Wooting 60HE, gaming setup, Iowa");
+                document.querySelector('meta[property="og:title"]').setAttribute("content", "Owen Miner | CS2 Content Creator & Software Developer");
+                document.querySelector('meta[property="og:description"]').setAttribute("content", "I'm a CS2 content creator and Iowa-based developer sharing my setup, Counter-Strike gameplay, Wooting 60HE keyboard, and custom PC build.");
+                document.querySelector('meta[property="og:url"]').setAttribute("content", "https://www.owenminercs.com/About/about.html");
+                document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.owenminercs.com/About/Images/owenProfile.png");
+            })
+            .catch(error => console.error('Error loading shared head section:', error));
+    </script>
+
+</head>
+	<body style = "zoom: 95%;">
+	
+		
+		<header>
+			
+
+			
+		<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+			<div width="120%" style="height=5px; ">
+				<nav>
+					
+					<ul>
+						<li><a href ="../About/about.html" style="color: white; text-decoration:underline;"> About</a></li>
+						<li onclick = "soon()" > <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
+						<li onclick = "soon()" > <a href ="../PC/pc.html"   style="color: rgb(120,120,120);">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+					
+					
+				</nav>
+				
+				<div class="socials" style="justify-content: center;text-align:center;align-content: center; ">
+						<a target="_blank" rel="noopener noreferrer" href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img  src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X"id="socials"> </a>
+						
+						<a target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img  src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit"id="socials"> </a>
+						
+						<a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner -  https://www.youtube.com/@OwenMinerCS" class="socials"> <img  src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"> </a>
+						 
+						<a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img  src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"> </a>
+						
+						<a target="_blank" rel="noopener noreferrer" title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img  src="../Socials/SocialButtons/tiktokLink.png" style="width:15%;" alt="Link to TikTok"class="socials"> </a>
+						
+						
+						</p>
+				</div>
+			</div>
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+		</header>
+			<div class="intro">
+				<h1> Welcome to OwenMinerCS.com!
+				
+			</div>
+			<div class="intro" >	
+				<div class="row" style="border:0;">
+					<div class="column">
+					
+					<h2>Hi, my name is Owen Miner.</h2> 
+					<p>I am a 23 year old graduate from DMACC, with an AAS degree in Computer Information Systems.</p>
+					
+					<p><b>This website was made to hopefully inspire some fellow computer nerds and build a community around the things I love.</b></p> 
+
+					<p>I love all things computers, tearing apart my first one at 12 years old, and building my first gaming pc at 13. While at DMACC I learned how to write software using Java, C++, C#, Python, HTML/CSS/Javascript, SQL, PL/SQL and more. </p>
+					
+					<p>Some of my hobbies include photogropahy, video production, writing, and gaming.</p>
+
+					<p>Also a huge fan of the game <i>Counter-Strike</i>, loved it for nearly 10 years!</p>
+					
+					<p> <b>Feel free to message me on any social media platform if you have any questions or comments! <b> </p>
+					</div>
+					<div class="row2">
+						<a target=”_blank”  title="Owen M Profile Picture" class="socials"><img  src="../About/Images/owenProfile.png" style="width: 90%; float: right;" alt="Picture of Owen M"> </a>
+					</div>
+				</div>
+			</div>
+			<div class="column">
+				<h1> Thanks For Stopping By!
+				
+			</div>
+				
+		</div>
+			<footer>
+		
+			
+			
+			
+			<div class="socials" style="justify-content: center;text-align:center;align-content: center; ">
+						<a target=”_blank” href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img  src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img  src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner -  https://www.youtube.com/@OwenMinerCS" class="socials"> <img  src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"> </a>
+						 
+						<a target=”_blank” href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img  src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"> </a>
+						
+						<a target=”_blank” title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img  src="../Socials/SocialButtons/tiktokLink.png" style="width:15%;" alt="Link to TikTok"class="socials"> </a>
+						
+						
+						</p>
+				</div>
+		
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<h4><a href="#top" style="text-align: center;">Back To Top</a></h4>
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			
+			<div width="120%" style="height=5px; ">
+					<nav>
+					<ul>
+						<li><a href ="../About/about.html" style="color: white;text-decoration:underline;"> About</a></li>
+						<li onclick = "soon()"> <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
+						<li onclick = "soon()" style=""> <a href ="../PC/pc.html" style="color: rgb(120,120,120);;">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+				</nav>
+				</div>
+			
+			
+			
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<div >
+				<h4 id="Disclosure" style="padding: 0; margin: 10px;"><span style="font-weight: bold;">Disclosure:</span> <i>This page does not currently contain affiliate links, but may in the future. Affiliate links will have this clear indicator: <span class="affiliate"> (<a id ="affiliate" title="link to affiliate disclosure" href="#top">affiliate</a></span></i>)</h4>
+				<h4 style="text-transform: capitalize;"> This website was created by Owen Miner</h4>
+					
+				<h4>Feel free to use any photos on this page, with credit to <a href="OwenMinerCS.com">OwenMinerCS.com</a></h4>
+				<p style="padding-left: 10px;">PC Setup Last Updated Mar, 2025</p>
+				<p style="padding-left: 10px;"><b>OwenMinerCS.com</b></p>
+			</div>	
+			<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+			<hr style="border: thin ridge black;  padding 0;" width="100%">
+			
+			
+
+
+
+			
+		</footer>
+		
+	</div>	
+	</body>
+	
+</html>

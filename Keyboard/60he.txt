@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Wooting 60he Build - OwenMcs</title>
+		<meta name="author" value ="Owen Miner">
+		<meta name="description" content ="Wooting 60he Build list">
+		<meta name="keywords" content ="wooting, 60he, build, list, gh60, pbtans, crosshair, Cablemod, tachyon, mechanical, keyboard, lekker, switch, gaming, fps">
+		
+	</head>
+	<body>
+	
+	
+	
+	</body>
+	
+</html>

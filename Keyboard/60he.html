@@ -1,0 +1,786 @@
+<!doctype html>
+<html>
+<head>
+	<head>
+		<!-- Preload CSS to ensure styles are applied immediately -->
+		<link href="../css/owenminercs.css" rel="stylesheet" type="text/css">
+	
+		<!-- Dynamically load the shared head section -->
+		<script>
+			fetch('../sharedHeadSection.html')
+				.then(response => response.text())
+				.then(data => {
+					document.head.innerHTML = data + document.head.innerHTML;
+					// Add page-specific metadata here
+					document.title = "Wooting 60HE Build | Owen Miner";
+					document.querySelector('meta[name="description"]').setAttribute("content", "Explore Owen Miner's Wooting 60HE keyboard build, featuring part lists, sound tests, and customization tips.");
+					document.querySelector('meta[name="keywords"]').setAttribute("content", "Wooting 60HE, keyboard build, mechanical keyboard, gaming keyboard, customization, Owen Miner, switches, keycaps, sound test");
+					document.querySelector('meta[property="og:title"]').setAttribute("content", "Wooting 60HE Build | Owen Miner");
+					document.querySelector('meta[property="og:description"]').setAttribute("content", "Explore Owen Miner's Wooting 60HE keyboard build, featuring part lists, sound tests, and customization tips.");
+					document.querySelector('meta[property="og:url"]').setAttribute("content", "https://www.owenminercs.com/Keyboard/60he.html");
+					document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.owenminercs.com/Keyboard/Images/wooting60he.png");
+				})
+				.catch(error => console.error('Error loading shared head section:', error));
+		</script>
+	</head>
+	<script> 
+		
+		
+		$(document).ready(function () {
+            $(".modeButtonUp").click(function () {
+			
+					$(".bd10").slideUp('fast');
+					$(".bd8").slideUp('fast');
+					$(".bd7").slideUp('fast');
+					$(".bd6").slideUp('fast');
+					$(".bd5").slideUp('fast');
+					$(".bd4").slideUp('fast');
+					$(".bd3").slideUp('fast');
+					$(".bd2").slideUp('fast');
+					$(".bdd").slideUp('fast');
+					$(".row").slideUp('fast');
+					$(".bd").slideUp('fast');
+				
+				
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".modeButton").click(function () {
+			
+					$(".bd10").slideDown('fast');
+					$(".bd8").slideDown('fast');
+					$(".bd7").slideDown('fast');
+					$(".bd6").slideDown('fast');
+					$(".bd5").slideDown('fast');
+					$(".bd4").slideDown('fast');
+					$(".bd3").slideDown('fast');
+					$(".bd2").slideDown('fast');
+					$(".bdd").slideDown('fast');
+					$(".row").slideDown('fast');
+					$(".bd").slideDown('fast');
+				
+				
+            });
+        });
+		function soon(){
+			
+		}
+		
+		function linkBut(){
+			
+			document.getElementById("sorry").textContent=" - sorry had to do it XD"
+			
+		}
+		
+		function modeButton(){
+			
+			
+			setTimeout(function () {
+				if(mode="Parts List Mode"){
+					document.getElementById("mode").innerText="Switch View";
+					document.getElementById("minMax").textContent="";
+					
+				}
+			mode = document.getElementById("mode").innerText;
+			}, 120);
+		}
+		
+		
+		
+		$(document).ready(function(){
+            $(".minimize").click(function(){
+				$(".row").slideToggle('fast');
+				$(".bd").slideToggle('fast');
+				
+			});
+		});
+		
+		$(document).ready(function(){
+            $(".minimize1").click(function(){
+				$(".bdd").slideToggle('fast');
+			});
+		});
+		
+        $(document).ready(function () {
+            $(".minimize2").click(function () {
+                $(".bd2").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize3").click(function () {
+                $(".bd3").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize4").click(function () {
+                $(".bd4").slideToggle('fast');
+				
+				
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize5").click(function () {
+                $(".bd5").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize6").click(function () {
+                $(".bd6").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize7").click(function () {
+                $(".bd7").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize8").click(function () {
+                $(".bd8").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize9").click(function () {
+                $(".bd9").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize10").click(function () {
+                $(".bd10").slideToggle('fast');
+            });
+        });
+		
+	</script>
+
+</head>
+	<body style="zoom: 95%;">
+		<!--<button id="buildMode" class="mode" onclick="buildMode()">Collapse </button>-->
+				
+			
+			
+		
+		
+		
+		
+		<header>
+			
+
+			
+		<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+			<div width="120%" style="height=5px; ">
+				<nav>
+					
+					<ul>
+						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li onclick = "soon()" > <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
+						<li onclick = "soon()" > <a href ="../PC/pc.html"   style="color: rgb(120,120,120);">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: white; text-decoration:underline;"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+					
+					
+				</nav>
+				
+				<div class="socials" style="justify-content: center;text-align:center;align-content: center; "">
+						<a target=”_blank” href="https://www.x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img  src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img  src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner -  https://www.youtube.com/@OwenMinerCS" class="socials"> <img  src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"> </a>
+						 
+						<a target=”_blank” href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img  src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"> </a>
+						
+						<a target=”_blank” title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img  src="../Socials/SocialButtons/tiktokLink.png" style="width:15%;" alt="Link to TikTok"class="socials"> </a>
+						
+						
+						</p>
+				</div>
+			</div>
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+		</header>
+			<div class="intro">
+
+				<div class="gallery" style="border:  solid black; border-radius: 7px; box-shadow: 5px 5px black;">
+					<h1>Welcome to My Wooting 60HE Build Breakdown</h1>
+					<h3>I tried to answer some of the questions I had before I started my build, just in case anyone wants to do something similar in the future!</h3>
+				</div>
+				
+				<div  style="border:  solid black; border-radius: 7px; box-shadow: 5px 5px black; padding: 10px; text-align: center;">
+					<h4 style="padding: 10px;">Tried to include the prices I paid for everything with <a href="https://youtu.be/dQw4w9WgXcQ" target=_blank onclick="linkBut()" title="click me!">links!</a>  <span id="sorry"></span></h4>
+					<h5><i><b>Also included, towards the bottom, are some alternate part ideas and videos I found helpful along the way.</i></b></h5>
+					<h5 id="Disclosure" class="Disclosure"style="padding: 0; margin: 0;"><span style="font-weight: bold;">Disclosure:</span> <i>This page does not currently contain affiliate links, but may in the future. Affiliate links will have this clear indicator: <span class="affiliate"> (<a id ="affiliate" title="link to affiliate disclosure" href="#top">affiliate</a></span></i>)</h5>
+					
+					
+					
+				</div>
+				<div class="gallery" style="flex-direction: row;">
+					<div class="column" >
+						<h3>2025 Build: Killowatt Case</h3>
+						<img  src="killowattKeyboard.jpg" style="width: 300px;" alt="Keyboard case that looks like cs2 killowatt case" onclick="window.open(this.src)">
+						<h4>Parts List:</h4>
+						<ul style="text-align: left;">
+							
+							<li><a href="https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details" target=”_blank” title="Amazon: CableMod Pro Coiled Keyboard Cable (Midnight Black, USB A to USB Type C, 150cm) - https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details">CableMod Pro Coiled Keyboard Cable <span class="b_w_link"> (Midnight Black) | $29.90</span></a></li>
+							<li><a href="https://mechanicalkeyboards.com/products/kbdfans-pbtfans-wob-base-icon-kit-keycap-set?_pos=4&_sid=8228afc1b&_ss=r" title = "MechanicalKeyboards: PBTfans WOB " target=”_blank”>PBTfans WOB<b></b> <span class="b_w_link"> | $84.00 </span></a></li>
+							<li><a href="https://www.gateron.com/products/gateron-magnetic-jade-pro-switch-set?VariantsId=10854" title="Gateron Magnetic Jades PRO
+								- https://www.gateron.com/products/gateron-magnetic-jade-pro-switch-set?VariantsId=10854" target=”_blank”>Gateron Magnetic Jade Pro<span class="b_w_link"> | $56.00</a></li>
+									<li><a href="https://kbdfans.com/products/tofu60-redux-case?variant=41488705781899" title="Tofu 60 Redux
+										- https://kbdfans.com/products/tofu60-redux-case?variant=41488705781899" target=”_blank”>Tofu 60 Redux (e-coating Orange)<span class="b_w_link"> | $59.00</a></li>
+											<li><a href="https://kbdfans.com/products/tofu60-redux-accessories" title="Tofu 60 Redux Brass weight
+												- https://kbdfans.com/products/tofu60-redux-accessories" target=”_blank”>Tofu 60 Brass Weight <span class="b_w_link"> | $25.00</a></li>
+													<li><a href="https://www.amazon.com/dp/B0CJF9RWCM?ref=ppx_yo2ov_dt_b_fed_asin_title" title="Acrylic Sticker paper
+														- https://www.amazon.com/dp/B0CJF9RWCM?ref=ppx_yo2ov_dt_b_fed_asin_title" target=”_blank”>Acrylic Sticker paper<span class="b_w_link"> | $25.00</a></li>
+															<li><a href="https://kbdfans.com/products/tofu60-redux-accessories" title="Tofu 60 Redux Brass weight
+																- https://kbdfans.com/products/tofu60-redux-accessories" target=”_blank”>Tofu 60 Brass Weight <span class="b_w_link"> | $25.00</a></li>
+					<li><a href="https://wooting.io/product/60he-pc-switch-plate?Layout=ANSI+Kit&Color=Black" title="Wooting PC Switch Plate Black - https://wooting.io/product/60he-pc-switch-plate?Layout=ANSI+Kit&Color=Black" target=”_blank”>Wooting PC Switch Plate Black<span class="b_w_link"> | $19.99</a></li>
+					<li><a href="https://wooting.io/product/friction-fit-pad?Title=Default+Title" title="Wooting friction fit pad - https://wooting.io/product/friction-fit-pad?Title=Default+Title" target=”_blank”>Wooting Friction Fit Pad<span class="b_w_link"> | $12.99</a></li>
+						<li><a href="https://next.wooting.io/product/wooting-switch-lubricant-lube-set" title="Wooting: Wooting Switch Lube set (Krytox 205G0 & Molykote EM-50L) - https://next.wooting.io/product/wooting-switch-lubricant-lube-set" target=”_blank”> <span class="b_w_link"> $34.99 | when purchased together</span> Wooting Lubricant Set</a> | <a href="https://next.wooting.io/product/blank-switch-toolkit" title= "Wooting: ://blank keyboard switch toolkit
+							- https://next.wooting.io/product/blank-switch-toolkit" target=”_blank”>Wooting Tool Kit</a></li>
+
+						</ul>
+
+
+
+					</div>
+					
+					<div class="column" style=" display: inline-block;  vertical-align: top;">
+						<h3>2023 Build: Crosshair Alpha</h3>
+						<img  src="Wooting 60HE Top View Wood Background.png" style="width: 300px;" alt="black keyboard case with crosshair alpha keycaps" onclick="window.open(this.src)">
+						<h4>Parts List:</h4>
+						<ul style="text-align: left;" style="list-style:none;">
+							<li><a href="https://www.amazon.com/gp/product/B07XKBJWKH/ref=ewc_pr_img_1?smid=A29HVRENABIQ1E&psc=1" target=”_blank”  title="Amazon: Miraclekoo Silicone Mold Making Kit Liquid Silicone Rubber 15A Platinum Silicone Translucent Mold Making Silicone for Casting Resin Molds, Silicone Molds (7 oz) -  https://www.amazon.com/gp/product/B07XKBJWKH/ref=ewc_pr_img_1?smid=A29HVRENABIQ1E&psc=1">Silicone Mold Kit <span class="b_w_link">| $10.99</span></a></li>
+
+							<li><a href="https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details" target=”_blank” title="Amazon: CableMod Pro Coiled Keyboard Cable (Midnight Black, USB A to USB Type C, 150cm) - https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details">CableMod Pro Coiled Keyboard Cable <span class="b_w_link"> (Midnight Black) | $29.90</span></a></li>
+							
+							<li><a href="https://next.wooting.io/product/wooting-switch-lubricant-lube-set" title="Wooting: Wooting Switch Lube set (Krytox 205G0 & Molykote EM-50L) - https://next.wooting.io/product/wooting-switch-lubricant-lube-set" target=”_blank”> <span class="b_w_link"> $34.99 | when purchased together</span> Wooting Lubricant Set</a> | <a href="https://next.wooting.io/product/blank-switch-toolkit" title= "Wooting: ://blank keyboard switch toolkit
+								- https://next.wooting.io/product/blank-switch-toolkit" target=”_blank”>Wooting Tool Kit</a></li>
+
+							<li><a href="https://www.gateron.com/products/gateron-magic-jade-switch?VariantsId=10767" title="Gateron Magnetic Jades
+								- https://www.gateron.com/products/gateron-magic-jade-switch?VariantsId=10767" target=”_blank”>Gateron Magnetic Jades<span class="b_w_link"> | $56.00</a></li>
+							
+									<li><a href="https://www.aliexpress.us/item/3256805158305721.html?spm=a2g0o.detail.0.0.51562e92ucKzF6&gps-id=pcDetailBottomMoreThisSeller&scm=1007.13339.291025.0&scm_id=1007.13339.291025.0&scm-url=1007.13339.291025.0&pvid=bfc2217a-7ce4-4d49-9770-1ffd2407af95&_t=gps-id%3ApcDetailBottomMoreThisSeller%2Cscm-url%3A1007.13339.291025.0%2Cpvid%3Abfc2217a-7ce4-4d49-9770-1ffd2407af95%2Ctpp_buckets%3A668%232846%238111%231996&pdp_npi=3%40dis%21USD%2179.0%2179.0%21%21%21%21%21%402101c59816843471401725887eed1d%2112000033283346141%21rec%21US%21&gatewayAdapt=glo2usa" title= "Aliexpress: GH60 Aluminum Alloy Metal Mechanical Keyboard Case White Black Gray Beige CNC Process Suitable for 61 64 Keyboards - https://www.aliexpress.us/item/3256805158305721.html?spm=a2g0o.detail.0.0.51562e92ucKzF6&gps-id=pcDetailBottomMoreThisSeller&scm=1007.13339.291025.0&scm_id=1007.13339.291025.0&scm-url=1007.13339.291025.0&pvid=bfc2217a-7ce4-4d49-9770-1ffd2407af95&_t=gps-id%3ApcDetailBottomMoreThisSeller%2Cscm-url%3A1007.13339.291025.0%2Cpvid%3Abfc2217a-7ce4-4d49-9770-1ffd2407af95%2Ctpp_buckets%3A668%232846%238111%231996&pdp_npi=3%40dis%21USD%2179.0%2179.0%21%21%21%21%21%402101c59816843471401725887eed1d%2112000033283346141%21rec%21US%21&gatewayAdapt=glo2usa" target=”_blank”>GH60 Aluminum Keyboard Case <span class="b_w_link">(Black) | $79.00</span></a></span></li>
+
+									
+							<li ><a href="https://ringerkeys.com/products/replacement-o-rings?variant=40651931025490" title="Ringer Keys Replacment O rings" target=”_blank”>O-Ring   <span class="b_w_link">| $7.00</span></a> </li>
+							<li><a href="https://mechanicalkeyboards.com/products/kbdfans-pbtfans-wob-base-icon-kit-keycap-set?_pos=4&_sid=8228afc1b&_ss=r" title = "MechanicalKeyboards: PBTfans WOB " target=”_blank”>PBTfans WOB + Crosshair Alpha Set<b></b> <span class="b_w_link"> | $84.00 </span></a></li>
+							
+
+						</ul>
+
+
+
+
+					</div>
+				</div>
+				<div class="gallery" style="flex-direction: row;">
+					<p style="margin-left: 0 auto;" > Minimize View To: </p>
+					
+					<button  id="mode" class ="modeButtonUp" onclick>Parts List</button>
+					
+					<p style="margin-left: 20px;" >Show All: </p>
+					
+					<button  id="mode" class ="modeButton" onclick>Build Breakdown</button>
+					
+				</div>
+				
+				
+				<h5><i>Short Breakdown of my 2025 Kilowatt build and then a detailed breakdown of my 2023 build below::</i></h5>
+			</div>
+			
+			
+			
+			
+			<div class ="sound">
+				
+				
+				<h1>Kilowatt Keyboard Breakdown:</h1>
+			
+				
+			
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;">
+				
+					<div class="column">
+						<img  src="../images/killowatt held.jpg" style="width: 400px;" alt="Pouring silicone mold into gh60 case for sound dampening" onclick="window.open(this.src)">
+						
+					</div>
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					
+						<p>
+							Currently, I’m using the <a href="https://kbdfans.com/products/tofu60-redux-case?variant=41488705781899" title="Tofu 60 Redux
+							- https://kbdfans.com/products/tofu60-redux-case?variant=41488705781899" target=”_blank”>Tofu 60 Redux (e-coating Orange)</a>.This case is much less deep than the aluminum GH60 from AliExpress that I previously used. This means a lot less room for sound dampening material. In my current build, I am just using the included foam that comes with the tofu redux.
+						</p>
+						<p>To add a little custom flair to my keyboard case, I photoshopped and printed the Kilowatt case logo onto some <a href="https://www.amazon.com/dp/B0CJF9RWCM?ref=ppx_yo2ov_dt_b_fed_asin_title" title="Acrylic Sticker paper
+							- https://www.amazon.com/dp/B0CJF9RWCM?ref=ppx_yo2ov_dt_b_fed_asin_title" target=”_blank”>acrylic sticker paper</a>, for the front and back of the case.</p>
+						
+							<p>Still using the same <a href="https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details" target=”_blank” title="Amazon: CableMod Pro Coiled Keyboard Cable (Midnight Black, USB A to USB Type C, 150cm) - https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details">CableMod Pro Coiled Keyboard Cable  (Midnight Black) </a>.</p>
+						
+						<p>The key caps are <a href="https://mechanicalkeyboards.com/products/kbdfans-pbtfans-wob-base-icon-kit-keycap-set?_pos=4&_sid=8228afc1b&_ss=r" title = "MechanicalKeyboards: PBTfans WOB " target=”_blank”>PBTFans white On black simple icon base set</a>. Really enjoy how they feel and sound. Literally not a single complaint about these keycaps.</p>
+						
+						<p>Recently, I swapped out the stock steel plate for a <a href="https://wooting.io/product/60he-pc-switch-plate?Layout=ANSI+Kit&Color=Black" target="_blank" title="Wooting PC Switch Plate Black - https://wooting.io/product/60he-pc-switch-plate?Layout=ANSI+Kit&Color=Black" >Wooting PC switch plate in black</a>, which is made of plastic. It is much quieter than the steel plate and much softer on the fingers when bottoming out a keypress.</p>
+
+						<p>Also replaced my previously used o-ring with a <a href="https://wooting.io/product/friction-fit-pad?Title=Default+Title" target="_blank" tilte="Wooting friction fit pad - https://wooting.io/product/friction-fit-pad?Title=Default+Title">Wooting friction fit pad</a> hich also reduces much of the sound this keyboard makes.</p>
+						<p>
+							Swapped out the original Jade switches for <a href="https://www.gateron.com/products/gateron-magnetic-jade-pro-switch-set?VariantsId=10854" title="Gateron Magnetic Jades PRO
+							- https://www.gateron.com/products/gateron-magnetic-jade-pro-switch-set?VariantsId=10854" target=”_blank”>Gateron Magnetic Jade Pros</a>. The Jade Pros have a bit of a bassier tone which I enjoyed more. The original Magnetic Jades, when lubed, ound very similar to unlubed Jade Pros. When you add lube to the Jade Pros they get a bit quieter and make much less high pitched noise. Overall I would say there is only a slight difference in sound but it makes about a 5-10% difference, which was enough for me to justify the poor financial decision of upgrading.
+
+						</p>
+
+						<p>
+							One day, I may try another silicone pour in my Tofu redux. But for now I am satisfied with this build, as it was time to switch things up and try something different after using the same build for a few years.
+
+						</p>
+
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class="gallery2" >
+				
+				<button class ="minimize" title="Gallery" style ="margin-left: auto;"> - </button>
+				<h1>Killowatt Keyboard Photo Gallery (2025)</h1>
+				<div class="row" style="width: 1000px;">
+					<div class="bd" >
+
+						<img src="../images/killowattHeld2.jpg" alt="Killowatt wooting back held in front view" width ="100" onclick="window.open(this.src)">
+						
+						<img id="img1" src="../images/killowatt (1).jpg" alt="Killowatt wooting front"  width ="100" onclick="window.open(this.src)">
+						
+						<img src="../images/killowattBackAngle.jpg" alt="Killowatt wooting back angled wood table" width ="100" onclick="window.open(this.src)">
+						
+						
+						
+						
+						<img src="../images/killowatt (3).jpg" alt="Killowatt wooting right side" width ="100" onclick="window.open(this.src)">
+						
+						<img src="../images/kilowattSide.jpg" alt="Killowatt wooting side view" width ="100" onclick="window.open(this.src)">
+						
+						
+						<img src="../images/killowatt (5).jpg" alt="Killowatt wooting back angled" width ="100" onclick="window.open(this.src)">
+
+						
+						
+						
+						
+						
+						
+						
+					</div>
+					<div class="bd">	
+						
+						
+						<img src="../images/killowatt held.jpg" alt="Killowatt wooting back held in back view" width ="100" onclick="window.open(this.src)">
+						
+						
+						<img src="../images/killowatt (2).jpg" alt="Killowatt wooting top" width ="100" onclick="window.open(this.src)">
+
+						
+
+						<img src="../images/kilowattAngle.jpg" alt="Killowatt wooting side view" width ="100" onclick="window.open(this.src)">
+
+						<img src="../images/killowatt (4).jpg" alt="Killowatt wooting back" width ="100"  onclick="window.open(this.src)">
+
+						<img src="../images/kilowattBack.jpg" alt="Killowatt wooting back view" width ="100" onclick="window.open(this.src)">
+
+						<img src="../images/killowatt (7).jpg" alt="Killowatt wooting back angled" width ="100" onclick="window.open(this.src)">
+
+						
+
+						
+						
+						
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class ="sound">
+				<h1><i>2023 Build Breakdown: Crosshair Alpha</i></h1>
+			</div>
+			
+			<div class ="sound">
+				<button class ="minimize4" title="Sound">-</button>
+				
+				<h1>Sound Dampening:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/gp/product/B07XKBJWKH/ref=ewc_pr_img_1?smid=A29HVRENABIQ1E&psc=1" target=”_blank”  title="Amazon: Miraclekoo Silicone Mold Making Kit Liquid Silicone Rubber 15A Platinum Silicone Translucent Mold Making Silicone for Casting Resin Molds, Silicone Molds (7 oz) -  https://www.amazon.com/gp/product/B07XKBJWKH/ref=ewc_pr_img_1?smid=A29HVRENABIQ1E&psc=1">Silicone Mold Kit <span class="b_w_link">| $10.99</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;">
+				
+					<div class="column">
+						<img  src="Wooting 60HE Silicone Mold Pour.png" style="width: 400px;" alt="Pouring silicone mold into gh60 case for sound dampening" onclick="window.open(this.src)">
+						
+					</div>
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+						<p>
+							Started with the Stock Wooting foam in the <b>Aluminum GH60</b> case. It sounded okay, but there was still a lot of room left in the case, which caused some case ping.
+							Personally had to change it out for something that fills more space in the GH60.
+						</p>
+						<p>
+						Here is a sound comparison between the Magnetic Jades and Lekker switches:
+						</p>
+
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/ScmXK-EVHgQ?si=WaQTuRTcSAWwxlRY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+						<p>
+							To start the <b>silicone mold</b>, I covered all holes in the GH60 case with masking tape, including standoffs.
+							Stirred the silicone with a plastic fork, in a solo cup, for a little over <b>6 minutes.</b>
+							Left it to cure overnight for about <b>12 hours</b>. I ended up going through with an exacto knife, to remove some extra material around the standoffs.  So, it doesn't look as perfect as it was, when it finished curing but <i>it sounds every bit of what I was hoping for.</i>
+						</p>
+						<p>It is quite <i>hefty</i> now too.</p>
+						
+						<p> I got the idea for the silicone mold from this video on YouTube: <i><a href="https://www.youtube.com/watch?v=EEISslcF-Jk" title="YouTube: How to Make a Tofu 60 Silicone Dampener - https://www.youtube.com/watch?v=EEISslcF-Jk" target=”_blank”>How to Make a Tofu 60 Silicone Dampener </a></i> | <a href="https://www.youtube.com/@SerendipityChannel91" title="YouTube Channel: Serendipity - https://www.youtube.com/@SerendipityChannel91"target=”_blank”>Serendipity</a><p>
+
+					
+					</div>
+				</div>
+			</div>
+			<div class ="cable">
+				<button class ="minimize5" title="Cable"> - </button>
+				
+					
+				<h1>Cable:</h1>
+				
+					<h4><a href="https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details" target=”_blank” title="Amazon: CableMod Pro Coiled Keyboard Cable (Midnight Black, USB A to USB Type C, 150cm) - https://www.amazon.com/dp/B09LT361GV?psc=1&ref=ppx_yo2ov_dt_b_product_details">CableMod Pro Coiled Keyboard Cable <span class="b_w_link"> (Midnight Black) | $29.90</span></a></h4>
+				
+					<div class="bd5" style="display: flex; flex-direction:row; margin-left: 80px; margin-right: 80px;">
+							<div>
+								<img src="Wooting 60HE Brightness in Tachyon Mode.png" alt="Custom Wooting 60HE with CableMode Cable running RGB at 8%" width ="100"  onclick="window.open(this.src)">
+							</div>
+							<div style=" text-align: left; padding: 20px;">
+								<p style="padding-top: 60px;"><b>Tachyon mode</b> seems to be working fine with this cable. I run my keyboard brightness pretty low at <b>8%</b> though. You could probably run it a lot higher, I just prefer to run it low, so I can see the white pcb plate.</h5>
+							</div>
+				</div>	
+			</div>
+			<div class ="springs">
+				<button class ="minimize6" title="Springs"> - </button>	
+
+
+
+
+				
+				<h1>Switches: </h1>
+				
+				
+				
+				
+				<h4><a href="https://www.gateron.com/products/gateron-magic-jade-switch?VariantsId=10767" title="Gateron Magnetic Jades
+ - https://www.gateron.com/products/gateron-magic-jade-switch?VariantsId=10767" target=”_blank”>Gateron Magnetic Jades<span class="b_w_link"> | $56.00</a></h4>
+				<div class="bd6" style="margin-left: 80px; margin-right: 80px;">
+					
+					<div class="column2" >
+					
+						<p>I upgraded to the <b>Gateron Magnetic Jade switches</b>. Previously used hand lubed Lekker Switches with 50g springs From Wooting. The actuation force on the Magnetic Jades feel great. They also have a shorter travel distance which is awesome, especially while counter strafing in CS2, leaving less room for error.</p>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class ="springs">	
+				<button class ="minimize7" title="Switch Lubing"> - </button>
+				
+				
+				
+				
+				
+				<h1>Switch Lubing:</h1>
+				
+				
+				
+				
+				
+				
+				<h4> <a href="https://next.wooting.io/product/wooting-switch-lubricant-lube-set" title="Wooting: Wooting Switch Lube set (Krytox 205G0 & Molykote EM-50L) - https://next.wooting.io/product/wooting-switch-lubricant-lube-set" target=”_blank”> <span class="b_w_link"> $34.99 | when purchased together</span> Wooting Lubricant Set</a> | <a href="https://next.wooting.io/product/blank-switch-toolkit" title= "Wooting: ://blank keyboard switch toolkit
+ - https://next.wooting.io/product/blank-switch-toolkit" target=”_blank”>Wooting Tool Kit</a></h4>
+				<div class="bd7" style="text-align: center;">
+					<div class="bd1" style="display: flex; flex-direction:row; margin-left: 80px; margin-right: 80px;">
+						<div>
+							<img width ="70%"  src="Wooting 60HE Spring Swap and Lubrication.png" alt="Wooting 60HE Spring Swap/Lubing with Wooting ToolKit and Lube Set" onclick="window.open(this.src)">
+						</div>
+						<div style="padding-left: 20px; text-align: left;">
+							<p>I went with both the <b>Switch Lube Set</b> and <b>Toolkit</b> from <b>Wooting</b>. Both worked great, no complaints.</p>
+
+							<p>Not exactly sure how long it took but I have a good estimate... My phone died right after I started, so I pulled out some vinyl records to listen to.  Made it through a little over 4-5 albums before I was done, so you can probably estimate the time.</p>
+							
+							<p><i>Photo from original Lekker switch lubing. I have since lubed the lekkers once more and the Magnetic Jades!</i></p>
+						
+						</div>
+					</div>
+			</div>
+		</div>
+			
+			<div class="case">
+				<button class="minimize1" title="Case"> -  </button>
+				
+				
+				
+				<h1>Case: </h1>
+				
+				
+				
+				
+				
+				<span class="item"><a href="https://www.aliexpress.us/item/3256805158305721.html?spm=a2g0o.detail.0.0.51562e92ucKzF6&gps-id=pcDetailBottomMoreThisSeller&scm=1007.13339.291025.0&scm_id=1007.13339.291025.0&scm-url=1007.13339.291025.0&pvid=bfc2217a-7ce4-4d49-9770-1ffd2407af95&_t=gps-id%3ApcDetailBottomMoreThisSeller%2Cscm-url%3A1007.13339.291025.0%2Cpvid%3Abfc2217a-7ce4-4d49-9770-1ffd2407af95%2Ctpp_buckets%3A668%232846%238111%231996&pdp_npi=3%40dis%21USD%2179.0%2179.0%21%21%21%21%21%402101c59816843471401725887eed1d%2112000033283346141%21rec%21US%21&gatewayAdapt=glo2usa" title= "Aliexpress: GH60 Aluminum Alloy Metal Mechanical Keyboard Case White Black Gray Beige CNC Process Suitable for 61 64 Keyboards - https://www.aliexpress.us/item/3256805158305721.html?spm=a2g0o.detail.0.0.51562e92ucKzF6&gps-id=pcDetailBottomMoreThisSeller&scm=1007.13339.291025.0&scm_id=1007.13339.291025.0&scm-url=1007.13339.291025.0&pvid=bfc2217a-7ce4-4d49-9770-1ffd2407af95&_t=gps-id%3ApcDetailBottomMoreThisSeller%2Cscm-url%3A1007.13339.291025.0%2Cpvid%3Abfc2217a-7ce4-4d49-9770-1ffd2407af95%2Ctpp_buckets%3A668%232846%238111%231996&pdp_npi=3%40dis%21USD%2179.0%2179.0%21%21%21%21%21%402101c59816843471401725887eed1d%2112000033283346141%21rec%21US%21&gatewayAdapt=glo2usa" target=”_blank”>GH60 Aluminum Keyboard Case <span class="b_w_link">(Black) | $79.00</span></a></span>
+				<div class="bdd" style="flex-direction:row; margin-left: 100px; margin-right: 100px;"> 
+					<div style="margin-right: 15px;">
+						<p>Really happy with this case for $80 and it adds a lot of weight to the keyboard. </p>
+						<img src="Wooting 60HE Case 2.png" alt="Black Aluminum GH60 Case" width ="100" onclick="window.open(this.src)">
+						
+						
+
+						<p>If you plan on <b>burger mounting</b> with this case, get something like these...</p>
+					</div>
+					<div>
+						
+						<img src="Wooting 60HE Side View White Background.png" alt="Custom Wooting 60HE with white background side view" width ="100"  onclick="window.open(this.src)">
+					</div>
+					
+					
+				</div>
+			</div>
+
+
+			
+			<div class ="orings">
+				<button class ="minimize3" title="O-Rings"> - </button>
+				<h1>Gummy O-Ring:</h1>
+				
+				<h4><a href="https://ringerkeys.com/products/replacement-o-rings?variant=40651931025490" title="Ringer Keys Replacment O rings" target=”_blank”>O-Ring   <span class="b_w_link">| $7.00</span></a> </h4>
+				
+				<div class="bd3">
+					<p style="text-align: center;"><b>White 185mm OD x 3.5mm CS Silicone 50A Duro</b>  - Suggested By <i>BadSeed Tech</i></p>
+				</div>
+			</div>
+			<div class ="keycaps">	
+				<button class ="minimize8" title="Keycaps"> - </button>
+				<h1>Keycaps: </h1>
+				
+				<h4><a href="https://mechanicalkeyboards.com/products/kbdfans-pbtfans-wob-base-icon-kit-keycap-set?_pos=4&_sid=8228afc1b&_ss=r" title = "MechanicalKeyboards: PBTfans WOB " target=”_blank”>PBTfans WOB<b></b> <span class="b_w_link"> | $84.00 </span></a></h4>
+				<div class="bd8" >
+					<div class="bd1" style="display: flex; flex-direction:row; margin-left: 80px; margin-right: 80px;">
+						<div style="padding-right: 20px; padding-top: 60px; text-align: left;" >
+							<p>Currently using <b>PBTFans WOB Simple Base</b> with the <b>Crosshair Alpha Addon kit</b></p>
+							<p> Love this set, the extra red accent color really makes these caps stand out </p>
+							<p>Current photos on this site show <b>YDMK Katakana Key caps</b> on the edges which are a slight different shade of black compaired to the PBTFans keycaps. <b><i>See the Sound Test for and updated look at the keyboard!</i></b></p>
+						</div>	
+						<div>
+							<img src="Wooting 60HE Case.png" alt="Wooting 60HE With YMDK and Crosshair keycaps " width ="" onclick="window.open(this.src)">
+						</div>
+					</div>
+				</div>	
+				
+			</div>
+			
+			<div class="alternate">
+				<div style="margin-left: 80px; margin-right: 80px;">
+					<p style="text-align:center"><b>For those interested in my Wootility keyboard profile code:</b> d1dcc59e6c1e7af5572589cbc41d6b3be600</p>
+				</div>
+			</div>
+
+			<div class="gallery2" >
+				
+				<button class ="minimize" title="Gallery" style ="margin-left: auto;"> - </button>
+				<h1>2023 Build Photo Gallery</h1>
+				<div class="row" style="width: 1000px;">
+					<div class="bd" >
+						
+						<img id="img1" src="Wooting 60HE Counter Strike Background.png" alt="Custom Wooting 60HE With CSGO Chicken Case as decor view 1"  width ="100" onclick="window.open(this.src)">
+						
+						
+						
+						<img src="Wooting 60 HE Side View Wood Floor.png" alt="Black Aluminum GH60 Case side" width ="100" onclick="window.open(this.src)">
+						
+						
+						<img src="Wooting 60HE Top View.png" alt="Custom Wooting 60HE Top View" width ="100" onclick="window.open(this.src)">
+						
+						<img src="Wooting 60HE White Background.png" alt="Custom Wooting 60he with white background top view" width ="100"  onclick="window.open(this.src)">
+						
+						
+						<img src="Wooting 60HE Counter Strike Gaming Setup.png" alt="Custom Wooting 60HE Desk Setup for Counter Strike" width ="100" onclick="window.open(this.src)">
+						
+						
+						
+						
+					</div>
+					<div class="bd">	
+						
+						
+						<img src="Wooting 60HE Top View Wood Background.png" alt="Custom Wooting 60HE on Wood Floor top view" width ="100" onclick="window.open(this.src)">
+						
+						<img src="Wooting 60HE Right Side.png" alt="Custom Wooting 60HE With CSGO Chicken Case as background decor view 2" width ="100" onclick="window.open(this.src)" >
+						
+						
+						<img src="Wooting 60HE Back View Wood Background.png" alt="Custom Wooting 60HE back view on Wood Floor " width ="100" onclick="window.open(this.src)">
+						
+						
+						<img src="Wooting 60HE Back View White Background.png" alt="Custom Wooting 60HE back view with white background" width ="100" onclick="window.open(this.src)">
+						
+						
+						<img src="Wooting 60HE Workstation Setup.png" alt="Custom Wooting 60HE Workstation" width ="100" onclick="window.open(this.src)">
+						
+						
+						
+						
+					</div>
+				</div>
+			</div>
+			<div class="alternate">
+				<button class ="minimize9" title= "Alt Part Ideas"> - </button>
+				
+				<h1>Alternate Part Ideas:</h1>
+				<div class="bd9" style="margin-left: 80px; margin-right: 80px;">
+					<p>Still have some of the cases and keycaps I considered for my build saved to my bookmarks bar. So I figured I could put them below, just in case anyone needs some more inspiration for their build!</p>
+					
+					<p><b>Note:</b> <i>I do not own any of these parts, so I will not be able to comment on their quality. Just thought someone might enjoy extra part ideas, especially with how often some parts go out of stock</i></p>
+					<div style="text-align: left; display: flex; flex-direction: row; justify-content: center;">
+						<div style="margin-right: 60px" >
+							<h2 style="text-align: center;">Cases:</h2>
+							
+							<h5><a href="https://kbdfans.com/products/tofu60-redux-case" title="KBDfans: TOFU60 REDUX CASE - https://kbdfans.com/products/tofu60-redux-case" target=”_blank”><span class="b_w_link">(New)</span> Tofu 60 Redux <span class="b_w_link">| $60.00 (+$25.00 delivery fee) </span></a>
+							
+							<h5><a href="https://mekanisk.com/products/klippe-t-keyboard-case-only?variant=39479936712878" title="MEKANISK: Klippe T (60%)- https://mekanisk.com/products/klippe-t-keyboard-case-only?variant=39479936712878" target=”_blank”>MEKANISK Klippe T <b><span class="b_w_link">| $129.00 (+$40 shipping)</b> </span></a></h5>
+							
+							<h5><a href="https://www.aliexpress.us/item/3256803337818326.html?spm=a2g0o.order_list.order_list_main.29.1b5a1802qhnJq2&gatewayAdapt=glo2usa" title="AliExpress:  BGKYPRO BG60 Aluminum CNC Keyboard Shell Colorful Metal Keyboard Case With Battery Case For DIY GH60 61 64 Mechanical Keyboard - https://www.aliexpress.us/item/3256803337818326.html?spm=a2g0o.order_list.order_list_main.29.1b5a1802qhnJq2&gatewayAdapt=glo2usa" target=”_blank”>BGKYPRO BG60 Aluminum CNC Keyboard Shell <b><span class="b_w_link">| $75.05</b> </span></a></h5>
+							
+							<h5><a href="https://kbdfans.com/products/kbdfans-tofu-60-aluminum-case" title="KBDFans:  TOFU60 ALUMINUM 60% CASE - https://kbdfans.com/products/kbdfans-tofu-60-aluminum-case" target=”_blank”>KBDfans Tofu60 <span class="b_w_link"><b>Discontinued</b> (ebay?) </span></a></h5>
+							
+							<h5><a href="https://wooting-technologies.notion.site/de7a52e2b5a941258a17e448b0c9d9b0?v=5ec0b31c59db4a51b8a86a1288249e9f" title="Wooting: Compatible Case List - https://wooting-technologies.notion.site/de7a52e2b5a941258a17e448b0c9d9b0?v=5ec0b31c59db4a51b8a86a1288249e9f" target=”_blank”>Compatible Case List <span class="b_w_link">From <b>Wooting</b> </span></a></h5>
+							
+							<h5><a href="https://wooting.io/product/alumaze60?Color=Just+Black" title="Wooting Alumaze60 - 60% universal aluminium case" target=”_blank”>Wooting Alumaze60<b><span class="b_w_link">| $119.99</b> </span></a></h5>
+							
+						</div>
+						<div >						
+							<h2 style="text-align: center;">Keycaps:</h2>
+							
+							<h5><a href="https://kbdfans.com/products/pbtfans-doubleshot-wob?variant=40342537306251" title="KBDfans: PBTFANS WOB - https://kbdfans.com/products/pbtfans-doubleshot-wob?variant=40342537306251" target=”_blank”>PBTFans WOB Simple Base<b> <span class="b_w_link"> <span class="b_w_link">| $75.00</b></a></span></h5>
+							
+							<h5><a href="https://www.aliexpress.us/item/3256805254818925.html?spm=a2g0o.detail.1000014.23.48031ed0HWju2y&gps-id=pcDetailBottomMoreOtherSeller&scm=1007.40050.281175.0&scm_id=1007.40050.281175.0&scm-url=1007.40050.281175.0&pvid=e8a289c1-ea99-4fed-9b16-f85c982bd249&_t=gps-id:pcDetailBottomMoreOtherSeller,scm-url:1007.40050.281175.0,pvid:e8a289c1-ea99-4fed-9b16-f85c982bd249,tpp_buckets:668%232846%238112%231997&pdp_npi=3%40dis%21USD%2129.99%2128.49%21%21%21%21%21%402101ec1f16848125083435276e0e53%2112000033093266681%21rec%21US%21" title="AliExpress: GMK YMK Cherry Profile Keycaps 124 Key Tripleshot Black Japanese Keycap For Mechanical Keyboard For MX Switch With 1.75 2U Shift - https://www.aliexpress.us/item/3256805254818925.html?spm=a2g0o.detail.1000014.23.48031ed0HWju2y&gps-id=pcDetailBottomMoreOtherSeller&scm=1007.40050.281175.0&scm_id=1007.40050.281175.0&scm-url=1007.40050.281175.0&pvid=e8a289c1-ea99-4fed-9b16-f85c982bd249&_t=gps-id:pcDetailBottomMoreOtherSeller,scm-url:1007.40050.281175.0,pvid:e8a289c1-ea99-4fed-9b16-f85c982bd249,tpp_buckets:668%232846%238112%231997&pdp_npi=3%40dis%21USD%2129.99%2128.49%21%21%21%21%21%402101ec1f16848125083435276e0e53%2112000033093266681%21rec%21US%21"target=”_blank”>Tripleshot Black Japanese Keycaps<b> <span class="b_w_link">| $28.49</b></a></span></h5>
+							
+							<h5><a href="https://www.aliexpress.us/item/3256804826524481.html?spm=a2g0o.productlist.main.55.77fe302akWZ4HZ&algo_pvid=f7d5e3d4-782a-4f1d-81f3-88853664613b&algo_exp_id=f7d5e3d4-782a-4f1d-81f3-88853664613b-27&pdp_npi=3%40dis%21USD%2139.98%2127.99%21%21%21%21%21%40211be54b16848110179046145d07ff%2112000031342276778%21sea%21US%212630747724&curPageLogUid=qUrbfDjpiyGI" title="AliExpress:  168 Keys Double Shot PBT Keycap Custom WOB Keycap Cherry Profile Keyboard Keycaps for Cherry Gateron MX Switches Gaming Keyboard - https://www.aliexpress.us/item/3256804826524481.html?spm=a2g0o.productlist.main.55.77fe302akWZ4HZ&algo_pvid=f7d5e3d4-782a-4f1d-81f3-88853664613b&algo_exp_id=f7d5e3d4-782a-4f1d-81f3-88853664613b-27&pdp_npi=3%40dis%21USD%2139.98%2127.99%21%21%21%21%21%40211be54b16848110179046145d07ff%2112000031342276778%21sea%21US%212630747724&curPageLogUid=qUrbfDjpiyGI"target=”_blank”> Double Shot PBT Keycap Custom WOB</b> <span class="b_w_link">| $27.99<b></a> </span></h5>
+							
+							<h5><a href="https://drop.com/buy/drop-skylight-series-keycap-set?mode%5B0%5D=shop_open&mode%5B1%5D=shop_open&defaultSelectionIds=970403&utm_source=google&utm_medium=cpc&utm_campaign=14650997430&utm_term=126026139486&utm_content=545898905914&utm_keyword=&utm_placement=pla-1391072325100&utm_network=u%3Ac%3A%3A&utm_device=&gad=1&gclid=CjwKCAjw04yjBhApEiwAJcvNoVhEZAfnnfPWSOKJgsXrxTtGUFjhOmi0dG-YT_CjGooOq-C17cOKsBoCLDgQAvD_BwE&gclsrc=aw.ds" title="Drop:  DROP SKYLIGHT SERIES KEYCAP SET - https://drop.com/buy/drop-skylight-series-keycap-set?mode%5B0%5D=shop_open&mode%5B1%5D=shop_open&defaultSelectionIds=970403&utm_source=google&utm_medium=cpc&utm_campaign=14650997430&utm_term=126026139486&utm_content=545898905914&utm_keyword=&utm_placement=pla-1391072325100&utm_network=u%3Ac%3A%3A&utm_device=&gad=1&gclid=CjwKCAjw04yjBhApEiwAJcvNoVhEZAfnnfPWSOKJgsXrxTtGUFjhOmi0dG-YT_CjGooOq-C17cOKsBoCLDgQAvD_BwE&gclsrc=aw.ds"target=”_blank”>DROP SKYLIGHT SERIES KEYCAP SET</b> <span class="b_w_link">| $45</b></a></span> </h5>
+							
+							<h5><a href="https://www.amazon.com/PBT-Keycaps-Minimalist-Mechanical-Keyboards/dp/B0BZCFFB94/ref=sr_1_9?crid=2BPKYQU03ERFZ&keywords=grey+shine+through+pbt&qid=1684523395&sprefix=grey+shine+through+pbt%2Caps%2C97&sr=8-9" title="Amazon:  PBT Keycaps - Side Printed Keycap Set, Double Shot Shine Through Custom Keycaps, Gradient Gray Keycaps OEM Profile 136 Keys, Minimalist Style Phantom Keyboard Keycap for Mechanical Keyboards - https://www.amazon.com/PBT-Keycaps-Minimalist-Mechanical-Keyboards/dp/B0BZCFFB94/ref=sr_1_9?crid=2BPKYQU03ERFZ&keywords=grey+shine+through+pbt&qid=1684523395&sprefix=grey+shine+through+pbt%2Caps%2C97&sr=8-9"target=”_blank”>Side Printed Keycap Set Gradient Gray<b> <span class="b_w_link">| $32.99</b></a></span> </h5>
+							
+							<h5><a href="https://ymdkey.com/products/104-japanese-gray-red-keycaps-cherry-profile" title=" YMDK: 104 Japanese Gray Red Keycaps(Cherry Profile ANSI Dye-Subbed/1.5mm Thickness PBT) - https://ymdkey.com/products/104-japanese-gray-red-keycaps-cherry-profile"target=”_blank”>Japanese Gray Red Keycaps <b> <span class="b_w_link">| $32.99</b></a></span></h5>
+							
+							
+							
+							<h5><a href="https://next.wooting.io/product/wooting-take-control-5-sided-dye-sub-pbt-keycaps" title="Wooting: Wooting 5 sided Dye-sub PBT Keycap Set - Take Control - https://next.wooting.io/product/wooting-take-control-5-sided-dye-sub-pbt-keycaps"target=”_blank”> <span class="b_w_link"><i>Wooting</i> also has a set of</span> Keycaps <b><span class="b_w_link"> | $49.99</b></a></span></h5>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="videos">
+				<button class ="minimize10" title="Videos I Found Useful"> - </button>
+				<h1>Videos I Found Useful Along The Way:</h1>
+				<div class="bd10" style="text-align: justify; margin-left: 80px; margin-right: 80px;">
+				
+					
+					<h5><a href="https://www.youtube.com/watch?v=glQNEbh79xg" title="YouTube: It's Almost Cheating. — Wooting 60HE Keyboard - https://www.youtube.com/watch?v=glQNEbh79xg" target=”_blank”>It's Almost Cheating. — Wooting 60HE Keyboard</a> | <a href="https://www.youtube.com/@OptimumTech" title="Youtube Channel: Optimum Tech - https://www.youtube.com/@OptimumTech" target=”_blank”> Optimum Tech</a> (Important <b>Coiled Cable</b> info from Wooting in comments)</h5>
+					
+					<h5><a href="https://www.youtube.com/watch?v=EuULrGtbDy4" title="YouTube: Wooting 60HE After 5 Months (still cheating) - https://www.youtube.com/watch?v=EuULrGtbDy4" target=”_blank”>Wooting 60HE After 5 Months (still cheating)</a> | <a href="https://www.youtube.com/@OptimumTech" title="Youtube Channel: Optimum Tech - https://www.youtube.com/@OptimumTech"  target=”_blank”> Optimum Tech </h5>
+					
+					
+					<h5><a href="https://www.youtube.com/watch?v=igy_n3f7VeI" title="YouTube: Ultimate Wooting 60HE Mod Guide - https://www.youtube.com/watch?v=igy_n3f7VeI" target=”_blank”>Ultimate Wooting 60HE Mod Guide</a> | <a href="https://www.youtube.com/@badseedtech" title="Youtube Channel: BadSeed Tech - https://www.youtube.com/@badseedtech"  target=”_blank”>BadSeed Tech</a> ( helped a lot for lubing, burger mount, etc. )</h5>
+					
+					
+					<h5><a href="https://www.youtube.com/watch?v=tlPX6gYSxyU" title="YouTube: 60HE + Burger Mount Mod: How does it FEEL & SOUND? - https://www.youtube.com/watch?v=tlPX6gYSxyU" target=”_blank”>60HE + Burger Mount Mod: How does it FEEL & SOUND?</a> | <a href="https://www.youtube.com/@Wooting" title="Youtube Channel: Wooting - https://www.youtube.com/@Wooting"  target=”_blank”>Wooting</a></h5>
+					
+					<h5><a href="https://www.youtube.com/watch?v=n6k2mpfPSxs" title="YouTube: 60HE + Silicone: Does it improve the sound? - https://www.youtube.com/watch?v=n6k2mpfPSxs" target=”_blank”>60HE + Silicone: Does it improve the sound?</a> | <a href="https://www.youtube.com/@Wooting" title="Youtube Channel: Wooting - https://www.youtube.com/@Wooting"  target=”_blank”>Wooting</h5>
+					
+					<h5><a href="https://www.youtube.com/watch?v=EEISslcF-Jk" title="YouTube: How to Make a Tofu 60 Silicone Dampener | Mechanical Keyboards - https://www.youtube.com/watch?v=EEISslcF-Jk" target=”_blank”>How to Make a Tofu 60 Silicone Dampener | Mechanical Keyboards</a> | <a href="https://www.youtube.com/@SerendipityChannel91" title="Youtube Channel: Serendipity - https://www.youtube.com/@SerendipityChannel91"  target=”_blank”>Serendipity</a></h5>
+					
+					<h5><a href="https://www.youtube.com/watch?v=w8mNbG_kw2A" title="YouTube: TenZ Opinion On His Wooting 60HE Keyboard- https://www.youtube.com/watch?v=w8mNbG_kw2A" target=”_blank”>TenZ Opinion On His Wooting 60HE Keyboard</a> - (Clip from Tenz that originally inspired the research into my build)</h5>
+				</div>
+			</div>
+			 
+			<div class="alternate">
+				<div style="margin-left: 80px; margin-right: 80px; text-align: left;">
+					
+					<p>Thanks to <i>GewaltofRiwia</i>, <i>Ostrich</i>, <i>Over Heaven</i> and <i>Pink!</i> from the <a href="https://discord.com/invite/aYCvacM" title="Discord: Wooting Discord Invite - https://discord.com/invite/aYCvacM" target=”_blank”>Wooting Discord</a>, for answering questions while I worked on this keyboard and/or build breakdown</p>
+				
+					
+					
+					<p><i>If there is anything you feel I should add, update or change about this page, feel free to message me on any of the social media platforms listed above! I’d love to hear it!</i></p>
+					<h4>Thanks For Stopping By!</h4>
+				</div>
+			</div>
+			
+		
+		
+		</div>
+		
+			
+			
+		<footer>
+		
+			
+			
+			
+			<div class="socials" style="justify-content: center;text-align:center;align-content: center;" >
+						<a target=”_blank” href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img  src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img  src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner -  https://www.youtube.com/@OwenMinerCS" class="socials"> <img  src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"> </a>
+						 
+						<a target=”_blank” href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img  src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"> </a>
+						
+						<a target=”_blank” title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img  src="../Socials/SocialButtons/tiktokLink.png" style="width:15%;" alt="Link to TikTok"class="socials"> </a>
+						
+						
+						</p>
+				</div>
+		
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<h4><a href="#top" style="text-align: center;">Back To Top</a></h4>
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			
+			<div width="120%" style="height=5px; ">
+					<nav>
+					<ul>
+						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li onclick = "soon()"> <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
+						<li onclick = "soon()" style=""> <a href ="../PC/pc.html" style="color: rgb(120,120,120);;">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: white;text-decoration:underline;"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+				</nav>
+				</div>
+			
+			
+			
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<div >
+				<h4 id="Disclosure" style="padding: 0; margin: 10px;"><span style="font-weight: bold;">Disclosure:</span> <i>This page does not currently contain affiliate links, but may in the future. Affiliate links will have this clear indicator: <span class="affiliate"> (<a id ="affiliate" title="link to affiliate disclosure" href="#top">affiliate</a></span></i>)</h4>
+				<h4 style="text-transform: capitalize;"> This website was created by Owen Miner</h4>
+					
+				<h4>Feel free to use any photos on this page, with credit to <a href="OwenMinerCS.com">OwenMinerCS.com</a></h4>
+				<p style="padding-left: 10px;">PC Setup Last Updated April, 2024</p>
+				<p style="padding-left: 10px;"><b>OwenMinerCS.com</b></p>
+			</div>	
+			<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+			<hr style="border: thin ridge black;  padding 0;" width="100%">
+			
+			
+
+
+
+			
+		</footer>
+		
+	</div>	
+	</body>
+	
+</html>

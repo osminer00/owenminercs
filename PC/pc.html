@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+       <!-- Preload CSS to ensure styles are applied immediately -->
+	   <link href="../css/owenminercs.css" rel="stylesheet" type="text/css">
+
+	   <!-- Dynamically load the shared head section -->
+	   <script>
+		   fetch('../sharedHeadSection.html')
+			   .then(response => response.text())
+			   .then(data => {
+				   document.head.innerHTML = data + document.head.innerHTML;
+				   // Add page-specific metadata here
+				   document.title = "PC Build | Owen Miner";
+				   document.querySelector('meta[name="description"]').setAttribute("content", "Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, and more high-performance components.");
+				   document.querySelector('meta[name="keywords"]').setAttribute("content", "PC build, custom PC, AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, gaming PC, high-performance PC, Owen Miner, PC setup");
+				   document.querySelector('meta[property="og:title"]').setAttribute("content", "PC Build | Owen Miner");
+				   document.querySelector('meta[property="og:description"]').setAttribute("content", "Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, and more high-performance components.");
+				   document.querySelector('meta[property="og:url"]').setAttribute("content", "https://www.owenminercs.com/PC/pc.html");
+				   document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.owenminercs.com/PC/Images/pc-build.png");
+			   })
+			   .catch(error => console.error('Error loading shared head section:', error));
+	   </script>
+
+</head>
+	<body style = "zoom: 95%;">
+	
+		
+		<header>
+			
+
+			
+		<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+			<div width="120%" style="height=5px; ">
+				<nav>
+					
+					<ul>
+						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li onclick = "soon()" > <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
+						<li onclick = "soon()" > <a href ="../PC/pc.html"   style="color: white; text-decoration:underline;">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+					
+					
+				</nav>
+				
+				<div class="socials" style="justify-content: center;text-align:center;align-content: center;" >
+						<a target=”_blank” href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img  src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img  src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner -  https://www.youtube.com/@OwenMinerCS" class="socials"> <img  src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"> </a>
+						 
+						<a target=”_blank” href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img  src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"> </a>
+						
+						<a target=”_blank” title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img  src="../Socials/SocialButtons/tiktokLink.png" style="width:15%;" alt="Link to TikTok"class="socials"> </a>
+						
+						
+						</p>
+				</div>
+			</div>
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+		</header>
+			
+			<div class="gallery2" style="width:1170px; flex-direction: row;">
+			
+				<img src="images/pc.jpg" alt="Nvidia 4090 Unboxing" style="justify-content:center;align=items:center;flex-shrink:0;width:50%; height:50%;padding-top:10%;" onclick="window.open(this.src)" target=”_blank”>
+			
+				<div class="case2" style="margin-left: 20px;padding: 5px;">
+					<a href="https://www.gigabyte.com/Motherboard/B650-GAMING-X-AX-V2-rev-1x#kf" target=”_blank” style="margin: 5px" class="itemlink"><h1 > Motherboard:</h1> Gigabyte 650 X AX V2 AM5</a>
+					
+					<a href="https://shop-us-en.amd.com/amd-ryzen-7-7800x3d-processor/" target=”_blank” style="margin: 5px"  class="itemlink"><h1> CPU:</h1> AMD Ryzen 7 7800x3d</a>
+					
+					<a href="https://www.amazon.com/Noctua-NH-D15S-chromax-Black-Premium-Dual-Tower/dp/B08HM1T6RL" target=”_blank” style="margin: 5px"  class="itemlink"><h1 class="itemlink"> CPU Cooler:</h1>Noctua NH-D15S chromax.Black</a>
+					
+					<a href="https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/" target=”_blank” style="margin: 5px; cursor: pointer;"  class="itemlink"><h1 class="itemlink"> GPU:</h1> NVIDIA - GeForce RTX 4090 Founders Edition</a>
+					
+					<a href="https://www.corsair.com/us/en/p/psu/cp-9020094-na/rmx-series-rm1000x-1000-watt-80-plus-gold-certified-fully-modular-psu-cp-9020094-na" target=”_blank” style="margin: 5px"  class="itemlink"><h1 class="itemlink"> PSU:</h1> Corsair RM1000x W Power Supply</a>
+					
+					<a href="https://www.gskill.com/product/165/396/1661410273/F5-6000J3238F16GX2-FX5" target=”_blank” style="margin: 5px"  class="itemlink"><h1 class="itemlink"> RAM:</h1> G.Skill Flare X5 Series 32GB DDR5-6000</a>
+					
+					<a href="https://www.westerndigital.com/products/internal-drives/wd-black-sn850x-nvme-ssd?sku=WDS100T2X0E" target=”_blank” style="margin: 5px" class="itemlink"><h1 class="hover"> SSD:</h1>4TB WD_BLACK SN850X NVMe™ SSD</a>
+					
+					<a href="https://lian-li.com/product/o11-dynamic-evo/" target=”_blank” style="margin: 5px" class="itemlink"><h1 class="itemlink"> Case:</h1> Lian Li O11 Dynamic Evo (Black)</a>
+					
+					<a href="https://lian-li.com/product/o11-dynamic-evo/" target=”_blank” style="margin: 5px" class="itemlink"><h1 class="itemlink"> (10) Case Fans:</h1> Lian Li UNI Fan SL120 V2</a>
+					
+					
+					<a href="https://www.microsoft.com/en-us/d/windows-11-pro/dg7gmgf0d8h4" target=”_blank” style="margin: 5px"  class="itemlink"><h1 class="itemlink"> OS:</h1>  Windows 11 64-bit</a>
+				</div>
+				
+			</div>
+			
+				
+		</div>
+		<footer>
+		
+			
+			
+			
+			<div class="socials" style="justify-content: center;text-align:center;align-content: center; ">
+						<a target=”_blank” href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img  src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img  src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit"id="socials"> </a>
+						
+						<a target=”_blank” href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner -  https://www.youtube.com/@OwenMinerCS" class="socials"> <img  src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"> </a>
+						 
+						<a target=”_blank” href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img  src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"> </a>
+						
+						<a target=”_blank” title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img  src="../Socials/SocialButtons/tiktokLink.png" style="width:15%;" alt="Link to TikTok"class="socials"> </a>
+						
+						
+						</p>
+				</div>
+		
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<h4><a href="#top" style="text-align: center;">Back To Top</a></h4>
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			
+			<div width="120%" style="height=5px; ">
+					<nav>
+					<ul>
+						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li onclick = "soon()"> <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
+						<li onclick = "soon()" style=""> <a href ="../PC/pc.html" style="color: white;text-decoration:underline;">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+				</nav>
+				</div>
+			
+			
+			
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<div >
+				<h4 id="Disclosure" style="padding: 0; margin: 10px;"><span style="font-weight: bold;">Disclosure:</span> <i>This page does not currently contain affiliate links, but may in the future. Affiliate links will have this clear indicator: <span class="affiliate"> (<a id ="affiliate" title="link to affiliate disclosure" href="#top">affiliate</a></span></i>)</h4>
+				<h4 style="text-transform: capitalize;"> This website was created by Owen Miner</h4>
+					
+				<h4>Feel free to use any photos on this page, with credit to <a href="OwenMinerCS.com">OwenMinerCS.com</a></h4>
+				<p style="padding-left: 10px;">PC Setup Last Updated Mar, 2025</p>
+				<p style="padding-left: 10px;"><b>OwenMinerCS.com</b></p>
+			</div>	
+			<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+			<hr style="border: thin ridge black;  padding 0;" width="100%">
+			
+			
+
+
+
+			
+		</footer>
+	
+	</div>	
+	</body>
+	
+</html>

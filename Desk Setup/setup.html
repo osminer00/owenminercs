@@ -1,0 +1,722 @@
+<!doctype html>
+<html>
+<head>
+ <!-- Preload CSS to ensure styles are applied immediately -->
+ <link href="../css/owenminercs.css" rel="stylesheet" type="text/css">
+
+ <!-- Dynamically load the shared head section -->
+ <script>
+	 fetch('../sharedHeadSection.html')
+		 .then(response => response.text())
+		 .then(data => {
+			 document.head.innerHTML = data + document.head.innerHTML;
+			 // Add page-specific metadata here
+			 document.title = "Desk Setup | Owen Miner";
+			 document.querySelector('meta[name="description"]').setAttribute("content", "Explore Owen Miner's desk setup, featuring gaming monitors, keyboards, and more.");
+			 document.querySelector('meta[name="keywords"]').setAttribute("content", "desk setup, gaming monitor, keyboard, mouse, accessories, Owen Miner");
+			 document.querySelector('meta[property="og:title"]').setAttribute("content", "Desk Setup | Owen Miner");
+			 document.querySelector('meta[property="og:description"]').setAttribute("content", "Explore Owen Miner's desk setup, featuring gaming monitors, keyboards, and more.");
+			 document.querySelector('meta[property="og:url"]').setAttribute("content", "https://www.owenminercs.com/Desk%20Setup/setup.html");
+		 });
+ </script>
+	<script> 
+		
+		
+		$(document).ready(function () {
+            $(".modeButtonUp").click(function () {
+			
+					$(".bd10").slideUp('fast');
+					$(".bd8").slideUp('fast');
+					$(".bd7").slideUp('fast');
+					$(".bd6").slideUp('fast');
+					$(".bd5").slideUp('fast');
+					$(".bd4").slideUp('fast');
+					$(".bd3").slideUp('fast');
+					$(".bd2").slideUp('fast');
+					$(".bdd").slideUp('fast');
+					$(".row").slideUp('fast');
+					$(".bd").slideUp('fast');
+				
+				
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".modeButton").click(function () {
+			
+					$(".bd10").slideDown('fast');
+					$(".bd8").slideDown('fast');
+					$(".bd7").slideDown('fast');
+					$(".bd6").slideDown('fast');
+					$(".bd5").slideDown('fast');
+					$(".bd4").slideDown('fast');
+					$(".bd3").slideDown('fast');
+					$(".bd2").slideDown('fast');
+					$(".bdd").slideDown('fast');
+					$(".row").slideDown('fast');
+					$(".bd").slideDown('fast');
+				
+				
+            });
+        });
+		function soon(){
+			
+		}
+		
+		function linkBut(){
+			
+			document.getElementById("sorry").textContent=" - sorry had to do it XD"
+			
+		}
+		
+		function modeButton(){
+			
+			
+			setTimeout(function () {
+				if(mode="Parts List Mode"){
+					document.getElementById("mode").innerText="Switch View";
+					document.getElementById("minMax").textContent="";
+					
+				}
+			mode = document.getElementById("mode").innerText;
+			}, 120);
+		}
+		
+		
+		
+		$(document).ready(function(){
+            $(".minimize").click(function(){
+				$(".row").slideToggle('fast');
+				$(".bd").slideToggle('fast');
+				
+			});
+		});
+		
+		$(document).ready(function(){
+            $(".minimize1").click(function(){
+				$(".bdd").slideToggle('fast');
+			});
+		});
+		
+        $(document).ready(function () {
+            $(".minimize2").click(function () {
+                $(".bd2").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize3").click(function () {
+                $(".bd3").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize4").click(function () {
+                $(".bd4").slideToggle('fast');
+				
+				
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize5").click(function () {
+                $(".bd5").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize6").click(function () {
+                $(".bd6").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize7").click(function () {
+                $(".bd7").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize8").click(function () {
+                $(".bd8").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize9").click(function () {
+                $(".bd9").slideToggle('fast');
+            });
+        });
+		
+		$(document).ready(function () {
+            $(".minimize10").click(function () {
+                $(".bd10").slideToggle('fast');
+            });
+        });
+		
+	</script>
+
+</head>
+	<body style="zoom: 95%;">
+		<!--<button id="buildMode" class="mode" onclick="buildMode()">Collapse </button>-->
+				
+			
+			
+		
+		
+		
+		
+		<header>
+			
+
+			
+		<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+			<div width="120%" style="height=5px; ">
+				<nav>
+					
+					<ul>
+						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li onclick = "soon()" > <a href ="../Desk Setup/setup.html" style="color: white; text-decoration:underline;"> Desk Setup</a></li>
+						<li onclick = "soon()" > <a href ="../PC/pc.html"   style="color: rgb(120,120,120);">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+					
+					
+				</nav>
+				
+				<div class="socials" style="justify-content: center; text-align: center; align-content: center;">
+					<a target="_blank" href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X" id="socials"></a>
+					
+					<a target="_blank" href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit" id="socials"></a>
+					
+					<a target="_blank" href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner - https://www.youtube.com/@OwenMinerCS" class="socials"><img src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"></a>
+					
+					<a target="_blank" href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"></a>
+					
+					<a target="_blank" title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img src="../Socials/SocialButtons/tiktokLink.png" style="width: 15%;" alt="Link to TikTok" class="socials"></a>
+				</div>
+			</div>
+		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+		</header>
+			<div class="intro">
+
+				<div class="gallery" style="border:  solid black; border-radius: 7px; box-shadow: 5px 5px black;">
+					<h1>Desk Setup</h1>
+				</div>
+				
+				<div  style="border:  solid black; border-radius: 7px; box-shadow: 5px 5px black; padding: 10px; text-align: center;">
+					<h4 style="padding: 10px;">Tried to include the prices for everything with <a href="https://youtu.be/dQw4w9WgXcQ" target=_blank onclick="linkBut()" title="click me!">links!</a>  <span id="sorry"></span></h4>
+					
+					<h5 id="Disclosure" class="Disclosure"style="padding: 0; margin: 0;"><span style="font-weight: bold;">Disclosure:</span> <i>This page does not currently contain affiliate links, but may in the future. Affiliate links will have this clear indicator: <span class="affiliate"> (<a id ="affiliate" title="link to affiliate disclosure" href="#top">affiliate</a></span></i>)</h5>
+					
+					<img src="../images/roomSetupDark.jpg" alt="Gaming Setup with Ultra Wide monitor, 3 16:9 monitors, and a 50 inch tv. Five screens Total. 2023" onclick="window.open(this.src)" style="width:100%">
+					
+				</div>
+				<div class="gallery" style="flex-direction: row;">
+					<p style="margin-left: 0 auto;" > Minimize View To: </p>
+					
+					<button  id="mode" class ="modeButtonUp" onclick>Item Links</button>
+					
+					<p style="margin-left: 20px;" >Show All: </p>
+					
+					<button  id="mode" class ="modeButton" onclick>Setup Breakdown</button>
+					
+				</div>
+				
+				<h5><i>Let's get started:</i></h5>
+			</div>
+			
+			
+			<div class ="gamingMonitor">
+				<button class ="minimize4" title="GamingMonitor">-</button>
+				
+				<h1>Gaming Monitor:</h1>
+			
+				
+				<h4><a href="https://rog.asus.com/us/monitors/27-to-31-5-inches/rog-swift-oled-pg27aqdp/" target=”_blank”  title="ROG Swift OLED PG27AQDP - https://rog.asus.com/us/monitors/27-to-31-5-inches/rog-swift-oled-pg27aqdp/">ROG Swift OLED PG27AQDP <span class="b_w_link">| $999.00</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="ROG Swift OLED PG27AQDP Monitor">
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<img src="../images/gamingSetup.jpg" alt="Gaming setup with 2 monitors tv wooting keyboard pc in background" onclick="window.open(this.src)" style="width:100%">
+					<p><b>Resolution:</b> 2560x1440p<p>
+					<p><b>Refresh Rate:</b> 480hz<p>
+
+					<p>Picked up an ASUS ROG Swift OLED PG27AQDP 480Hz 1440p OLED in December 2024. It’s primarily used for Counter-Strike 2, but I’ll definitely be playing most of my games on it.</p>
+
+					<p>So far, I’ve really enjoyed it. There’s a huge difference between this monitor and my previous 280Hz 1080p display.</p>
+
+					<p>The motion clarity and response times are insane. The higher pixel density is also incredibly useful in CS2 for long-range duels.</p>
+
+					<p>On most maps in CS2, with a 4090 + 7800X3D at native resolution, FPS averages between 500-700 FPS (depending on the map and settings). When the monitor dips below 480Hz, it’s not very noticeable. Occasionally, there are some minor motion artifacts due to frame rate fluctuations, but the response time is fast enough to not affect gameplay. If your PC OR wallet isn’t ready for this monitor, a 360Hz 1440p OLED could get you close to this level of performance for a fraction of the price, though 480Hz still provides a small edge in competitive play.</p>
+
+					<p>I have tried out G-Sync and ELMB but prefer both of them off as it just feels better without them.</p>
+
+					<p>If anyone plays on stretched resolution with full-screen windowed mode, it can be difficult to get the monitor to consistently stay at a custom resolution due to issues with DSC. It is possible by disabling DSC, creating a custom resolution in the NVIDIA 3D settings, then re-enabling DSC. However, any time you turn off the monitor, you will have to set the resolution again. To avoid DSC altogether, you will need a GPU with DisplayPort 2.1, which is included on most 50-series NVIDIA cards but is harder to find on other GPU models.</p>
+
+					<p> I tend to change my in-game resolution quite frequently because I’m a placebo settings changer. As of March 2025, I’m playing in 16:10 fullscreen, which is running very smoothly. When I first bought the monitor, I was using the native resolution (2560x1440p), but I felt like switching it up and trying stretched for a while. Personally, I have no real resolution preference—it just depends on what I’m feeling that day, and I can usually adjust to a new resolution on the same day I change it. I would say half of my hours are on 16:10 and the other half on other resolutions like 16:9, 4:3, and 16:9 stretched on my ultrawide monitor.</p>
+
+					<p>This monitor also takes up TWO internal GPU ports, leaving you with three external GPU ports (DisplayPort, HDMI, etc.). If you use four or more monitors, you will need to use your integrated graphics for one monitor or install another GPU.</p>
+
+					<p>I was able to get this monitor on sale for $995.72, including taxes and shipping. I waited for over a year and saved accordingly, using my end-of-year bonus to afford this monitor. Normally, with tax, it would have cost $1,068.93, so I saved $73.21 in total from the sale.</p>
+
+					<p>Now, the most important question: is this monitor worth the price? This monitor is on the bleeding edge of technology and will give you a competitive advantage over opponents through the ability to react a few milliseconds quicker. Better motion clarity, response time, and pixel density all contribute to improved reaction speed with this monitor. I spend a good chunk of my day in front of this monitor and enjoy trying out the newest tech. If you have a PC capable of powering this monitor, use that PC for highly competitive games for hours a day, and have some extra money to spare, this monitor is definitely worth experiencing.</p>
+
+					<p>Alternatively, if your PC or budget isn’t ready for this monitor, a 360Hz 1440p OLED could get you close to this level of performance at a fraction of the cost.</p>
+
+					<p>Overall, if you're impatient and want peak performance ASAP, buy this monitor. Otherwise, in 1-2 years, this monitor should go on sale, and more competition should emerge at lower prices.</p>
+
+					<ul style="padding-left: 0; margin-left: 0;">
+						<li style="text-align: left; margin-bottom: 5px;">Insane motion clarity and response times.</li>
+						<li style="text-align: left; margin-bottom: 5px;">Higher pixel density improves visibility in long-range fights.</li>
+						<li style="text-align: left; margin-bottom: 5px;">FPS averages 500-700 on high-end hardware.</li>
+						<li style="text-align: left; margin-bottom: 5px;">Some ghosting may occur when FPS dips below 480Hz.</li>
+						<li style="text-align: left; margin-bottom: 5px;">DSC can cause resolution issues in fullscreen windowed mode.</li>
+						<li style="text-align: left; margin-bottom: 5px;">Requires two internal GPU ports, limiting connectivity.</li>
+						<li style="text-align: left; margin-bottom: 5px;">Expensive, but may go on sale in the future.</li>
+					</ul>
+
+
+
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Ultrawide Monitor:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/LG-34WL850-W-inch-UltraWide-Thunderbolt/dp/B07Q3X33Q1/ref=sr_1_3?crid=2M4DIUT6CZCIQ&dib=eyJ2IjoiMSJ9.VVbPrqCnh8GbDKgKsvWRgXbdUsYUl2y7lyL726Iq7skJJVocStanxcwke-96cg3WUhCFQC7LkEFke2F2O1m5GCcBPUb8t8q4H4jgDXuT3S9DJ9Q3b7YvpcFfY2ihUBFQ46_-K8VKwlROuZk4suci4MAlWBw_PquSNJtyBEr2R_5mcsws0ik0xzhmvzjL1Cx_hWPUU0AUalpTuXJXeB1sfiY7FKS5MHSyVnWGxIj1GMaaU-Gy8MtB-sXRT_sJQexsClgQzhEe5XjyO7ACadGSoyJLy5Kp2Q6HDXAXWZBUuz4.ULFWP2ek-4Ujq0stoVYM4T_J1RZKWNd6Src6bKze1eY&dib_tag=se&keywords=LG%2B34WL850&qid=1718055637&s=electronics&sprefix=lg%2B34wl850%2Celectronics%2C79&sr=1-3&th=1" target=”_blank”  title="LG 34WL850 - https://www.amazon.com/LG-34WL850-W-inch-UltraWide-Thunderbolt/dp/B07Q3X33Q1/ref=sr_1_3?crid=2M4DIUT6CZCIQ&dib=eyJ2IjoiMSJ9.VVbPrqCnh8GbDKgKsvWRgXbdUsYUl2y7lyL726Iq7skJJVocStanxcwke-96cg3WUhCFQC7LkEFke2F2O1m5GCcBPUb8t8q4H4jgDXuT3S9DJ9Q3b7YvpcFfY2ihUBFQ46_-K8VKwlROuZk4suci4MAlWBw_PquSNJtyBEr2R_5mcsws0ik0xzhmvzjL1Cx_hWPUU0AUalpTuXJXeB1sfiY7FKS5MHSyVnWGxIj1GMaaU-Gy8MtB-sXRT_sJQexsClgQzhEe5XjyO7ACadGSoyJLy5Kp2Q6HDXAXWZBUuz4.ULFWP2ek-4Ujq0stoVYM4T_J1RZKWNd6Src6bKze1eY&dib_tag=se&keywords=LG%2B34WL850&qid=1718055637&s=electronics&sprefix=lg%2B34wl850%2Celectronics%2C79&sr=1-3&th=1">LG 34WL850 <span class="b_w_link">| $699.00</span></a></h4>
+				
+				<img src="../images/ultrawide.jpg" alt="Gaming setup with 2 monitors tv wooting keyboard pc in background" onclick="window.open(this.src)" style="width:100%">
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="LG 34WL850 Monitor">
+					
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p><b>Resolution:</b> 3440x1440p<p>
+					<p><b>Refresh Rate:</b> 60hz<p>	
+					<p>Having an ultrawide monitor is amazing for productivity. Coding, editing videos, and using Photoshop are all much better with the extra screen real estate. Watching movies is also really enjoyable, as many movies with black bars can be stretched to take up the entire monitor. At the time when I purchased it, it was quite expensive, but it was the only ultrawide I could find that could receive a display signal via USB-C and had two USB-3 connectors to work as a USB hub for my laptop. Although I no longer use a laptop as my main computer, this monitor still comes in handy anytime I am not playing video games.</p>
+
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Other Displays:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/gp/product/B005BZNDS0/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target=”_blank”  title="Asus 24 inch monitor - https://www.amazon.com/gp/product/B005BZNDS0/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" Monitor - https://www.amazon.com/gp/product/B005BZNDS0/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">Asus 24" Monitor <span class="b_w_link">| $119.00</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="LG 34WL850 Monitor">
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p><b>Resolution:</b> 1920x1090p<p>
+					<p><b>Refresh Rate:</b> 60hz<p>	
+					<p><b>Response time:</b> 2ms<p>	
+					<p>I have had two of these 24-inch Asus monitors for over 10 years now. They have been more than been worth it to me. They were my original gaming monitors, and although they were 60Hz, their 2ms response time was quite fast for the time. I have used these monitors as secondary displays for quite a few years now. The brightness and contrast are not as good as they used to be, but they still turn on after many, many hours of use, so I cannot complain!</p>
+					
+					</div>
+				</div>
+			</div>
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Mouse:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/Logitech-SUPERLIGHT-Ultra-Lightweight-Programmable-Compatible/dp/B087LXCTFJ/ref=sr_1_3?dib=eyJ2IjoiMSJ9.TGpmKbekcpT15h-849pjdVfOjcygYciCmvVrsPQUt9ATW2j8tqugc5jnHtXoKvvsbc6PCQzbufkrruHb9QcVhGRa1RhqE1zl6oxfbwnryJTAeWCWYEwG_RbSe2z5DPb7vmtMH_NAouNYGKyhnDQBXTHjt5FHne-mU09AL1Xf1rX2B1MqfLG6seRvR3RLggy9GiRDxwtoFDV6QK5LTHB-LwX26Inq-ipKSBAddbeONm4.RNkzMd2EQUPVscD-aviiXjVHMeMBn2zLDXT4ABa70sI&dib_tag=se&keywords=g%2Bpro%2Bsuperlight&qid=1742675878&sr=8-3&th=1" target=”_blank”  title="Logitech G Pro X Superlight Mouse - https://www.amazon.com/Logitech-SUPERLIGHT-Ultra-Lightweight-Programmable-Compatible/dp/B087LXCTFJ/ref=sr_1_3?dib=eyJ2IjoiMSJ9.TGpmKbekcpT15h-849pjdVfOjcygYciCmvVrsPQUt9ATW2j8tqugc5jnHtXoKvvsbc6PCQzbufkrruHb9QcVhGRa1RhqE1zl6oxfbwnryJTAeWCWYEwG_RbSe2z5DPb7vmtMH_NAouNYGKyhnDQBXTHjt5FHne-mU09AL1Xf1rX2B1MqfLG6seRvR3RLggy9GiRDxwtoFDV6QK5LTHB-LwX26Inq-ipKSBAddbeONm4.RNkzMd2EQUPVscD-aviiXjVHMeMBn2zLDXT4ABa70sI&dib_tag=se&keywords=g%2Bpro%2Bsuperlight&qid=1742675878&sr=8-3&th=1">Custom Logitch G Pro X Superlight Wireless <span class="b_w_link">| $159.99 </span></a></h4>
+				
+				
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="Logitech G Pro X Superlight Mouse">
+				
+					<div>
+						<img src="../images/superlight.jpg" alt="bottom side of superlight mouse with skates and cut out bottom for weight" onclick="window.open(this.src)" style="width:100%">
+					</div>
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+						<p><strong>Modified G Pro Superlight Mouse</strong></p>
+
+						<p>I've customized my G Pro Superlight with a hotswap PCB board, TTC 60 million gold switches, a bandaid mod for the side buttons, a weight reduction mod, and Wallhack Obsidian dot skates.</p>
+
+						<p>The <strong>hotswap PCB</strong> works great and is compatible with the stock Superlight scroll wheel. The scroll wheel steps feel much more distinct and less mushy compared to stock. I really enjoy the TTC Gold 60M switches—they feel significantly faster than the stock ones. Having a <strong>hotswap PCB</strong> is a huge plus since it lets me try different switches anytime without needing to solder.</p>
+
+						<p>The <strong>bandaid mod</strong> involves cutting small pieces of a bandaid and placing them under the side button switches. This improves the feel, making the clicks more responsive and reducing the actuation distance.</p>
+
+						<p>For <strong>weight reduction</strong>, I removed excess plastic using a wire cutter and a handheld rotary tool. I also took out the Powerplay module and trimmed unnecessary plastic around the frame.</p>
+
+						<p>I've used <strong>stock skates</strong> for a few years and tried <strong>Tiger Ice skates</strong> for a while. Both performed well, but after upgrading to a glass mouse pad, I needed something more durable. The <strong>Wallhack Obsidian dot skates</strong> feel similar to Tiger Ice in terms of friction, but since they have a much smaller surface area, they glide more smoothly. The Obsidian skates package includes plenty of extra skates, so I’m not too worried about wear and tear.</p>
+						
+						<p> Also added a magnetic micro usb charger. This plugs into the existing port and allows the mouse to easily conect to a magnetic charger without having to manually align the original charger. This makes it extremly easy to plug in and encourages me to plug in my mouse when not using it. It does add around a gram of weight to the front of the mouse but the conviniece of easily pluggin in the mouse is more than worth the added weigth.</p>
+
+						<p> I'm using the stock battery. I really considered swaping ou the batter for a smaller and lighter alternative but I really enjoyed only having to charge the mouse like once a week, so decided to stick with the stock battery.</p>
+
+					
+					</div>
+				</div>
+			</div>
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Mouse Pad:</h1>
+			
+				
+				<h4><a href="https://wallhack.com/products/sp-004-black?srsltid=AfmBOorXvtq1EFk4_b9Eb8dVoPKqKhEemkQxMJdHKLLLLClzBu9VdVvI" target=”_blank”  title="Asus 24" Monitor - https://wallhack.com/products/sp-004-black?srsltid=AfmBOorXvtq1EFk4_b9Eb8dVoPKqKhEemkQxMJdHKLLLLClzBu9VdVvI">Wallhack SP-004 <span class="b_w_link">| $119</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="LG 34WL850 Monitor">
+				
+					<div style="width:150%">
+						<img src="../images/mousepad.jpg" alt="Wallhac kGlass mouse pad with g pro superlight sitiing on top" onclick="window.open(this.src)" style="width:100%">
+					</div>
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+						<p>So far, this glass mousepad has done everything I need it to do.</p>
+						<p>It might sound a little crazy, but the main reason I got this mousepad is because of how easy it is to clean. A traditional mousepad is a magnet for dust and grime, which I have found to seriously affect the consistency of my aim. A glass mousepad is extremely easy to wipe off with a microfiber cloth, and I always keep a few handy next to my desk.</p>
+						<p>The base of this mousepad is great—it does not move around at all and will not damage the desk.</p>
+						<p>I do think that the "performance" of a glass mousepad is overrated and that the skates on your mouse itself have a larger effect on the speed and friction while moving your mouse.</p>
+						<p>One annoyance that I have heard other people talk about, and that I agree with, is how loud it is when swiping with your mouse. It may seem ridiculous to complain about the sound of a $120 mousepad, but with open-back headphones, it is loud enough to cover up some important but quiet footsteps in Counter-Strike.</p>
+						<p>Overall, I think that this mousepad was worth the high price because of its easy-to-clean surface, and it shouldn't need to be replaced as often as a traditional mousepad.</p>
+
+
+					
+					</div>
+				</div>
+			</div>
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Keyboard:</h1>
+			
+				
+				<h4><a alt="Custom Wooting 60 HE Build" href="../Keyboard/60he.html" target=”_blank”  title="Wooting 60 HE Build List owenminercs.com/keyboard">Wooting 60HE <span class="b_w_link">| Prices on build list</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+						<p>I have had this Wooting 60HE since late spring 2023 and absolutley love it. I have spent way too much time and money trying out different mods. Full parts list and breakdown on the Keyboard tab!<p>
+						<img  src="../Keyboard/killowattKeyboard.jpg" style="width: 300px;" alt="Keyboard case that looks like cs2 killowatt case" onclick="window.open(this.src)">
+					
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Monitor Arms:</h1>
+			
+				
+				<h4><a href="https://wallhack.com/products/sp-004-black?srsltid=AfmBOorXvtq1EFk4_b9Eb8dVoPKqKhEemkQxMJdHKLLLLClzBu9VdVvI" target=”_blank”  title="Asus 24" Monitor - https://wallhack.com/products/sp-004-black?srsltid=AfmBOorXvtq1EFk4_b9Eb8dVoPKqKhEemkQxMJdHKLLLLClzBu9VdVvI">Wallhack SP-004 <span class="b_w_link">| $119</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="LG 34WL850 Monitor">
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p><b></b> <p>
+					
+					<p>I have used three different monitor arms, all of which are desk clamp-mounted.</p>
+					<p>My favorite monitor arm is a gas spring arm. I own the discontinued Amazon Basics model, which, at the time of purchase, was the cheapest available pneumatic arm. Nowadays, these types of arms are much more affordable. It allows you to position your monitor however you want, with no major constraints on height, depth, or rotation.</p>
+					<p>I also have an extra-tall monitor arm that allows for 36 inches of height. It comes with three detachable sections and is relatively sturdy for its height. There is some wobble, but that is to be expected when mounting a monitor so high.</p>
+					<p>The remaining two mointor arms are affordable arms that allow swivel, tilt and rotation but not height adjustment. These arms have held up great for the price, with only a little sag over a few years but otherwise have outerformed my expectations</p>
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Headphones:</h1>
+			
+				
+				<h4><a alt= "Beyerdynamic DT 990 Pro 250 Ohm (Limited Edition Black) Headphones" href="https://www.amazon.com/s?k=Beyerdynamic+DT+990+Pro+250+Ohm+%28Limited+Edition+Black%29&i=electronics&crid=923PRUCXQOAS&sprefix=beyerdynamic+dt+990+pro+250+ohm+limited+edition+black+%2Celectronics%2C71&ref=nb_sb_noss" target=”_blank”  title="Beyerdynamic DT 990 Pro 250 Ohm (Limited Edition Black)">Beyerdynamic DT 990 Pro 250 Ohm (Limited Edition Black) <span class="b_w_link">| $179.99</span></a></h4>
+				
+				
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="Custom Wooting 60 HE Build">
+					<div style="width:100%">
+
+						<img src="../images/headphones.jpg" alt="Dt990 pro headphones" onclick="window.open(this.src)" style="width:100%">
+					</div>
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p>I have had these headphones since 2023 and really enjoy them. They perform really well with musci and gaming. I would suggest having something other than your pc to power them. For years I used a Sound Blaster Z internal amp/dac, but since purchasing the streamer x use it to power these headphones. 
+						<p>These headphones are open back which are great for sound quality but you can hear everything in the outside world through them, which is a bit annoying if you have noisy neighbors. Also if your volume is too high and your microphone is too close, your headphones audio will be picked up by your microphone.</p>
+
+					
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Microphone:</h1>
+			
+				
+				<h4><a href="https://www.shure.com/en-US/products/microphones/sm7b?variant=SM7B" target=”_blank”  title="Shure SM7B Cardiod Microphone" alt="Microphone: Shure SM7B">Shure SM7B <span class="b_w_link">| $399.00</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p><b></b> <p>
+
+					
+					</div>
+				</div>
+			</div>
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Audio Interface:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/Rode-StreamerX-Audio-Interface-Capture/dp/B0BQM2CL1W/ref=asc_df_B0BQM2CL1W?mcid=26544757c06c3bbb8560efab190186f5&tag=hyprod-20&linkCode=df0&hvadid=693461915926&hvpos=&hvnetw=g&hvrand=4734990865766473082&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1015640&hvtargid=pla-2079363079609&th=1" target=”_blank”  title="Rode Streamer X - https://www.amazon.com/Rode-StreamerX-Audio-Interface-Capture/dp/B0BQM2CL1W/ref=asc_df_B0BQM2CL1W?mcid=26544757c06c3bbb8560efab190186f5&tag=hyprod-20&linkCode=df0&hvadid=693461915926&hvpos=&hvnetw=g&hvrand=4734990865766473082&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1015640&hvtargid=pla-2079363079609&th=1" alt="Rode Streamer X Audio interface">Rode Streamer X <span class="b_w_link">| $249.99 </span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+					<div>
+						<img src="../images/streamerx.jpg" alt="Rode Streamer X Audio interface" onclick="window.open(this.src)" style="width:50%">
+					</div>
+					
+					<div class="column2" style="text-align: left;  margin-bottom: 50px;">
+						
+						<div>
+							<p>So far, the Rode Streamer X accomplishes what it needs to do.</p>
+							<p>It functions as an amp for the Shure SM7B microphone, providing power and a gain knob.</p>
+							<p>It also features a headphone volume knob, which is really helpful for adjusting the volume.</p>
+							<p>One of the main deciding factors in purchasing this device was the HDMI capture card, which allows me to connect my Sony ZV-E10 mirrorless camera.</p>
+							<p>A lot of my teammates get a kick out of the voice effects, such as the chipmunk and robot voices.</p>
+							<p>Although it does what I need it to do, the software is definitely a struggle to work with. Rode Central does not save your settings after restarting your PC unless you replace the file generated by the program, and sometimes the HDMI capture card struggles to pick up the signal from my mirrorless camera.</p>
+						</div>			
+
+					
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Microphone Arm:</h1>
+			
+				
+				<h4><a href="https://www.elgato.com/us/en/p/wave-mic-arm?gad_source=1&gclid=Cj0KCQjws-S-BhD2ARIsALssG0ZDfXGXh9qeMMs9Ga-BAq0LXxtXorpD9tlMoz6lZP63_NKr152Tht0aAgt9EALw_wcB" target=”_blank”  title="Microphone Arm Stand Elgato Wave Arm" alt="Microphone ARM: Elgato Wave Mic Arm">Elgato Wave Mic Arm <span class="b_w_link">| $99.00</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" alt="Custom Wooting 60 HE Build">
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p>The Elgato Wave Mic Arm is very high quality. It has more than enough lift to hande the shure SM7b and actually needs the included counter weight to keep the arm from raising on it's own. <p>
+					<p> I prefer to have my mic mounted high up and out of the way of the desk's suface. Many people prefer low profile mic arm's but having a 7 foot wingspan, I could see myself bumbing into the low profile arm, as well as knocking over beverages since it is mounted so low.</p>
+					<p> The cable managment channels included on the top and back of the arm are really clean and super easy to open incase you need to adjust or swap out your microphone cable.</p>
+					<p> i'm using the included hiehgt spacer as well, so my arm is mounted at its max height and I have never run into any issues with it being in the way. </p>
+					<p> As of right now I have zero complain'ts about this mic stand and have found it well worth the money</p>
+					
+					
+					</div>
+				</div>
+			</div>
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Camera:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/s?k=Sony+ZV-E10&i=electronics&crid=15UG7MTEM4KQ8&sprefix=sony+zv-e10%2Celectronics%2C92&ref=nb_sb_noss_1" target=”_blank”  title="Microphone Arm Stand Elgato Wave Arm" alt="Camera Sony zve10 mirroless camera">Sony ZV-E10 <span class="b_w_link">| $798.00</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p>I have been using this camera for a few years now and it does it's job well. It is the main camera in all of my youtube content and I plan to use it for the forseeable future.</p>
+					<p>I was originally using the included kit lense but it did not perform very well indoors, which is where I primarily use this camera. With the kit lense you had to increase the ISO to a very high setting to see anything, but this would result in very grainy videos/photos.</p>
+					<p> I eventually picked up a Sigma 16mm f/1.4 lense, and it performed really well in low light conditions</p>
+					<p> For quite a while I used the included "webcam" feature on the zve10. This allowed you to plug the camera into your computer with a usb-c cable and use it as a webcam. This feature worked pretty well but could only output at 1080p</p>
+					<p> I upgraded to an elgato cam link 4k that allows the zve10 to output signa through its min hdmi cable for a while. When I purchased the Rode Streamer X, I no longer needed the elgato cam link, since the stremer x had a capture card I could use</p>
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Web Cam:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/Extendable-Brightness-2800-6500k-Temperature-Adjustment/dp/B0915RDS44" target=”_blank”  title="Logitech logitech c920 - https://www.amazon.com/Extendable-Brightness-2800-6500k-Temperature-Adjustment/dp/B0915RDS44" alt="Logitech logitech c920 Webcam">Logitech logitech c920 <span class="b_w_link">| $99.00</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p><b></b> <p>
+
+					
+					</div>
+				</div>
+			</div>
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Web Cam Arm:</h1>
+				
+				
+				<h4><a href="https://www.amazon.com/Adjustable-Microphone-Suspension-Broadcasting-Voice-Over/dp/B00DY1F2CS/ref=sr_1_5?crid=1H9RL9052WHFB&dib=eyJ2IjoiMSJ9.kB0JAC8-8bb8muFtPqCs3y1zda-HFMdS8Z0fKcnajcNHfN-qljbc-A1hCsKXov0osoXTA5sZFhlNCL-nIPEr6LNSzZcQcJv7-8rl1YAroqk8teoFYILrqBYk9GDdLHaLKzKSHxT_2rQdvAQXwRwfgFMiqTDKpWXaUna2QznK2xbXR3Qx8lOvEzVMRYdxMBFXVppomQ1NyjrY0EiZXK9KM8eVE-AgY9py4XcIfarCoC_i8mqLJfT4IJ7c1JdXhc7U_rcQ-lkKwx1VzB1upW2PekVz6WUV2WwpvkCYu3fRklw.kiSeg3DnR2Yt0LNNMJxDiQZ-iHg_Ord7PXJiiumXxBY&dib_tag=se&keywords=TONOR+Adjustable+Microphone+Suspension+Boom+Scissor+Arm+Stand+with+Table+Mounting+Clamp&qid=1718055000&sprefix=tonor+adjustable+microphone+suspension+boom+scissor+arm+stand+with+table+mounting+clamp%2Caps%2C90&sr=8-5" target=”_blank”  title="Suspension Boom Scissor Mic Arm -https://www.amazon.com/Adjustable-Microphone-Suspension-Broadcasting-Voice-Over/dp/B00DY1F2CS/ref=sr_1_5?crid=1H9RL9052WHFB&dib=eyJ2IjoiMSJ9.kB0JAC8-8bb8muFtPqCs3y1zda-HFMdS8Z0fKcnajcNHfN-qljbc-A1hCsKXov0osoXTA5sZFhlNCL-nIPEr6LNSzZcQcJv7-8rl1YAroqk8teoFYILrqBYk9GDdLHaLKzKSHxT_2rQdvAQXwRwfgFMiqTDKpWXaUna2QznK2xbXR3Qx8lOvEzVMRYdxMBFXVppomQ1NyjrY0EiZXK9KM8eVE-AgY9py4XcIfarCoC_i8mqLJfT4IJ7c1JdXhc7U_rcQ-lkKwx1VzB1upW2PekVz6WUV2WwpvkCYu3fRklw.kiSeg3DnR2Yt0LNNMJxDiQZ-iHg_Ord7PXJiiumXxBY&dib_tag=se&keywords=TONOR+Adjustable+Microphone+Suspension+Boom+Scissor+Arm+Stand+with+Table+Mounting+Clamp&qid=1718055000&sprefix=tonor+adjustable+microphone+suspension+boom+scissor+arm+stand+with+table+mounting+clamp%2Caps%2C90&sr=8-5" alt="Suspension Boom Scissor Mic Arm"> Suspension Boom Scissor Mic Arm <span class="b_w_link">| $18.99</span></a></h4>
+				
+				<h4><a href="https://www.amazon.com/dp/B08W9NKNSR?ref=cm_sw_r_cso_em_apin_dp_AC2KSE2QE8PNJ3VX7B93&ref_=cm_sw_r_cso_em_apin_dp_AC2KSE2QE8PNJ3VX7B93&social_share=cm_sw_r_cso_em_apin_dp_AC2KSE2QE8PNJ3VX7B93" target=”_blank”  title="Gator Frameworks Camera Mount Mic Stand Adapter with Ball-and-Socket Head - https://www.amazon.com/dp/B08W9NKNSR?ref=cm_sw_r_cso_em_apin_dp_AC2KSE2QE8PNJ3VX7B93&ref_=cm_sw_r_cso_em_apin_dp_AC2KSE2QE8PNJ3VX7B93&social_share=cm_sw_r_cso_em_apin_dp_AC2KSE2QE8PNJ3VX7B93" alt="Gator Frameworks Camera Mount Mic Stand Adapter with Ball-and-Socket Head"> Gator Frameworks Camera Mount Mic Stand Adapter with Ball-and-Socket Head <span class="b_w_link">| $10.99 </span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p><b></b> <p>
+
+					
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Key Light:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/Extendable-Brightness-2800-6500k-Temperature-Adjustment/dp/B0915RDS44" target=”_blank”  title="Godox ES45 Kwy Light" alt="Godox ES45 Key Light">Godox ES45 <span class="b_w_link">| $99.00</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+					<div>
+						<img src="../images/lightcontroller.jpg" alt="Godox ES45 Key Light controller" onclick="window.open(this.src)" style="width:100%">
+					</div>
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p>This key light serves a couple of really important purposes for me. <p>
+					<p>The main purpose of this key light is to provide artificcial day light for purposes of energy and focus. I'm a big fan of the Huberman Lab Podcast and one major point he hammers home is getting adaqute light in your eyes to stimulate your bodies natural response to be awake.</p>
+					<p>Of course the second purpose of this key light is to provide lighting for photos/vidoes and it does a really good job</p>
+					<p>The Godox ES45  comes with a portable remote with knobs to control the brightness and color temperature that sits on my desk and is powered by micro usb. </p>
+					<p> I also have this light setup with a wifi enabled outlet that automatically turns on at the same time of my alarm to wake up. Having a bright light is very helpful for waking up in the morning.</p>
+					
+					
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Desk:</h1>
+			
+				
+				<h4><a href="" target=”_blank”  title="" alt="">FLEXISPOT E6 Desk Sit Stand Up Desk (Black Frame + Bamboo Desktop) | <span class="b_w_link"> $449.39 (On Sale)</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+					
+					<div class="column" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+						<p>So far, I have really enjoyed this desk.</p>
+						<p>At its max height, it works well with a walking pad, and I'm very tall at 6'7".</p>
+						<p>Before purchasing this desk, I heard some reviews say that there was some wobble at its max height, but so far, I have not found it to be an issue, and it does not wobble much at all.</p>
+						<p>It is really nice to be able to adjust the height when I'm eating food, as I like to have it a bit higher in case anything falls off the fork.</p>
+						<p>The desk lets you set four different height buttons. My settings are as follows:</p>
+						<ul style="list-style:none;">
+							<li>Standing button: Max Height 49.2"</li>
+							<li>Sitting button: 31.1"</li>
+							<li>Button 3: Eating Height 35"</li>
+							<li>Button 4: Minimum height 23.6"</li>
+						</ul>
+						
+						<p>My black desk is an old IKEA desk that is over a decade old. It is quite sturdy but they no longer sell this model. I have also used the "thicker" IKEA desk models, bu they are hollow on the inside and are about as sturdy as carboard.</p>
+						<img  src="../images/RoomSetupLightStanding.jpg" style="width: 100%;" alt="Desk setup with both productivity and gaming, lights on" onclick="window.open(this.src)">
+
+					
+					</div>
+				</div>
+			</div>
+			<div class ="ultrawide">
+				<button class ="minimize5" title="Ultrawide">-</button>
+				
+				<h1>Walking Pad:</h1>
+			
+				
+				<h4><a href="https://www.amazon.com/dp/B0C4S1F7Z1?ref=ppx_pop_mob_ap_share&th=1" target=”_blank”  title="DeerRun Walking Pad 2 in 1 Under Desk Treadmill, 2.2HP Low Noise Walking Pad Running Jogging Machine with Remote Control for Home Office, Lightweight Portable Desk Treadmill Installation Free - https://www.amazon.com/dp/B0C4S1F7Z1?ref=ppx_pop_mob_ap_share&th=1" alt="DeerRun Walking Pad 2 in 1 Under Desk Treadmill, 2.2HP Low Noise Walking Pad Running Jogging Machine with Remote Control for Home Office, Lightweight Portable Desk Treadmill Installation Free">DeerRun Walking Pad <span class="b_w_link">| $129.99</span></a></h4>
+				<div class="bd4" style="margin-left: 20px; margin-right: 20px; margin-top: 5px;" >
+				
+					
+					<div class="column2" style="text-align: left; padding-left: 20px; margin-bottom: 50px;">
+					<p>This treadmill has been extremely useful during the winter. It gets way too cold where I live, so having the option to hop on this walkpad for a few miles a day helps keep me active.</p>
+					<p>I tend to walk on it when doing light productivity tasks, watching YouTube, or a movie.</p>
+					<p>I like to set it on its lowest setting if I'm doing some productive work, but if I am just watching a movie, I will put it somewhere between 1.5 and 2.2 mph, which, at the higher end, can work up a sweat after a mile or two.</p>
+					<p>During the winter, I would try to get five miles a day throughout the day, usually in increments of 1-2 miles.</p>
+					<p>Overall, I think this is one of my best purchases, as it significantly increases activity levels and has more than paid for itself!</p>
+
+
+					
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+		<footer>
+			<div class="socials" style="justify-content: center; text-align: center; align-content: center;">
+				<a target="_blank" href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X" id="socials"></a>
+				
+				<a target="_blank" href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS - https://www.reddit.com/user/OwenMCS" class="socials"><img src="../Socials/SocialButtons/redditLink.png" style="width: 15%;" alt="Link to Reddit" id="socials"></a>
+				
+				<a target="_blank" href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner - https://www.youtube.com/@OwenMinerCS" class="socials"><img src="../Socials/SocialButtons/youtubeLink.png" style="width: 15%;" alt="Link to Youtube" class="socials"></a>
+				
+				<a target="_blank" href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs - https://www.instagram.com/owenminercs/" class="socials"><img src="../Socials/SocialButtons/instagramLink.png" style="width: 15%;" alt="Link to Instagram" class="socials"></a>
+				
+				<a target="_blank" title="TikTok: OwenMCS - https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" href="https://www.tiktok.com/@owenminercs?_t=8dzkuGjS7L9&_r=1" class="socials"><img src="../Socials/SocialButtons/tiktokLink.png" style="width: 15%;" alt="Link to TikTok" class="socials"></a>
+			</div>
+		
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<h4><a href="#top" style="text-align: center;">Back To Top</a></h4>
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			
+			<div width="120%" style="height=5px; ">
+					<nav>
+					<ul>
+						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li onclick = "soon()"> <a href ="../Desk Setup/setup.html" style="color: white;text-decoration:underline;"> Desk Setup</a></li>
+						<li onclick = "soon()" style=""> <a href ="../PC/pc.html" style="color: rgb(120,120,120);">PC</a></li>
+						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
+						<li onclick = "soon()"> <a href ="../Counter-Strike/CS.html" style="color: rgb(120,120,120);"> Counter-Strike</a></li></a></li>
+					</ul>
+				</nav>
+				</div>
+			
+			
+			
+			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
+			<div >
+				<h4 id="Disclosure" style="padding: 0; margin: 10px;"><span style="font-weight: bold;">Disclosure:</span> <i>This page does not currently contain affiliate links, but may in the future. Affiliate links will have this clear indicator: <span class="affiliate"> (<a id ="affiliate" title="link to affiliate disclosure" href="#top">affiliate</a></span></i>)</h4>
+				<h4 style="text-transform: capitalize;"> This website was created by Owen Miner</h4>
+					
+				<h4>Feel free to use any photos on this page, with credit to <a href="OwenMinerCS.com">OwenMinerCS.com</a></h4>
+				<p style="padding-left: 10px;">PC Setup Last Updated Mar, 2025</p>
+				<p style="padding-left: 10px;"><b>OwenMinerCS.com</b></p>
+			</div>	
+			<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
+			<hr style="border: thin ridge black;  padding 0;" width="100%">
+			
+			
+
+
+
+			
+		</footer>
+		
+	</div>	
+	</body>
+	
+</html>
