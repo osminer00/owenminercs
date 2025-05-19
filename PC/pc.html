@@ -1,26 +1,70 @@
 <!doctype html>
 <html>
 <head>
-       <!-- Preload CSS to ensure styles are applied immediately -->
-	   <link href="../css/owenminercs.css" rel="stylesheet" type="text/css">
-
-	   <!-- Dynamically load the shared head section -->
-	   <script>
-		   fetch('../sharedHeadSection.html')
-			   .then(response => response.text())
-			   .then(data => {
-				   document.head.innerHTML = data + document.head.innerHTML;
-				   // Add page-specific metadata here
-				   document.title = "PC Build | Owen Miner";
-				   document.querySelector('meta[name="description"]').setAttribute("content", "Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, and more high-performance components.");
-				   document.querySelector('meta[name="keywords"]').setAttribute("content", "PC build, custom PC, AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, gaming PC, high-performance PC, Owen Miner, PC setup");
-				   document.querySelector('meta[property="og:title"]').setAttribute("content", "PC Build | Owen Miner");
-				   document.querySelector('meta[property="og:description"]').setAttribute("content", "Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, and more high-performance components.");
-				   document.querySelector('meta[property="og:url"]').setAttribute("content", "https://www.owenminercs.com/PC/pc.html");
-				   document.querySelector('meta[property="og:image"]').setAttribute("content", "https://www.owenminercs.com/PC/Images/pc-build.png");
-			   })
-			   .catch(error => console.error('Error loading shared head section:', error));
-	   </script>
+       <meta charset="UTF-8">
+    <!-- Preload CSS to ensure styles are applied immediately -->
+    <link rel="preload" href="../css/owenminercs.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../css/owenminercs.css"></noscript>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GYG1QRQ8DY');
+    </script>
+    <!-- Page-specific metadata -->
+    <title>PC Build | Owen Miner</title>
+    <meta name="author" content="Owen Miner">
+    <meta name="description" content="Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, Lian Li O11 Dynamic and more high-performance components.">
+    <meta name="keywords" content="PC build, custom PC, AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, gaming PC, high-performance PC, Owen Miner, PC setup">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:site" content="@OwenMinerCS">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0f0f0f">
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--Favicon-->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">	
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="PC Build | Owen Miner">
+    <meta property="og:description" content="Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, Lian Li O11 Dynamic and more high-performance components.">
+    <meta property="og:image" content="https://www.owenminercs.com/PC/Images/pc-build.png">
+    <meta property="og:url" content="https://www.owenminercs.com/PC/pc.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Owen Miner CS">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PC Build | Owen Miner">
+    <meta name="twitter:description" content="Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, Lian Li O11 Dynamic and more high-performance components.">
+    <meta name="twitter:image" content="https://www.owenminercs.com/PC/Images/pc-build.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- Canonical Tag -->
+    <link rel="canonical" href="https://www.owenminercs.com/PC/pc.html">
+    <!-- Structured Data for Social Media SEO Linking -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Owen Miner",
+      "url": "https://www.owenminercs.com/",
+      "sameAs": [
+        "https://x.com/OwenMinerCS",
+        "https://www.youtube.com/@OwenMinerCS",
+        "https://www.instagram.com/owenminercs/",
+        "https://www.reddit.com/user/OwenMCS",
+        "https://www.tiktok.com/@owenminercs"
+      ],
+      "jobTitle": "Content Creator & Software Developer",
+      "alumniOf": "DMACC"
+    }
+    </script>
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
 </head>
 	<body style = "zoom: 95%;">
@@ -30,13 +74,14 @@
 			
 
 			
-		<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
-		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+		
+		
 			<div width="120%" style="height=5px; ">
+				<p class="text3d" style="border-radius: 25px; background: black; padding: 5px; padding-bottom: 10px;"> OwenMinerCS.com</p>
 				<nav>
 					
 					<ul>
-						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li><a href ="../index.html" style="color: rgb(120,120,120);"> About</a></li>
 						<li onclick = "soon()" > <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
 						<li onclick = "soon()" > <a href ="../PC/pc.html"   style="color: white; text-decoration:underline;">PC</a></li>
 						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
@@ -45,7 +90,7 @@
 					
 					
 				</nav>
-				
+				<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
 				<div class="socials" style="justify-content: center;text-align:center;align-content: center;" >
 						<a target=”_blank” href="https://x.com/OwenMinerCS" title="Reddit: OwenMinerCS - https://x.com/OwenMinerCS" class="socials"><img  src="../Socials/SocialButtons/xLink.png" style="width: 15%;" alt="Link to X"id="socials"> </a>
 						
@@ -61,7 +106,7 @@
 						</p>
 				</div>
 			</div>
-		<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
+			<hr style="border: thin ridge black; margin:0; padding 0;  min-width: 100%;">
 		</header>
 			
 			<div class="gallery2" style="width:1170px; flex-direction: row;">
@@ -119,10 +164,10 @@
 			<h4><a href="#top" style="text-align: center;">Back To Top</a></h4>
 			<hr style="border: thin ridge black; margin:20px; padding 0;" width="100%">
 			
-			<div width="120%" style="height=5px; ">
+			<div width="120%" style="height: 5px; ">
 					<nav>
 					<ul>
-						<li><a href ="../About/about.html" style="color: rgb(120,120,120);"> About</a></li>
+						<li><a href ="../index.html" style="color: rgb(120,120,120);"> About</a></li>
 						<li onclick = "soon()"> <a href ="../Desk Setup/setup.html" style="color: rgb(120,120,120);"> Desk Setup</a></li>
 						<li onclick = "soon()" style=""> <a href ="../PC/pc.html" style="color: white;text-decoration:underline;">PC</a></li>
 						<li ><a href ="../Keyboard/60he.html" style="color: rgb(120,120,120);"> Keyboard</a></li>
@@ -139,7 +184,6 @@
 				<h4 style="text-transform: capitalize;"> This website was created by Owen Miner</h4>
 					
 				<h4>Feel free to use any photos on this page, with credit to <a href="OwenMinerCS.com">OwenMinerCS.com</a></h4>
-				<p style="padding-left: 10px;">PC Setup Last Updated Mar, 2025</p>
 				<p style="padding-left: 10px;"><b>OwenMinerCS.com</b></p>
 			</div>	
 			<!--<p style="padding-top: 0; margin-top: 0; padding-bottom: 0; margin-bottom: 0; text-transform: uppercase;"> Computer Science, Counter Strike, and Other Cool Stuff </p>-->
