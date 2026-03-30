@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design mockups — OwenMinerCS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #111;
+      color: #eee;
+      font-family: "DM Sans", system-ui, sans-serif;
+      padding: 2rem 1.25rem 4rem;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.75rem; margin: 0 0 0.5rem; }
+    .sub { color: #888; margin: 0 0 2rem; font-size: 0.95rem; }
+    .note {
+      background: #1e1e1e;
+      border-left: 4px solid #ff6b89;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li {
+      margin-bottom: 1rem;
+      padding: 1rem 1.25rem;
+      background: #1a1a1a;
+      border-radius: 10px;
+      border: 1px solid #333;
+    }
+    li strong { display: block; margin-bottom: 0.35rem; color: #fff; }
+    li p { margin: 0; font-size: 0.88rem; color: #aaa; }
+    a.card-link {
+      color: #6ec9ff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    a.card-link:hover { text-decoration: underline; }
+    .back { margin-top: 2.5rem; }
+    .back a { color: #ff6b89; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>OwenMinerCS — design mockups</h1>
+    <p class="sub">Five deployable experiments. Each folder is self-contained (HTML + CSS + JS). Links point at your real site pages and shared assets.</p>
+    <p class="note"><strong>Local only:</strong> Open any <code>mockups/*/index.html</code> from disk or serve the repo. Profile image paths assume <code>../../About/Images/owenProfile.webp</code> from these folders.</p>
+
+    <ul>
+      <li>
+        <strong>01 — Terminal / CRT</strong>
+        <p>Phosphor console, scanlines, fixed command shell (<kbd>help</kbd>, <kbd>matrix</kbd>, <kbd>theme amber</kbd>, etc.).</p>
+        <a class="card-link" href="01-terminal/index.html">Open 01-terminal →</a>
+      </li>
+      <li>
+        <strong>02 — Nebula glass</strong>
+        <p>Animated gradient blobs, glassmorphism cards, cursor glow, 3D tilt, focus mode, rotating quotes from your copy.</p>
+        <a class="card-link" href="02-nebula-glass/index.html">Open 02-nebula-glass →</a>
+      </li>
+      <li>
+        <strong>03 — Editorial magazine</strong>
+        <p>Playfair + DM Sans, pull quote, reading progress bar, sticky TOC, floating section menu, invert contrast toggle.</p>
+        <a class="card-link" href="03-editorial-magazine/index.html">Open 03-editorial-magazine →</a>
+      </li>
+      <li>
+        <strong>04 — Arcade neon</strong>
+        <p>Orbitron / Rajdhani, grid world, canvas catch game (←/→, Space restart), tap-to-beat visualizer bars.</p>
+        <a class="card-link" href="04-arcade-neon/index.html">Open 04-arcade-neon →</a>
+      </li>
+      <li>
+        <strong>05 — Brutalist blueprint</strong>
+        <p>IBM Plex + Space Grotesk, blueprint grid overlay, high-contrast mode, type <kbd>O W E N</kbd> for hidden social panel.</p>
+        <a class="card-link" href="05-brutalist-blueprint/index.html">Open 05-brutalist-blueprint →</a>
+      </li>
+    </ul>
+
+    <p class="back"><a href="../index.html">← Back to production home</a></p>
+  </div>
+</body>
+</html>

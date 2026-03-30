@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OwenMinerCS — Arcade Lane (mockup)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="logo-wrap">
+      <span class="logo">OwenMinerCS</span>
+      <span class="sub">.com — neon mockup</span>
+    </div>
+    <nav class="nav">
+      <a href="../../index.html">About</a>
+      <a href="../../Desk Setup/setup.html">Desk</a>
+      <a href="../../PC/pc.html">PC</a>
+      <a href="../../Keyboard/60he.html">KB</a>
+      <a href="../../Counter-Strike/CS.html">CS</a>
+      <a href="../../Socials/socials.html">Socials</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section class="hero neon-box">
+      <h1>Welcome to OwenMinerCS.com!</h1>
+      <p class="tag">CS2 · setups · builds · community</p>
+    </section>
+
+    <div class="split">
+      <div class="panel neon-box">
+        <h2>Hi, my name is Owen Miner.</h2>
+        <p>I am a 23 year old graduate from DMACC, with an AAS degree in Computer Information Systems.</p>
+        <p><strong>This website was made to hopefully inspire some fellow computer nerds and build a community around the things I love.</strong></p>
+        <p>I love all things computers, tearing apart my first one at 12 years old, and building my first gaming pc at 13. While at DMACC I learned how to write software using Java, C++, C#, Python, HTML/CSS/Javascript, SQL, PL/SQL and more.</p>
+        <p>Some of my hobbies include photography, video production, writing, and gaming.</p>
+        <p>Also a huge fan of the game <em>Counter-Strike</em>, loved it for nearly 10 years!</p>
+        <p><strong>Feel free to message me on any social media platform if you have any questions or comments!</strong></p>
+        <p class="thanks">Thanks For Stopping By!</p>
+      </div>
+      <aside class="side">
+        <figure class="avatar neon-box">
+          <img src="../../About/Images/owenProfile.webp" alt="Picture of Owen M" width="360" height="360">
+        </figure>
+
+        <div class="game neon-box">
+          <h3>Retake range <span class="hint">← → move · Space restart</span></h3>
+          <canvas id="game" width="320" height="200" aria-label="Mini dodge game"></canvas>
+          <div class="hud">
+            <span id="score">Score: 0</span>
+            <span id="combo">Combo: x1</span>
+          </div>
+        </div>
+
+        <div class="visualizer neon-box">
+          <h3>BPM toy</h3>
+          <p class="viz-hint">Tap the button to the beat — fake audio bars dance with your taps.</p>
+          <button type="button" id="tap-beat" class="tap-btn">TAP</button>
+          <div class="bars" id="bars" aria-hidden="true"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="foot neon-box">
+    <a href="../index.html">← Mockup gallery</a>
+    <span class="credit">Not production · have fun</span>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

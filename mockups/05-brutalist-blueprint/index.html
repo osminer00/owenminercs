@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OwenMinerCS — Blueprint (mockup)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="grid-overlay" class="grid-overlay" aria-hidden="true"></div>
+
+  <header class="bar">
+    <div class="id">OM-CS / MOCKUP-05</div>
+    <label class="toggle">
+      <input type="checkbox" id="show-grid"> <span>Blueprint grid</span>
+    </label>
+    <label class="toggle">
+      <input type="checkbox" id="high-contrast"> <span>High contrast</span>
+    </label>
+  </header>
+
+  <div class="wrap">
+    <aside class="rail">
+      <div class="rail-block">NAV</div>
+      <a href="../../index.html">01 ABOUT</a>
+      <a href="../../Desk Setup/setup.html">02 DESK</a>
+      <a href="../../PC/pc.html">03 PC</a>
+      <a href="../../Keyboard/60he.html">04 KB</a>
+      <a href="../../Counter-Strike/CS.html">05 CS</a>
+      <a href="../../Socials/socials.html">06 SOCIALS</a>
+    </aside>
+
+    <main class="content">
+      <h1 class="mega">Welcome to OwenMinerCS.com!</h1>
+
+      <div class="chunk">
+        <span class="meta">§001 — INTRO</span>
+        <h2>Hi, my name is Owen Miner.</h2>
+        <p>I am a 23 year old graduate from DMACC, with an AAS degree in Computer Information Systems.</p>
+        <p><strong>This website was made to hopefully inspire some fellow computer nerds and build a community around the things I love.</strong></p>
+      </div>
+
+      <div class="chunk split-2">
+        <div>
+          <span class="meta">§002 — SYSTEMS</span>
+          <p>I love all things computers, tearing apart my first one at 12 years old, and building my first gaming pc at 13. While at DMACC I learned how to write software using Java, C++, C#, Python, HTML/CSS/Javascript, SQL, PL/SQL and more.</p>
+        </div>
+        <div class="img-hold">
+          <img src="../../About/Images/owenProfile.webp" alt="Picture of Owen M" width="400" height="400">
+          <span class="caption">FIG.A — PROFILE</span>
+        </div>
+      </div>
+
+      <div class="chunk">
+        <span class="meta">§003 — HOBBIES</span>
+        <p>Some of my hobbies include photography, video production, writing, and gaming.</p>
+        <p>Also a huge fan of the game <em>Counter-Strike</em>, loved it for nearly 10 years!</p>
+      </div>
+
+      <div class="chunk callout">
+        <p><strong>Feel free to message me on any social media platform if you have any questions or comments!</strong></p>
+        <p class="thanks">Thanks For Stopping By!</p>
+      </div>
+
+      <div class="chunk toy">
+        <span class="meta">§TOY — TYPE OWEN</span>
+        <p class="toy-desc">Type the keys <kbd>O</kbd> <kbd>W</kbd> <kbd>E</kbd> <kbd>N</kbd> in order (anywhere on this page) to open a hidden panel.</p>
+        <div id="secret" class="secret" hidden>
+          <p>Nice. Same socials as the real site:</p>
+          <ul>
+            <li><a href="https://x.com/OwenMinerCS" target="_blank" rel="noopener noreferrer">x.com/OwenMinerCS</a></li>
+            <li><a href="https://www.youtube.com/@OwenMinerCS" target="_blank" rel="noopener noreferrer">YouTube @OwenMinerCS</a></li>
+            <li><a href="https://www.instagram.com/owenminercs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          </ul>
+          <button type="button" id="close-secret" class="btn">Close</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <a href="../index.html">← Mockup gallery</a>
+    <span>Blueprint / brutalist experiment</span>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

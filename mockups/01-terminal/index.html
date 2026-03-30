@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OwenMinerCS // SYS.CONSOLE (mockup)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="crt">
+    <div class="scanlines" aria-hidden="true"></div>
+    <header class="bar">
+      <span class="blink">█</span> OWENMINERCS.COM — LOCAL SESSION — MOCKUP v1
+      <span class="right">RAM OK · NETLINK STANDBY</span>
+    </header>
+
+    <main class="shell">
+      <section class="hero" aria-label="Welcome">
+        <p class="boot">BOOT_SEQUENCE_COMPLETE</p>
+        <h1>Welcome to OwenMinerCS.com!</h1>
+      </section>
+
+      <div class="layout">
+        <article class="bio" id="about">
+          <h2>Hi, my name is Owen Miner.</h2>
+          <p>I am a 23 year old graduate from DMACC, with an AAS degree in Computer Information Systems.</p>
+          <p><strong>This website was made to hopefully inspire some fellow computer nerds and build a community around the things I love.</strong></p>
+          <p>I love all things computers, tearing apart my first one at 12 years old, and building my first gaming pc at 13. While at DMACC I learned how to write software using Java, C++, C#, Python, HTML/CSS/Javascript, SQL, PL/SQL and more.</p>
+          <p>Some of my hobbies include photography, video production, writing, and gaming.</p>
+          <p>Also a huge fan of the game <em>Counter-Strike</em>, loved it for nearly 10 years!</p>
+          <p><strong>Feel free to message me on any social media platform if you have any questions or comments!</strong></p>
+          <p class="thanks">Thanks For Stopping By!</p>
+        </article>
+        <figure class="portrait">
+          <a href="../../About/Images/owenProfile.webp" target="_blank" rel="noopener noreferrer" title="Open profile image">
+            <img src="../../About/Images/owenProfile.webp" alt="Picture of Owen M" width="400" height="400">
+          </a>
+          <figcaption>FILE: owenProfile.webp · CLICK TO OPEN</figcaption>
+        </figure>
+      </div>
+
+      <section class="quick" aria-label="Site shortcuts">
+        <h3>:: SITE_MAP — LIVE PAGES</h3>
+        <ul class="map">
+          <li><a href="../../index.html">../index.html</a> — About (production)</li>
+          <li><a href="../../Desk Setup/setup.html">../Desk Setup/setup.html</a></li>
+          <li><a href="../../PC/pc.html">../PC/pc.html</a></li>
+          <li><a href="../../Keyboard/60he.html">../Keyboard/60he.html</a></li>
+          <li><a href="../../Counter-Strike/CS.html">../Counter-Strike/CS.html</a></li>
+          <li><a href="../../Socials/socials.html">../Socials/socials.html</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <aside class="console" aria-label="Interactive terminal toy">
+      <div class="console-head">INTERACTIVE_SHELL — type <kbd>help</kbd></div>
+      <div id="term-out" class="term-out" role="log" aria-live="polite"></div>
+      <form id="term-form" class="term-form" autocomplete="off">
+        <label class="sr-only" for="term-in">Command</label>
+        <span class="prompt" aria-hidden="true">guest@owenminercs:~$</span>
+        <input id="term-in" type="text" spellcheck="false" placeholder="">
+      </form>
+    </aside>
+
+    <footer class="foot">
+      <a href="../index.html">← Mockup gallery</a>
+      <span>·</span>
+      <span>Not the live site — experiment only</span>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
