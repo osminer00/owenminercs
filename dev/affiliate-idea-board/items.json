@@ -1,0 +1,1717 @@
+{
+  "config": {
+    "amazonAssociatesTag": "owenminercs-20",
+    "disclosure": "DEV ONLY — not published. Affiliate placeholders: Amazon uses your Associates tag; AliExpress/Best Buy/Newegg need program-specific links."
+  },
+  "items": [
+    {
+      "id": "rode-streamer-x",
+      "category": "audio",
+      "title": "RØDE Streamer X",
+      "brand": "RØDE",
+      "specs": [
+        "Audio interface + video capture",
+        "XLR & line inputs",
+        "USB-C"
+      ],
+      "notesPlaceholder": "Your review / use case…",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Rode+StreamerX&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "logitech-pro-x-superlight-red",
+      "category": "peripherals",
+      "title": "Logitech PRO X SUPERLIGHT (Red)",
+      "brand": "Logitech",
+      "specs": [
+        "HERO 25K sensor",
+        "Wireless",
+        "Ultra-light"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Logitech+PRO+X+SUPERLIGHT+red&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "corsair-xtm70",
+      "category": "pc",
+      "title": "CORSAIR XTM70 Thermal Paste",
+      "brand": "CORSAIR",
+      "specs": [
+        "High-performance paste",
+        "Typ. retail ~3 g syringe (verify listing)"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=CORSAIR+XTM70+thermal+paste&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "insignia-dp-hdmi-adapter",
+      "category": "cables",
+      "title": "Insignia DisplayPort to HDMI Adapter",
+      "brand": "Insignia",
+      "specs": [
+        "Passive/Active per SKU — verify on Best Buy",
+        "4K support varies by model"
+      ],
+      "notesPlaceholder": "Cord length / max resolution once you confirm SKU…",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "bestbuySearch": "https://www.bestbuy.com/site/searchpage.jsp?st=insignia+displayport+hdmi+adapter"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "csgo-knife-plush-charm",
+      "category": "needs-link",
+      "title": "CSGO Knife Plush Backpack Charm (Perfect World eSports)",
+      "brand": "Perfect World eSports",
+      "specs": [
+        "Plush / charm — find current listing"
+      ],
+      "notesPlaceholder": "User pasted wrong retailer link for Xbox adapter; this item needs a fresh URL.",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=CSGO%20Knife%20Plush%20Backpack%20Charm%20(Perfect%20World%20eSports)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "govee-e12-6pack-h600b",
+      "category": "needs-link",
+      "title": "Govee E12 6-Pack Smart LED Bulbs (H600B)",
+      "brand": "Govee",
+      "specs": [
+        "E12 base",
+        "Alexa & Google compatible (per product line)"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Govee%20E12%206-Pack%20Smart%20LED%20Bulbs%20(H600B)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "elgato-key-light-pair-no-stands",
+      "category": "needs-link",
+      "title": "Elgato Key Light (pair, no stands, used)",
+      "brand": "Elgato",
+      "specs": [
+        "Used / no stands — not a standard retail SKU"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Elgato%20Key%20Light%20(pair%2C%20no%20stands%2C%20used)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "elgato-cam-link-4k-used",
+      "category": "needs-link",
+      "title": "Elgato Cam Link 4K (20GAM9901, used, no box)",
+      "brand": "Elgato",
+      "specs": [
+        "USB 3.0",
+        "Up to 4K30 capture (spec per Elgato)"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Elgato%20Cam%20Link%204K%20(20GAM9901%2C%20used%2C%20no%20box)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "fitbit-inspire-3-used",
+      "category": "needs-link",
+      "title": "Fitbit Inspire 3 (FB424BK, used)",
+      "brand": "Fitbit",
+      "specs": [
+        "Activity tracker"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Fitbit%20Inspire%203%20(FB424BK%2C%20used)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "cs2-shanghai-major-pin-box",
+      "category": "needs-link",
+      "title": "CS2 Perfect World Shanghai Major Weapon Pin Box (8-pack)",
+      "brand": "Valve / Perfect World",
+      "specs": [
+        "Collectible pins — verify seller"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=CS2%20Perfect%20World%20Shanghai%20Major%20Weapon%20Pin%20Box%20(8-pack)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "xbox-wireless-adapter-windows",
+      "category": "needs-link",
+      "title": "Microsoft Xbox Wireless Adapter for Windows 10 (Series X|S / One)",
+      "brand": "Microsoft",
+      "specs": [
+        "USB-A dongle",
+        "Low-latency wireless for Xbox controllers"
+      ],
+      "notesPlaceholder": "Your list pointed at a Govee URL by mistake — use Microsoft store or Amazon search.",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Microsoft%20Xbox%20Wireless%20Adapter%20for%20Windows%2010%20(Series%20X%7CS%20%2F%20One)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-nzxt-phantom-white",
+      "category": "legacy-pc",
+      "title": "NZXT Phantom PHAN-001WT Full Tower",
+      "brand": "NZXT",
+      "specs": [
+        "ATX full tower",
+        "Steel/plastic",
+        "Legacy build"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=NZXT%20Phantom%20PHAN-001WT%20Full%20Tower&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-liteon-dvd-sata",
+      "category": "legacy-pc",
+      "title": "LITE-ON iHAS124-04 DVD Burner (SATA)",
+      "brand": "LITE-ON",
+      "specs": [
+        "SATA",
+        "5.25\" ODD"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=LITE-ON%20iHAS124-04%20DVD%20Burner%20(SATA)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-wd-blue-1tb-m2",
+      "category": "legacy-pc",
+      "title": "WD Blue 3D NAND 1TB M.2 2280 SATA (WDS100T2B0B)",
+      "brand": "Western Digital",
+      "specs": [
+        "1 TB",
+        "SATA III",
+        "M.2 2280"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=WD%20Blue%203D%20NAND%201TB%20M.2%202280%20SATA%20(WDS100T2B0B)&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-omni-gear-dp-hdmi-6ft",
+      "category": "legacy-pc",
+      "title": "Omni Gear DP-6-HDMI 6 ft DisplayPort to HDMI",
+      "brand": "Omni Gear",
+      "specs": [
+        "6 ft",
+        "Male-male",
+        "DP to HDMI"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=Omni%20Gear%20DP-6-HDMI%206%20ft%20DisplayPort%20to%20HDMI&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-corsair-vengeance-rgb-16gb",
+      "category": "legacy-pc",
+      "title": "CORSAIR Vengeance RGB Pro 16GB (2×8) DDR4-3200",
+      "brand": "CORSAIR",
+      "specs": [
+        "DDR4-3200",
+        "CL16",
+        "CMW16GX4M2C3200C16"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=CORSAIR%20Vengeance%20RGB%20Pro%2016GB%20(2%C3%978)%20DDR4-3200&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-asus-b550f-wifi",
+      "category": "legacy-pc",
+      "title": "ASUS ROG Strix B550-F Gaming WiFi",
+      "brand": "ASUS",
+      "specs": [
+        "AM4",
+        "PCIe 4.0",
+        "WiFi 6",
+        "2.5Gb LAN"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=ASUS%20ROG%20Strix%20B550-F%20Gaming%20WiFi&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-ryzen-3800x",
+      "category": "legacy-pc",
+      "title": "AMD Ryzen 7 3800X",
+      "brand": "AMD",
+      "specs": [
+        "8C/16T",
+        "Zen 2",
+        "AM4",
+        "105W"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=AMD%20Ryzen%207%203800X&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "old-gigabyte-rtx2070s",
+      "category": "legacy-pc",
+      "title": "GIGABYTE GeForce RTX 2070 SUPER Gaming OC 8G",
+      "brand": "GIGABYTE",
+      "specs": [
+        "8 GB GDDR6",
+        "Triple fan",
+        "GV-N207SGAMING OC-8GD"
+      ],
+      "notesPlaceholder": "E-waste / spare / sold?",
+      "sourceUrls": [],
+      "affiliateHints": {
+        "amazonSearch": "https://www.amazon.com/s?k=GIGABYTE%20GeForce%20RTX%202070%20SUPER%20Gaming%20OC%208G&tag=owenminercs-20"
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "govee-led-edison-bulb",
+      "category": "smart-home",
+      "title": "Govee E26 Smart Edison Light Bulb 500lm",
+      "brand": "Govee",
+      "specs": [
+        "Model H14C0",
+        "500 lm",
+        "CCT 2700–6500K",
+        "Matter, Alexa, Google, SmartThings"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://us.govee.com/products/led-edison-bulb"
+      ],
+      "affiliateHints": {
+        "govee": "https://us.govee.com/products/led-edison-bulb",
+        "note": "Add Govee ambassador / referral if enrolled."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "govee-goveelife-door-and-window-sensor",
+      "category": "smart-home",
+      "title": "GoveeLife Door and Window Sensor",
+      "brand": "GoveeLife",
+      "specs": [
+        "Contact sensor",
+        "App alerts",
+        "Works with Govee ecosystem"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://us.govee.com/products/goveelife-door-and-window-sensor"
+      ],
+      "affiliateHints": {
+        "govee": "https://us.govee.com/products/goveelife-door-and-window-sensor",
+        "note": "Add Govee ambassador / referral if enrolled."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "govee-refurbished-goveelife-smart-mini-double-button-switch",
+      "category": "smart-home",
+      "title": "GoveeLife Smart Mini Double Button Switch (refurbished)",
+      "brand": "GoveeLife",
+      "specs": [
+        "Smart button / switch",
+        "Refurb SKU — verify variant"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://us.govee.com/products/refurbished-goveelife-smart-mini-double-button-switch"
+      ],
+      "affiliateHints": {
+        "govee": "https://us.govee.com/products/refurbished-goveelife-smart-mini-double-button-switch",
+        "note": "Add Govee ambassador / referral if enrolled."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "govee-goveelife-wireless-mini-smart-6-button-sensor",
+      "category": "smart-home",
+      "title": "GoveeLife Wireless Mini Smart 6-Button Sensor",
+      "brand": "GoveeLife",
+      "specs": [
+        "Six programmable actions",
+        "Wireless"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://us.govee.com/products/goveelife-wireless-mini-smart-6-button-sensor"
+      ],
+      "affiliateHints": {
+        "govee": "https://us.govee.com/products/goveelife-wireless-mini-smart-6-button-sensor",
+        "note": "Add Govee ambassador / referral if enrolled."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "bestbuy-j39qht7g34",
+      "category": "retail",
+      "title": "Elgato Stream Deck Studio",
+      "brand": "Elgato",
+      "specs": [
+        "Customizable touch strip & dials",
+        "USB — verify power requirements on listing"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.bestbuy.com/product/elgato-stream-deck-studio-controller-with-customizable-touch-strip-and-dials-black/J39QHT7G34"
+      ],
+      "affiliateHints": {
+        "bestbuy": "https://www.bestbuy.com/product/elgato-stream-deck-studio-controller-with-customizable-touch-strip-and-dials-black/J39QHT7G34",
+        "note": "Best Buy uses Impact/partner links — replace with your affiliate URL when approved."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "bestbuy-cztwylh59s",
+      "category": "retail",
+      "title": "Saramonic Blink 500 B2 (2-person wireless)",
+      "brand": "Saramonic",
+      "specs": [
+        "2.4 GHz dual TX",
+        "3.5 mm / USB-C / Lightning outs (per kit)"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.bestbuy.com/product/saramonic-blink-500-b2-2-person-wireless-mic-system-w-device-mount-receiver-3-5mm-usb-c-lightning-outs-black/CZTWYLH59S"
+      ],
+      "affiliateHints": {
+        "bestbuy": "https://www.bestbuy.com/product/saramonic-blink-500-b2-2-person-wireless-mic-system-w-device-mount-receiver-3-5mm-usb-c-lightning-outs-black/CZTWYLH59S",
+        "note": "Best Buy uses Impact/partner links — replace with your affiliate URL when approved."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "bestbuy-j7h7zyxlll",
+      "category": "retail",
+      "title": "Logitech C920s Pro HD Webcam",
+      "brand": "Logitech",
+      "specs": [
+        "1080p30",
+        "Stereo mics",
+        "Privacy shutter"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.bestbuy.com/product/logitech-c920s-pro-1080-video-conferencing-streaming-and-gaming-webcam-with-privacy-shutter-black/J7H7ZYXLLL"
+      ],
+      "affiliateHints": {
+        "bestbuy": "https://www.bestbuy.com/product/logitech-c920s-pro-1080-video-conferencing-streaming-and-gaming-webcam-with-privacy-shutter-black/J7H7ZYXLLL",
+        "note": "Best Buy uses Impact/partner links — replace with your affiliate URL when approved."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256809870472845",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256809870472845",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256809870472845.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256809870472845.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256810279210396",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256810279210396",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256810279210396.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256810279210396.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256810143112504",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256810143112504",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256810143112504.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256810143112504.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256805701075747",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805701075747",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805701075747.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805701075747.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806844906425",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256806844906425",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806844906425.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806844906425.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806164525757",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256806164525757",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806164525757.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806164525757.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256804721241649",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256804721241649",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256804721241649.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256804721241649.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256811400884070",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256811400884070",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256811400884070.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256811400884070.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-store-https-www-aliexpress-com-store-1103222039",
+      "category": "aliexpress-store",
+      "title": "AliExpress store https-www-aliexpress-com-store-1103222039",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/store/1103222039"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/store/1103222039",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807407263384",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807407263384",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807407263384.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807407263384.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806749351548",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256806749351548",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806749351548.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806749351548.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808874149632",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808874149632",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808874149632.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808874149632.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807142546249",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807142546249",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807142546249.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807142546249.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256810219680306",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256810219680306",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256810219680306.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256810219680306.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808077683445",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808077683445",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808077683445.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808077683445.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806094500665",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256806094500665",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806094500665.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806094500665.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808754280356",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808754280356",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808754280356.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808754280356.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256804319675681",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256804319675681",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256804319675681.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256804319675681.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256810157103603",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256810157103603",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256810157103603.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256810157103603.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807597275944",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807597275944",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807597275944.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807597275944.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808329383637",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808329383637",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808329383637.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808329383637.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256809165669115",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256809165669115",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256809165669115.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256809165669115.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808768843321",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808768843321",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808768843321.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808768843321.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808137109209",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808137109209",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808137109209.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808137109209.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807637600657",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807637600657",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807637600657.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807637600657.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256805863239532",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805863239532",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805863239532.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805863239532.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807801377850",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807801377850",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807801377850.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807801377850.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256809198069962",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256809198069962",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256809198069962.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256809198069962.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807843850234",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807843850234",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807843850234.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807843850234.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806990755550",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256806990755550",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806990755550.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806990755550.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256805930993857",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805930993857",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805930993857.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805930993857.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807801307230",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807801307230",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807801307230.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807801307230.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807838268274",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807838268274",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807838268274.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807838268274.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256805058104938",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805058104938",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805058104938.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805058104938.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807159255537",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807159255537",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807159255537.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807159255537.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807900301183",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807900301183",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807900301183.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807900301183.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806486947881",
+      "category": "aliexpress",
+      "title": "AliExpress bundle (6486947881 + 5726692665)",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "User noted these two listings go together.",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806486947881.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806486947881.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": [
+        "aliexpress-3256805726692665"
+      ]
+    },
+    {
+      "id": "aliexpress-3256805726692665",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805726692665",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805726692665.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805726692665.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": [
+        "aliexpress-3256806486947881"
+      ]
+    },
+    {
+      "id": "aliexpress-3256807896450245",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807896450245",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807896450245.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807896450245.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806908280445",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256806908280445",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806908280445.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806908280445.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808052181733",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808052181733",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808052181733.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808052181733.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256808061725240",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256808061725240",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256808061725240.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256808061725240.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256802197139244",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256802197139244",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256802197139244.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256802197139244.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256805263205755",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805263205755",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805263205755.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805263205755.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256806001183883",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256806001183883",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256806001183883.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256806001183883.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256805024307547",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805024307547",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805024307547.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805024307547.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256802545620076",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256802545620076",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256802545620076.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256802545620076.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256805158305721",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256805158305721",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256805158305721.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256805158305721.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807990558417",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807990558417",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807990558417.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807990558417.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807963434396",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807963434396",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807963434396.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807963434396.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807964717233",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807964717233",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807964717233.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807964717233.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807965127361",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807965127361",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807965127361.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807965127361.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807292024821",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807292024821",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807292024821.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807292024821.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "aliexpress-3256807990423592",
+      "category": "aliexpress",
+      "title": "AliExpress item 3256807990423592",
+      "brand": null,
+      "specs": [
+        "Open listing for title/specs — AliExpress pages change often"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.aliexpress.com/item/3256807990423592.html"
+      ],
+      "affiliateHints": {
+        "aliexpress": "https://www.aliexpress.com/item/3256807990423592.html",
+        "note": "Convert via AliExpress Portals (s.click.aliexpress.com/...) with your PID."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "newegg-https-www-newegg-com-asus-pg27aqdp-27-qhd-480-hz-rog-swift-oled-black-p-n82e1682",
+      "category": "pc",
+      "title": "ASUS ROG Swift OLED PG27AQDP",
+      "brand": "ASUS",
+      "specs": [
+        "27\"",
+        "2560×1440",
+        "480 Hz OLED",
+        "0.03 ms (typ.)"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.newegg.com/asus-pg27aqdp-27-qhd-480-hz-rog-swift-oled-black/p/N82E16824281326"
+      ],
+      "affiliateHints": {
+        "newegg": "https://www.newegg.com/asus-pg27aqdp-27-qhd-480-hz-rog-swift-oled-black/p/N82E16824281326",
+        "note": "Newegg affiliate via Rakuten/commission — add tracked link from dashboard."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    },
+    {
+      "id": "newegg-https-www-newegg-com-p-1w7-00bs-00058",
+      "category": "pc",
+      "title": "Newegg item",
+      "brand": null,
+      "specs": [
+        "Verify on Newegg"
+      ],
+      "notesPlaceholder": "",
+      "sourceUrls": [
+        "https://www.newegg.com/p/1W7-00BS-00058"
+      ],
+      "affiliateHints": {
+        "newegg": "https://www.newegg.com/p/1W7-00BS-00058",
+        "note": "Newegg affiliate via Rakuten/commission — add tracked link from dashboard."
+      },
+      "media": {
+        "type": "none"
+      },
+      "relatedIds": []
+    }
+  ]
+}

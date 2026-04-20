@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owen Miner — Dandelion vault (mockup)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="stage" id="backgroundStage" aria-hidden="true">
+    <video class="stage-video" id="bgLayerVideo" src="dandylion.mp4" autoplay muted loop playsinline></video>
+    <canvas id="fxCanvas"></canvas>
+    <canvas id="fxParticles"></canvas>
+  </div>
+
+  <div class="page-pill">Mockup · Dandelion field</div>
+  <button class="controls-toggle" id="toggleControls" type="button">Background Controls</button>
+
+  <aside class="controls-drawer" id="controlsDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <h1>Vault Dandelion Field</h1>
+        <p>Canvas dandelion over optional looping <code>dandylion.mp4</code> in this folder. Add <code>?novideo=1</code> to hide the video layer.</p>
+      </div>
+      <div class="drawer-actions">
+        <button class="mini-btn" id="resetControlsBtn" type="button">Reset</button>
+        <button class="mini-btn" id="closeDrawerBtn" type="button">Close</button>
+      </div>
+    </div>
+
+    <div class="drawer-grid">
+      <div class="control-field">
+        <label for="presetSelect"><span>Preset</span><span class="control-value" id="presetValue">Balanced</span></label>
+        <select id="presetSelect"></select>
+        <div class="control-hint" id="presetHint">Scene-tuned dandelion variations.</div>
+      </div>
+
+      <div class="control-field">
+        <label for="speedControl"><span>Speed</span><span class="control-value" id="speedValue">1.00x</span></label>
+        <input id="speedControl" type="range" min="0.4" max="2.2" step="0.05" value="0.4">
+      </div>
+
+      <div class="control-field">
+        <label for="animationSpeedControl"><span>Animation Speed</span><span class="control-value" id="animationSpeedValue">1.00x</span></label>
+        <input id="animationSpeedControl" type="range" min="0.2" max="2.4" step="0.05" value="0.2">
+        <div class="control-hint">Overall animation rate without changing the preset mix.</div>
+      </div>
+
+      <div class="control-field">
+        <label for="horizontalControl"><span>Horizontal</span><span class="control-value" id="horizontalValue">23%</span></label>
+        <input id="horizontalControl" type="range" min="0.12" max="0.6" step="0.01" value="0.23">
+        <div class="control-hint">Moves the dandelion left or right.</div>
+      </div>
+
+      <div class="control-field">
+        <label for="heightControl"><span>Height</span><span class="control-value" id="heightValue">29%</span></label>
+        <input id="heightControl" type="range" min="0.16" max="0.72" step="0.01" value="0.29">
+        <div class="control-hint">Raises or lowers the dandelion.</div>
+      </div>
+
+      <div class="control-field">
+        <label for="densityControl"><span>Density</span><span class="control-value" id="densityValue">1.00x</span></label>
+        <input id="densityControl" type="range" min="0.4" max="2.4" step="0.05" value="0.4">
+      </div>
+
+      <div class="control-field">
+        <label for="scaleControl"><span>Scale</span><span class="control-value" id="scaleValue">1.00x</span></label>
+        <input id="scaleControl" type="range" min="0.6" max="1.8" step="0.05" value="0.6">
+      </div>
+
+      <div class="control-field">
+        <label for="glowControl"><span>Glow</span><span class="control-value" id="glowValue">1.00x</span></label>
+        <input id="glowControl" type="range" min="0.3" max="2.2" step="0.05" value="0.3">
+      </div>
+
+      <div class="control-field">
+        <label for="parallaxControl"><span>Parallax</span><span class="control-value" id="parallaxValue">1.00x</span></label>
+        <input id="parallaxControl" type="range" min="0" max="2.2" step="0.05" value="0">
+      </div>
+
+      <div class="control-field">
+        <label for="breezeControl"><span>Breeze</span><span class="control-value" id="breezeValue">0.20x</span></label>
+        <input id="breezeControl" type="range" min="0" max="1.2" step="0.05" value="0.20">
+        <div class="control-hint">Ambient breeze strength.</div>
+      </div>
+
+      <div class="control-field">
+        <label for="chaosControl"><span>Chaos</span><span class="control-value" id="chaosValue">1.00x</span></label>
+        <input id="chaosControl" type="range" min="0.2" max="2.3" step="0.05" value="0.2">
+      </div>
+    </div>
+
+    <div class="control-status" id="controlStatus">Dandelion background controls are ready.</div>
+  </aside>
+
+  <div class="ui-root">
+    <div class="ui-inner">
+      <header class="topbar glass">
+        <div class="brand">OwenMinerCS.com</div>
+        <nav class="nav" aria-label="Primary">
+          <a href="../../index.html">Home</a>
+          <a href="../../Desk Setup/setup.html">Desk</a>
+          <a href="../../PC/pc.html">PC</a>
+          <a href="../../Keyboard/60he.html">Keyboard</a>
+          <a href="../../Counter-Strike/CS.html">CS</a>
+          <a href="../../Socials/socials.html">Socials</a>
+        </nav>
+      </header>
+
+      <section class="hero glass">
+        <h1>Welcome to the vault meadow</h1>
+        <p class="lede">Same adjustable dandelion background as your finance lab — tuned here for a personal-site mockup with glass panels and teal accents.</p>
+      </section>
+
+      <div class="bento">
+        <article class="card glass wide">
+          <h2>Hi, my name is Owen Miner.</h2>
+          <p>I am a 23 year old graduate from DMACC, with an AAS degree in Computer Information Systems.</p>
+          <p><strong>This layout is a design experiment.</strong> Open <em>Background Controls</em> (top right) to match presets, motion, and placement to your taste.</p>
+        </article>
+        <aside class="card glass photo">
+          <img src="../../About/Images/owenProfile.webp" alt="Picture of Owen M" width="360" height="360">
+        </aside>
+        <article class="card glass">
+          <h3>Hobbies &amp; games</h3>
+          <p>Photography, video production, writing, and gaming — especially <em>Counter-Strike</em>.</p>
+        </article>
+        <article class="card glass accent">
+          <p class="pull" id="rotating-quote"></p>
+          <button type="button" class="ghost" id="spin-quote">Another line</button>
+        </article>
+        <article class="card glass wide">
+          <p><strong>Message me on socials if you have questions!</strong></p>
+          <div class="social-row">
+            <a href="https://x.com/OwenMinerCS" target="_blank" rel="noopener noreferrer">X</a>
+            <a href="https://www.youtube.com/@OwenMinerCS" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://www.instagram.com/owenminercs/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.reddit.com/user/OwenMCS" target="_blank" rel="noopener noreferrer">Reddit</a>
+            <a href="https://www.tiktok.com/@owenminercs" target="_blank" rel="noopener noreferrer">TikTok</a>
+          </div>
+        </article>
+      </div>
+
+      <footer class="foot glass">
+        <a href="../index.html">← Mockup gallery</a>
+        <span>06 — Dandelion vault · not production</span>
+      </footer>
+    </div>
+  </div>
+
+  <script src="background-scenes.js"></script>
+  <script src="bg_vault_dandelion_field.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preload" href="../css/owenminercs.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/owenminercs.css"></noscript>
+  <link rel="apple-touch-icon" href="/images/owenminercs-logo.png">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GYG1QRQ8DY');
+  </script>
+  <title>Photography | Owen Miner</title>
+  <meta name="author" content="Owen Miner">
+  <meta name="description" content="Photo archive by Owen Miner, organized by year. Free downloads for personal use and optional signed prints.">
+  <meta name="keywords" content="Owen Miner, photography, gallery, prints, free photos">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:site" content="@OwenMinerCS">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#0f0f0f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
+  <meta property="og:title" content="Photography | Owen Miner">
+  <meta property="og:description" content="Photo archive by year—free personal downloads and signed print requests.">
+  <meta property="og:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp">
+  <meta property="og:url" content="https://www.owenminercs.com/Photography/photography.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Owen Miner CS">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Photography | Owen Miner">
+  <meta name="twitter:description" content="Photo archive by year—free personal downloads and signed print requests.">
+  <meta name="twitter:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp">
+  <link rel="canonical" href="https://www.owenminercs.com/Photography/photography">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Photography — Owen Miner",
+    "url": "https://www.owenminercs.com/Photography/photography.html",
+    "description": "Personal photography gallery with images grouped by year.",
+    "isPartOf": { "@type": "WebSite", "name": "Owen Miner CS", "url": "https://www.owenminercs.com/" },
+    "author": {
+      "@type": "Person",
+      "name": "Owen Miner",
+      "url": "https://www.owenminercs.com/"
+    }
+  }
+  </script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <script src="../scripts/components.js" defer></script>
+</head>
+<body id="top" class="site-card-ui" style="zoom: 95%;">
+  <shared-header></shared-header>
+
+  <div class="container photography-page">
+    <div class="intro">
+      <div class="gallery photography-intro" style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black;">
+        <h1>Photography</h1>
+        <p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto;">Older work organized by year. Tap a photo for a larger view, the date it was taken, a free download for personal use, and a link to request a signed print. Add years and images in <code style="color: #ffb6c8;">Photography/photos.json</code>: each year has a <code style="color: #ffb6c8;">year</code> number and a <code style="color: #ffb6c8;">photos</code> array; each photo needs <code style="color: #ffb6c8;">title</code>, <code style="color: #ffb6c8;">alt</code>, <code style="color: #ffb6c8;">thumb</code>, <code style="color: #ffb6c8;">full</code> (paths relative to this page, e.g. <code style="color: #ffb6c8;">images/2019/sunset.webp</code>), and <code style="color: #ffb6c8;">dateTaken</code> as an ISO date (<code style="color: #ffb6c8;">2019-07-04</code>). Optional: <code style="color: #ffb6c8;">downloadFilename</code>, <code style="color: #ffb6c8;">signedPrintUrl</code> per photo (<code style="color: #ffb6c8;">""</code> hides the print button for that image). Set <code style="color: #ffb6c8;">signedPrintDefaultUrl</code> to your shop or Ko-fi; edit <code style="color: #ffb6c8;">freeUseNote</code> for your license text. Elsewhere: <a href="../Keyboard/60he.html">Wooting 60HE</a>, <a href="../PC/pc.html">PC build</a>, <a href="../Desk Setup/setup.html">desk setup</a>, <a href="../index.html">home</a>.</p>
+      </div>
+    </div>
+
+    <p id="photography-error" class="photography-error" hidden>Could not load the photo list. Check that <code>photos.json</code> is present next to this page.</p>
+    <p id="photography-empty" class="photography-empty" hidden>No photos yet. Open <code>Photography/photos.json</code> and add entries under <code>years</code>.</p>
+
+    <div id="photography-gallery" class="photography-gallery-root"></div>
+  </div>
+
+  <dialog id="photo-dialog" class="photo-dialog" aria-labelledby="photo-dialog-title">
+    <div class="photo-dialog-inner">
+      <button type="button" id="photo-dialog-close" class="photo-dialog-close" aria-label="Close">&times;</button>
+      <img id="photo-dialog-img" class="photo-dialog-img" alt="">
+      <h2 id="photo-dialog-title" class="photo-dialog-heading"></h2>
+      <p id="photo-dialog-date" class="photo-dialog-meta"></p>
+      <p id="photo-dialog-license" class="photo-dialog-license"></p>
+      <div class="photo-dialog-actions">
+        <a id="photo-dialog-download" class="modeButton photography-action-btn" href="#" download>Download — free personal use</a>
+        <a id="photo-dialog-print" class="modeButton photography-action-btn" href="#" target="_blank" rel="noopener noreferrer">Buy a signed print</a>
+      </div>
+    </div>
+  </dialog>
+
+  <shared-footer disclosure="<i>This page has no paid shopping links. The Apartment tour, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"></shared-footer>
+
+  <script src="../scripts/accessible-media.js"></script>
+  <script src="scripts/photography.js"></script>
+  <script>function soon(){}</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preload" href="../css/owenminercs.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/owenminercs.css"></noscript>
+  <link rel="apple-touch-icon" href="/images/owenminercs-logo.png">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GYG1QRQ8DY');
+  </script>
+  <title>Garage sale — shop my listings | Owen Miner</title>
+  <meta name="author" content="Owen Miner">
+  <meta name="description" content="Owen Miner's resale listings in one place: eBay, Depop, Mercari, Vinted, Poshmark, Grailed, CSFloat (CS2 skins), and other marketplaces.">
+  <meta name="keywords" content="Owen Miner, garage sale, eBay, Depop, Mercari, Vinted, Poshmark, Grailed, CSFloat, CS2 skins, resale">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:site" content="@OwenMinerCS">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#0f0f0f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
+  <meta property="og:title" content="Garage sale — Owen Miner">
+  <meta property="og:description" content="Links to Owen's seller profiles on eBay, Depop, Mercari, Vinted, Poshmark, Grailed, CSFloat, and more.">
+  <meta property="og:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp">
+  <meta property="og:url" content="https://www.owenminercs.com/Garage%20Sale/garage-sale.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Owen Miner CS">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Garage sale — Owen Miner">
+  <meta name="twitter:description" content="Resale hub: general marketplaces, fashion (Depop, Vinted, Poshmark, Grailed), and CS2 skins (CSFloat)—all linked from OwenMinerCS.com.">
+  <meta name="twitter:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp">
+  <link rel="canonical" href="https://www.owenminercs.com/Garage%20Sale/garage-sale">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Garage sale — Owen Miner",
+    "url": "https://www.owenminercs.com/Garage%20Sale/garage-sale.html",
+    "description": "Hub page linking to Owen Miner's seller profiles on third-party marketplaces, including general resale, fashion (e.g. Depop, Vinted, Poshmark, Grailed), and CS2 skins on CSFloat.",
+    "isPartOf": { "@type": "WebSite", "name": "Owen Miner CS", "url": "https://www.owenminercs.com/" },
+    "author": { "@type": "Person", "name": "Owen Miner", "url": "https://www.owenminercs.com/" },
+    "inLanguage": "en"
+  }
+  </script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <script src="../scripts/components.js" defer></script>
+</head>
+<body id="top" class="site-card-ui" style="zoom: 95%;">
+  <shared-header></shared-header>
+
+  <div class="container garage-sale-page">
+    <div class="intro">
+      <div class="gallery garage-sale-intro" style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black;">
+        <h1>Garage sale</h1>
+        <p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto;">One hub for wherever I am selling—general resale (eBay, Mercari), fashion and streetwear (Depop, Vinted, Poshmark, Grailed), and CS2 skins (CSFloat). Inventory and checkout live on each marketplace. To add another site, append an object to the <code style="color: #ffb6c8;">marketplaces</code> array in <code style="color: #ffb6c8;">Garage Sale/garage-sale-links.json</code> (<code style="color: #ffb6c8;">name</code>, <code style="color: #ffb6c8;">url</code>, optional <code style="color: #ffb6c8;">description</code>). Elsewhere: <a href="../Keyboard/60he.html">Wooting 60HE</a>, <a href="../PC/pc.html">PC build</a>, <a href="../Desk Setup/setup.html">apartment tour</a>, <a href="../Socials/socials.html">socials</a>, <a href="../index.html">home</a>.</p>
+      </div>
+    </div>
+
+    <section class="garage-sale-ebay-section" aria-labelledby="garage-sale-ebay-heading">
+      <h2 id="garage-sale-ebay-heading">Live eBay listings</h2>
+      <p class="garage-sale-ebay-note">These cards are synced from my eBay seller feed. Listed prices update on refresh.</p>
+      <p id="garage-sale-ebay-error" class="garage-sale-error" hidden></p>
+      <div id="garage-sale-ebay-listings" class="garage-sale-grid garage-sale-ebay-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="garage-sale-marketplaces-section" aria-labelledby="garage-sale-marketplaces-heading">
+      <h2 id="garage-sale-marketplaces-heading">All marketplace profiles</h2>
+      <p id="garage-sale-error" class="garage-sale-error" hidden></p>
+      <div id="garage-sale-list" class="garage-sale-grid" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <shared-footer disclosure="<i>Purchases and messages go through each marketplace’s own site and policies, not OwenMinerCS.com.</i>"></shared-footer>
+
+  <script src="../scripts/garage-sale.js" data-links="garage-sale-links.json" data-ebay-listings="ebay-listings.json"></script>
+  <script>function soon(){}</script>
+</body>
+</html>

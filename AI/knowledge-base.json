@@ -1,0 +1,51 @@
+{
+  "siteName": "owenminercs.com",
+  "owner": "Owen Miner",
+  "entries": [
+    {
+      "title": "Homepage",
+      "url": "/",
+      "summary": "Overview of the website and Owen's background as a CS2 creator and software developer. Highlights The Setup, Gaming, Photography, Donators, and Garage Sale pages."
+    },
+    {
+      "title": "The Setup Hub",
+      "url": "/The%20Setup/the-setup",
+      "summary": "Main hardware and setup hub for desk, displays, camera gear, and peripherals."
+    },
+    {
+      "title": "Gaming PC",
+      "url": "/The%20Setup/gaming-pc",
+      "summary": "Detailed custom PC build and parts page with references to components and buying links."
+    },
+    {
+      "title": "Gaming Hub",
+      "url": "/Gaming/gaming",
+      "summary": "Counter-Strike focused gaming section with links to wallpapers, merch, and videos."
+    },
+    {
+      "title": "Wooting 60HE Build",
+      "url": "/Keyboard/60he",
+      "summary": "Keyboard build guide around the Wooting 60HE, including build notes and accessories."
+    },
+    {
+      "title": "Photography",
+      "url": "/Photography/photography",
+      "summary": "Photo gallery page with curated photos and metadata loaded from JSON."
+    },
+    {
+      "title": "Donators",
+      "url": "/Donators/donators",
+      "summary": "Donator wall and supporter recognition page."
+    },
+    {
+      "title": "Garage Sale",
+      "url": "/Garage%20Sale/garage-sale",
+      "summary": "Resale page with marketplace links and listings."
+    },
+    {
+      "title": "Socials",
+      "url": "/Socials/socials",
+      "summary": "Social profile links, embed content, and support links."
+    }
+  ]
+}

@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/owenminercs.css">
   <style>
     * { box-sizing: border-box; }
     body {
@@ -18,7 +19,15 @@
       padding: 2rem 1.25rem 4rem;
       line-height: 1.5;
     }
-    .wrap { max-width: 720px; margin: 0 auto; }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 1.5rem 1.25rem;
+      box-sizing: border-box;
+    }
     h1 { font-size: 1.75rem; margin: 0 0 0.5rem; }
     .sub { color: #888; margin: 0 0 2rem; font-size: 0.95rem; }
     .note {
@@ -49,10 +58,10 @@
     .back a { color: #ff6b89; }
   </style>
 </head>
-<body>
+<body class="site-card-ui">
   <div class="wrap">
     <h1>OwenMinerCS — design mockups</h1>
-    <p class="sub">Five deployable experiments. Each folder is self-contained (HTML + CSS + JS). Links point at your real site pages and shared assets.</p>
+    <p class="sub">Seven deployable experiments. Each folder is self-contained (HTML + CSS + JS). Links point at your real site pages and shared assets.</p>
     <p class="note"><strong>Local only:</strong> Open any <code>mockups/*/index.html</code> from disk or serve the repo. Profile image paths assume <code>../../About/Images/owenProfile.webp</code> from these folders.</p>
 
     <ul>
@@ -80,6 +89,16 @@
         <strong>05 — Brutalist blueprint</strong>
         <p>IBM Plex + Space Grotesk, blueprint grid overlay, high-contrast mode, type <kbd>O W E N</kbd> for hidden social panel.</p>
         <a class="card-link" href="05-brutalist-blueprint/index.html">Open 05-brutalist-blueprint →</a>
+      </li>
+      <li>
+        <strong>06 — Dandelion vault</strong>
+        <p>Vault dandelion canvas + optional <code>dandylion.mp4</code> in-folder; same background control drawer (presets, motion, placement). Glass UI over the field.</p>
+        <a class="card-link" href="06-dandelion-vault/index.html">Open 06-dandelion-vault →</a>
+      </li>
+      <li>
+        <strong>07 — AI DJ theme</strong>
+        <p>Matches your YouTube AI DJ app: Inter + IBM Plex Mono, <code>#0a0a0a</code> surfaces, coral primary, violet accents, frosted header, panel cards with purple hover (homepage-style layout; links go to production pages).</p>
+        <a class="card-link" href="07-ai-dj-theme/index.html">Open 07-ai-dj-theme →</a>
       </li>
     </ul>
 

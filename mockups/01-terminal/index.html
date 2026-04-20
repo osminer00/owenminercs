@@ -57,11 +57,12 @@
 
     <aside class="console" aria-label="Interactive terminal toy">
       <div class="console-head">INTERACTIVE_SHELL — type <kbd>help</kbd></div>
+      <p style="margin: 0.25rem 0 0.5rem; font-size: 0.85rem;">Text entry is temporarily disabled.</p>
       <div id="term-out" class="term-out" role="log" aria-live="polite"></div>
       <form id="term-form" class="term-form" autocomplete="off">
         <label class="sr-only" for="term-in">Command</label>
         <span class="prompt" aria-hidden="true">guest@owenminercs:~$</span>
-        <input id="term-in" type="text" spellcheck="false" placeholder="">
+        <input id="term-in" type="text" spellcheck="false" placeholder="Temporarily disabled" disabled aria-disabled="true">
       </form>
     </aside>
 

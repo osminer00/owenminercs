@@ -1,0 +1,439 @@
+/* ===== AFFILIATE LINK STYLES ===== */
+
+/* AliExpress: product or search link — not necessarily Portals commission */
+.affiliate-note {
+    display: inline-block;
+    color: #aaa;
+    font-size: 0.72rem;
+    font-weight: normal;
+    margin-left: 6px;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+/* Affiliate badge/indicator */
+.affiliate {
+    display: inline-block;
+    background-color: #ffd700;
+    color: #000;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Alternative: Subtle affiliate label */
+.affiliate-subtle {
+    display: inline;
+    color: #999;
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+/* Product link with affiliate styling */
+.affiliate-link {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.affiliate-link:hover {
+    text-decoration: underline;
+}
+
+/* Product card container */
+.product-card {
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Product comparison container */
+.product-links-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Individual link in group */
+.affiliate-button {
+    padding: 8px 12px;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.affiliate-button:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+.affiliate-button.amazon {
+    background: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+/* Keep affiliate badge readable on dark buttons */
+.affiliate-button .affiliate {
+    background-color: #fff;
+    color: #000;
+    font-size: 0.7rem;
+    padding: 1px 5px;
+}
+
+/* Inline title row: h4 + affiliate button side-by-side */
+.item-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.1rem;
+}
+
+.item-title-row h4 {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+}
+
+.item-title-row .affiliate-inline {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.item-title-row .affiliate-inline .product-links-group {
+    margin: 0;
+    padding: 2px 4px;
+    background: none;
+}
+
+.item-title-row .affiliate-inline .affiliate-button {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    white-space: nowrap;
+}
+
+.affiliate-button.aliexpress {
+    background: linear-gradient(135deg, #E60012 0%, #000 100%);
+    border: none;
+}
+
+.affiliate-button.newegg {
+    background: #E4002B;
+    border: none;
+}
+
+.affiliate-button.bestbuy {
+    background: #0046BE;
+    border: none;
+}
+
+.affiliate-button.official {
+    background: #333;
+    border: 1px solid #FFD700;
+}
+
+/* Disclosure box */
+.affiliate-disclosure {
+    background-color: #fffacd;
+    border-left: 4px solid #ffd700;
+    padding: 12px 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.affiliate-disclosure strong {
+    color: #000;
+}
+
+/* For existing itemlink class enhancement */
+.itemlink.has-affiliate {
+    position: relative;
+}
+
+.itemlink.has-affiliate::after {
+    content: " (affiliate)";
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+/* Disclaimer/Transparency notice */
+.transparency-notice {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px dashed #666;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+/* Price highlight for affiliate products */
+.price-highlight {
+    background-color: #fffacd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.product-price {
+    margin: 0.25rem 0;
+}
+
+/* Link indicator for multiple retailers */
+.multi-retailer {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.retailer-badge {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    background: #ddd;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+/* Responsive layout for affiliate links on mobile */
+@media (max-width: 768px) {
+    .product-links-group {
+        flex-direction: column;
+    }
+    
+    .affiliate-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .affiliate-price-row .affiliate-button {
+        width: auto;
+    }
+    
+    .affiliate {
+        display: block;
+        margin: 5px 0 0 0;
+    }
+}
+
+/* Animation for affiliate link cards */
+@keyframes pulse-affiliate {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.affiliate-highlight {
+    animation: pulse-affiliate 2s infinite;
+}
+
+/* Apartment tour / long-form pages: retailer row under primary link */
+.affiliate-inline {
+    margin: 0.35rem 0 1rem;
+}
+
+/* PC build list + Setup cards: extra retailer row under primary link */
+.pc-build-affiliate {
+    margin: 0.35rem 0 1rem;
+    padding-left: 4px;
+}
+
+.pc-build-affiliate .product-links-group {
+    margin-top: 6px;
+    padding: 8px;
+}
+
+.keep-card__affiliate-more {
+    margin-top: 0.35rem;
+}
+
+.keep-card__affiliate-more .product-links-group {
+    padding: 6px 8px;
+    margin-top: 4px;
+}
+
+.keep-card__affiliate-more .affiliate-button {
+    font-size: 0.75rem;
+    padding: 6px 8px;
+}
+
+.affiliate-price-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.25rem 0 0.55rem;
+}
+
+.affiliate-price-row .affiliate-price-host {
+    margin: 0 !important;
+}
+
+.affiliate-price-row .product-links-group {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+
+.affiliate-price-row .affiliate-button {
+    width: auto;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+body.site-card-ui .keep-card__affiliate h4 > a,
+body.site-card-ui .item-title-row h4 > a,
+body.site-card-ui .setup-detail-page h4 > a,
+body.site-card-ui .affiliate-price-link {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 2px 5px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.34);
+    color: inherit;
+    text-decoration: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.site-card-ui .item-title-row h4 > a,
+body.site-card-ui .setup-detail-page h4 > a {
+    justify-content: flex-start;
+}
+
+.affiliate-inline-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.12rem;
+    padding: 1px 5px;
+    background: #000;
+    color: #fff;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    font-size: 0.82em;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.affiliate-price-link:hover .affiliate-inline-button,
+.affiliate-price-link:focus-visible .affiliate-inline-button {
+    background: #333;
+}
+
+body.site-card-ui .keep-card__affiliate h4 a:hover,
+body.site-card-ui .keep-card__affiliate h4 a:focus-visible,
+body.site-card-ui .item-title-row h4 a:hover,
+body.site-card-ui .item-title-row h4 a:focus-visible,
+body.site-card-ui .setup-detail-page h4 a:hover,
+body.site-card-ui .setup-detail-page h4 a:focus-visible,
+body.site-card-ui .affiliate-price-link:hover,
+body.site-card-ui .affiliate-price-link:focus-visible {
+    border-color: rgba(88, 166, 255, 0.65);
+    background: rgba(88, 166, 255, 0.12) !important;
+    box-shadow:
+        inset 0 0 0 1px rgba(88, 166, 255, 0.12),
+        0 0 14px rgba(88, 166, 255, 0.16);
+}
+
+.affiliate-price-row .affiliate {
+    display: inline-block;
+    margin: 0 0 0 4px;
+}
+
+.affiliate-inline-button .affiliate {
+    background-color: #fff;
+    color: #000;
+    font-size: 0.78em;
+    padding: 0 3px;
+}
+
+.keep-card__affiliate .affiliate-price-row {
+    margin: 0;
+}
+
+[data-theme="light"] body.site-card-ui .keep-card__affiliate h4 > a,
+[data-theme="light"] body.site-card-ui .item-title-row h4 > a,
+[data-theme="light"] body.site-card-ui .setup-detail-page h4 > a,
+[data-theme="light"] body.site-card-ui .affiliate-price-link {
+    border-color: rgba(0, 0, 0, 0.24);
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+.setup-detail-page .affiliate-inline {
+    margin: 0.5rem 0 1.25rem;
+}
+
+.setup-detail-page .affiliate-inline .product-links-group {
+    padding: 8px 10px;
+}
+
+.affiliate-keyboard-hub .product-links-group {
+    margin-bottom: 0.75rem;
+}
+
+/* Live price badge — shown when price is fetched in real time from Amazon */
+.price-live-badge {
+    display: inline-block;
+    background: #1a7a1a;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 5px;
+    vertical-align: middle;
+    line-height: 1.4;
+}
+
+.price-live-badge::before {
+    content: '● ';
+    font-size: 0.55rem;
+    opacity: 0.85;
+}
+
+/* ===== END AFFILIATE LINK STYLES ===== */

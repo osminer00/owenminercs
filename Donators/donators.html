@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preload" href="../css/owenminercs.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/owenminercs.css"></noscript>
+  <link rel="apple-touch-icon" href="/images/owenminercs-logo.png">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GYG1QRQ8DY');
+  </script>
+  <title>Donators | Owen Miner</title>
+  <meta name="author" content="Owen Miner">
+  <meta name="description" content="Supporter wall for Owen Miner: Ko-fi donations and StreamElements tips.">
+  <meta name="keywords" content="Owen Miner, donators, Ko-fi, StreamElements">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:site" content="@OwenMinerCS">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#0f0f0f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
+  <meta property="og:title" content="Donators | Owen Miner">
+  <meta property="og:description" content="Thank-you wall for people supporting Owen Miner on Ko-fi and StreamElements.">
+  <meta property="og:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp">
+  <meta property="og:url" content="https://www.owenminercs.com/Donators/donators.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Owen Miner CS">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Donators | Owen Miner">
+  <meta name="twitter:description" content="Supporter wall for Ko-fi and StreamElements supporters.">
+  <meta name="twitter:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp">
+  <link rel="canonical" href="https://www.owenminercs.com/Donators/donators">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Donators - Owen Miner",
+    "url": "https://www.owenminercs.com/Donators/donators.html",
+    "description": "Public supporter wall for people who have donated or subscribed to Owen Miner.",
+    "isPartOf": { "@type": "WebSite", "name": "Owen Miner CS", "url": "https://www.owenminercs.com/" },
+    "author": { "@type": "Person", "name": "Owen Miner", "url": "https://www.owenminercs.com/" },
+    "inLanguage": "en"
+  }
+  </script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <script src="../scripts/components.js" defer></script>
+</head>
+<body id="top" class="site-card-ui" style="zoom: 95%;">
+  <shared-header></shared-header>
+
+  <div class="container donators-page">
+    <div class="intro">
+      <div class="gallery donators-intro" style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black;">
+        <h1>Donators and supporters</h1>
+        <p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 44rem; margin: 0 auto;">Huge thanks to everyone who has supported the content. This page tracks Ko-fi donations and StreamElements tips.</p>
+      </div>
+    </div>
+
+    <p id="donators-error" class="donators-error" hidden>Could not load supporter data. Check that <code>Donators/donators.json</code> is present.</p>
+
+    <div id="donators-summary" class="donators-summary" aria-live="polite"></div>
+    <div id="donators-list" class="donators-grid" aria-live="polite"></div>
+
+  </div>
+
+  <shared-footer disclosure="<i>This page acknowledges community support. No paid shopping links are required for a mention here.</i>"></shared-footer>
+
+  <script src="../scripts/donators.js" data-source="donators.json"></script>
+</body>
+</html>

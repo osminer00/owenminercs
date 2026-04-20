@@ -1,2 +1,30 @@
-/nosmoking    /Counter-Strike/nosmoking.html   301
-/nosmoking.html    /Counter-Strike/nosmoking.html   301
+# Legacy / default favicon requests → site logo
+/favicon.ico   /images/owenminercs-logo.png   301
+
+# Netlify function paths → Cloudflare Pages Functions
+/.netlify/functions/:splat   /api/:splat   200
+
+# Apex and bare HTTP → canonical https://www
+https://owenminercs.com/*  https://www.owenminercs.com/:splat  301!
+http://owenminercs.com/*   https://www.owenminercs.com/:splat  301!
+http://www.owenminercs.com/*  https://www.owenminercs.com/:splat  301!
+
+/nosmoking    /Counter-Strike/nosmoking   301
+/nosmoking.html    /Counter-Strike/nosmoking   301
+/garage-sale    /Garage%20Sale/garage-sale   301
+/garage-sale.html    /Garage%20Sale/garage-sale   301
+/donators    /Donators/donators   301
+/donators.html    /Donators/donators   301
+/assistant    /   301
+/assistant.html    /   301
+/music    /   301
+/music.html    /   301
+/Music/music    /   301
+/Music/music.html    /   301
+
+/Desk%20Setup/setup    /The%20Setup/the-setup   301!
+/Desk%20Setup/setup.html    /The%20Setup/the-setup   301!
+/PC/pc    /The%20Setup/the-setup   301!
+/PC/pc.html    /The%20Setup/the-setup   301!
+/Counter-Strike/CS    /Gaming/gaming   301!
+/Counter-Strike/CS.html    /Gaming/gaming   301!

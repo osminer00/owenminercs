@@ -1,0 +1,5 @@
+# https://www.owenminercs.com/
+User-agent: *
+Allow: /
+
+Sitemap: https://www.owenminercs.com/sitemap.xml

@@ -1,0 +1,22 @@
+{
+  "updatedAt": "2026-04-16",
+  "notes": "Add entries manually or regenerate via dev/sync-donators-from-csv.mjs.",
+  "followers": {
+    "twitch": "",
+    "youtube": "",
+    "facebook": "",
+    "instagram": "",
+    "tiktok": ""
+  },
+  "supporters": [
+    {
+      "name": "LAMEM4N",
+      "platform": "streamelements",
+      "kind": "donation",
+      "amount": "$6.9",
+      "currency": "USD",
+      "date": "",
+      "message": "\"my cs goat\""
+    }
+  ]
+}

@@ -10,6 +10,7 @@ Personal website for owenminercs.
 - `Counter-Strike/CS.html` — CS2 settings/config page with autoexec, nvidia settings, etc.
 - `Counter-Strike/nosmoking.html` — No smoking redirect page
 - `Desk Setup/setup.html` — Desk setup page with images
+- `Desk Setup/fit-check.html` — OBS multi-camera fit check guide (one camera per display)
 - `Keyboard/60he.html` — Wooting 60HE keyboard build page (images in `Keyboard/images/`)
 - `Keyboard/scripts/keyboardBuild.js` — JS for keyboard page
 - `PC/pc.html` — PC specs/build page

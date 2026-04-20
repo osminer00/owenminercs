@@ -1,0 +1,318 @@
+{
+  "intro": "Items and programs that appear across OwenMinerCS.com but are missing from your idea-board catalog (or are only in affiliate-links.json). Use this list to grow owned-gear cards and keep on-site disclosures aligned.",
+  "amazonTag": "owenminercs-20",
+  "suggestions": [
+    {
+      "id": "pc-gigabyte-b650-gaming-x",
+      "title": "Gigabyte B650 GAMING X AX V2",
+      "category": "pc",
+      "sourcePage": "PC/pc.html",
+      "why": "Motherboard called out on the PC build page with a direct Gigabyte link—good candidate for a board card + Amazon/Newegg search fallbacks.",
+      "tips": ["Note WiFi 6 + AM5; pair with your 9800X3D story."]
+    },
+    {
+      "id": "pc-rtx-4090-fe",
+      "title": "NVIDIA GeForce RTX 4090 Founders Edition",
+      "category": "pc",
+      "sourcePage": "PC/pc.html",
+      "why": "GPU on pc.html links to NVIDIA.com; third-party 4090 SKUs rotate—idea board can hold your exact FE or AIB model + purchase receipt notes.",
+      "tips": ["4090 links go stale; prefer search + your photo of the actual card."]
+    },
+    {
+      "id": "pc-gskill-ripjaws-m5-neo-kit",
+      "title": "G.Skill Ripjaws M5 Neo 32GB DDR5-6000 CL28",
+      "category": "pc",
+      "sourcePage": "PC/pc.html",
+      "why": "Exact kit linked from Micro Center on pc.html; matches affiliate-links.json entry—mirror onto the board for long-form review drafts.",
+      "tips": ["Include part number F5-6000J2836G16GX2-RM5NRK if you still run it."]
+    },
+    {
+      "id": "pc-wd-black-sn850x",
+      "title": "WD_BLACK SN850X NVMe SSD",
+      "category": "pc",
+      "sourcePage": "PC/pc.html",
+      "why": "Primary storage on pc.html + affiliate-links.json; add capacity/SKU you bought.",
+      "tips": ["Gen4 1TB vs 2TB pricing swings—note which heatsink variant if any."]
+    },
+    {
+      "id": "pc-lian-li-o11-evo-sl120",
+      "title": "Lian Li O11 Dynamic Evo + UNI Fan SL120 V2",
+      "category": "pc",
+      "sourcePage": "PC/pc.html",
+      "why": "Case and ten fans are hero parts on pc.html and in affiliate-links.json.",
+      "tips": ["Board card could bundle case + fan count as one ‘build shell’ story."]
+    },
+    {
+      "id": "pc-windows-11-pro",
+      "title": "Windows 11 Pro (license)",
+      "category": "software",
+      "sourcePage": "PC/pc.html",
+      "why": "Listed as OS on pc.html; some creators use Amazon/Microsoft affiliate for licenses (verify program rules).",
+      "tips": ["Often low commission; include only if you actually purchased retail/OEM key."]
+    },
+    {
+      "id": "desk-lg-34wl850",
+      "title": "LG 34WL850 Ultrawide",
+      "category": "monitors",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Linked on desk setup with Amazon Associates tag (ASIN B07Q3X33Q1)—not in generate-items ASIN list.",
+      "tips": ["USB-C hub + productivity angle matches your copy on setup.html."]
+    },
+    {
+      "id": "desk-asus-24-secondary",
+      "title": "ASUS 24\" secondary monitors (legacy pair)",
+      "category": "monitors",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Long-running side displays (B005BZNDS0 on page)—good ‘ten-year ownership’ story card.",
+      "tips": ["Capture current brightness/contrast honestly; replacement suggestions optional."]
+    },
+    {
+      "id": "desk-wallhack-sp004-glass-pad",
+      "title": "Wallhack SP-004 glass mousepad",
+      "category": "peripherals",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Featured with cleaning / consistency rationale; Wallhack may run creator or referral programs.",
+      "tips": ["Pair with Obsidian dot skates mention in same section."]
+    },
+    {
+      "id": "desk-wallhack-obsidian-skates",
+      "title": "Wallhack Obsidian dot mouse skates",
+      "category": "peripherals",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Named upgrade path from Tiger Ice in your Superlight section.",
+      "tips": ["Glass pad + skate combo is a natural single review."]
+    },
+    {
+      "id": "desk-tiger-ice-skates",
+      "title": "Tiger Ice mouse feet (Superlight)",
+      "category": "peripherals",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Compared against Obsidian in prose—add if you still keep a spare set.",
+      "tips": ["Generic Amazon search; many SKUs per mouse model."]
+    },
+    {
+      "id": "desk-gpx-superlight-mods",
+      "title": "Logitech G Pro X Superlight mods (hotswap PCB, TTC switches, magnetic charge)",
+      "category": "peripherals",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Page describes deep mods; idea board can list each AliExpress/Amazon part as child bullets or separate cards.",
+      "tips": ["B087LXCTFJ is stock mouse link on site—your red SUPERLIGHT variant may differ."]
+    },
+    {
+      "id": "desk-monitor-arm-gas-spring",
+      "title": "Gas-spring monitor arm (Amazon Basics successor)",
+      "category": "desk",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "You reference discontinued Amazon Basics pneumatic arm—modern VIVO / HUANUO / Ergotron LX alternatives align with reader searches.",
+      "tips": ["Pick one you’d actually mount a PG27AQDP on and disclose weight rating."]
+    },
+    {
+      "id": "desk-monitor-arm-tall",
+      "title": "Extra-tall monitor arm (36\" height stack)",
+      "category": "desk",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Mentioned in monitor arm section; good niche card if you still use it.",
+      "tips": ["Wobble note on page = authentic review hook."]
+    },
+    {
+      "id": "desk-50-tv-secondary",
+      "title": "50\" TV as fifth display",
+      "category": "monitors",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Room photo alt text references five screens including a 50\" TV—add make/model if you want a ‘couch co-op’ card.",
+      "tips": ["HDMI cable length + input lag for gaming optional."]
+    },
+    {
+      "id": "kb-cablemod-coiled",
+      "title": "CableMod Pro Coiled Keyboard Cable",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Repeated on 60HE parts list (Amazon ASIN B09LT361GV)—not in board ASIN dump.",
+      "tips": ["Colorway midnight black matches Kilowatt build photos."]
+    },
+    {
+      "id": "kb-pbtfans-wob",
+      "title": "PBTfans WOB (+ Crosshair Alpha kit)",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Sold via mechanicalkeyboards.com in your list; enroll in MK affiliate if available.",
+      "tips": ["Split base kit vs novelty kit pricing in one card."]
+    },
+    {
+      "id": "kb-kbdfans-tofu-redux-weight",
+      "title": "KBDFans Tofu 60 Redux case + brass weight",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Core shell for 2025 build; KBDFans may offer affiliate or share a referral.",
+      "tips": ["E-coat orange called out—good scrubGallery of case angles."]
+    },
+    {
+      "id": "kb-wooting-plate-friction-lube",
+      "title": "Wooting PC plate, friction-fit pad, lube + tool kit",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Multiple first-party Wooting SKUs linked; Wooting has had partner programs—track official link + any tag you get.",
+      "tips": ["Bundle as ‘Wooting tuning kit’ review."]
+    },
+    {
+      "id": "kb-gateron-magnetic-jade-pro",
+      "title": "Gateron Magnetic Jade / Jade Pro",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Switch story is central to the guide; Gateron direct links today—add retailer ASINs if you bought elsewhere.",
+      "tips": ["A/B lubed vs unlubed is already in your copy—perfect for scrubVideo demo."]
+    },
+    {
+      "id": "kb-acrylic-sticker-paper",
+      "title": "Acrylic sticker paper (Kilowatt case art)",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Amazon B0CJF9RWCM linked for custom case graphics.",
+      "tips": ["Low-ticket add-on; still useful for ‘how I themed my case’ content."]
+    },
+    {
+      "id": "kb-silicone-mold-kit",
+      "title": "Silicone mold kit (B07XKBJWKH)",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Crosshair Alpha build list; appears as Amazon Associates link.",
+      "tips": ["Verify you still have molds; otherwise mark legacy on board."]
+    },
+    {
+      "id": "kb-ringerkeys-o-rings",
+      "title": "Ringer Keys replacement O-rings",
+      "category": "keyboard",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Small vendor part; if you still use or recommend, card + official link.",
+      "tips": ["Check if superseded by Wooting friction-fit pad in your narrative."]
+    },
+    {
+      "id": "kb-mechanicalkeyboards-vendor",
+      "title": "MechanicalKeyboards.com (vendor program)",
+      "category": "programs",
+      "sourcePage": "Keyboard/60he.html",
+      "why": "Multiple product deep links; worth applying for affiliate if you keep sending traffic there.",
+      "tips": ["Not a product card—track as ‘retailer relationship’ note."]
+    },
+    {
+      "id": "json-affiliate-desk-bundle",
+      "title": "Desk setup stack from affiliate-links.json",
+      "category": "meta",
+      "sourcePage": "affiliate-links.json",
+      "why": "Beyerdynamic DT 900 Pro, Shure SM7B, Sony ZV-E10, Godox ES45, Flexispot E6, DeerRun pad, etc. are defined for setup.html but not necessarily on the hand-picked idea board.",
+      "tips": ["Import each as a card when you confirm you still own or endorse them."]
+    },
+    {
+      "id": "json-affiliate-keyboard-parts",
+      "title": "Keyboard parts generics from affiliate-links.json",
+      "category": "meta",
+      "sourcePage": "affiliate-links.json",
+      "why": "Switches, keycaps, stabilizers, desk mat AliExpress/Amazon searches—use board to replace with your real SKUs.",
+      "tips": ["Replace wholesale search links with exact items you bought."]
+    },
+    {
+      "id": "site-streamelements-tip",
+      "title": "StreamElements tipping (support page)",
+      "category": "programs",
+      "sourcePage": "index.html",
+      "why": "Linked beside Ko-fi on home; not merchant product but some programs offer partner refs.",
+      "tips": ["Usually not ‘affiliate’—keep on Socials/support disclosure only."]
+    },
+    {
+      "id": "site-ko-fi",
+      "title": "Ko-fi (support + prints)",
+      "category": "programs",
+      "sourcePage": "index.html",
+      "why": "Ko-fi has shop/commissions; photography page points signed prints here.",
+      "tips": ["Ko-fi referrals differ from Amazon—separate compliance note."]
+    },
+    {
+      "id": "garage-marketplaces",
+      "title": "Resale hub: eBay / Depop / Mercari / Vinted",
+      "category": "programs",
+      "sourcePage": "Garage Sale/garage-sale.html",
+      "why": "eBay Partner Network applies to outbound listings; other marketplaces vary.",
+      "tips": ["Only tag links you control; garage sale is outgoing inventory, not endorsements."]
+    },
+    {
+      "id": "cs2-steam-faceit",
+      "title": "Steam / Faceit (CS2 page)",
+      "category": "software",
+      "sourcePage": "Counter-Strike/CS.html",
+      "why": "Profile links drive traffic; Faceit Premium is sometimes promotable—check current Faceit creator terms.",
+      "tips": ["Physical merch (Shanghai Major) already on your ‘needs link’ list elsewhere."]
+    },
+    {
+      "id": "photo-print-services",
+      "title": "Photo lab / print partners (future)",
+      "category": "photography",
+      "sourcePage": "Photography/photography.html",
+      "why": "Gallery mentions prints; no merchant links yet—B&H, Adorama, MPix, Bay Photo are common affiliate fits if you sell or recommend prints.",
+      "tips": ["Align with ‘signed print’ workflow on Ko-fi."]
+    },
+    {
+      "id": "nvidia-geforce-now",
+      "title": "GeForce NOW / Game Ready ecosystem",
+      "category": "software",
+      "sourcePage": "PC/pc.html",
+      "why": "4090 owners often discuss drivers/DLSS; NVIDIA has had referral experiments—low priority unless you publish GPU guides.",
+      "tips": ["Skip if you don’t want software-only entries on the board."]
+    },
+    {
+      "id": "microcenter-retailer",
+      "title": "Micro Center (CPU / RAM purchases)",
+      "category": "programs",
+      "sourcePage": "PC/pc.html",
+      "why": "9800X3D and RAM links point to Micro Center; regional affiliate options are limited—still worth a ‘where I bought’ card for transparency.",
+      "tips": ["Disclose in-store vs online if you add links."]
+    },
+    {
+      "id": "elgato-ecosystem",
+      "title": "Elgato (Stream Deck, Key Light, Cam Link)",
+      "category": "streaming",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Disclosure names Elgato; you already have Stream Deck Studio on the board—add Key Light, Cam Link 4K from ‘needs link’ when URLs are fresh.",
+      "tips": ["Corsair owns Elgato—check unified creator program."]
+    },
+    {
+      "id": "shure-sm7b-cloudlifter",
+      "title": "Shure SM7B (+ Cloudlifter / interface chain)",
+      "category": "audio",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Meta keywords and affiliate JSON include SM7B; chain with RØDE Streamer X or GoXLR-mini etc. if accurate.",
+      "tips": ["Gain staging is the review hook."]
+    },
+    {
+      "id": "sony-zv-e10-lenses",
+      "title": "Sony ZV-E10 + lenses / batteries",
+      "category": "camera",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "Camera in desk meta + affiliate JSON; add Sigma prime, Sony E PZ, or tripod you actually use.",
+      "tips": ["B&H/Amazon hybrid links common for glass."]
+    },
+    {
+      "id": "godox-es45-or-elgato-key",
+      "title": "Godox ES45 vs Elgato Key Light (lighting)",
+      "category": "lighting",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "You cite Godox in meta; disclosure mentions Elgato Key Light—comparison card if you’ve used both.",
+      "tips": ["CRI, fan noise, desk footprint."]
+    },
+    {
+      "id": "flexispot-deerrun",
+      "title": "Flexispot E6 + DeerRun walking pad",
+      "category": "desk",
+      "sourcePage": "Desk Setup/setup.html",
+      "why": "In affiliate-links.json for setup; confirm still owned, then add lifestyle photos.",
+      "tips": ["Walking pad + standing desk combo is searchable on YouTube."]
+    },
+    {
+      "id": "posts-mockups-experiments",
+      "title": "Mockup / lab pages (dandelion vault, AI DJ)",
+      "category": "meta",
+      "sourcePage": "mockups/index.html",
+      "why": "If you publish tools or assets, consider Gumroad / Ko-fi / itch.io affiliate-style links later.",
+      "tips": ["Only when a mockup becomes a shippable product."]
+    }
+  ]
+}

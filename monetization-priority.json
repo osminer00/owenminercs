@@ -1,0 +1,24 @@
+{
+  "prioritized_streams": [
+    {
+      "rank": 1,
+      "name": "Ko-fi or Buy Me a Coffee",
+      "rationale": "Low setup cost; fits tips, digital guides, and coaching without changing site stack.",
+      "action": "Create an account, add one link in video descriptions and on Socials; optional goal for a future desk-setup or keyboard parts PDF.",
+      "url_signup": "https://ko-fi.com/",
+      "disclosure": "Disclose if any post is sponsored or affiliate-backed."
+    },
+    {
+      "rank": 2,
+      "name": "Peripheral affiliate networks (Impact, CJ, or brand direct)",
+      "rationale": "You already list many non-Amazon vendors on keyboard and desk pages; networks can consolidate tracking and unlock Logitech, SteelSeries, etc., when you have traffic proof.",
+      "action": "Apply with site URL and YouTube channel stats; start with brands you already show on PC and desk pages.",
+      "url_signup": "https://www.impact.com/",
+      "note": "Keep Amazon Associates on products already tagged; add rel=\"sponsored\" when programs require it."
+    }
+  ],
+  "deferred": [
+    "Gumroad paid guide: add after you have a finished PDF or checklist and stable Ko-fi interest.",
+    "Newsletter sponsor slots: add after 500+ engaged subscribers or consistent opens."
+  ]
+}
