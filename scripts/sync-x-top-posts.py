@@ -22,6 +22,9 @@ MAX_ITEMS = 20
 MIN_LIKES = 1
 
 RSS_URL_TEMPLATE = "https://nitter.net/{username}/rss"
+RSS_SEARCH_URL_TEMPLATE = (
+    "https://nitter.net/search/rss?f=tweets&q=%28from%3A{username}%29%20min_faves%3A{min_likes}"
+)
 FX_STATUS_URL_TEMPLATE = "https://api.fxtwitter.com/{username}/status/{status_id}"
 
 
@@ -178,8 +181,25 @@ def resolve_username_from_nav(repo_root: Path) -> str:
 
 
 def build_top_posts(username: str) -> list[dict]:
-    rss_text = fetch_text(RSS_URL_TEMPLATE.format(username=username))
-    status_ids = parse_rss_status_ids(rss_text)
+    status_ids: list[str] = []
+    seen_ids: set[str] = set()
+
+    rss_candidates = [
+        RSS_SEARCH_URL_TEMPLATE.format(username=username, min_likes=100),
+        RSS_URL_TEMPLATE.format(username=username),
+    ]
+    for rss_url in rss_candidates:
+        try:
+            rss_text = fetch_text(rss_url)
+            parsed_ids = parse_rss_status_ids(rss_text)
+            for status_id in parsed_ids:
+                if status_id in seen_ids:
+                    continue
+                seen_ids.add(status_id)
+                status_ids.append(status_id)
+        except Exception:
+            # Keep going and try the next source.
+            continue
 
     out: list[dict] = []
     for status_id in status_ids:

@@ -1,0 +1,15 @@
+---
+description: Use the shared OwenMinerCS memory spine before doing repo work.
+alwaysApply: true
+---
+
+# Project Memory
+
+Read `AGENTS.md` first, then load only the relevant files in `memory/`.
+
+Update `memory/preferences.md` when the user gives a durable preference, ratio, layout rule, or site fact.
+
+Update `memory/issues.md` when you hit or fix a recurring bug.
+
+Keep memory notes concise so future chats spend fewer tokens.
+

@@ -1,110 +1,208 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="preload" href="../css/owenminercs.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="../css/owenminercs.css"></noscript>
-  <link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f0f0f">
-  <title>Add post | OwenMinerCS (builder)</title>
-  <script src="../scripts/components.js" defer></script>
-</head>
-<body id="top" class="site-card-ui" style="zoom: 95%;">
-  <shared-header></shared-header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="robots" content="noindex, nofollow" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="preload"
+			href="../css/owenminercs.css"
+			as="style"
+			onload="
+				this.onload = null;
+				this.rel = 'stylesheet';
+			"
+		/>
+		<noscript><link rel="stylesheet" href="../css/owenminercs.css" /></noscript>
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#0f0f0f" />
+		<title>Add post | OwenMinerCS (builder)</title>
+		<script src="../scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui" style="zoom: 95%">
+		<shared-header></shared-header>
 
-  <div class="container post-builder-page">
-    <div class="intro">
-      <div class="gallery photography-intro" style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black;">
-        <h1>Add a post</h1>
-        <p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto;">1) Optional: load your current <code style="color: #ffb6c8;">Posts/posts.json</code> so new entries merge with old ones. 2) Fill the form. 3) <strong>Add post to list</strong>. 4) <strong>Download posts.json</strong> and replace the file in your repo under <code style="color: #ffb6c8;">Posts/posts.json</code>. Image paths are relative to <code style="color: #ffb6c8;">Posts/</code> (e.g. <code style="color: #ffb6c8;">images/photo.webp</code>).</p>
-      </div>
-    </div>
+		<div class="container post-builder-page">
+			<div class="intro">
+				<div
+					class="gallery photography-intro"
+					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
+				>
+					<h1>Add a post</h1>
+					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
+						1) Optional: load your current <code style="color: #ffb6c8">Posts/posts.json</code> so new
+						entries merge with old ones. 2) Fill the form. 3) <strong>Add post to list</strong>. 4)
+						<strong>Download posts.json</strong> and replace the file in your repo under
+						<code style="color: #ffb6c8">Posts/posts.json</code>. Image paths are relative to
+						<code style="color: #ffb6c8">Posts/</code> (e.g.
+						<code style="color: #ffb6c8">images/photo.webp</code>).
+					</p>
+				</div>
+			</div>
 
-    <div class="pb-toolbar">
-      <label class="pb-file-label modeButton" style="cursor: pointer; display: inline-block;">
-        Load posts.json
-        <input type="file" id="pb-load" accept=".json,application/json" hidden disabled aria-disabled="true">
-      </label>
-      <button type="button" id="pb-download" class="modeButton">Download posts.json</button>
-      <button type="button" id="pb-clear-memory" class="modeButton">Clear in-memory list</button>
-    </div>
-    <p id="pb-status" class="pb-status" aria-live="polite"></p>
-    <p class="pb-status"><strong>Temporary lock:</strong> text input is disabled right now.</p>
+			<div class="pb-toolbar">
+				<label class="pb-file-label modeButton" style="cursor: pointer; display: inline-block">
+					Load posts.json
+					<input
+						type="file"
+						id="pb-load"
+						accept=".json,application/json"
+						hidden
+						disabled
+						aria-disabled="true"
+					/>
+				</label>
+				<button type="button" id="pb-download" class="modeButton">Download posts.json</button>
+				<button type="button" id="pb-clear-memory" class="modeButton">Clear in-memory list</button>
+			</div>
+			<p id="pb-status" class="pb-status" aria-live="polite"></p>
+			<p class="pb-status"><strong>Testing note:</strong> this builder is currently read-only for visitors.</p>
 
-    <section class="pb-ai-helper" aria-labelledby="pb-ai-title">
-      <h2 id="pb-ai-title" class="pb-preview-heading">AI post helper</h2>
-      <p class="pb-hint">Drop in a short prompt and generate draft intro copy, SEO text, and social snippets you can tweak before publishing.</p>
-      <label class="pb-field">Prompt
-        <textarea id="pb-ai-prompt" rows="3" placeholder="Temporarily disabled" disabled aria-disabled="true"></textarea>
-      </label>
-      <div class="pb-ai-controls">
-        <label class="pb-field">Tone
-          <select id="pb-ai-tone">
-            <option value="balanced">Balanced</option>
-            <option value="casual">Casual</option>
-            <option value="hype">Hype</option>
-          </select>
-        </label>
-        <label class="pb-field">Optional SEO keywords
-          <input type="text" id="pb-ai-keywords" placeholder="Temporarily disabled" autocomplete="off" disabled aria-disabled="true">
-        </label>
-      </div>
-      <div class="pb-toolbar">
-        <button type="button" id="pb-ai-generate" class="modeButton">Generate draft copy</button>
-        <button type="button" id="pb-ai-fill-intro" class="modeButton">Use intro in description</button>
-        <button type="button" id="pb-ai-copy-all" class="modeButton">Copy all generated text</button>
-      </div>
-      <p id="pb-ai-status" class="pb-status" aria-live="polite"></p>
-      <div class="pb-ai-results">
-        <label class="pb-field">Intro
-          <textarea id="pb-ai-intro" rows="3" placeholder="Temporarily disabled" disabled aria-disabled="true"></textarea>
-        </label>
-        <label class="pb-field">SEO title
-          <input type="text" id="pb-ai-seo-title" placeholder="Temporarily disabled" disabled aria-disabled="true">
-        </label>
-        <label class="pb-field">SEO description
-          <textarea id="pb-ai-seo-description" rows="3" placeholder="Temporarily disabled" disabled aria-disabled="true"></textarea>
-        </label>
-        <label class="pb-field">Social snippet
-          <textarea id="pb-ai-social" rows="4" placeholder="Temporarily disabled" disabled aria-disabled="true"></textarea>
-        </label>
-      </div>
-    </section>
+			<section class="pb-ai-helper" aria-labelledby="pb-ai-title">
+				<h2 id="pb-ai-title" class="pb-preview-heading">AI post helper</h2>
+				<p class="pb-hint">
+					Drop in a short prompt and generate draft intro copy, SEO text, and social snippets you can tweak
+					before publishing.
+				</p>
+				<label class="pb-field"
+					>Prompt
+					<textarea
+						id="pb-ai-prompt"
+						rows="3"
+						placeholder="Read-only during testing"
+						disabled
+						aria-disabled="true"
+					></textarea>
+				</label>
+				<div class="pb-ai-controls">
+					<label class="pb-field"
+						>Tone
+						<select id="pb-ai-tone">
+							<option value="balanced">Balanced</option>
+							<option value="casual">Casual</option>
+							<option value="hype">Hype</option>
+						</select>
+					</label>
+					<label class="pb-field"
+						>Optional SEO keywords
+						<input
+							type="text"
+							id="pb-ai-keywords"
+							placeholder="Read-only during testing"
+							autocomplete="off"
+							disabled
+							aria-disabled="true"
+						/>
+					</label>
+				</div>
+				<div class="pb-toolbar">
+					<button type="button" id="pb-ai-generate" class="modeButton">Generate draft copy</button>
+					<button type="button" id="pb-ai-fill-intro" class="modeButton">Use intro in description</button>
+					<button type="button" id="pb-ai-copy-all" class="modeButton">Copy all generated text</button>
+				</div>
+				<p id="pb-ai-status" class="pb-status" aria-live="polite"></p>
+				<div class="pb-ai-results">
+					<label class="pb-field"
+						>Intro
+						<textarea
+							id="pb-ai-intro"
+							rows="3"
+							placeholder="Read-only during testing"
+							disabled
+							aria-disabled="true"
+						></textarea>
+					</label>
+					<label class="pb-field"
+						>SEO title
+						<input
+							type="text"
+							id="pb-ai-seo-title"
+							placeholder="Read-only during testing"
+							disabled
+							aria-disabled="true"
+						/>
+					</label>
+					<label class="pb-field"
+						>SEO description
+						<textarea
+							id="pb-ai-seo-description"
+							rows="3"
+							placeholder="Read-only during testing"
+							disabled
+							aria-disabled="true"
+						></textarea>
+					</label>
+					<label class="pb-field"
+						>Social snippet
+						<textarea
+							id="pb-ai-social"
+							rows="4"
+							placeholder="Read-only during testing"
+							disabled
+							aria-disabled="true"
+						></textarea>
+					</label>
+				</div>
+			</section>
 
-    <form id="pb-form" class="pb-form" onsubmit="return false;">
-      <label class="pb-field">Title <input type="text" id="pb-title" required autocomplete="off" placeholder="Temporarily disabled" disabled aria-disabled="true"></label>
-      <label class="pb-field">Date <input type="date" id="pb-date" disabled aria-disabled="true"></label>
-      <label class="pb-field">Description <span class="pb-hint">(blank line = new paragraph)</span>
-        <textarea id="pb-description" rows="6" placeholder="Temporarily disabled" disabled aria-disabled="true"></textarea>
-      </label>
-      <label class="pb-field">Image layout
-        <select id="pb-layout">
-          <option value="stack">Stack — full width, one after another</option>
-          <option value="grid">Grid — responsive photo grid</option>
-          <option value="gallery">Gallery — horizontal strip, tap to enlarge</option>
-        </select>
-      </label>
+			<form id="pb-form" class="pb-form" onsubmit="return false;">
+				<label class="pb-field"
+					>Title
+					<input
+						type="text"
+						id="pb-title"
+						required
+						autocomplete="off"
+						placeholder="Read-only during testing"
+						disabled
+						aria-disabled="true"
+				/></label>
+				<label class="pb-field">Date <input type="date" id="pb-date" disabled aria-disabled="true" /></label>
+				<label class="pb-field"
+					>Description <span class="pb-hint">(blank line = new paragraph)</span>
+					<textarea
+						id="pb-description"
+						rows="6"
+						placeholder="Read-only during testing"
+						disabled
+						aria-disabled="true"
+					></textarea>
+				</label>
+				<label class="pb-field"
+					>Image layout
+					<select id="pb-layout">
+						<option value="stack">Stack — full width, one after another</option>
+						<option value="grid">Grid — responsive photo grid</option>
+						<option value="gallery">Gallery — horizontal strip, tap to enlarge</option>
+					</select>
+				</label>
 
-      <div class="pb-images-section">
-        <div class="pb-images-head">
-          <span>Photos</span>
-          <button type="button" id="pb-add-image" class="modeButton">+ Add another photo</button>
-        </div>
-        <div id="pb-images" class="pb-images"></div>
-      </div>
+				<div class="pb-images-section">
+					<div class="pb-images-head">
+						<span>Photos</span>
+						<button type="button" id="pb-add-image" class="modeButton">+ Add another photo</button>
+					</div>
+					<div id="pb-images" class="pb-images"></div>
+				</div>
 
-      <button type="button" id="pb-add-post" class="modeButton pb-submit">Add post to list</button>
-    </form>
+				<button type="button" id="pb-add-post" class="modeButton pb-submit">Add post to list</button>
+			</form>
 
-    <h2 class="pb-preview-heading">Latest preview</h2>
-    <p class="pb-hint">Updates when you add a post.</p>
-    <div id="pb-preview" class="pb-preview-wrap"></div>
-  </div>
+			<h2 class="pb-preview-heading">Latest preview</h2>
+			<p class="pb-hint">Updates when you add a post.</p>
+			<div id="pb-preview" class="pb-preview-wrap"></div>
+		</div>
 
-  <shared-footer disclosure="<i>This page has optional tip links (Ko-fi, StreamElements) and no paid shopping links. The Apartment tour, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"></shared-footer>
+		<shared-footer
+			disclosure='<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Bigfoot&#39;s Jungle, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>'
+		></shared-footer>
 
-  <script src="scripts/post-builder.js"></script>
-</body>
+		<script src="scripts/post-builder.js"></script>
+	</body>
 </html>

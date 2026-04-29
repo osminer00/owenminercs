@@ -1,0 +1,15 @@
+---
+description: Use Context7 MCP for library docs, APIs, and framework setup instead of guessing from training data.
+alwaysApply: true
+---
+
+# Context7
+
+When the task involves **external libraries**, **framework APIs**, **setup/config**, or **version-specific behavior**, use the **Context7** MCP tools before writing code:
+
+1. **`resolve-library-id`** — pass `libraryName` and your full question as `query` to get the best `libraryId`.
+2. **`query-docs`** — pass that `libraryId` and the user’s question as `query` for current docs and examples.
+
+If the user names a library clearly, you may skip resolution and call **`query-docs`** with a known Context7 ID (e.g. `/vercel/next.js`).
+
+Prefer Context7 output over memory for library-specific syntax. Optionally add phrases like “use context7” in user prompts when they want docs-grounded answers.

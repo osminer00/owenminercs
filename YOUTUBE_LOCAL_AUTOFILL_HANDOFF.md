@@ -47,17 +47,17 @@ Each file should contain an array of normalized items:
 
 ```json
 [
-  {
-    "platform": "youtube",
-    "contentType": "short",
-    "title": "Video title",
-    "url": "https://www.youtube.com/shorts/<id>",
-    "thumbnail": "https://i.ytimg.com/vi/<id>/hqdefault.jpg",
-    "caption": "description",
-    "publishedAt": "2026-01-01T00:00:00.000Z",
-    "viewCount": 12345,
-    "likeCount": 678
-  }
+	{
+		"platform": "youtube",
+		"contentType": "short",
+		"title": "Video title",
+		"url": "https://www.youtube.com/shorts/<id>",
+		"thumbnail": "https://i.ytimg.com/vi/<id>/hqdefault.jpg",
+		"caption": "description",
+		"publishedAt": "2026-01-01T00:00:00.000Z",
+		"viewCount": 12345,
+		"likeCount": 678
+	}
 ]
 ```
 
@@ -75,14 +75,14 @@ Use `yt-dlp` from local script (Node `child_process`) to read channel data:
 - channel URL: `https://www.youtube.com/@OwenMinerCS`
 - parse metadata from playlist/entries
 - capture at minimum:
-  - id
-  - title
-  - description
-  - upload date / timestamp
-  - duration
-  - view_count
-  - like_count (if present)
-  - live status flags
+    - id
+    - title
+    - description
+    - upload date / timestamp
+    - duration
+    - view_count
+    - like_count (if present)
+    - live status flags
 
 Recommended script path:
 
@@ -139,8 +139,8 @@ Update `Socials/scripts/social-cloud.js`:
 2. If local JSON exists and has items, use it as the source of truth.
 3. Keep existing manual array only as final emergency fallback.
 4. Preserve per-card aspect ratio behavior:
-   - shorts -> `9:16`
-   - videos -> `16:9`
+    - shorts -> `9:16`
+    - videos -> `16:9`
 
 Important:
 
@@ -167,12 +167,13 @@ Use this prompt with another agent:
 > Implement local YouTube auto-fill for Social Cloud without backend APIs.  
 > Context: repo has `Socials/scripts/social-cloud.js`; we want local generated content files instead of manual arrays.  
 > Please:
-> 1) Add `scripts/sync-youtube-local-feed.mjs` that pulls channel metadata from `https://www.youtube.com/@OwenMinerCS` using `yt-dlp` (no API key).  
-> 2) Filter out livestreams; classify shorts vs videos; rank by views + likes + recency.  
-> 3) Write `Socials/data/youtube-shorts.json` and `Socials/data/youtube-videos.json`.  
-> 4) Update `Socials/scripts/social-cloud.js` to load these local JSON files first, with manual fallback only.  
-> 5) Keep social cloud interactions unchanged and preserve 9:16 for shorts, 16:9 for videos.  
-> 6) Run lint checks for edited files and provide a quick test plan.
+>
+> 1. Add `scripts/sync-youtube-local-feed.mjs` that pulls channel metadata from `https://www.youtube.com/@OwenMinerCS` using `yt-dlp` (no API key).
+> 2. Filter out livestreams; classify shorts vs videos; rank by views + likes + recency.
+> 3. Write `Socials/data/youtube-shorts.json` and `Socials/data/youtube-videos.json`.
+> 4. Update `Socials/scripts/social-cloud.js` to load these local JSON files first, with manual fallback only.
+> 5. Keep social cloud interactions unchanged and preserve 9:16 for shorts, 16:9 for videos.
+> 6. Run lint checks for edited files and provide a quick test plan.
 
 ---
 

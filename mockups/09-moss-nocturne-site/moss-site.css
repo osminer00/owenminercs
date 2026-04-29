@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+/* Moss Nocturne layer on top of production owenminercs.css (go.html shell + injected pages). */
+:root {
+	--moss-void: #050806;
+	--moss-ink: #0b100c;
+	--moss-line: rgba(120, 200, 140, 0.14);
+	--moss-text: #dce8d9;
+	--moss-soft: rgba(190, 210, 185, 0.82);
+	--moss-lime: #c4f55e;
+	--moss-green: #6ecf8c;
+}
+
+body.moss-go-body {
+	margin: 0;
+	min-height: 100vh;
+	font-family: 'IBM Plex Sans', system-ui, sans-serif;
+	color: var(--moss-text);
+	background:
+		radial-gradient(ellipse 95% 55% at 50% 0%, rgba(40, 70, 45, 0.38), transparent 58%),
+		var(--moss-void);
+}
+
+body.moss-go-body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	opacity: 0.045;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+body.moss-go-body::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	background-size: 48px 48px;
+	background-image:
+		linear-gradient(rgba(110, 207, 140, 0.045) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(110, 207, 140, 0.045) 1px, transparent 1px);
+	mask-image: radial-gradient(ellipse 85% 70% at 50% 35%, black, transparent);
+}
+
+.moss-chrome,
+#moss-out {
+	position: relative;
+	z-index: 1;
+}
+
+.moss-frame {
+	display: flex;
+	min-height: 100vh;
+}
+
+.moss-rail {
+	width: 56px;
+	flex-shrink: 0;
+	border-right: 1px solid var(--moss-line);
+	background: linear-gradient(180deg, #070a08, var(--moss-ink));
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1.15rem 0;
+	gap: 1.75rem;
+}
+
+.moss-rail a {
+	color: rgba(180, 200, 175, 0.55);
+	text-decoration: none;
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.moss-rail a:hover,
+.moss-rail a:focus-visible {
+	color: var(--moss-green);
+}
+
+.moss-rail__brand {
+	width: 32px;
+	height: 32px;
+	border-radius: 10px;
+	border: 1px solid rgba(196, 245, 94, 0.35);
+	display: grid;
+	place-items: center;
+	font-family: 'Fraunces', Georgia, serif;
+	font-weight: 700;
+	color: var(--moss-lime);
+	font-size: 0.95rem;
+}
+
+.moss-flow {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.moss-topbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.65rem 1rem;
+	padding: 0.85rem 1.1rem 0.65rem;
+	border-bottom: 1px solid var(--moss-line);
+	background: rgba(8, 14, 11, 0.72);
+	backdrop-filter: blur(12px);
+}
+
+.moss-topbar__crumb {
+	font-size: 0.8rem;
+	color: var(--moss-soft);
+	letter-spacing: 0.02em;
+}
+
+.moss-topbar__crumb code {
+	color: var(--moss-lime);
+	font-size: 0.78rem;
+}
+
+.moss-topbar__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.moss-pill {
+	font-size: 0.65rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	padding: 0.35rem 0.55rem;
+	border-radius: 999px;
+	border: 1px solid rgba(196, 245, 94, 0.28);
+	color: rgba(220, 240, 225, 0.88);
+}
+
+.moss-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.45rem 0.85rem;
+	border-radius: 999px;
+	border: 1px solid rgba(110, 207, 140, 0.45);
+	background: rgba(12, 22, 18, 0.65);
+	color: var(--moss-green);
+	font-size: 0.8rem;
+	font-weight: 600;
+	text-decoration: none;
+	font-family: inherit;
+	cursor: pointer;
+}
+
+.moss-btn:hover,
+.moss-btn:focus-visible {
+	border-color: rgba(196, 245, 94, 0.55);
+	color: var(--moss-lime);
+}
+
+.moss-btn--primary {
+	border: none;
+	color: var(--moss-void);
+	background: linear-gradient(95deg, var(--moss-lime), var(--moss-green));
+}
+
+#moss-out {
+	flex: 1;
+	padding: 0 0 3rem;
+}
+
+.moss-error {
+	max-width: 42rem;
+	margin: 2rem 1.25rem;
+	padding: 1rem 1.1rem;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 120, 120, 0.35);
+	background: rgba(30, 10, 10, 0.55);
+	color: #f5d4d4;
+	line-height: 1.55;
+}
+
+.moss-error code {
+	color: #ffd0a8;
+}
+
+/* --- Production surface overrides inside injected subtree --- */
+#moss-out .site-shared-header {
+	background: linear-gradient(180deg, rgba(10, 18, 14, 0.92), rgba(6, 10, 8, 0.78));
+	border-bottom: 1px solid var(--moss-line);
+	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+#moss-out .header-plant-growth {
+	opacity: 0.14;
+}
+
+#moss-out .site-rule {
+	border-color: var(--moss-line) !important;
+}
+
+#moss-out {
+	--nav-pill-idle-border: rgba(120, 200, 140, 0.18);
+	--nav-pill-accent-fill: rgba(30, 55, 40, 0.45);
+	--nav-pill-accent-ring: rgba(196, 245, 94, 0.45);
+	--nav-pill-accent-glow: 0 0 18px rgba(110, 207, 140, 0.28);
+	--nav-pill-active-fill: rgba(40, 70, 48, 0.55);
+	--nav-pill-active-ring: rgba(196, 245, 94, 0.55);
+	--nav-pill-active-glow: 0 0 22px rgba(110, 207, 140, 0.32);
+}
+
+#moss-out .site-nav-link.site-nav-link--active {
+	color: var(--moss-lime) !important;
+}
+
+#moss-out .container,
+#moss-out .intro {
+	color: var(--moss-text);
+}
+
+#moss-out h1,
+#moss-out h2,
+#moss-out h3,
+#moss-out h4 {
+	font-family: 'Fraunces', Georgia, serif;
+	letter-spacing: -0.02em;
+}
+
+#moss-out p,
+#moss-out li,
+#moss-out td,
+#moss-out th {
+	font-family: 'IBM Plex Sans', system-ui, sans-serif;
+	color: var(--moss-soft);
+}
+
+#moss-out a:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link) {
+	color: var(--moss-green);
+}
+
+#moss-out a:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link):hover {
+	color: var(--moss-lime);
+}
+
+#moss-out footer {
+	background: linear-gradient(180deg, transparent, rgba(6, 10, 8, 0.55));
+	border-top: 1px solid var(--moss-line);
+	padding-top: 0.5rem;
+}
+
+#moss-out .site-footer-bug-report a,
+#moss-out .site-footer-back-top {
+	color: var(--moss-green) !important;
+}
+
+#moss-out .site-social-nav__link {
+	border-color: rgba(120, 200, 140, 0.22) !important;
+}
+
+@media (max-width: 720px) {
+	.moss-frame {
+		flex-direction: column;
+	}
+
+	.moss-rail {
+		width: 100%;
+		flex-direction: row;
+		justify-content: center;
+		border-right: none;
+		border-bottom: 1px solid var(--moss-line);
+		padding: 0.65rem 0.75rem;
+		gap: 1.25rem;
+	}
+}

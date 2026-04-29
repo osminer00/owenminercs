@@ -1,0 +1,36 @@
+---
+description: Prefer local Ollama delegation for low-risk work to reduce hosted model usage.
+globs:
+alwaysApply: true
+---
+
+# Ollama Delegation Rule
+
+When working in this repository, reduce hosted model usage by delegating suitable subtasks to local Ollama on the user's RTX 4090.
+
+## Delegate To Local Ollama
+
+- First drafts and rewrites for static HTML/CSS/JS content.
+- Repetitive transformations (rename lists, mapping content blocks, template scaffolding).
+- Summaries, extraction, and classification of local text/data files.
+- Test-case or checklist generation where correctness can be verified afterward.
+- Non-critical brainstorming where final decisions still stay with the primary agent.
+
+Use:
+
+```powershell
+.\dev\ollama-delegate.ps1 -Prompt "<task>"
+```
+
+## Keep Cloud Models For
+
+- Final decision-making with meaningful product/architecture trade-offs.
+- Security-sensitive changes and auth/payment logic.
+- Complex debugging with ambiguous root causes.
+- Final quality checks for risky edits before completion.
+
+## Performance Guardrails
+
+- If local inference is slow or low quality, switch back to cloud immediately.
+- Do not block user progress waiting on local generations for trivial gains.
+- Keep outputs concise and verify any local output before applying to code.

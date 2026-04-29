@@ -1,328 +1,457 @@
 {
-  "disclosure": {
-    "en": "This page may include paid links to Amazon and other retailers. As an Amazon Associate I earn from qualifying purchases. AliExpress links from the AliExpress Portals Affiliate Program (s.click.aliexpress.com deeplinks) earn commission when labeled (affiliate). Generic AliExpress search links are for convenience only until replaced with your Portals links in affiliate-links.json.",
-    "short": "As an Amazon Associate I earn from qualifying purchases. Some buttons link to AliExpress (Portals affiliate when marked)."
-  },
-  "products": {
-    "pc_components": {
-      "rog_swift_monitor": {
-        "name": "ASUS ROG Swift OLED PG27AQDP",
-        "specs": "27-inch, 2560x1440, 480Hz, OLED",
-        "asin": "B0BZ9YT6L4",
-        "paid_price": "$999.00",
-        "category": "Monitor",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=ASUS+ROG+Swift+OLED+PG27AQDP&tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "Desk Setup/setup.html", "The Setup/gaming-pc.html", "The Setup/gaming-monitor.html", "The Setup/the-setup.html"]
-      },
-      "gigabyte_b650_motherboard": {
-        "name": "Gigabyte B650 GAMING X AX V2",
-        "specs": "AM5, DDR5, PCIe 4.0",
-        "category": "Motherboard",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Gigabyte+B650+GAMING+X+AX+V2&tag=owenminercs-20",
-          "official": "https://www.gigabyte.com/Motherboard/B650-GAMING-X-AX-V2-rev-1x"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "ryzen_9800x3d": {
-        "name": "AMD Ryzen 7 9800X3D",
-        "specs": "8-Core, 5.0 GHz, Socket AM5",
-        "price": "$479.00",
-        "category": "CPU",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=AMD+Ryzen+7+9800X3D&tag=owenminercs-20",
-          "microcenter": "https://www.microcenter.com/search/results?Ntt=Ryzen+9800X3D"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "rtx_4090": {
-        "name": "NVIDIA GeForce RTX 4090",
-        "specs": "24GB GDDR6X, Ada Architecture",
-        "price": "$1,599.00",
-        "category": "GPU",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=NVIDIA+RTX+4090&tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "noctua_cooler": {
-        "name": "Noctua NH-D15S chromax.Black",
-        "specs": "Tower Air Cooler, LGA1700 Compatible",
-        "asin": "B08HM1T6RL",
-        "paid_price": "$89.95",
-        "category": "CPU Cooler",
-        "links": {
-          "amazon": "https://www.amazon.com/Noctua-NH-D15S-chromax-Black-Premium/dp/B08HM1T6RL?tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "corsair_psu": {
-        "name": "Corsair RM1000x 1000W PSU",
-        "specs": "80+ Gold, Fully Modular, 12-Year Warranty",
-        "price": "$149.99",
-        "category": "PSU",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Corsair+RM1000x&tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "gskill_ram": {
-        "name": "G.SKILL Ripjaws M5 Neo RGB 32GB DDR5-6000",
-        "specs": "2x16GB, PC5-48000, CL28",
-        "price": "$129.99",
-        "category": "RAM",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=G+Skill+Ripjaws+M5+Neo&tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "wd_black_ssd": {
-        "name": "WD_BLACK SN850X 1TB NVMe SSD",
-        "specs": "Gen4, Up to 7,100 MB/s Read",
-        "price": "$79.99",
-        "category": "Storage",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=WD+Black+SN850X&tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "lian_li_case": {
-        "name": "Lian Li O11 Dynamic Evo",
-        "specs": "Tempered Glass, Dual Chamber, Black",
-        "price": "$199.99",
-        "category": "Case",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Lian+Li+O11+Dynamic+Evo&tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "lian_li_fans": {
-        "name": "Lian Li UNI Fan SL120 V2",
-        "specs": "120mm, RGB, Pack of 3",
-        "price": "$49.99",
-        "category": "Case Fans",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Lian+Li+UNI+Fan+SL120&tag=owenminercs-20"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      },
-      "windows_11_pro": {
-        "name": "Windows 11 Pro",
-        "specs": "Retail / digital license",
-        "category": "OS",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Windows+11+Pro&tag=owenminercs-20",
-          "official": "https://www.microsoft.com/en-us/d/windows-11-pro/dg7gmgf0d8h4"
-        },
-        "pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
-      }
-    },
-    "desk_setup": {
-      "beyerdynamic_headphones": {
-        "name": "Beyerdynamic DT 990 Pro 250 Ohm (Limited Edition Black)",
-        "specs": "Open-back studio headphones",
-        "asin": "B0CGD7GLZP",
-        "paid_price": "$179.99",
-        "category": "Audio",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Beyerdynamic+DT+990+Pro+250+Ohm&tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/headphones.html"]
-      },
-      "rode_streamer_x": {
-        "name": "Rode Streamer X All-in-One",
-        "specs": "USB/XLR audio interface",
-        "asin": "B0BQM2CL1W",
-        "paid_price": "$249.99",
-        "category": "Audio",
-        "links": {
-          "amazon": "https://www.amazon.com/dp/B0BQM2CL1W?tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/audio-interface.html"]
-      },
-      "shure_sm7b": {
-        "name": "Shure SM7B Microphone",
-        "specs": "Cardioid, Professional, XLR",
-        "asin": "B0002E4Z8M",
-        "paid_price": "$399.00",
-        "category": "Microphone",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Shure+SM7B&tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/microphone.html"]
-      },
-      "sony_zv_e10": {
-        "name": "Sony Alpha ZV-E10 Mirrorless Camera",
-        "specs": "APS-C, 4K Video, Compact",
-        "asin": "B09BBGPTCQ",
-        "paid_price": "$698.00",
-        "category": "Camera",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Sony+ZV-E10&tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/camera.html"]
-      },
-      "godox_keylight": {
-        "name": "Godox ES45 LED Key Light",
-        "specs": "Dimmable, color temperature control",
-        "asin": "B09NMWV9JM",
-        "paid_price": "$229.00",
-        "category": "Lighting",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Godox+ES45&tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/key-light.html"]
-      },
-      "flexispot_desk": {
-        "name": "Flexispot E6 Electric Desk",
-        "specs": "Sit-Stand, Dual Motor, Memory Preset",
-        "asin": "B08CJCQPGM",
-        "paid_price": "$369.99",
-        "category": "Desk",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Flexispot+E6&tag=owenminercs-20",
-          "official": "https://www.flexispot.com/"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/desk.html"]
-      },
-      "deerrun_walkpad": {
-        "name": "DeerRun Under Desk Treadmill",
-        "specs": "Compact, silent, remote control",
-        "asin": "B0C4S1F7Z1",
-        "current_price": "$299.99",
-        "paid_price": "$129.99",
-        "category": "Fitness",
-        "links": {
-          "amazon": "https://www.amazon.com/dp/B0C4S1F7Z1?tag=owenminercs-20",
-          "aliexpress": "https://www.aliexpress.com/wholesale?SearchText=walking+pad"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/walking-pad.html"]
-      },
-      "logitech_superlight": {
-        "name": "Logitech G PRO X SUPERLIGHT",
-        "specs": "Ultra-Lightweight, 25,000 DPI, Wireless Gaming Mouse",
-        "asin": "B087LXCTFJ",
-        "paid_price": "$99.99",
-        "category": "Mouse",
-        "links": {
-          "amazon": "https://www.amazon.com/dp/B087LXCTFJ?tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/mouse.html"]
-      },
-      "wooting_60he": {
-        "name": "Wooting 60HE Analog Mechanical Keyboard",
-        "specs": "Hall Effect, 60% Layout, RGB",
-        "price": "$169.99",
-        "category": "Keyboard",
-        "links": {
-          "official": "https://wooting.io/",
-          "amazon": "https://www.amazon.com/s?k=Wooting+60HE&tag=owenminercs-20"
-        },
-        "pages": ["Keyboard/60he.html", "Desk Setup/setup.html", "The Setup/the-setup.html"]
-      },
-      "lg_ultrawide_34wl850": {
-        "name": "LG 34WL850 UltraWide Monitor",
-        "specs": "3440x1440, IPS, USB-C",
-        "asin": "B07Q3X33Q1",
-        "paid_price": "$699.00",
-        "category": "Monitor",
-        "links": {
-          "amazon": "https://www.amazon.com/dp/B07Q3X33Q1?tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/ultrawide-monitor.html"]
-      },
-      "asus_vn247h_display": {
-        "name": "Asus 24\" 1080p Monitor (legacy secondary)",
-        "specs": "1920x1080, 60Hz",
-        "asin": "B005BZNDS0",
-        "paid_price": "$119.00",
-        "category": "Monitor",
-        "links": {
-          "amazon": "https://www.amazon.com/dp/B005BZNDS0?tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/other-displays.html"]
-      },
-      "logitech_c920_webcam": {
-        "name": "Logitech C920 HD Webcam",
-        "specs": "1080p, stereo mics",
-        "asin": "B0915RDS44",
-        "paid_price": "$99.00",
-        "category": "Webcam",
-        "links": {
-          "amazon": "https://www.amazon.com/dp/B0915RDS44?tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/webcam.html"]
-      },
-      "govee_smart_led": {
-        "name": "Govee Smart LED Lighting",
-        "specs": "Room and accent lighting (search)",
-        "category": "Lighting",
-        "links": {
-          "amazon": "https://www.amazon.com/s?k=Govee+LED&tag=owenminercs-20"
-        },
-        "pages": ["Desk Setup/setup.html", "The Setup/the-setup.html", "The Setup/lighting.html"]
-      }
-    },
-    "keyboard_parts": {
-      "keyboard_switches": {
-        "name": "Mechanical Keyboard Switches (Various)",
-        "specs": "Linear, Tactile, Clicky Options",
-        "category": "Switches",
-        "links": {
-          "aliexpress": "https://www.aliexpress.com/wholesale?SearchText=mechanical+switches",
-          "amazon": "https://www.amazon.com/s?k=mechanical+keyboard+switches&tag=owenminercs-20"
-        },
-        "pages": ["Keyboard/60he.html"]
-      },
-      "keycaps": {
-        "name": "PBT / ABS Mechanical Keycaps",
-        "specs": "Multiple Profiles (DSA, OEM, Cherry)",
-        "category": "Keycaps",
-        "links": {
-          "aliexpress": "https://www.aliexpress.com/wholesale?SearchText=keycaps+mechanical",
-          "amazon": "https://www.amazon.com/s?k=mechanical+keyboard+keycaps&tag=owenminercs-20"
-        },
-        "pages": ["Keyboard/60he.html"]
-      },
-      "stabilizers": {
-        "name": "Mechanical Keyboard Stabilizers",
-        "specs": "Durock, Gateron, Cherry",
-        "category": "Stabilizers",
-        "links": {
-          "aliexpress": "https://www.aliexpress.com/wholesale?SearchText=stabilizers",
-          "amazon": "https://www.amazon.com/s?k=keyboard+stabilizers&tag=owenminercs-20"
-        },
-        "pages": ["Keyboard/60he.html"]
-      },
-      "keyboard_mat": {
-        "name": "Mechanical Keyboard Desk Mat",
-        "specs": "Premium Rubber, RGB Compatible",
-        "category": "Accessories",
-        "links": {
-          "aliexpress": "https://www.aliexpress.com/wholesale?SearchText=keyboard+mat",
-          "amazon": "https://www.amazon.com/s?k=keyboard+desk+mat&tag=owenminercs-20"
-        },
-        "pages": ["Keyboard/60he.html"]
-      },
-      "gh60_aluminum_case": {
-        "name": "GH60 Aluminum Keyboard Case (AliExpress)",
-        "specs": "Same listing family as the Crosshair Alpha build on 60he",
-        "category": "Case",
-        "links": {
-          "aliexpress": "https://www.aliexpress.us/item/3256805158305721.html"
-        },
-        "pages": ["Keyboard/60he.html"]
-      }
-    }
-  },
-  "metadata": {
-    "last_updated": "2026-04-19",
-    "total_products": 29,
-    "affiliate_programs": ["Amazon Associates", "AliExpress Portals"],
-    "aliexpress_portals_signup": "https://portals.aliexpress.com/",
-    "aliexpress_note": "Optional per-product key links.aliexpress_portals: paste your Portals deeplink (s.click.aliexpress.com/...) from Link Generator; it overrides links.aliexpress for that product.",
-    "priority_pages": ["The Setup/gaming-pc.html", "PC/pc.html", "Desk Setup/setup.html", "Keyboard/60he.html", "The Setup/the-setup.html"]
-  }
+	"disclosure": {
+		"en": "This page may include paid links to Amazon, AliExpress, and other retailers. As an Amazon Associate I earn from qualifying purchases. Links marked (affiliate) may earn commission.",
+		"short": "As an Amazon Associate I earn from qualifying purchases. Links marked (affiliate) may earn commission."
+	},
+	"products": {
+		"pc_components": {
+			"rog_swift_monitor": {
+				"name": "ASUS ROG Swift OLED PG27AQDP",
+				"specs": "27-inch, 2560x1440, 480Hz, OLED",
+				"asin": "B0BZ9YT6L4",
+				"paid_price": "$999.00",
+				"category": "Monitor",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=ASUS+ROG+Swift+OLED+PG27AQDP&tag=owenminercs-20"
+				},
+				"pages": [
+					"PC/pc.html",
+					"Desk Setup/setup.html",
+					"The Setup/gaming-pc.html",
+					"The Setup/gaming-monitor.html",
+					"The Setup/the-setup.html"
+				]
+			},
+			"gigabyte_b650_motherboard": {
+				"name": "Gigabyte B650 GAMING X AX V2",
+				"specs": "AM5, DDR5, PCIe 4.0",
+				"category": "Motherboard",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Gigabyte+B650+GAMING+X+AX+V2&tag=owenminercs-20",
+					"official": "https://www.gigabyte.com/Motherboard/B650-GAMING-X-AX-V2-rev-1x"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"ryzen_9800x3d": {
+				"name": "AMD Ryzen 7 9800X3D",
+				"specs": "8-Core, 5.0 GHz, Socket AM5",
+				"price": "$479.00",
+				"category": "CPU",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=AMD+Ryzen+7+9800X3D&tag=owenminercs-20",
+					"microcenter": "https://www.microcenter.com/search/results?Ntt=Ryzen+9800X3D"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"rtx_4090": {
+				"name": "NVIDIA GeForce RTX 4090",
+				"specs": "24GB GDDR6X, Ada Architecture",
+				"price": "$1,599.00",
+				"category": "GPU",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=NVIDIA+RTX+4090&tag=owenminercs-20"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"noctua_cooler": {
+				"name": "Noctua NH-D15S chromax.Black",
+				"specs": "Tower Air Cooler, LGA1700 Compatible",
+				"asin": "B08HM1T6RL",
+				"paid_price": "$89.95",
+				"category": "CPU Cooler",
+				"links": {
+					"amazon": "https://www.amazon.com/Noctua-NH-D15S-chromax-Black-Premium/dp/B08HM1T6RL?tag=owenminercs-20"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"corsair_psu": {
+				"name": "Corsair RM1000x 1000W PSU",
+				"specs": "80+ Gold, Fully Modular, 12-Year Warranty",
+				"price": "$149.99",
+				"category": "PSU",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Corsair+RM1000x&tag=owenminercs-20"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"gskill_ram": {
+				"name": "G.SKILL Ripjaws M5 Neo RGB 32GB DDR5-6000",
+				"specs": "2x16GB, PC5-48000, CL28",
+				"price": "$129.99",
+				"category": "RAM",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=G+Skill+Ripjaws+M5+Neo&tag=owenminercs-20"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"wd_black_ssd": {
+				"name": "WD_BLACK SN850X 1TB NVMe SSD",
+				"specs": "Gen4, Up to 7,100 MB/s Read",
+				"price": "$79.99",
+				"category": "Storage",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=WD+Black+SN850X&tag=owenminercs-20"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"lian_li_case": {
+				"name": "Lian Li O11 Dynamic Evo",
+				"specs": "Tempered Glass, Dual Chamber, Black",
+				"price": "$199.99",
+				"category": "Case",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Lian+Li+O11+Dynamic+Evo&tag=owenminercs-20"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"lian_li_fans": {
+				"name": "Lian Li UNI Fan SL120 V2",
+				"specs": "120mm, RGB, Pack of 3",
+				"price": "$49.99",
+				"category": "Case Fans",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Lian+Li+UNI+Fan+SL120&tag=owenminercs-20"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			},
+			"windows_11_pro": {
+				"name": "Windows 11 Pro",
+				"specs": "Retail / digital license",
+				"category": "OS",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Windows+11+Pro&tag=owenminercs-20",
+					"official": "https://www.microsoft.com/en-us/d/windows-11-pro/dg7gmgf0d8h4"
+				},
+				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
+			}
+		},
+		"desk_setup": {
+			"beyerdynamic_headphones": {
+				"name": "Beyerdynamic DT 990 Pro 250 Ohm (Limited Edition Black)",
+				"specs": "Open-back studio headphones",
+				"asin": "B0CGD7GLZP",
+				"paid_price": "$179.99",
+				"category": "Audio",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Beyerdynamic+DT+990+Pro+250+Ohm&tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/headphones.html"
+				]
+			},
+			"rode_streamer_x": {
+				"name": "Rode Streamer X All-in-One",
+				"specs": "USB/XLR audio interface",
+				"asin": "B0BQM2CL1W",
+				"paid_price": "$249.99",
+				"category": "Audio",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0BQM2CL1W?tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/audio-interface.html"
+				]
+			},
+			"shure_sm7b": {
+				"name": "Shure SM7B Microphone",
+				"specs": "Cardioid, Professional, XLR",
+				"asin": "B0002E4Z8M",
+				"paid_price": "$399.00",
+				"category": "Microphone",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Shure+SM7B&tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/microphone.html"
+				]
+			},
+			"elgato_wave_mic_arm": {
+				"name": "Elgato Wave Mic Arm",
+				"specs": "Desk clamp broadcast boom arm",
+				"asin": "B097376LKF",
+				"paid_price": "$99.00",
+				"category": "Microphone Arm",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Elgato+Wave+Mic+Arm&tag=owenminercs-20",
+					"official": "https://www.elgato.com/us/en/p/wave-mic-arm"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/microphone-arm.html"
+				]
+			},
+			"sony_zv_e10": {
+				"name": "Sony Alpha ZV-E10 Mirrorless Camera",
+				"specs": "APS-C, 4K Video, Compact",
+				"asin": "B09BBGPTCQ",
+				"paid_price": "$698.00",
+				"category": "Camera",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Sony+ZV-E10&tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/camera.html"
+				]
+			},
+			"godox_keylight": {
+				"name": "Godox ES45 LED Key Light",
+				"specs": "Dimmable, color temperature control",
+				"asin": "B09NMWV9JM",
+				"paid_price": "$229.00",
+				"category": "Lighting",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Godox+ES45&tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/key-light.html"
+				]
+			},
+			"flexispot_desk": {
+				"name": "Flexispot E6 Electric Desk",
+				"specs": "Sit-Stand, Dual Motor, Memory Preset",
+				"asin": "B08CJCQPGM",
+				"paid_price": "$369.99",
+				"category": "Desk",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Flexispot+E6&tag=owenminercs-20",
+					"official": "https://www.flexispot.com/"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/desk.html"
+				]
+			},
+			"deerrun_walkpad": {
+				"name": "DeerRun Under Desk Treadmill",
+				"specs": "Compact, silent, remote control",
+				"asin": "B0C4S1F7Z1",
+				"current_price": "$299.99",
+				"paid_price": "$129.99",
+				"category": "Fitness",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0C4S1F7Z1?tag=owenminercs-20",
+					"aliexpress": "https://www.aliexpress.com/wholesale?SearchText=walking+pad"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/walking-pad.html"
+				]
+			},
+			"logitech_superlight": {
+				"name": "Logitech G PRO X SUPERLIGHT",
+				"specs": "Ultra-Lightweight, 25,000 DPI, Wireless Gaming Mouse",
+				"asin": "B087LXCTFJ",
+				"paid_price": "$99.99",
+				"category": "Mouse",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B087LXCTFJ?tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/mouse.html"
+				]
+			},
+			"wooting_60he": {
+				"name": "Wooting 60HE Analog Mechanical Keyboard",
+				"specs": "Hall Effect, 60% Layout, RGB",
+				"price": "$169.99",
+				"category": "Keyboard",
+				"links": {
+					"official": "https://wooting.io/wooting-60he-v2",
+					"amazon": false,
+					"aliexpress": false
+				},
+				"pages": ["Keyboard/60he.html", "Desk Setup/setup.html", "The Setup/the-setup.html"]
+			},
+			"lg_ultrawide_34wl850": {
+				"name": "LG 34WL850 UltraWide Monitor",
+				"specs": "3440x1440, IPS, USB-C",
+				"asin": "B07Q3X33Q1",
+				"paid_price": "$699.00",
+				"category": "Monitor",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B07Q3X33Q1?tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/ultrawide-monitor.html"
+				]
+			},
+			"asus_vn247h_display": {
+				"name": "Asus 24\" 1080p Monitor (legacy secondary)",
+				"specs": "1920x1080, 60Hz",
+				"asin": "B005BZNDS0",
+				"paid_price": "$119.00",
+				"category": "Monitor",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B005BZNDS0?tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/other-displays.html"
+				]
+			},
+			"wallhack_sp004_mousepad": {
+				"name": "Wallhack SP-004 Glass Mousepad",
+				"specs": "Hard glass control/speed surface",
+				"paid_price": "$119.00",
+				"category": "Mouse Pad",
+				"links": {
+					"direct": "https://wallhack.com/products/sp-004-black",
+					"amazon_search": false,
+					"aliexpress": false
+				},
+				"pages": ["The Setup/the-setup.html", "The Setup/mouse-pad.html"]
+			},
+			"monitor_arms_multi": {
+				"name": "Multi-Monitor Desk Arms",
+				"specs": "Desk clamp monitor arm mounts",
+				"category": "Monitor Arms",
+				"links": {
+					"amazon_search": "https://www.amazon.com/s?k=desk+clamp+monitor+arm&tag=owenminercs-20",
+					"aliexpress_search": "https://www.aliexpress.com/wholesale?SearchText=desk+clamp+monitor+arm"
+				},
+				"pages": ["The Setup/the-setup.html", "The Setup/monitor-arms.html"]
+			},
+			"logitech_c920_webcam": {
+				"name": "Logitech C920 HD Webcam",
+				"specs": "1080p, stereo mics",
+				"asin": "B0915RDS44",
+				"paid_price": "$99.00",
+				"category": "Webcam",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0915RDS44?tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/webcam.html"
+				]
+			},
+			"suspension_boom_scissor_arm": {
+				"name": "Suspension Boom Scissor Mic Arm",
+				"specs": "Clamp mount, adjustable articulated arm",
+				"asin": "B00DY1F2CS",
+				"paid_price": "$18.99",
+				"category": "Webcam Mount",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B00DY1F2CS?tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/webcam-arm.html"
+				]
+			},
+			"gator_camera_mount_adapter": {
+				"name": "Gator Frameworks Camera Mount Adapter",
+				"specs": "Mic stand camera adapter with ball head",
+				"asin": "B08W9NKNSR",
+				"paid_price": "$10.99",
+				"category": "Webcam Mount",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B08W9NKNSR?tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/webcam-arm.html"
+				]
+			},
+			"govee_smart_led": {
+				"name": "Govee Smart LED Lighting",
+				"specs": "Room and accent lighting (search)",
+				"category": "Lighting",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Govee+LED&tag=owenminercs-20"
+				},
+				"pages": [
+					"Desk Setup/setup.html",
+					"The Setup/the-setup.html",
+					"The Setup/lighting.html"
+				]
+			}
+		},
+		"keyboard_parts": {
+			"keyboard_switches": {
+				"name": "Mechanical Keyboard Switches (Various)",
+				"specs": "Linear, Tactile, Clicky Options",
+				"category": "Switches",
+				"links": {
+					"aliexpress": "https://www.aliexpress.com/wholesale?SearchText=mechanical+switches",
+					"amazon": "https://www.amazon.com/s?k=mechanical+keyboard+switches&tag=owenminercs-20"
+				},
+				"pages": ["Keyboard/60he.html"]
+			},
+			"keycaps": {
+				"name": "PBT / ABS Mechanical Keycaps",
+				"specs": "Multiple Profiles (DSA, OEM, Cherry)",
+				"category": "Keycaps",
+				"links": {
+					"aliexpress": "https://www.aliexpress.com/wholesale?SearchText=keycaps+mechanical",
+					"amazon": "https://www.amazon.com/s?k=mechanical+keyboard+keycaps&tag=owenminercs-20"
+				},
+				"pages": ["Keyboard/60he.html"]
+			},
+			"stabilizers": {
+				"name": "Mechanical Keyboard Stabilizers",
+				"specs": "Durock, Gateron, Cherry",
+				"category": "Stabilizers",
+				"links": {
+					"aliexpress": "https://www.aliexpress.com/wholesale?SearchText=stabilizers",
+					"amazon": "https://www.amazon.com/s?k=keyboard+stabilizers&tag=owenminercs-20"
+				},
+				"pages": ["Keyboard/60he.html"]
+			},
+			"keyboard_mat": {
+				"name": "Mechanical Keyboard Desk Mat",
+				"specs": "Premium Rubber, RGB Compatible",
+				"category": "Accessories",
+				"links": {
+					"aliexpress": "https://www.aliexpress.com/wholesale?SearchText=keyboard+mat",
+					"amazon": "https://www.amazon.com/s?k=keyboard+desk+mat&tag=owenminercs-20"
+				},
+				"pages": ["Keyboard/60he.html"]
+			},
+			"gh60_aluminum_case": {
+				"name": "GH60 Aluminum Keyboard Case (AliExpress)",
+				"specs": "Same listing family as the Crosshair Alpha build on 60he",
+				"category": "Case",
+				"links": {
+					"aliexpress": "https://www.aliexpress.us/item/3256805158305721.html"
+				},
+				"pages": ["Keyboard/60he.html"]
+			}
+		}
+	},
+	"metadata": {
+		"last_updated": "2026-04-28",
+		"total_products": 32,
+		"affiliate_programs": ["Amazon Associates", "AliExpress Portals"],
+		"aliexpress_portals_signup": "https://portals.aliexpress.com/",
+		"aliexpress_note": "Optional per-product key links.aliexpress_portals: paste your Portals deeplink (s.click.aliexpress.com/...) from Link Generator; it overrides links.aliexpress for that product.",
+		"priority_pages": [
+			"The Setup/gaming-pc.html",
+			"PC/pc.html",
+			"Desk Setup/setup.html",
+			"Keyboard/60he.html",
+			"The Setup/the-setup.html"
+		]
+	}
 }

@@ -30,8 +30,8 @@ Social cloud behavior in `Socials/scripts/social-cloud.js` and `Socials/social-c
 - Drag card to reposition anywhere
 - 4-corner resize handles (aspect ratio locked)
 - Pinned rotate control (outside/top):
-  - click = center rotation
-  - drag = rotate card
+    - click = center rotation
+    - drag = rotate card
 - External visit links now use explicit "Visit <Platform>" link inside card
 - Reduced motion path still supported
 
@@ -47,8 +47,8 @@ This site is public. Treat **all client-side code as visible**.
 
 - Keep API keys/tokens in server-side secrets only.
 - Use Cloudflare server-side components for API calls:
-  - Cloudflare Worker and/or Pages Functions
-  - optionally KV / D1 / R2 for cached feed data
+    - Cloudflare Worker and/or Pages Functions
+    - optionally KV / D1 / R2 for cached feed data
 - Frontend fetches sanitized JSON from your own endpoint only.
 
 ### Must not do
@@ -90,19 +90,19 @@ Use one consistent schema per card:
 
 ```json
 {
-  "id": "platform_unique_id",
-  "platform": "youtube|tiktok|instagram|x",
-  "contentType": "short|video|reel|photo|tweet",
-  "title": "string",
-  "description": "string",
-  "publishedAt": "ISO-8601",
-  "permalink": "https://...",
-  "media": {
-    "kind": "image|video|embed",
-    "thumbnailUrl": "https://...",
-    "embedUrl": "https://...",
-    "aspectRatio": "16:9"
-  }
+	"id": "platform_unique_id",
+	"platform": "youtube|tiktok|instagram|x",
+	"contentType": "short|video|reel|photo|tweet",
+	"title": "string",
+	"description": "string",
+	"publishedAt": "ISO-8601",
+	"permalink": "https://...",
+	"media": {
+		"kind": "image|video|embed",
+		"thumbnailUrl": "https://...",
+		"embedUrl": "https://...",
+		"aspectRatio": "16:9"
+	}
 }
 ```
 
@@ -183,9 +183,8 @@ Plan for partial rollout:
 - New YouTube uploads appear automatically in social cloud without manual edits.
 - No API keys appear in frontend source or network payloads.
 - Existing card interactions still work:
-  - pin/unpin
-  - drag
-  - resize with locked ratio
-  - rotate button click/drag
+    - pin/unpin
+    - drag
+    - resize with locked ratio
+    - rotate button click/drag
 - Errors gracefully degrade to cached/manual feed.
-

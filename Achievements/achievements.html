@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-GYG1QRQ8DY');
+		</script>
+		<title>Achievements | Easter eggs | Owen Miner</title>
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="Track hidden milestones and easter eggs across owenminercs.com. Progress is saved in your browser."
+		/>
+		<meta name="keywords" content="Owen Miner, achievements, easter eggs, owenminercs" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<meta name="twitter:site" content="@OwenMinerCS" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="theme-color" content="#050505" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<meta property="og:title" content="Achievements | Owen Miner" />
+		<meta
+			property="og:description"
+			content="Hunt easter eggs on the site and unlock achievements stored locally in your browser."
+		/>
+		<meta property="og:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
+		<meta property="og:url" content="https://www.owenminercs.com/Achievements/achievements.html" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Owen Miner CS" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Achievements | Owen Miner" />
+		<meta name="twitter:description" content="Site easter eggs and unlockable milestones." />
+		<meta name="twitter:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
+		<link rel="canonical" href="https://www.owenminercs.com/Achievements/achievements" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/achievements-page.js" defer></script>
+		<style>
+			.achievements-intro {
+				max-width: 44rem;
+				margin: 0 auto 1.5rem;
+				text-align: left;
+			}
+			.achievements-progress-row {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: 0.75rem 1rem;
+				max-width: 44rem;
+				margin: 0 auto 1.75rem;
+				padding: 0.85rem 1rem;
+				border-radius: var(--radius);
+				border: 1px solid var(--border-subtle);
+				background: rgba(0, 0, 0, 0.28);
+			}
+			.achievements-progress-row strong {
+				font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+				font-size: 1.05rem;
+				letter-spacing: 0.02em;
+			}
+			.achievements-reset {
+				font: inherit;
+				font-size: 0.85rem;
+				color: var(--text-muted);
+				background: transparent;
+				border: 1px solid var(--border-subtle);
+				border-radius: var(--radius-sm);
+				padding: 0.35rem 0.65rem;
+				cursor: pointer;
+			}
+			.achievements-reset:hover {
+				color: var(--text);
+				border-color: var(--border);
+			}
+			.achievement-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+				gap: 1rem;
+				max-width: 56rem;
+				margin: 0 auto 2.5rem;
+			}
+			.achievement-card {
+				position: relative;
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: auto minmax(10.5rem, 1fr);
+				grid-template-areas:
+					'title'
+					'body';
+				text-align: left;
+				padding: 1.1rem 1.15rem 1.15rem;
+				border-radius: var(--radius);
+				border: 1px solid var(--border-subtle);
+				background: var(--bg-card);
+				box-shadow: var(--shadow-card);
+				transition:
+					border-color 0.2s var(--ease-out),
+					box-shadow 0.2s var(--ease-out),
+					filter 0.25s var(--ease-out);
+			}
+			.achievement-card--locked {
+				filter: grayscale(0.35);
+				opacity: 0.88;
+			}
+			.achievement-card--locked .achievement-card__title {
+				color: var(--text-muted);
+			}
+			.achievement-card--unlocked {
+				border-color: var(--nav-pill-accent-ring);
+				box-shadow: var(--shadow-card), var(--nav-pill-accent-glow);
+				filter: none;
+				opacity: 1;
+			}
+			.achievement-card__badge {
+				position: absolute;
+				top: 0.65rem;
+				right: 0.65rem;
+				font-size: 0.72rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				padding: 0.2rem 0.45rem;
+				border-radius: 6px;
+				border: 1px solid var(--border-subtle);
+				color: var(--text-dim);
+			}
+			.achievement-card--unlocked .achievement-card__badge {
+				color: rgba(0, 255, 150, 0.95);
+				border-color: rgba(0, 255, 150, 0.35);
+				background: rgba(0, 255, 130, 0.08);
+			}
+			.achievement-card__title {
+				grid-area: title;
+				font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+				font-size: 1.05rem;
+				margin: 0 4.5rem 0.5rem 0;
+				line-height: 1.25;
+				overflow-wrap: anywhere;
+			}
+			.achievement-card__hint {
+				display: flex;
+				align-items: center;
+				grid-area: body;
+				min-width: 0;
+				min-height: 10.5rem;
+				margin: 0;
+				font-size: 0.92rem;
+				color: var(--text-muted);
+				line-height: 1.45;
+				opacity: 0;
+				visibility: hidden;
+				overflow-wrap: anywhere;
+				transition:
+					opacity 0.18s var(--ease-out),
+					visibility 0.18s var(--ease-out);
+			}
+			.achievement-card:hover .achievement-card__hint,
+			.achievement-card:focus-within .achievement-card__hint {
+				opacity: 1;
+				visibility: visible;
+			}
+			.achievement-card--unlocked .achievement-card__hint {
+				color: var(--text-dim);
+			}
+			.achievement-card__graphic {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				grid-area: body;
+				width: 100%;
+				min-height: 10.5rem;
+				margin: 0;
+				padding: 0.7rem;
+				border: 1px solid var(--border-subtle);
+				border-radius: var(--radius);
+				background:
+					radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.24), transparent 34%),
+					linear-gradient(135deg, rgba(0, 190, 90, 0.26), rgba(0, 35, 20, 0.72));
+				color: rgba(235, 255, 242, 0.94);
+				font: inherit;
+				text-align: center;
+				cursor: pointer;
+				box-shadow: inset 0 0 0 1px rgba(0, 255, 150, 0.08);
+				transition:
+					opacity 0.18s var(--ease-out),
+					visibility 0.18s var(--ease-out);
+			}
+			.achievement-card__graphic-mark {
+				display: grid;
+				place-items: center;
+				width: 4.25rem;
+				height: 4.25rem;
+				border-radius: 50%;
+				border: 2px solid rgba(210, 255, 220, 0.68);
+				background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 42%), rgba(0, 0, 0, 0.28);
+				box-shadow:
+					0 0 0 0.45rem rgba(0, 0, 0, 0.14),
+					0 0 1.25rem rgba(0, 255, 150, 0.18);
+				font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+				font-size: 0.78rem;
+				font-weight: 800;
+				letter-spacing: 0.08em;
+				line-height: 1;
+				text-transform: uppercase;
+			}
+			.achievement-card:hover .achievement-card__graphic,
+			.achievement-card:focus-within .achievement-card__graphic {
+				opacity: 0;
+				visibility: hidden;
+			}
+			.achievement-card--locked .achievement-card__graphic {
+				filter: grayscale(0.35);
+			}
+		</style>
+	</head>
+	<body id="top" class="site-card-ui achievements-page">
+		<shared-header></shared-header>
+
+		<div class="container">
+			<div class="intro">
+				<h1>Achievements</h1>
+				<p class="achievements-intro">
+					Hidden interactions and easter eggs around the site unlock entries here. Nothing is sent to a
+					server: progress lives in your browser’s
+					<strong>local storage</strong>. Explore pages, try UI quirks, and check back when new secrets ship.
+				</p>
+			</div>
+
+			<div class="achievements-progress-row">
+				<strong data-achievements-progress aria-live="polite">0 / 0 unlocked</strong>
+				<button type="button" class="achievements-reset" data-achievements-reset>Clear saved progress</button>
+			</div>
+
+			<section class="achievement-grid" aria-label="Achievement list">
+				<article
+					class="achievement-card achievement-card--locked"
+					data-achievement="trophy-shelf"
+					aria-labelledby="ach-trophy-shelf-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-trophy-shelf-title">First steps</h2>
+					<p class="achievement-card__hint">You found where the site keeps score.</p>
+				</article>
+
+				<article
+					class="achievement-card achievement-card--locked"
+					data-achievement="lexicon-pin"
+					aria-labelledby="ach-lexicon-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-lexicon-title">Marginalia</h2>
+					<p class="achievement-card__hint">
+						Long paragraphs get a per-word glow. Leave a mark on one word — inside a link, try the modifier
+						key.
+					</p>
+				</article>
+
+				<article
+					class="achievement-card achievement-card--locked"
+					data-achievement="fidget-spinner"
+					aria-labelledby="ach-fidget-spinner-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-fidget-spinner-title">Fidget spinner</h2>
+					<p class="achievement-card__hint">
+						The little bottom bar is meant to be fiddled with. Commit in one turn — a lot in one go — and
+						let physics finish the thought.
+					</p>
+				</article>
+
+				<article
+					class="achievement-card achievement-card--locked"
+					data-achievement="social-dock-move"
+					aria-labelledby="ach-social-dock-move-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-social-dock-move-title">Twist it</h2>
+					<p class="achievement-card__hint">
+						The floating social strip along the edge: drag it by the backdrop (not a link or the twist grip)
+						and drop it where you want it.
+					</p>
+				</article>
+
+				<article
+					class="achievement-card achievement-card--locked"
+					data-achievement="social-dock-grand-tour"
+					aria-labelledby="ach-social-dock-grand-tour-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-social-dock-grand-tour-title">Social Media Addict</h2>
+					<p class="achievement-card__hint">
+						Open each external profile once from the floating social icon bar: X, Reddit, YouTube, Twitch,
+						Instagram, Facebook, TikTok, and Discord.
+					</p>
+				</article>
+
+				<article
+					class="achievement-card achievement-card--locked"
+					data-achievement="main-nav-full-tour"
+					aria-labelledby="ach-main-nav-full-tour-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-main-nav-full-tour-title">Mega nerd</h2>
+					<p class="achievement-card__hint">
+						Load a page in every main nav section at least once: About, Bigfoot's Jungle, Gaming, Upgrades,
+						Donators, Shop, Help Wanted, Q&amp;A, Achievements, and Socials (subpages like CS2 or the
+						keyboard build count toward their parent tab).
+					</p>
+				</article>
+			</section>
+
+		</div>
+
+		<shared-footer
+			disclosure="<i>This page has no paid shopping links. Achievement data is stored only in your browser (localStorage).</i>"
+		></shared-footer>
+	</body>
+</html>

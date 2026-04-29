@@ -1,94 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Affiliate idea board (dev) | Owen Miner</title>
-    <link rel="stylesheet" href="board.css" />
-  </head>
-  <body>
-    <div class="dev-banner">
-      Dev-only: excluded from Netlify via <code>.netlifyignore</code> (<code>dev/</code>). Do not link from production pages.
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>Affiliate idea board (dev) | Owen Miner</title>
+		<link rel="stylesheet" href="board.css" />
+	</head>
+	<body>
+		<div class="dev-banner">
+			Dev-only: excluded from Netlify via <code>.netlifyignore</code> (<code>dev/</code>). Do not link from
+			production pages.
+		</div>
 
-    <header class="page-head">
-      <h1>Affiliate idea board</h1>
-      <p id="disclosure-text"></p>
-      <p><strong>Temporary lock:</strong> text entry is disabled on this page for now.</p>
-      <p>
-        Amazon links use your Associates tag from <code>items.json</code> (<code>owenminercs-20</code>). AliExpress, Best Buy, and Newegg need
-        links from each program’s dashboard (Portals, Impact, etc.)—placeholders point at clean retailer URLs.
-      </p>
-    </header>
+		<header class="page-head">
+			<h1>Affiliate idea board</h1>
+			<p id="disclosure-text"></p>
+			<p><strong>Temporary lock:</strong> text entry is disabled on this page for now.</p>
+			<p>
+				Amazon links use your Associates tag from <code>items.json</code> (<code>owenminercs-20</code>).
+				AliExpress, Best Buy, and Newegg need links from each program’s dashboard (Portals, Impact,
+				etc.)—placeholders point at clean retailer URLs.
+			</p>
+		</header>
 
-    <div class="tab-bar" role="tablist" aria-label="Board views">
-      <button type="button" role="tab" id="tab-catalog" aria-controls="panel-catalog" aria-selected="true">Catalog</button>
-      <button type="button" role="tab" id="tab-suggestions" aria-controls="panel-suggestions" aria-selected="false">
-        Suggestions
-      </button>
-    </div>
+		<div class="tab-bar" role="tablist" aria-label="Board views">
+			<button type="button" role="tab" id="tab-catalog" aria-controls="panel-catalog" aria-selected="true">
+				Catalog
+			</button>
+			<button
+				type="button"
+				role="tab"
+				id="tab-suggestions"
+				aria-controls="panel-suggestions"
+				aria-selected="false"
+			>
+				Suggestions
+			</button>
+		</div>
 
-    <div class="assign-toolbar" id="assign-toolbar">
-      <label class="assign-target-label">
-        <span>Target page for card buttons</span>
-        <select id="assign-page-target" aria-label="Target site page"></select>
-      </label>
-      <button type="button" class="btn-assign-global" id="assign-copy-json">Copy queue JSON</button>
-      <details class="assign-queue-wrap" id="assign-queue-wrap">
-        <summary>View queue (this browser)</summary>
-        <pre class="assign-queue-pre" id="assign-queue-pre"></pre>
-      </details>
-    </div>
+		<div class="assign-toolbar" id="assign-toolbar">
+			<label class="assign-target-label">
+				<span>Target page for card buttons</span>
+				<select id="assign-page-target" aria-label="Target site page"></select>
+			</label>
+			<button type="button" class="btn-assign-global" id="assign-copy-json">Copy queue JSON</button>
+			<details class="assign-queue-wrap" id="assign-queue-wrap">
+				<summary>View queue (this browser)</summary>
+				<pre class="assign-queue-pre" id="assign-queue-pre"></pre>
+			</details>
+		</div>
 
-    <div id="panel-catalog" role="tabpanel" aria-labelledby="tab-catalog">
-      <div class="toolbar">
-        <label>
-          Search
-          <input type="search" id="filter-search" placeholder="Temporarily disabled" autocomplete="off" disabled aria-disabled="true" />
-        </label>
-        <label>
-          Category
-          <select id="filter-category">
-            <option value="">All</option>
-          </select>
-        </label>
-      </div>
-      <p class="stats" id="board-stats"></p>
-      <main id="board" class="board" aria-live="polite"></main>
-    </div>
+		<div id="panel-catalog" role="tabpanel" aria-labelledby="tab-catalog">
+			<div class="toolbar">
+				<label>
+					Search
+					<input
+						type="search"
+						id="filter-search"
+						placeholder="Temporarily disabled"
+						autocomplete="off"
+						disabled
+						aria-disabled="true"
+					/>
+				</label>
+				<label>
+					Category
+					<select id="filter-category">
+						<option value="">All</option>
+					</select>
+				</label>
+			</div>
+			<p class="stats" id="board-stats"></p>
+			<main id="board" class="board" aria-live="polite"></main>
+		</div>
 
-    <div id="panel-suggestions" class="panel-hidden" role="tabpanel" aria-labelledby="tab-suggestions">
-      <p class="suggestions-intro" id="suggestions-intro"></p>
-      <div class="toolbar">
-        <label>
-          Search
-          <input type="search" id="suggest-search" placeholder="Temporarily disabled" autocomplete="off" disabled aria-disabled="true" />
-        </label>
-        <label>
-          Source
-          <select id="suggest-source">
-            <option value="">All pages</option>
-          </select>
-        </label>
-        <label>
-          Category
-          <select id="suggest-category">
-            <option value="">All</option>
-          </select>
-        </label>
-        <label class="suggestion-done" style="margin-top: 0">
-          <input type="checkbox" id="suggest-hide-done" />
-          Hide checked
-        </label>
-      </div>
-      <p class="stats" id="suggest-stats"></p>
-      <main id="suggestions-board" class="board" aria-live="polite"></main>
-    </div>
+		<div id="panel-suggestions" class="panel-hidden" role="tabpanel" aria-labelledby="tab-suggestions">
+			<p class="suggestions-intro" id="suggestions-intro"></p>
+			<div class="toolbar">
+				<label>
+					Search
+					<input
+						type="search"
+						id="suggest-search"
+						placeholder="Temporarily disabled"
+						autocomplete="off"
+						disabled
+						aria-disabled="true"
+					/>
+				</label>
+				<label>
+					Source
+					<select id="suggest-source">
+						<option value="">All pages</option>
+					</select>
+				</label>
+				<label>
+					Category
+					<select id="suggest-category">
+						<option value="">All</option>
+					</select>
+				</label>
+				<label class="suggestion-done" style="margin-top: 0">
+					<input type="checkbox" id="suggest-hide-done" />
+					Hide checked
+				</label>
+			</div>
+			<p class="stats" id="suggest-stats"></p>
+			<main id="suggestions-board" class="board" aria-live="polite"></main>
+		</div>
 
-    <footer class="schema-help">
-      <p><strong>Media schema</strong> (per item <code>media</code> object):</p>
-      <pre>{
+		<footer class="schema-help">
+			<p><strong>Media schema</strong> (per item <code>media</code> object):</p>
+			<pre>
+{
   "type": "none",
   "type": "image", "src": "https://…/photo.webp",
   "type": "youtube", "videoId": "dQw4w9WgXcQ",
@@ -96,17 +121,21 @@
   "type": "scrubVideo", "src": "https://…/clip.mp4",
   "type": "gallery", "images": ["https://…/1.jpg","https://…/2.jpg"], "scrub": true,
   "type": "scrubGallery", "images": ["frame_01.jpg","frame_02.jpg", "..."]
-}</pre>
-      <p>
-        Regenerate the catalog with <code>node generate-items.mjs</code> in this folder after editing the URL list inside the script. Refine titles and specs in
-        <code>items.json</code> (or extend the generator). The <strong>Suggestions</strong> tab reads <code>suggestions.json</code> (gear and programs mentioned across the live site that are not in your board yet).
-      </p>
-      <p>
-        Other affiliate options worth enrolling in: <strong>B&amp;H</strong> (photo/video), <strong>Micro Center</strong> (regional), manufacturer
-        programs (<strong>Elgato</strong>, <strong>Logitech</strong>, etc.), and <strong>ShareASale / CJ</strong> for smaller brands.
-      </p>
-    </footer>
+}</pre
+			>
+			<p>
+				Regenerate the catalog with <code>node generate-items.mjs</code> in this folder after editing the URL
+				list inside the script. Refine titles and specs in <code>items.json</code> (or extend the generator).
+				The <strong>Suggestions</strong> tab reads <code>suggestions.json</code> (gear and programs mentioned
+				across the live site that are not in your board yet).
+			</p>
+			<p>
+				Other affiliate options worth enrolling in: <strong>B&amp;H</strong> (photo/video),
+				<strong>Micro Center</strong> (regional), manufacturer programs (<strong>Elgato</strong>,
+				<strong>Logitech</strong>, etc.), and <strong>ShareASale / CJ</strong> for smaller brands.
+			</p>
+		</footer>
 
-    <script src="board.js"></script>
-  </body>
+		<script src="board.js"></script>
+	</body>
 </html>

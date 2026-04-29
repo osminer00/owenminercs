@@ -1,0 +1,14 @@
+node_modules
+.git
+backup-pre-the-setup-2026-04-08
+**/*.webp
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.svg
+**/*.ico
+**/*.mp4
+**/*.webm
+**/*.woff
+**/*.woff2

@@ -1,0 +1,19 @@
+{
+	"recommendations": [
+		"EditorConfig.EditorConfig",
+		"esbenp.prettier-vscode",
+		"usernamehw.errorlens",
+		"ritwickdey.LiveServer",
+		"HTMLHint.vscode-htmlhint",
+		"stylelint.vscode-stylelint",
+		"deque-systems.vscode-axe-linter",
+		"webhint.vscode-webhint",
+		"kisstkondoros.vscode-gutter-preview",
+		"jock.svg",
+		"naumovs.color-highlight",
+		"christian-kohler.path-intellisense",
+		"formulahendry.auto-close-tag",
+		"formulahendry.auto-rename-tag",
+		"shailen.netlify"
+	]
+}

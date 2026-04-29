@@ -1,132 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Owen Miner — AI DJ theme (mockup)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="page-bg" aria-hidden="true"></div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Owen Miner — AI DJ theme (mockup)</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="page-bg" aria-hidden="true"></div>
 
-  <div id="app">
-    <header class="header">
-      <div class="header-left">
-        <a class="logo" href="../../index.html"><span>Owen</span>MinerCS</a>
-        <div class="status-pill" title="Production site is live">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span class="status-text">Site online</span>
-        </div>
-      </div>
-      <div class="header-actions">
-        <div class="header-right desktop-nav">
-          <a class="btn-sm is-active" href="../../index.html">About</a>
-          <a class="btn-sm" href="../../Desk%20Setup/setup.html">Desk setup</a>
-          <a class="btn-sm" href="../../PC/pc.html">PC</a>
-          <a class="btn-sm" href="../../Keyboard/60he.html">Keyboard</a>
-          <a class="btn-sm" href="../../Counter-Strike/CS.html">CS2</a>
-          <a class="btn-sm" href="../../Photography/photography.html">Photos</a>
-          <a class="btn-sm" href="../../Socials/socials.html">Socials</a>
-        </div>
-        <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">☰</button>
-      </div>
-    </header>
+		<div id="app">
+			<header class="header">
+				<div class="header-left">
+					<a class="logo" href="../../index.html"><span>Owen</span>MinerCS</a>
+					<div class="status-pill" title="Production site is live">
+						<span class="status-dot" aria-hidden="true"></span>
+						<span class="status-text">Site online</span>
+					</div>
+				</div>
+				<div class="header-actions">
+					<div class="header-right desktop-nav">
+						<a class="btn-sm is-active" href="../../index.html">About</a>
+						<a class="btn-sm" href="../../Desk%20Setup/setup.html">Desk setup</a>
+						<a class="btn-sm" href="../../PC/pc.html">PC</a>
+						<a class="btn-sm" href="../../Keyboard/60he.html">Keyboard</a>
+						<a class="btn-sm" href="../../Counter-Strike/CS.html">CS2</a>
+						<a class="btn-sm" href="../../Photography/photography.html">Photos</a>
+						<a class="btn-sm" href="../../Socials/socials.html">Socials</a>
+					</div>
+					<button
+						type="button"
+						class="nav-toggle"
+						id="nav-toggle"
+						aria-expanded="false"
+						aria-controls="nav-drawer"
+						aria-label="Open menu"
+					>
+						☰
+					</button>
+				</div>
+			</header>
 
-    <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
-      <div class="nav-drawer-panel">
-        <button type="button" class="btn-sm drawer-close" id="nav-drawer-close" aria-label="Close menu">✕</button>
-        <a class="btn-sm is-active" href="../../index.html">About</a>
-        <a class="btn-sm" href="../../Desk%20Setup/setup.html">Desk setup</a>
-        <a class="btn-sm" href="../../PC/pc.html">PC</a>
-        <a class="btn-sm" href="../../Keyboard/60he.html">Keyboard</a>
-        <a class="btn-sm" href="../../Counter-Strike/CS.html">CS2</a>
-        <a class="btn-sm" href="../../Photography/photography.html">Photos</a>
-        <a class="btn-sm" href="../../Socials/socials.html">Socials</a>
-      </div>
-    </div>
+			<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+				<div class="nav-drawer-panel">
+					<button type="button" class="btn-sm drawer-close" id="nav-drawer-close" aria-label="Close menu">
+						✕
+					</button>
+					<a class="btn-sm is-active" href="../../index.html">About</a>
+					<a class="btn-sm" href="../../Desk%20Setup/setup.html">Desk setup</a>
+					<a class="btn-sm" href="../../PC/pc.html">PC</a>
+					<a class="btn-sm" href="../../Keyboard/60he.html">Keyboard</a>
+					<a class="btn-sm" href="../../Counter-Strike/CS.html">CS2</a>
+					<a class="btn-sm" href="../../Photography/photography.html">Photos</a>
+					<a class="btn-sm" href="../../Socials/socials.html">Socials</a>
+				</div>
+			</div>
 
-    <main>
-      <section class="hero-block" aria-labelledby="hero-title">
-        <h1 id="hero-title">Welcome to OwenMinerCS.com</h1>
-        <p class="hero-lead">CS2 content creator and software developer — Iowa. This mockup matches the visual language of your <span class="mono">YouTube AI DJ</span> app: Inter UI, IBM Plex Mono accents, coral primary, violet highlights, and frosted panels.</p>
-        <div class="hero-meta">
-          <span class="chip">Mockup only</span>
-          <span class="chip">Not production CSS</span>
-        </div>
-      </section>
+			<main>
+				<section class="hero-block" aria-labelledby="hero-title">
+					<h1 id="hero-title">Welcome to OwenMinerCS.com</h1>
+					<p class="hero-lead">
+						CS2 content creator and software developer — Iowa. This mockup matches the visual language of
+						your <span class="mono">YouTube AI DJ</span> app: Inter UI, IBM Plex Mono accents, coral
+						primary, violet highlights, and frosted panels.
+					</p>
+					<div class="hero-meta">
+						<span class="chip">Mockup only</span>
+						<span class="chip">Not production CSS</span>
+					</div>
+				</section>
 
-      <span class="section-label" id="nav-panels-label">Jump to a page</span>
-      <div class="panels" role="navigation" aria-labelledby="nav-panels-label">
-        <a class="panel" href="../../Desk%20Setup/setup.html">
-          <span class="panel-title">Gaming desk setup</span>
-          <span class="panel-desc">Monitors, audio, lighting, and peripherals with links.</span>
-          <span class="panel-path">Desk Setup/setup.html</span>
-        </a>
-        <a class="panel" href="../../PC/pc.html">
-          <span class="panel-title">Custom PC build</span>
-          <span class="panel-desc">Part list for the main gaming rig.</span>
-          <span class="panel-path">PC/pc.html</span>
-        </a>
-        <a class="panel" href="../../Keyboard/60he.html">
-          <span class="panel-title">Wooting 60HE</span>
-          <span class="panel-desc">Keyboard build guide and notes.</span>
-          <span class="panel-path">Keyboard/60he.html</span>
-        </a>
-        <a class="panel" href="../../Counter-Strike/CS.html">
-          <span class="panel-title">CS2 &amp; Counter-Strike</span>
-          <span class="panel-desc">Gameplay, merch, wallpapers.</span>
-          <span class="panel-path">Counter-Strike/CS.html</span>
-        </a>
-        <a class="panel" href="../../Photography/photography.html">
-          <span class="panel-title">Photography</span>
-          <span class="panel-desc">Archive by year — downloads &amp; prints.</span>
-          <span class="panel-path">Photography/photography.html</span>
-        </a>
-        <a class="panel" href="../../Socials/socials.html">
-          <span class="panel-title">Socials &amp; support</span>
-          <span class="panel-desc">All platforms, Ko-fi, tips.</span>
-          <span class="panel-path">Socials/socials.html</span>
-        </a>
-      </div>
+				<span class="section-label" id="nav-panels-label">Jump to a page</span>
+				<div class="panels" role="navigation" aria-labelledby="nav-panels-label">
+					<a class="panel" href="../../Desk%20Setup/setup.html">
+						<span class="panel-title">Gaming desk setup</span>
+						<span class="panel-desc">Monitors, audio, lighting, and peripherals with links.</span>
+						<span class="panel-path">Desk Setup/setup.html</span>
+					</a>
+					<a class="panel" href="../../PC/pc.html">
+						<span class="panel-title">Custom PC build</span>
+						<span class="panel-desc">Part list for the main gaming rig.</span>
+						<span class="panel-path">PC/pc.html</span>
+					</a>
+					<a class="panel" href="../../Keyboard/60he.html">
+						<span class="panel-title">Wooting 60HE</span>
+						<span class="panel-desc">Keyboard build guide and notes.</span>
+						<span class="panel-path">Keyboard/60he.html</span>
+					</a>
+					<a class="panel" href="../../Counter-Strike/CS.html">
+						<span class="panel-title">CS2 &amp; Counter-Strike</span>
+						<span class="panel-desc">Gameplay, merch, wallpapers.</span>
+						<span class="panel-path">Counter-Strike/CS.html</span>
+					</a>
+					<a class="panel" href="../../Photography/photography.html">
+						<span class="panel-title">Photography</span>
+						<span class="panel-desc">Archive by year — downloads &amp; prints.</span>
+						<span class="panel-path">Photography/photography.html</span>
+					</a>
+					<a class="panel" href="../../Socials/socials.html">
+						<span class="panel-title">Socials &amp; support</span>
+						<span class="panel-desc"
+							>All platforms,
+							<a href="https://ko-fi.com/owenminer" target="_blank" rel="noopener noreferrer">Ko-fi</a>,
+							<a
+								href="https://streamelements.com/owenminercs/tip"
+								target="_blank"
+								rel="noopener noreferrer"
+								>StreamElements tips</a
+							>.</span
+						>
+						<span class="panel-path">Socials/socials.html</span>
+					</a>
+				</div>
 
-      <div class="split">
-        <article class="card">
-          <h2>Hi, my name is Owen Miner.</h2>
-          <p>I am a 23 year old graduate from DMACC, with an AAS degree in Computer Information Systems.</p>
-          <p><strong>This website was made to hopefully inspire some fellow computer nerds and build a community around the things I love.</strong></p>
-          <p>I love all things computers, tearing apart my first one at 12 years old, and building my first gaming PC at 13. At DMACC I learned Java, C++, C#, Python, HTML/CSS/JavaScript, SQL, and more.</p>
-          <a class="btn-primary" href="../../index.html">Open real homepage →</a>
-        </article>
-        <aside class="card profile-card">
-          <span class="section-label" style="margin-bottom: 4px;">Profile</span>
-          <img src="../../About/Images/owenProfile.webp" width="360" height="360" alt="Picture of Owen M" loading="lazy">
-          <p class="profile-caption">Same asset path as production</p>
-        </aside>
-      </div>
+				<div class="split">
+					<article class="card">
+						<h2>Hi, my name is Owen Miner.</h2>
+						<p>
+							I am a 23 year old graduate from DMACC, with an AAS degree in Computer Information Systems.
+						</p>
+						<p>
+							<strong
+								>This website was made to hopefully inspire some fellow computer nerds and build a
+								community around the things I love.</strong
+							>
+						</p>
+						<p>
+							I love all things computers, tearing apart my first one at 12 years old, and building my
+							first gaming PC at 13. At DMACC I learned Java, C++, C#, Python, HTML/CSS/JavaScript, SQL,
+							and more.
+						</p>
+						<a class="btn-primary" href="../../index.html">Open real homepage →</a>
+					</article>
+					<aside class="card profile-card">
+						<span class="section-label" style="margin-bottom: 4px">Profile</span>
+						<img
+							src="../../About/Images/owenProfile.webp"
+							width="360"
+							height="360"
+							alt="Picture of Owen M"
+							loading="lazy"
+						/>
+						<p class="profile-caption">Same asset path as production</p>
+					</aside>
+				</div>
 
-      <article class="card" style="margin-top: 14px;">
-        <h2>Hobbies &amp; socials</h2>
-        <p>Photography, video production, writing, and gaming — and nearly a decade in <em>Counter-Strike</em>.</p>
-        <p><strong>Message me on any platform if you have questions or comments.</strong></p>
-        <div class="social-row">
-          <a href="https://x.com/OwenMinerCS" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://www.youtube.com/@OwenMinerCS" target="_blank" rel="noopener noreferrer">YouTube</a>
-          <a href="https://www.instagram.com/owenminercs/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://www.reddit.com/user/OwenMCS" target="_blank" rel="noopener noreferrer">Reddit</a>
-          <a href="https://www.tiktok.com/@owenminercs" target="_blank" rel="noopener noreferrer">TikTok</a>
-        </div>
-      </article>
-    </main>
+				<article class="card" style="margin-top: 14px">
+					<h2>Hobbies &amp; socials</h2>
+					<p>
+						Photography, video production, writing, and gaming — and nearly a decade in
+						<em>Counter-Strike</em>.
+					</p>
+					<p><strong>Message me on any platform if you have questions or comments.</strong></p>
+					<div class="social-row">
+						<a href="https://x.com/OwenMinerCS" target="_blank" rel="noopener noreferrer">X</a>
+						<a href="https://www.youtube.com/@OwenMinerCS" target="_blank" rel="noopener noreferrer"
+							>YouTube</a
+						>
+						<a href="https://www.instagram.com/owenminercs/" target="_blank" rel="noopener noreferrer"
+							>Instagram</a
+						>
+						<a href="https://www.reddit.com/user/OwenMCS" target="_blank" rel="noopener noreferrer"
+							>Reddit</a
+						>
+						<a href="https://www.tiktok.com/@owenminercs" target="_blank" rel="noopener noreferrer"
+							>TikTok</a
+						>
+					</div>
+				</article>
+			</main>
 
-    <footer class="foot">
-      <a href="../index.html">← Mockup gallery</a>
-      <span>Visual reference: YouTube AI DJ — same tokens as <span class="mono">projects/youtube-ai-dj</span></span>
-    </footer>
-  </div>
+			<footer class="foot">
+				<a href="../index.html">← Mockup gallery</a>
+				<span
+					>Visual reference: YouTube AI DJ — same tokens as
+					<span class="mono">projects/youtube-ai-dj</span></span
+				>
+			</footer>
+		</div>
 
-  <script src="app.js"></script>
-</body>
+		<script src="app.js"></script>
+	</body>
 </html>

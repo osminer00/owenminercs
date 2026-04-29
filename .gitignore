@@ -1,0 +1,27 @@
+node_modules/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+
+# Local assistant/editor configs can reference private environment variables.
+.claude/settings.local.json
+.claude/worktrees/
+.mcp.json
+.cursor/mcp.json
+
+# Local/generated artifacts
+dev/test-output/
+# Scraped / scratch (can contain session-like tokens; do not publish)
+temp-ebay-profile.html
+temp-parse-ebay.js
+# Local seller/scratch HTML (not for production)
+dev/ebay-seller-temp.html
+Garage Sale/ebay-seller-scratch.html
+Ko-fi Gifs/
+*.zip
+*.tgz
+*.psd
+*.pyc
+.DS_Store
+desktop.ini

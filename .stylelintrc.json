@@ -1,0 +1,9 @@
+{
+	"extends": ["stylelint-config-recommended"],
+	"ignoreFiles": ["**/node_modules/**", "**/backup-pre-the-setup-2026-04-08/**"],
+	"rules": {
+		"no-descending-specificity": null,
+		"font-family-no-missing-generic-family-keyword": null,
+		"declaration-block-no-shorthand-property-overrides": null
+	}
+}

@@ -4,243 +4,501 @@ const siteRoot = scriptUrl.replace('scripts/components.js', '');
 
 const THEME_STORAGE_KEY = 'owenminercs-theme';
 const TEXT_ENTRY_SELECTOR =
-  'textarea, input:not([type]), input[type="text"], input[type="search"], input[type="email"], input[type="url"], input[type="password"], input[type="tel"], input[type="number"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[type="file"]';
+	'textarea, input:not([type]), input[type="text"], input[type="search"], input[type="email"], input[type="url"], input[type="password"], input[type="tel"], input[type="number"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"], input[type="file"]';
 
 /** Light mode uses a processed asset without the dark stippled outer fringe (see images/owenminercs-logo-light.png). */
 function brandLogoFilename(theme) {
-  return theme === 'light' ? 'owenminercs-logo-light.png' : 'owenminercs-logo.png';
+	return theme === 'light' ? 'owenminercs-logo-light.png' : 'owenminercs-logo.png';
 }
 
 function syncBrandLogosForTheme(theme) {
-  const url = `${siteRoot}images/${brandLogoFilename(theme)}`;
-  document.querySelectorAll('img.site-logo').forEach((img) => {
-    img.src = url;
-  });
+	const url = `${siteRoot}images/${brandLogoFilename(theme)}`;
+	document.querySelectorAll('img.site-logo').forEach((img) => {
+		img.src = url;
+	});
 }
 
 function applyStoredTheme() {
-  const root = document.documentElement;
-  delete root.dataset.theme;
-  try {
-    localStorage.setItem(THEME_STORAGE_KEY, 'dark');
-  } catch (_) {}
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) {
-    meta.setAttribute('content', '#050505');
-  }
-  syncBrandLogosForTheme('dark');
+	const root = document.documentElement;
+	delete root.dataset.theme;
+	try {
+		localStorage.setItem(THEME_STORAGE_KEY, 'dark');
+	} catch (_) {}
+	const meta = document.querySelector('meta[name="theme-color"]');
+	if (meta) {
+		meta.setAttribute('content', '#050505');
+	}
+	syncBrandLogosForTheme('dark');
 }
 
 applyStoredTheme();
 
 // Detect if running locally (Live Server, file://, etc.)
-const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' || window.location.protocol === 'file:';
+const isLocal =
+	window.location.hostname === '127.0.0.1' ||
+	window.location.hostname === 'localhost' ||
+	window.location.protocol === 'file:';
 
 function getLink(path) {
-  if (path === "") return siteRoot;
-  return siteRoot + path + (isLocal ? ".html" : "");
+	if (path === '') return siteRoot;
+	return siteRoot + path + (isLocal ? '.html' : '');
 }
 
 const DISCORD_INVITE_URL = 'https://discord.gg/fA9GbxmAge';
 
-/* Brand mark paths from Simple Icons (CC0 1.0) — https://simpleicons.org/ — for compact header/footer nav only. */
+const ACHIEVEMENT_STORAGE_KEY = 'owenminercs-achievements-v1';
+
+function readUnlockedAchievementIds() {
+	try {
+		const raw = localStorage.getItem(ACHIEVEMENT_STORAGE_KEY);
+		const parsed = raw ? JSON.parse(raw) : [];
+		return new Set(Array.isArray(parsed) ? parsed.filter((x) => typeof x === 'string') : []);
+	} catch (_) {
+		return new Set();
+	}
+}
+
+function writeUnlockedAchievementIds(set) {
+	try {
+		localStorage.setItem(ACHIEVEMENT_STORAGE_KEY, JSON.stringify([...set]));
+	} catch (_) {}
+}
+
+/** Unlock a site easter-egg achievement by id (persists in localStorage). Safe to call from any page script. */
+window.owenminercsUnlockAchievement = function owenminercsUnlockAchievement(id) {
+	if (typeof id !== 'string') return false;
+	const trimmed = id.trim();
+	if (!trimmed) return false;
+	const s = readUnlockedAchievementIds();
+	if (s.has(trimmed)) return false;
+	s.add(trimmed);
+	writeUnlockedAchievementIds(s);
+	try {
+		window.dispatchEvent(
+			new CustomEvent('owenminercs-achievement-unlocked', { detail: { id: trimmed } })
+		);
+	} catch (_) {}
+	return true;
+};
+
+window.owenminercsIsAchievementUnlocked = function owenminercsIsAchievementUnlocked(id) {
+	if (typeof id !== 'string' || !id.trim()) return false;
+	return readUnlockedAchievementIds().has(id.trim());
+};
+
+const SOCIAL_DOCK_TOUR_PROGRESS_KEY = 'owenminercs-social-dock-tour-v1';
+const ACH_SOCIAL_DOCK_GRAND_TOUR = 'social-dock-grand-tour';
+const SOCIAL_DOCK_TOUR_SLOTS = Object.freeze([
+	'x',
+	'reddit',
+	'youtube',
+	'twitch',
+	'instagram',
+	'facebook',
+	'tiktok',
+	'discord',
+]);
+
+function readSocialDockTourVisited() {
+	try {
+		const raw = localStorage.getItem(SOCIAL_DOCK_TOUR_PROGRESS_KEY);
+		const parsed = raw ? JSON.parse(raw) : [];
+		return new Set(Array.isArray(parsed) ? parsed.filter((x) => typeof x === 'string') : []);
+	} catch (_) {
+		return new Set();
+	}
+}
+
+function writeSocialDockTourVisited(set) {
+	try {
+		localStorage.setItem(SOCIAL_DOCK_TOUR_PROGRESS_KEY, JSON.stringify([...set]));
+	} catch (_) {}
+}
+
+/** Map external profile URL to a stable slot id (must match `SOCIAL_DOCK_TOUR_SLOTS`). */
+function socialDockTourSlotFromHref(href) {
+	if (typeof href !== 'string' || !href.trim()) return null;
+	let u;
+	try {
+		u = new URL(href);
+	} catch (_) {
+		return null;
+	}
+	const host = u.hostname.replace(/^www\./i, '').toLowerCase();
+	if (host === 'x.com' || host === 'twitter.com') return 'x';
+	if (host === 'reddit.com' || host.endsWith('.reddit.com')) return 'reddit';
+	if (host === 'youtu.be' || host.endsWith('youtube.com')) return 'youtube';
+	if (host.endsWith('twitch.tv')) return 'twitch';
+	if (host.endsWith('instagram.com')) return 'instagram';
+	if (host === 'facebook.com' || host.endsWith('.facebook.com')) return 'facebook';
+	if (host.endsWith('tiktok.com')) return 'tiktok';
+	if (host === 'discord.gg' || host.endsWith('discord.com')) return 'discord';
+	return null;
+}
+
+function recordSocialDockTourClick(anchor) {
+	if (!(anchor instanceof HTMLAnchorElement)) return;
+	if (!anchor.classList.contains('site-social-nav__link')) return;
+	if (
+		typeof window.owenminercsIsAchievementUnlocked === 'function' &&
+		window.owenminercsIsAchievementUnlocked(ACH_SOCIAL_DOCK_GRAND_TOUR)
+	) {
+		return;
+	}
+	const slot = socialDockTourSlotFromHref(anchor.getAttribute('href') || '');
+	if (!slot || !SOCIAL_DOCK_TOUR_SLOTS.includes(slot)) return;
+	const visited = readSocialDockTourVisited();
+	visited.add(slot);
+	writeSocialDockTourVisited(visited);
+	for (let i = 0; i < SOCIAL_DOCK_TOUR_SLOTS.length; i++) {
+		if (!visited.has(SOCIAL_DOCK_TOUR_SLOTS[i])) return;
+	}
+	if (typeof window.owenminercsUnlockAchievement === 'function') {
+		window.owenminercsUnlockAchievement(ACH_SOCIAL_DOCK_GRAND_TOUR);
+	}
+}
+
+const MAIN_NAV_TOUR_PROGRESS_KEY = 'owenminercs-main-nav-tour-v1';
+const ACH_MAIN_NAV_FULL_TOUR = 'main-nav-full-tour';
+/** Stable ids matching header/footer `data-nav` (order matches the bar). */
+const MAIN_NAV_TOUR_SLOTS = Object.freeze([
+	'index.html',
+	'The Setup',
+	'Gaming',
+	'Donators',
+	'garage-sale',
+	'Help Wanted',
+	'QA',
+	'Achievements',
+	'Socials',
+]);
+
+function readMainNavTourVisited() {
+	try {
+		const raw = localStorage.getItem(MAIN_NAV_TOUR_PROGRESS_KEY);
+		const parsed = raw ? JSON.parse(raw) : [];
+		return new Set(Array.isArray(parsed) ? parsed.filter((x) => typeof x === 'string') : []);
+	} catch (_) {
+		return new Set();
+	}
+}
+
+function writeMainNavTourVisited(set) {
+	try {
+		localStorage.setItem(MAIN_NAV_TOUR_PROGRESS_KEY, JSON.stringify([...set]));
+	} catch (_) {}
+}
+
+/**
+ * Map current URL to a main-nav `data-nav` slot, or null if this page is not one of those sections.
+ * Mirrors `resolveActiveNavLink` behavior so subpages (e.g. CS2, keyboard) count toward the right tab.
+ */
+function getMainNavTourSlotFromLocation() {
+	let currentPath;
+	try {
+		currentPath = decodeURIComponent(window.location.pathname || '/');
+	} catch (_) {
+		currentPath = window.location.pathname || '/';
+	}
+	const lc = currentPath.toLowerCase();
+
+	// About/home only — do not treat `/Socials/` etc. as home (unlike a loose trailing-slash check).
+	if (currentPath === '/' || currentPath === '' || lc.endsWith('index.html')) {
+		return 'index.html';
+	}
+	if (lc.includes('nosmoking') || lc.includes('/counter-strike/')) {
+		return 'Gaming';
+	}
+	if (lc.includes('/keyboard/') && lc.includes('60he')) {
+		return 'The Setup';
+	}
+	if (lc.includes('/pc/')) {
+		return 'The Setup';
+	}
+	if (lc.includes('socials')) {
+		return 'Socials';
+	}
+	if (lc.includes('achievements')) {
+		return 'Achievements';
+	}
+	if (lc.includes('/qa/') || lc.endsWith('/qa')) {
+		return 'QA';
+	}
+	if (lc.includes('help') && lc.includes('wanted')) {
+		return 'Help Wanted';
+	}
+	if (lc.includes('garage') && lc.includes('sale')) {
+		return 'garage-sale';
+	}
+	if (lc.includes('donators')) {
+		return 'Donators';
+	}
+	if (lc.includes('upgrades')) {
+		return 'The Setup';
+	}
+	if (lc.includes('gaming')) {
+		return 'Gaming';
+	}
+	if (lc.includes('the-setup') || lc.includes('the setup') || lc.includes('the%20setup')) {
+		return 'The Setup';
+	}
+	return null;
+}
+
+function recordMainNavTourPageVisit() {
+	if (document.documentElement.dataset.owenMainNavTourRecorded === '1') return;
+	document.documentElement.dataset.owenMainNavTourRecorded = '1';
+
+	const slot = getMainNavTourSlotFromLocation();
+	if (!slot || !MAIN_NAV_TOUR_SLOTS.includes(slot)) {
+		return;
+	}
+	if (
+		typeof window.owenminercsIsAchievementUnlocked === 'function' &&
+		window.owenminercsIsAchievementUnlocked(ACH_MAIN_NAV_FULL_TOUR)
+	) {
+		return;
+	}
+	const visited = readMainNavTourVisited();
+	visited.add(slot);
+	writeMainNavTourVisited(visited);
+	for (let i = 0; i < MAIN_NAV_TOUR_SLOTS.length; i++) {
+		if (!visited.has(MAIN_NAV_TOUR_SLOTS[i])) return;
+	}
+	if (typeof window.owenminercsUnlockAchievement === 'function') {
+		window.owenminercsUnlockAchievement(ACH_MAIN_NAV_FULL_TOUR);
+	}
+}
+
+window.owenminercsClearAchievementProgress = function owenminercsClearAchievementProgress() {
+	try {
+		localStorage.removeItem(ACHIEVEMENT_STORAGE_KEY);
+		localStorage.removeItem(SOCIAL_DOCK_TOUR_PROGRESS_KEY);
+		localStorage.removeItem(MAIN_NAV_TOUR_PROGRESS_KEY);
+		window.dispatchEvent(new Event('owenminercs-achievements-cleared'));
+	} catch (_) {}
+};
+
+/** Until `achievement-celebration.js` loads, queue so fast unlocks still get the party. */
+(function setupAchievementUnlockedQueue() {
+	window.addEventListener('owenminercs-achievement-unlocked', function (e) {
+		if (typeof window.owenminercsOnAchievementUnlocked === 'function') {
+			window.owenminercsOnAchievementUnlocked(e);
+		} else {
+			(window.owenminercsAchievementUnlockedQueue =
+				window.owenminercsAchievementUnlockedQueue || []).push(e);
+		}
+	});
+})();
+
+/** Loads homepage “What’s new” feed + optional update checks (see `data/site-feed.json`). */
+function injectSiteFeedClient() {
+	if (document.querySelector('script[data-owen-site-feed]')) return;
+	const s = document.createElement('script');
+	s.src = `${siteRoot}scripts/site-feed.js`;
+	s.defer = true;
+	s.setAttribute('data-owen-site-feed', '1');
+	document.body.appendChild(s);
+}
+
+/** First-time achievement unlock: confetti, fireworks, toast (see `scripts/achievement-celebration.js`). */
+function injectAchievementCelebrationClient() {
+	if (document.querySelector('script[data-owen-achievement-celebration]')) return;
+	const s = document.createElement('script');
+	s.src = `${siteRoot}scripts/achievement-celebration.js`;
+	s.defer = true;
+	s.setAttribute('data-owen-achievement-celebration', '1');
+	document.body.appendChild(s);
+}
+
+/* Brand mark paths from Simple Icons (CC0 1.0) — https://simpleicons.org/ — for compact bottom-dock nav only. */
 const SOCIAL_ICON_PATHS = {
-  x: 'M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z',
-  reddit: 'M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z',
-  youtube: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z',
-  instagram: 'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077',
-  facebook: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z',
-  tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
-  discord: 'M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z'
+	x: 'M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z',
+	reddit: 'M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z',
+	youtube:
+		'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z',
+	twitch: 'M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z',
+	instagram:
+		'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077',
+	facebook:
+		'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z',
+	tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
+	discord:
+		'M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z',
 };
 
 function socialIconSvg(pathD) {
-  return `<svg class="site-social-nav__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="${pathD}"/></svg>`;
+	return `<svg class="site-social-nav__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="${pathD}"/></svg>`;
 }
 
+const SOCIAL_DOCK_ROTATE_GLYPH_SVG = `<svg class="site-social-nav__rotate-glyph" xmlns="http://www.w3.org/2000/svg" viewBox="-7.5 -0.1 9.5 35.1" width="9" height="32" fill="none" aria-hidden="true" focusable="false">
+  <path d="M 0.5 0.1 L 1.15 2.3 L -0.15 2.3 Z" fill="currentColor" />
+  <path d="M 0.5 2.3 L 0.5 3.5 C -6.2 10.2 -6.2 25.3 0.5 32" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+</svg>`;
+
 function socialNavMarkup(extraClass) {
-  const p = SOCIAL_ICON_PATHS;
-  const cls = extraClass ? `site-social-nav ${extraClass}` : 'site-social-nav';
-  return `
-    <div class="${cls}" role="navigation" aria-label="External social profiles">
-      <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://x.com/OwenMinerCS" title="X: @OwenMinerCS" aria-label="X (Twitter)">${socialIconSvg(p.x)}</a>
-      <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS" aria-label="Reddit">${socialIconSvg(p.reddit)}</a>
-      <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner" aria-label="YouTube">${socialIconSvg(p.youtube)}</a>
-      <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs" aria-label="Instagram">${socialIconSvg(p.instagram)}</a>
-      <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/profile.php?id=100095719715453" title="Facebook: Owen Miner" aria-label="Facebook">${socialIconSvg(p.facebook)}</a>
-      <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@owenminercs" title="TikTok: @owenminercs" aria-label="TikTok">${socialIconSvg(p.tiktok)}</a>
-      <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="${DISCORD_INVITE_URL}" title="Discord: Owen M community" aria-label="Discord">${socialIconSvg(p.discord)}</a>
+	const p = SOCIAL_ICON_PATHS;
+	const cls = extraClass ? `site-social-nav ${extraClass}` : 'site-social-nav';
+	const isDock = Boolean(extraClass && extraClass.includes('site-social-nav--dock'));
+	const dockDragHint =
+		isDock
+			? ' title="Drag empty space on this bar to move it. Double-click empty space to reset to the default position."'
+			: '';
+	const dockRotateHintAttrs =
+		isDock
+			? ' title="Drag around the bar center to rotate; drag toward or away from the center to resize (same proportions)." aria-label="Rotate and resize the social bar: drag in a circle to spin, drag inward or outward to scale while keeping the same shape."'
+			: '';
+	const rotateHandlesMarkup = isDock
+		? `
+          <button type="button" class="site-social-nav__rotate-handle" data-owen-rotate-handle${dockRotateHintAttrs}>
+            ${SOCIAL_DOCK_ROTATE_GLYPH_SVG}
+          </button>`
+		: '';
+	const rotateHandlesEndMarkup = isDock
+		? `
+          <button type="button" class="site-social-nav__rotate-handle site-social-nav__rotate-handle--end" data-owen-rotate-handle${dockRotateHintAttrs}>
+            ${SOCIAL_DOCK_ROTATE_GLYPH_SVG}
+          </button>`
+		: '';
+	return `
+    <div class="${cls}" role="navigation" aria-label="External social profiles"${dockDragHint}>
+      <div class="site-social-nav__spin" data-owen-social-spin>
+        <span class="site-social-nav__pivot-mark" aria-hidden="true"></span>
+        <div class="site-social-nav__chrome">
+          ${rotateHandlesMarkup}
+          <div class="site-social-nav__main">
+            <div class="site-social-nav__links-level">
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://x.com/OwenMinerCS" title="X: @OwenMinerCS" aria-label="X (Twitter)">${socialIconSvg(p.x)}</a>
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS" aria-label="Reddit">${socialIconSvg(p.reddit)}</a>
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner" aria-label="YouTube">${socialIconSvg(p.youtube)}</a>
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.twitch.tv/owenminercs" title="Twitch: owenminercs" aria-label="Twitch">${socialIconSvg(p.twitch)}</a>
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs" aria-label="Instagram">${socialIconSvg(p.instagram)}</a>
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/profile.php?id=100095719715453" title="Facebook: Owen Miner" aria-label="Facebook">${socialIconSvg(p.facebook)}</a>
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@owenminercs" title="TikTok: @owenminercs" aria-label="TikTok">${socialIconSvg(p.tiktok)}</a>
+            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="${DISCORD_INVITE_URL}" title="Discord: Owen M community" aria-label="Discord">${socialIconSvg(p.discord)}</a>
+            </div>
+          </div>
+          ${rotateHandlesEndMarkup}
+        </div>
+      </div>
     </div>`;
 }
 
 function resolveActiveNavLink(scope) {
-  const currentPath = window.location.pathname;
-  const links = scope.querySelectorAll('nav a[data-nav]');
-  let activeLink = null;
-  if (currentPath.endsWith("/") || currentPath.endsWith("index.html")) {
-    activeLink = scope.querySelector('a[data-nav="index.html"]');
-  } else {
-    for (const link of links) {
-      const dataNav = link.getAttribute('data-nav');
-      if (dataNav !== "index.html" && decodeURIComponent(window.location.pathname).includes(dataNav)) {
-        activeLink = link;
-        break;
-      }
-    }
-  }
-  if (!activeLink) {
-    if (currentPath.includes("nosmoking") || currentPath.includes("/Counter-Strike/")) {
-      activeLink = scope.querySelector('a[data-nav="Gaming"]');
-    }
-    if (!activeLink && (currentPath.includes("The%20Setup") || currentPath.includes("The Setup"))) {
-      activeLink = scope.querySelector('a[data-nav="The Setup"]');
-    }
-    if (!activeLink && currentPath.includes("/Keyboard/") && currentPath.includes("60he")) {
-      activeLink = scope.querySelector('a[data-nav="The Setup"]');
-    }
-    if (!activeLink && currentPath.includes("/PC/")) {
-      activeLink = scope.querySelector('a[data-nav="The Setup"]');
-    }
-  }
-  return activeLink;
+	const currentPath = window.location.pathname;
+	const links = scope.querySelectorAll('nav a[data-nav]');
+	let activeLink = null;
+	if (currentPath.endsWith('/') || currentPath.endsWith('index.html')) {
+		activeLink = scope.querySelector('a[data-nav="index.html"]');
+	} else {
+		for (const link of links) {
+			const dataNav = link.getAttribute('data-nav');
+			if (
+				dataNav !== 'index.html' &&
+				decodeURIComponent(window.location.pathname).includes(dataNav)
+			) {
+				activeLink = link;
+				break;
+			}
+		}
+	}
+	if (!activeLink) {
+		if (currentPath.includes('nosmoking') || currentPath.includes('/Counter-Strike/')) {
+			activeLink = scope.querySelector('a[data-nav="Gaming"]');
+		}
+		if (
+			!activeLink &&
+			(currentPath.includes('The%20Setup') ||
+				currentPath.includes('The Setup') ||
+				currentPath.includes('/Upgrades/'))
+		) {
+			activeLink = scope.querySelector('a[data-nav="The Setup"]');
+		}
+		if (!activeLink && currentPath.includes('/Keyboard/') && currentPath.includes('60he')) {
+			activeLink = scope.querySelector('a[data-nav="The Setup"]');
+		}
+		if (!activeLink && currentPath.includes('/PC/')) {
+			activeLink = scope.querySelector('a[data-nav="The Setup"]');
+		}
+	}
+	return activeLink;
 }
 
 function applyNavHighlight(scope) {
-  const links = scope.querySelectorAll('nav a[data-nav]');
-  links.forEach((link) => {
-    link.classList.add('site-nav-link');
-    link.classList.remove('site-nav-link--active');
-  });
-  const activeLink = resolveActiveNavLink(scope);
-  if (activeLink) {
-    activeLink.classList.add('site-nav-link--active');
-  }
-}
-
-const LIVE_FALLBACK_URL = 'https://x.com/OwenMinerCS';
-const LIVE_FALLBACK_LABEL = 'Follow for stream updates';
-const LIVE_FALLBACK_TITLE = 'Follow @OwenMinerCS on X for stream updates';
-const LIVE_NOW_LABEL = 'LIVE NOW';
-
-function getLiveStatusEndpoint() {
-  if (isLocal) return [];
-  return [`${siteRoot}api/live-status`];
-}
-
-function applyLiveBadgeState(link, status) {
-  if (!link) return;
-
-  const isLive = Boolean(status && status.live);
-  const targetUrl = typeof status?.url === 'string' && status.url.trim() ? status.url.trim() : LIVE_FALLBACK_URL;
-  const labelText = isLive ? LIVE_NOW_LABEL : LIVE_FALLBACK_LABEL;
-  const titleText = isLive
-    ? `Owen Miner is live on ${status?.platform || 'stream'}`
-    : LIVE_FALLBACK_TITLE;
-
-  link.href = targetUrl;
-  link.setAttribute('title', titleText);
-  link.setAttribute('aria-label', titleText);
-  link.classList.toggle('site-live-badge--live', isLive);
-  link.classList.toggle('site-live-badge--offline', !isLive);
-  link.querySelector('[data-live-label]').textContent = labelText;
-  link.querySelector('[data-live-platform]').textContent = isLive ? (status?.platform || '') : '';
-}
-
-async function hydrateLiveBadge(root) {
-  const badge = root.querySelector('[data-live-status-badge]');
-  if (!badge) return;
-
-  applyLiveBadgeState(badge, {
-    live: false,
-    platform: '',
-    url: LIVE_FALLBACK_URL
-  });
-
-  try {
-    const endpoints = getLiveStatusEndpoint();
-    if (!endpoints.length) return;
-    for (const endpoint of endpoints) {
-      const response = await fetch(endpoint, {
-        headers: {
-          Accept: 'application/json'
-        }
-      });
-      if (!response.ok) continue;
-
-      const payload = await response.json();
-      if (!payload || typeof payload !== 'object') continue;
-
-      applyLiveBadgeState(badge, {
-        live: payload.live,
-        platform: payload.platform,
-        url: payload.url
-      });
-      return;
-    }
-  } catch (_) {
-    // Keep fallback state if live endpoint is unavailable.
-  }
+	const links = scope.querySelectorAll('nav a[data-nav]');
+	links.forEach((link) => {
+		link.classList.add('site-nav-link');
+		link.classList.remove('site-nav-link--active');
+	});
+	const activeLink = resolveActiveNavLink(scope);
+	if (activeLink) {
+		activeLink.classList.add('site-nav-link--active');
+	}
 }
 
 class SharedHeader extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = `
+	connectedCallback() {
+		this.innerHTML = `
       <header class="site-shared-header">
-        <div class="header-plant-growth" aria-hidden="true">
-          <div class="header-plant-growth__texture"></div>
-          <div class="header-plant-growth__sprouts"></div>
-        </div>
         <div class="site-shared-header__content">
           <div class="site-header-brand-row">
-            <a href="${LIVE_FALLBACK_URL}" target="_blank" rel="noopener noreferrer" class="site-live-badge site-live-badge--offline" data-live-status-badge title="${LIVE_FALLBACK_TITLE}" aria-label="${LIVE_FALLBACK_TITLE}">
-              <span class="site-live-badge__dot" aria-hidden="true"></span>
-              <span class="site-live-badge__text" data-live-label>${LIVE_FALLBACK_LABEL}</span>
-              <span class="site-live-badge__platform" data-live-platform></span>
-            </a>
-            <a href="${siteRoot}" class="site-logo-link site-logo-link--header site-logo-link--alive" title="owenminercs.com" aria-label="Home">
-              <span class="site-logo-alive">
-                <img class="site-logo site-logo--base" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs">
-                <span class="site-logo-alive__parallax" aria-hidden="true">
-                  <img class="site-logo site-logo--floater site-logo--floater-o" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="">
-                  <img class="site-logo site-logo--floater site-logo--floater-cs" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="">
-                </span>
-                <div class="logo-rain-fx" aria-hidden="true"></div>
-              </span>
+            <button type="button" class="site-social-dock-reset" data-owen-social-dock-reset="1" title="Reset social bar position" hidden>Reset Social Bar</button>
+            <a href="${siteRoot}" class="site-logo-link site-logo-link--header" title="owenminercs.com" aria-label="Home">
+              <img class="site-logo" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs">
             </a>
           </div>
           <nav>
             <ul>
               <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html">About</a></li>
-              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup">The Setup</a></li>
+              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup">Bigfoot's Jungle</a></li>
               <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="Gaming (Counter-Strike for now)">Gaming</a></li>
-              <li><a href="${getLink('Services/services')}" class="site-nav-link" data-nav="Services">Services</a></li>
-              <li><a href="${getLink('Photography/photography')}" class="site-nav-link" data-nav="Photography">Photography</a></li>
-              <li><a href="${getLink('Upgrades/upgrades')}" class="site-nav-link" data-nav="Upgrades">Upgrades</a></li>
               <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators">Donators</a></li>
-              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="Garage Sale">Garage Sale</a></li>
+              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale">Shop</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted">Help Wanted</a></li>
-              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials">Socials</a></li>
+              <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA">Q&amp;A</a></li>
+              <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
+              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials">Content</a></li>
             </ul>
           </nav>
-          <hr class="site-rule site-rule--flush">
-          ${socialNavMarkup('site-social-nav--header')}
         </div>
         <hr class="site-rule site-rule--flush">
       </header>
     `;
 
-    applyNavHighlight(this);
-    hydrateLiveBadge(this);
-  }
+		applyNavHighlight(this);
+	}
+}
+
+/** Disclosure column: remove earnings line when it is duplicated in the footer byline (cross-page Amazon note). */
+function stripFooterAmazonEarningsSuffix(html) {
+	if (!html || typeof html !== 'string') return html;
+	let s = html;
+	s = s.replace(
+		/\s*As an Amazon Associate I earn from qualifying purchases through eligible links on those pages\.?(?=\s*<\/i>)/i,
+		''
+	);
+	s = s.replace(
+		/\s*As an Amazon Associate I earn from qualifying purchases through eligible links on this page\.?(?=\s*<\/i>)/i,
+		''
+	);
+	s = s.replace(/\s*As an Amazon Associate I earn from qualifying purchases\.?(?=\s*<\/i>)/i, '');
+	return s;
 }
 
 class SharedFooter extends HTMLElement {
-  connectedCallback() {
-	// For disclosures, some pages have custom text (like the apartment tour page specifying affiliate links).
-	const customDisclosure = this.getAttribute('disclosure') || 
-		"<i>This page has optional tip links (Ko-fi, StreamElements) and no paid shopping links. The Apartment tour, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>";
+	connectedCallback() {
+		// For disclosures, some pages have custom text (like the Bigfoot's Jungle page specifying affiliate links).
+		const customDisclosure =
+			this.getAttribute('disclosure') ||
+			'<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Bigfoot&#39;s Jungle, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program.</i>';
 
-    this.innerHTML = `
+		const pageSpecificAmazonDisclosure = /This page includes Amazon shopping links/i.test(customDisclosure);
+		const disclosureForRight = pageSpecificAmazonDisclosure
+			? customDisclosure
+			: stripFooterAmazonEarningsSuffix(customDisclosure);
+		const showCrossPageAmazonByline = !pageSpecificAmazonDisclosure;
+
+		this.innerHTML = `
       <footer>
         <hr class="site-rule site-rule--spaced">
         <h4><a href="#top" class="site-footer-back-top">Back To Top</a></h4>
@@ -250,419 +508,1840 @@ class SharedFooter extends HTMLElement {
           <nav aria-label="Main navigation">
             <ul>
               <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html">About</a></li>
-              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup">The Setup</a></li>
+              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup">Bigfoot's Jungle</a></li>
               <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming">Gaming</a></li>
-              <li><a href="${getLink('Services/services')}" class="site-nav-link" data-nav="Services">Services</a></li>
-              <li><a href="${getLink('Photography/photography')}" class="site-nav-link" data-nav="Photography">Photography</a></li>
-              <li><a href="${getLink('Upgrades/upgrades')}" class="site-nav-link" data-nav="Upgrades">Upgrades</a></li>
               <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators">Donators</a></li>
-              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="Garage Sale">Garage Sale</a></li>
+              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale">Shop</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted">Help Wanted</a></li>
-              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials">Socials</a></li>
+              <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA">Q&amp;A</a></li>
+              <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements">Achievements</a></li>
+              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials">Content</a></li>
             </ul>
           </nav>
         </div>
-        ${socialNavMarkup('site-social-nav--footer')}
-        <p class="site-footer-bug-report">If you run into any problems on this website, report bugs in the <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+        <div class="site-footer-social-bar">
+          ${socialNavMarkup('site-social-nav--footer')}
+        </div>
+        <p class="site-footer-bug-report">If you run into any problems on this website, report bugs in the <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a>. Suggestions for the site are welcome there too, so I can track ideas alongside bug reports.</p>
         <hr class="site-rule site-rule--spaced">
-        <div>
-          <h4 id="Disclosure" style="padding: 0; margin: 10px;"><span style="font-weight: bold;">Disclosure:</span> ${customDisclosure}</h4>
-          <h4 style="text-transform: capitalize;">This website was created by Owen Miner</h4>
-          <h4 style="font-weight: normal;">Feel free to use any photos on this page, with credit to <a href="${siteRoot}" class="site-logo-link site-logo-link--inline" title="owenminercs.com" aria-label="Home"><img class="site-logo site-logo--credit" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs"></a></h4>
-          <p class="site-footer-logo"><a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home"><img class="site-logo site-logo--footer" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs"></a></p>
+        <div class="site-footer-meta">
+          <div class="site-footer-meta__credits">
+            <h4 class="site-footer-meta__byline">
+              <span class="site-footer-meta__creator">This website was created by Owen Miner</span>${
+								showCrossPageAmazonByline
+									? '<span class="site-footer-meta__amazon"> As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</span>'
+									: ''
+							}
+            </h4>
+            <h4 class="site-footer-meta__photos">Feel free to use any photos on this page, with credit to <a href="${siteRoot}" class="site-logo-link site-logo-link--inline" title="owenminercs.com" aria-label="Home"><img class="site-logo site-logo--credit" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs"></a></h4>
+          </div>
+          <div class="site-footer-meta__disclosure">
+            <h4 id="Disclosure" class="site-footer-meta__disclosure-heading"><span class="site-footer-meta__disclosure-label">Disclosure:</span> ${disclosureForRight}</h4>
+          </div>
         </div>  
         <hr class="site-rule site-rule--footer-end">
       </footer>
     `;
 
-    applyNavHighlight(this);
-  }
+		applyNavHighlight(this);
+		injectSiteFeedClient();
+	}
 }
 
 customElements.define('shared-header', SharedHeader);
 customElements.define('shared-footer', SharedFooter);
 
 function disableTextInputControls(root) {
-  if (!root || typeof root.querySelectorAll !== 'function') return;
+	if (!root || typeof root.querySelectorAll !== 'function') return;
 
-  root.querySelectorAll(TEXT_ENTRY_SELECTOR).forEach((el) => {
-    if (el.dataset && el.dataset.inputDisabledForNow === '1') return;
-    el.disabled = true;
-    if ('readOnly' in el) el.readOnly = true;
-    if (typeof el.placeholder === 'string') {
-      el.placeholder = 'Temporarily disabled';
-    }
-    el.setAttribute('aria-disabled', 'true');
-    if (el.dataset) el.dataset.inputDisabledForNow = '1';
-  });
+	root.querySelectorAll(TEXT_ENTRY_SELECTOR).forEach((el) => {
+		if (el.dataset && el.dataset.inputDisabledForNow === '1') return;
+		el.disabled = true;
+		if ('readOnly' in el) el.readOnly = true;
+		if (typeof el.placeholder === 'string') {
+			el.placeholder = 'Temporarily disabled';
+		}
+		el.setAttribute('aria-disabled', 'true');
+		if (el.dataset) el.dataset.inputDisabledForNow = '1';
+	});
 
-  root.querySelectorAll('[contenteditable=""], [contenteditable="true"]').forEach((el) => {
-    el.setAttribute('contenteditable', 'false');
-    el.setAttribute('aria-disabled', 'true');
-  });
+	root.querySelectorAll('[contenteditable=""], [contenteditable="true"]').forEach((el) => {
+		el.setAttribute('contenteditable', 'false');
+		el.setAttribute('aria-disabled', 'true');
+	});
 }
 
 function initTemporaryInputLockdown() {
-  disableTextInputControls(document);
-  const observer = new MutationObserver((records) => {
-    records.forEach((record) => {
-      if (!(record.target instanceof Element)) return;
-      disableTextInputControls(record.target);
-      record.addedNodes.forEach((node) => {
-        if (node instanceof Element) disableTextInputControls(node);
-      });
-    });
-  });
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+	disableTextInputControls(document);
+	const observer = new MutationObserver((records) => {
+		records.forEach((record) => {
+			if (!(record.target instanceof Element)) return;
+			disableTextInputControls(record.target);
+			record.addedNodes.forEach((node) => {
+				if (node instanceof Element) disableTextInputControls(node);
+			});
+		});
+	});
+	observer.observe(document.documentElement, { childList: true, subtree: true });
 }
 
 const WORD_GLOW_SKIP =
-  'script, style, noscript, template, pre, code, textarea, kbd, samp, svg, math, [data-no-word-glow], .no-word-glow';
+	'script, style, noscript, template, pre, code, textarea, kbd, samp, svg, math, [data-no-word-glow], .no-word-glow, h1, h2, h3, h4, h5, h6, .keep-card__label, .keep-card__affiliate a, .keep-card__cta';
+
+/** Per-word hover/bookmark only inside a long `p` or `li` (nav + short copy stay on normal link/card styles). */
+const WORD_GLOW_MIN_PROSE_CHARS = 200;
+
+function isWordGlowProseBlock(el) {
+	const block = el.closest('p, li');
+	if (!block) return false;
+	const len = block.textContent.replace(/\s+/g, ' ').trim().length;
+	return len >= WORD_GLOW_MIN_PROSE_CHARS;
+}
+
+/** One green block for the whole link (not per-word); skip chrome / image-only / nested links. */
+function shouldWrapLinkAsLineGlow(a) {
+	if (!(a instanceof HTMLAnchorElement)) return false;
+	const href = a.getAttribute('href');
+	if (!href || !String(href).trim()) return false;
+	if (a.querySelector('.text-word-glow')) return false;
+	if (a.querySelector('a')) return false;
+	if (a.closest('script, style, noscript, template, pre, code, textarea, kbd, samp, svg, math'))
+		return false;
+	if (a.closest('[data-no-word-glow], .no-word-glow')) return false;
+	if (a.matches('.site-nav-link, .site-logo-link, .site-social-nav__link')) return false;
+	if (a.matches('.donators-support-hero')) return false;
+	if (a.closest('.site-nav-link, .site-social-nav')) return false;
+	if (
+		a.closest('.keep-card__affiliate') ||
+		a.closest('.keep-card__cta') ||
+		a.matches('.keep-card__cta')
+	)
+		return false;
+	if (!/\S/.test(a.textContent || '')) return false;
+	const imgs = a.querySelectorAll('img');
+	if (imgs.length && !/\S/.test(a.textContent.replace(/\u00a0/g, ' '))) return false;
+	return true;
+}
+
+function wrapLinkContentsInLineGlow(a) {
+	const span = document.createElement('span');
+	span.className = 'text-word-glow text-word-glow--line';
+	while (a.firstChild) span.appendChild(a.firstChild);
+	a.appendChild(span);
+}
+
+function wrapAllEligibleLinksAsLineGlow(root) {
+	const scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+	scope.querySelectorAll('a[href]').forEach((a) => {
+		if (!shouldWrapLinkAsLineGlow(a)) return;
+		wrapLinkContentsInLineGlow(a);
+	});
+}
 
 function collectWordGlowTextNodes(root) {
-  const out = [];
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode(node) {
-      if (!node.nodeValue || !/\S/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-      const p = node.parentElement;
-      if (!p) return NodeFilter.FILTER_REJECT;
-      /* Header/footer nav pills use their own border + outer glow — no per-word highlight */
-      if (p.closest('.site-nav-link')) return NodeFilter.FILTER_REJECT;
-      if (p.closest(WORD_GLOW_SKIP)) return NodeFilter.FILTER_REJECT;
-      if (p.classList?.contains('text-word-glow')) return NodeFilter.FILTER_REJECT;
-      if (p.closest('.text-word-glow--line')) return NodeFilter.FILTER_REJECT;
-      return NodeFilter.FILTER_ACCEPT;
-    },
-  });
-  let n;
-  while ((n = walker.nextNode())) out.push(n);
-  return out;
+	const out = [];
+	const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+		acceptNode(node) {
+			if (!node.nodeValue || !/\S/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+			const p = node.parentElement;
+			if (!p) return NodeFilter.FILTER_REJECT;
+			/* Header/footer nav pills use their own border + outer glow — no per-word highlight */
+			if (p.closest('.site-nav-link')) return NodeFilter.FILTER_REJECT;
+			if (p.closest(WORD_GLOW_SKIP)) return NodeFilter.FILTER_REJECT;
+			if (p.closest('a[href]')) return NodeFilter.FILTER_REJECT;
+			if (p.classList?.contains('text-word-glow')) return NodeFilter.FILTER_REJECT;
+			if (p.closest('.text-word-glow--line')) return NodeFilter.FILTER_REJECT;
+			if (!isWordGlowProseBlock(p)) return NodeFilter.FILTER_REJECT;
+			return NodeFilter.FILTER_ACCEPT;
+		},
+	});
+	let n;
+	while ((n = walker.nextNode())) out.push(n);
+	return out;
 }
 
 function debounce(fn, ms) {
-  let t;
-  return function (...args) {
-    clearTimeout(t);
-    t = setTimeout(() => fn.apply(this, args), ms);
-  };
+	let t;
+	return function (...args) {
+		clearTimeout(t);
+		t = setTimeout(() => fn.apply(this, args), ms);
+	};
 }
 
 function isShortFormIframeSrc(rawSrc, iframeEl) {
-  if (!rawSrc) return false;
-  const markerText = `${iframeEl?.className || ''} ${iframeEl?.title || ''}`.toLowerCase();
-  const hasShortMarker =
-    iframeEl?.dataset?.shortForm === '1' ||
-    markerText.includes('short') ||
-    markerText.includes('reel') ||
-    markerText.includes('tiktok');
-  const attrWidth = Number.parseInt(String(iframeEl?.getAttribute?.('width') || ''), 10);
-  const attrHeight = Number.parseInt(String(iframeEl?.getAttribute?.('height') || ''), 10);
-  const looksPortrait = Number.isFinite(attrWidth) && Number.isFinite(attrHeight) && attrWidth > 0 && attrHeight > attrWidth;
-  try {
-    const parsed = new URL(rawSrc, window.location.origin);
-    const host = parsed.hostname.toLowerCase();
-    const path = parsed.pathname.toLowerCase();
-    const shortsFlag = parsed.searchParams.get('shorts');
-    if (host.includes('tiktok.com')) return true;
-    if (host.includes('instagram.com') && (path.includes('/reel/') || path.includes('/reels/'))) return true;
-    if (host.includes('youtube.com') || host.includes('youtu.be')) {
-      return path.includes('/shorts/') || shortsFlag === '1' || (path.includes('/embed/') && (hasShortMarker || looksPortrait));
-    }
-  } catch (_) {
-    const fallback = String(rawSrc).toLowerCase();
-    if (fallback.includes('tiktok.com')) return true;
-    if (fallback.includes('instagram.com/reel') || fallback.includes('instagram.com/reels')) return true;
-    if (fallback.includes('youtube.com/shorts/') || fallback.includes('shorts=1')) return true;
-    if (fallback.includes('youtube.com/embed/') && (hasShortMarker || looksPortrait)) return true;
-  }
-  return false;
+	if (!rawSrc) return false;
+	const markerText = `${iframeEl?.className || ''} ${iframeEl?.title || ''}`.toLowerCase();
+	const hasShortMarker =
+		iframeEl?.dataset?.shortForm === '1' ||
+		markerText.includes('short') ||
+		markerText.includes('reel') ||
+		markerText.includes('tiktok');
+	const attrWidth = Number.parseInt(String(iframeEl?.getAttribute?.('width') || ''), 10);
+	const attrHeight = Number.parseInt(String(iframeEl?.getAttribute?.('height') || ''), 10);
+	const looksPortrait =
+		Number.isFinite(attrWidth) &&
+		Number.isFinite(attrHeight) &&
+		attrWidth > 0 &&
+		attrHeight > attrWidth;
+	try {
+		const parsed = new URL(rawSrc, window.location.origin);
+		const host = parsed.hostname.toLowerCase();
+		const path = parsed.pathname.toLowerCase();
+		const shortsFlag = parsed.searchParams.get('shorts');
+		if (host.includes('tiktok.com')) return true;
+		if (host.includes('instagram.com') && (path.includes('/reel/') || path.includes('/reels/')))
+			return true;
+		if (host.includes('youtube.com') || host.includes('youtu.be')) {
+			return (
+				path.includes('/shorts/') ||
+				shortsFlag === '1' ||
+				(path.includes('/embed/') && (hasShortMarker || looksPortrait))
+			);
+		}
+	} catch (_) {
+		const fallback = String(rawSrc).toLowerCase();
+		if (fallback.includes('tiktok.com')) return true;
+		if (fallback.includes('instagram.com/reel') || fallback.includes('instagram.com/reels'))
+			return true;
+		if (fallback.includes('youtube.com/shorts/') || fallback.includes('shorts=1')) return true;
+		if (fallback.includes('youtube.com/embed/') && (hasShortMarker || looksPortrait))
+			return true;
+	}
+	return false;
 }
 
 function getYouTubeEmbedId(rawSrc) {
-  if (!rawSrc) return '';
-  try {
-    const parsed = new URL(rawSrc, window.location.origin);
-    const path = parsed.pathname;
-    if (path.includes('/embed/')) {
-      return (path.split('/embed/')[1] || '').split('/')[0].trim();
-    }
-    if (path.includes('/shorts/')) {
-      return (path.split('/shorts/')[1] || '').split('/')[0].trim();
-    }
-    if (parsed.searchParams.get('v')) {
-      return parsed.searchParams.get('v').trim();
-    }
-  } catch (_) {
-    const idMatch = String(rawSrc).match(/(?:\/embed\/|\/shorts\/|[?&]v=)([A-Za-z0-9_-]{8,})/i);
-    if (idMatch && idMatch[1]) return idMatch[1].trim();
-  }
-  return '';
+	if (!rawSrc) return '';
+	try {
+		const parsed = new URL(rawSrc, window.location.origin);
+		const path = parsed.pathname;
+		if (path.includes('/embed/')) {
+			return (path.split('/embed/')[1] || '').split('/')[0].trim();
+		}
+		if (path.includes('/shorts/')) {
+			return (path.split('/shorts/')[1] || '').split('/')[0].trim();
+		}
+		if (parsed.searchParams.get('v')) {
+			return parsed.searchParams.get('v').trim();
+		}
+	} catch (_) {
+		const idMatch = String(rawSrc).match(/(?:\/embed\/|\/shorts\/|[?&]v=)([A-Za-z0-9_-]{8,})/i);
+		if (idMatch && idMatch[1]) return idMatch[1].trim();
+	}
+	return '';
 }
 
 function buildShortFormLoopSrc(rawSrc) {
-  if (!rawSrc) return '';
-  try {
-    const parsed = new URL(rawSrc, window.location.origin);
-    parsed.searchParams.set('loop', '1');
-    parsed.searchParams.set('playsinline', '1');
-    const host = parsed.hostname.toLowerCase();
-    if (host.includes('youtube.com') || host.includes('youtu.be')) {
-      const videoId = getYouTubeEmbedId(parsed.toString());
-      if (videoId) {
-        parsed.searchParams.set('playlist', videoId);
-      }
-    }
-    return parsed.toString();
-  } catch (_) {
-    const hasQuery = rawSrc.includes('?');
-    return `${rawSrc}${hasQuery ? '&' : '?'}loop=1&playsinline=1`;
-  }
+	if (!rawSrc) return '';
+	try {
+		const parsed = new URL(rawSrc, window.location.origin);
+		parsed.searchParams.set('loop', '1');
+		parsed.searchParams.set('playsinline', '1');
+		const host = parsed.hostname.toLowerCase();
+		if (host.includes('youtube.com') || host.includes('youtu.be')) {
+			const videoId = getYouTubeEmbedId(parsed.toString());
+			if (videoId) {
+				parsed.searchParams.set('playlist', videoId);
+			}
+		}
+		return parsed.toString();
+	} catch (_) {
+		const hasQuery = rawSrc.includes('?');
+		return `${rawSrc}${hasQuery ? '&' : '?'}loop=1&playsinline=1`;
+	}
 }
 
 function shouldLoopVideoElement(video) {
-  if (!video) return false;
-  if (video.dataset.noLoop === '1') return false;
-  if (video.dataset.shortForm === '1') return true;
-  const src = (video.currentSrc || video.src || '').toLowerCase();
-  if (src.includes('tiktok') || src.includes('instagram') || src.includes('/shorts/')) return true;
-  if (video.classList && (
-    video.classList.contains('short') ||
-    video.classList.contains('short-form') ||
-    video.classList.contains('reel')
-  )) return true;
-  return video.closest('[data-short-form="1"], .short, .short-form, .reel') !== null;
+	if (!video) return false;
+	if (video.dataset.noLoop === '1') return false;
+	if (video.dataset.shortForm === '1') return true;
+	const src = (video.currentSrc || video.src || '').toLowerCase();
+	if (src.includes('tiktok') || src.includes('instagram') || src.includes('/shorts/'))
+		return true;
+	if (
+		video.classList &&
+		(video.classList.contains('short') ||
+			video.classList.contains('short-form') ||
+			video.classList.contains('reel'))
+	)
+		return true;
+	return video.closest('[data-short-form="1"], .short, .short-form, .reel') !== null;
 }
 
 function enforceShortFormLooping(scope) {
-  const root = scope && typeof scope.querySelectorAll === 'function' ? scope : document;
+	const root = scope && typeof scope.querySelectorAll === 'function' ? scope : document;
 
-  root.querySelectorAll('video').forEach((video) => {
-    if (!shouldLoopVideoElement(video)) return;
-    if (!video.loop) video.loop = true;
-    if (video.dataset.shortLoopBound === '1') return;
-    video.dataset.shortLoopBound = '1';
-    video.addEventListener('ended', () => {
-      video.currentTime = 0;
-      const playPromise = video.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {});
-      }
-    });
-  });
+	root.querySelectorAll('video').forEach((video) => {
+		if (!shouldLoopVideoElement(video)) return;
+		if (!video.loop) video.loop = true;
+		if (video.dataset.shortLoopBound === '1') return;
+		video.dataset.shortLoopBound = '1';
+		video.addEventListener('ended', () => {
+			video.currentTime = 0;
+			const playPromise = video.play();
+			if (playPromise && typeof playPromise.catch === 'function') {
+				playPromise.catch(() => {});
+			}
+		});
+	});
 
-  root.querySelectorAll('iframe[src]').forEach((iframe) => {
-    if (iframe.dataset.noLoop === '1') return;
-    const currentSrc = iframe.getAttribute('src') || '';
-    if (!isShortFormIframeSrc(currentSrc, iframe)) return;
-    const nextSrc = buildShortFormLoopSrc(currentSrc);
-    if (nextSrc && nextSrc !== currentSrc) {
-      iframe.setAttribute('src', nextSrc);
-    }
-    iframe.dataset.shortLoopApplied = '1';
-  });
+	root.querySelectorAll('iframe[src]').forEach((iframe) => {
+		if (iframe.dataset.noLoop === '1') return;
+		const currentSrc = iframe.getAttribute('src') || '';
+		if (!isShortFormIframeSrc(currentSrc, iframe)) return;
+		const nextSrc = buildShortFormLoopSrc(currentSrc);
+		if (nextSrc && nextSrc !== currentSrc) {
+			iframe.setAttribute('src', nextSrc);
+		}
+		iframe.dataset.shortLoopApplied = '1';
+	});
 }
 
 function initShortFormLooping() {
-  enforceShortFormLooping(document);
-  const observer = new MutationObserver((records) => {
-    records.forEach((record) => {
-      record.addedNodes.forEach((node) => {
-        if (!(node instanceof Element)) return;
-        if (node.matches && (node.matches('video') || node.matches('iframe[src]'))) {
-          enforceShortFormLooping(node.parentElement || document);
-          return;
-        }
-        enforceShortFormLooping(node);
-      });
-    });
-  });
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+	enforceShortFormLooping(document);
+	const observer = new MutationObserver((records) => {
+		records.forEach((record) => {
+			record.addedNodes.forEach((node) => {
+				if (!(node instanceof Element)) return;
+				if (node.matches && (node.matches('video') || node.matches('iframe[src]'))) {
+					enforceShortFormLooping(node.parentElement || document);
+					return;
+				}
+				enforceShortFormLooping(node);
+			});
+		});
+	});
+	observer.observe(document.documentElement, { childList: true, subtree: true });
 }
 
-/** Clipped title + duplicate chunk for seamless horizontal marquee on hover when text overflows the card. */
-function buildKeepCardLabelMarquee(el) {
-  if (el.querySelector(':scope > .keep-card__label-clip')) return;
-  const text = el.textContent.trim();
-  if (!text) return;
-
-  el.replaceChildren();
-
-  const clip = document.createElement('span');
-  clip.className = 'keep-card__label-clip';
-
-  const line = document.createElement('span');
-  line.className = 'text-word-glow text-word-glow--line keep-card__label-line';
-
-  const scroll = document.createElement('span');
-  scroll.className = 'keep-card__label-scroll';
-
-  const c1 = document.createElement('span');
-  c1.className = 'keep-card__label-chunk';
-  c1.textContent = text;
-
-  const c2 = document.createElement('span');
-  c2.className = 'keep-card__label-chunk';
-  c2.setAttribute('aria-hidden', 'true');
-  c2.textContent = text;
-
-  scroll.appendChild(c1);
-  scroll.appendChild(c2);
-  line.appendChild(scroll);
-  clip.appendChild(line);
-  el.appendChild(clip);
+/** Flatten legacy marquee markup so titles are plain text and can wrap. */
+function flattenLegacyKeepCardLabel(el) {
+	const clip = el.querySelector(':scope > .keep-card__label-clip');
+	if (!clip) return;
+	const text = el.textContent.replace(/\s+/g, ' ').trim();
+	el.replaceChildren();
+	if (text) el.appendChild(document.createTextNode(text));
+	el.classList.remove('keep-card__label--overflow');
 }
 
-function updateKeepCardLabelMarqueeFlags() {
-  document.querySelectorAll('.keep-card__label').forEach((label) => {
-    const clip = label.querySelector('.keep-card__label-clip');
-    const scroll = label.querySelector('.keep-card__label-scroll');
-    if (!clip || !scroll) return;
-    const overflow = scroll.scrollWidth > clip.clientWidth + 1;
-    label.classList.toggle('keep-card__label--overflow', overflow);
-    if (overflow) {
-      const durationSec = Math.max(6, Math.min(36, scroll.scrollWidth / 24));
-      scroll.style.setProperty('--keep-card-marquee-duration', `${durationSec}s`);
-    } else {
-      scroll.style.removeProperty('--keep-card-marquee-duration');
-    }
-  });
-}
-
-function scheduleKeepCardLabelMarqueeReflow() {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(updateKeepCardLabelMarqueeFlags);
-  });
-}
-
-/** One green highlight for the whole line: card titles, affiliate links, “Full review →”. */
 function prepareKeepCardLineGlows() {
-  document.querySelectorAll('.keep-card__label').forEach((el) => {
-    buildKeepCardLabelMarquee(el);
-  });
-  document.querySelectorAll('.keep-card__affiliate a').forEach((a) => {
-    a.classList.add('text-word-glow', 'text-word-glow--line');
-  });
-  document.querySelectorAll('.keep-card__cta').forEach((cta) => {
-    cta.classList.add('text-word-glow', 'text-word-glow--line');
-  });
+	document.querySelectorAll('.keep-card__label').forEach((el) => {
+		flattenLegacyKeepCardLabel(el);
+	});
 }
 
 function wrapWordsInTextNode(textNode) {
-  const text = textNode.nodeValue;
-  const parts = text.split(/(\s+)/);
-  const frag = document.createDocumentFragment();
-  for (const part of parts) {
-    if (!part) continue;
-    if (/^\s+$/.test(part)) {
-      frag.appendChild(document.createTextNode(part));
-    } else {
-      const span = document.createElement('span');
-      span.className = 'text-word-glow';
-      span.textContent = part;
-      frag.appendChild(span);
-    }
-  }
-  textNode.parentNode.replaceChild(frag, textNode);
+	const text = textNode.nodeValue;
+	const parts = text.split(/(\s+)/);
+	const frag = document.createDocumentFragment();
+	for (const part of parts) {
+		if (!part) continue;
+		if (/^\s+$/.test(part)) {
+			frag.appendChild(document.createTextNode(part));
+		} else {
+			const span = document.createElement('span');
+			span.className = 'text-word-glow';
+			span.textContent = part;
+			frag.appendChild(span);
+		}
+	}
+	textNode.parentNode.replaceChild(frag, textNode);
 }
 
-/** Per-word glow in prose; keep-card titles / affiliate lines / CTA are single-line glows via prepareKeepCardLineGlows. */
+/** Per-word glow in long `p` / `li` only; whole-link glow on eligible anchors site-wide. */
 function initWordBackgroundGlow() {
-  prepareKeepCardLineGlows();
-  scheduleKeepCardLabelMarqueeReflow();
-  const textNodes = collectWordGlowTextNodes(document.body);
-  for (const tn of textNodes) {
-    wrapWordsInTextNode(tn);
-  }
-  scheduleKeepCardLabelMarqueeReflow();
-  initWordGlowBookmark();
+	prepareKeepCardLineGlows();
+	wrapAllEligibleLinksAsLineGlow(document.body);
+	const textNodes = collectWordGlowTextNodes(document.body);
+	for (const tn of textNodes) {
+		wrapWordsInTextNode(tn);
+	}
+	initWordGlowBookmark();
+	restoreWordGlowBookmarksFromStorage();
 }
 
 const WORD_GLOW_BOOKMARK_SKIP =
-  'button, input, select, textarea, label, summary, [contenteditable="true"], [role="button"], [role="tab"]';
+	'button, input, select, textarea, label, summary, [contenteditable="true"], [role="button"], [role="tab"]';
+
+const WORD_GLOW_BOOKMARK_STORAGE_KEY = 'owenminercs-word-glow-bookmarks';
+
+/** Stable per-page key (path only; trailing slash normalized). */
+function wordGlowBookmarkPathKey() {
+	let p = typeof location !== 'undefined' && location.pathname ? location.pathname : '/';
+	if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
+	return p || '/';
+}
+
+function listWordGlowSpansInDocumentOrder() {
+	return Array.from(document.querySelectorAll('.text-word-glow'));
+}
+
+function persistWordGlowBookmarksFromDom() {
+	try {
+		if (!document.querySelector('.text-word-glow')) return;
+		const path = wordGlowBookmarkPathKey();
+		const all = listWordGlowSpansInDocumentOrder();
+		const indices = [];
+		for (let i = 0; i < all.length; i += 1) {
+			if (all[i].classList.contains('text-word-glow--bookmark')) indices.push(i);
+		}
+		const raw = localStorage.getItem(WORD_GLOW_BOOKMARK_STORAGE_KEY);
+		const store = raw ? JSON.parse(raw) : {};
+		if (typeof store !== 'object' || store === null) return;
+		if (!indices.length) delete store[path];
+		else store[path] = indices;
+		localStorage.setItem(WORD_GLOW_BOOKMARK_STORAGE_KEY, JSON.stringify(store));
+	} catch (_) {}
+}
+
+function restoreWordGlowBookmarksFromStorage() {
+	try {
+		const raw = localStorage.getItem(WORD_GLOW_BOOKMARK_STORAGE_KEY);
+		if (!raw) return;
+		const store = JSON.parse(raw);
+		if (typeof store !== 'object' || store === null) return;
+		const path = wordGlowBookmarkPathKey();
+		const saved = store[path];
+		if (!Array.isArray(saved) || !saved.length) return;
+		const want = new Set(
+			saved.filter((n) => typeof n === 'number' && Number.isInteger(n) && n >= 0)
+		);
+		if (!want.size) return;
+		const all = listWordGlowSpansInDocumentOrder();
+		for (let i = 0; i < all.length; i += 1) {
+			if (want.has(i)) all[i].classList.add('text-word-glow--bookmark');
+		}
+	} catch (_) {}
+}
 
 /**
- * Click a word (or keep-card line glow) to pin the green highlight as a reading bookmark.
- * Click the same glow again to clear. Words inside links: hold Alt while clicking to bookmark
- * so normal clicks still follow the URL.
+ * Click a word to pin the green outline (many pins allowed). Click the same word again to remove
+ * that pin only. Words inside links: Alt+click to add a pin so normal clicks still follow the URL;
+ * a pinned word inside a link toggles off with a normal click (link does not fire).
+ * Pins persist in localStorage per URL until toggled off.
  */
 function initWordGlowBookmark() {
-  if (document.documentElement.dataset.wordGlowBookmarkBound === '1') return;
-  document.documentElement.dataset.wordGlowBookmarkBound = '1';
+	if (document.documentElement.dataset.wordGlowBookmarkBound === '1') return;
+	document.documentElement.dataset.wordGlowBookmarkBound = '1';
 
-  let pinned = null;
+	document.addEventListener('click', (e) => {
+		if (e.button !== 0) return;
+		const t = e.target;
+		if (!(t instanceof Element)) return;
 
-  document.addEventListener('click', (e) => {
-    if (e.button !== 0) return;
-    const t = e.target;
-    if (!(t instanceof Element)) return;
+		const w = t.closest('.text-word-glow');
+		if (!w) return;
 
-    const w = t.closest('.text-word-glow');
-    if (!w) return;
+		if (w.closest('.site-nav-link')) return;
+		if (w.closest(WORD_GLOW_BOOKMARK_SKIP)) return;
 
-    if (w.closest('.site-nav-link')) return;
-    if (w.closest(WORD_GLOW_BOOKMARK_SKIP)) return;
+		const inLink = w.closest('a[href]');
 
-    const inLink = w.closest('a[href]');
-    if (inLink && !e.altKey) return;
+		if (w.classList.contains('text-word-glow--bookmark')) {
+			if (inLink) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+			w.classList.remove('text-word-glow--bookmark');
+			persistWordGlowBookmarksFromDom();
+			return;
+		}
 
-    if (inLink && e.altKey) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+		if (inLink && !e.altKey) return;
 
-    if (pinned === w) {
-      w.classList.remove('text-word-glow--bookmark');
-      pinned = null;
-      return;
-    }
+		if (inLink && e.altKey) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 
-    if (pinned) pinned.classList.remove('text-word-glow--bookmark');
-    w.classList.add('text-word-glow--bookmark');
-    pinned = w;
-  });
+		w.classList.add('text-word-glow--bookmark');
+		persistWordGlowBookmarksFromDom();
+		if (typeof window.owenminercsUnlockAchievement === 'function') {
+			window.owenminercsUnlockAchievement('lexicon-pin');
+		}
+	});
+
+	window.addEventListener('pagehide', persistWordGlowBookmarksFromDom);
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') persistWordGlowBookmarksFromDom();
+	});
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initWordBackgroundGlow);
-  document.addEventListener('DOMContentLoaded', initTemporaryInputLockdown);
-  document.addEventListener('DOMContentLoaded', initShortFormLooping);
+	document.addEventListener('DOMContentLoaded', initWordBackgroundGlow);
+	document.addEventListener('DOMContentLoaded', initTemporaryInputLockdown);
+	document.addEventListener('DOMContentLoaded', initShortFormLooping);
 } else {
-  initWordBackgroundGlow();
-  initTemporaryInputLockdown();
-  initShortFormLooping();
+	initWordBackgroundGlow();
+	initTemporaryInputLockdown();
+	initShortFormLooping();
 }
 
-(function initKeepCardLabelMarqueeListeners() {
-  const reflow = () => scheduleKeepCardLabelMarqueeReflow();
-  window.addEventListener('load', reflow);
-  window.addEventListener('resize', debounce(reflow, 120));
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(reflow);
-  }
+const SOCIAL_DOCK_POS_KEY = 'owenminercs-social-dock-pos';
+const SOCIAL_DOCK_CUSTOMIZED_CLASS = 'site-support-dock--customized';
+const SOCIAL_DOCK_DRAG_THRESHOLD_PX = 6;
+const SOCIAL_DOCK_SCALE_MIN = 0.5;
+const SOCIAL_DOCK_SCALE_MAX = 2;
+/** Avoid unstable ratio when the pointer starts very close to the pivot. */
+const SOCIAL_DOCK_RESIZE_R0_MIN_PX = 6;
+
+function clampSocialDockScale(s) {
+	if (!Number.isFinite(s)) return 1;
+	return Math.min(SOCIAL_DOCK_SCALE_MAX, Math.max(SOCIAL_DOCK_SCALE_MIN, s));
+}
+
+/** Parse `--site-social-tilt` inline value like `12.5deg` (degrees may be unbounded). */
+function parseSocialDockTiltDeg(tv) {
+	if (!tv || typeof tv !== 'string') return null;
+	const t = parseFloat(tv.replace(/deg\s*$/i, '').trim());
+	return Number.isFinite(t) ? t : null;
+}
+
+function clampSocialDockToViewport(wrap, x, y) {
+	/* 2px: allow the dock to sit almost flush with the viewport when placed */
+	const margin = 2;
+	const vw = window.innerWidth;
+	const vh = window.innerHeight;
+	let nx = Math.round(x);
+	let ny = Math.round(y);
+	/*
+	 * offsetWidth/offsetHeight ignore transforms on descendants. A rotated/scaled bar
+	 * can be visually tall/narrow while the wrap stays wide — clamping on layout size
+	 * leaves large fake “margins”. Use the spin’s transformed bounds instead.
+	 */
+	const probe =
+		wrap.querySelector('.site-social-nav__spin') ||
+		wrap.querySelector('.site-social-nav--dock') ||
+		wrap;
+	for (let i = 0; i < 8; i++) {
+		wrap.style.left = `${nx}px`;
+		wrap.style.top = `${ny}px`;
+		const rects = [probe.getBoundingClientRect()];
+		let adjX = 0;
+		let adjY = 0;
+		for (const r of rects) {
+			if (r.left < margin) adjX += margin - r.left;
+			if (r.right > vw - margin) adjX -= r.right - (vw - margin);
+			if (r.top < margin) adjY += margin - r.top;
+			if (r.bottom > vh - margin) adjY -= r.bottom - (vh - margin);
+		}
+		if (adjX === 0 && adjY === 0) break;
+		nx += adjX;
+		ny += adjY;
+	}
+	return { left: Math.round(nx), top: Math.round(ny) };
+}
+
+function setSocialDockCustomized(wrap, customized) {
+	if (!(wrap instanceof Element)) return;
+	const isCustomized = Boolean(customized);
+	wrap.classList.toggle(SOCIAL_DOCK_CUSTOMIZED_CLASS, isCustomized);
+	const reset = document.querySelector('[data-owen-social-dock-reset]');
+	if (reset) {
+		reset.hidden = !isCustomized;
+	}
+}
+
+function clampPlacedSocialDockInViewport(wrap) {
+	if (!wrap.classList.contains('site-support-dock--placed')) return;
+	const left = parseFloat(wrap.style.left);
+	const top = parseFloat(wrap.style.top);
+	if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+	const c = clampSocialDockToViewport(wrap, left, top);
+	wrap.style.left = `${c.left}px`;
+	wrap.style.top = `${c.top}px`;
+}
+
+function applySavedSocialDockPosition(wrap) {
+	try {
+		setSocialDockCustomized(wrap, false);
+		const raw = localStorage.getItem(SOCIAL_DOCK_POS_KEY);
+		if (!raw) return;
+		const pos = JSON.parse(raw);
+		const defaultPos = getSocialDockDefaultViewportPosition(wrap);
+		const placementCustomized =
+			typeof pos.left === 'number' &&
+			typeof pos.top === 'number' &&
+			(Math.abs(pos.left - defaultPos.left) > SOCIAL_DOCK_DRAG_THRESHOLD_PX ||
+				Math.abs(pos.top - defaultPos.top) > SOCIAL_DOCK_DRAG_THRESHOLD_PX);
+		const isCustomized =
+			placementCustomized ||
+			(typeof pos.scale === 'number' &&
+				Number.isFinite(pos.scale) &&
+				Math.abs(clampSocialDockScale(pos.scale) - 1) > 0.001) ||
+			(typeof pos.tilt === 'number' &&
+				Number.isFinite(pos.tilt) &&
+				Math.abs(pos.tilt) > 0.001);
+		if (!isCustomized) {
+			localStorage.removeItem(SOCIAL_DOCK_POS_KEY);
+			return;
+		}
+		if (typeof pos.left === 'number' && typeof pos.top === 'number') {
+			wrap.classList.add('site-support-dock--placed');
+			const c = clampSocialDockToViewport(wrap, pos.left, pos.top);
+			wrap.style.left = `${c.left}px`;
+			wrap.style.top = `${c.top}px`;
+		}
+		const spin = wrap.querySelector('.site-social-nav__spin');
+		if (spin && typeof pos.scale === 'number' && Number.isFinite(pos.scale)) {
+			spin.style.setProperty('--site-social-scale', String(clampSocialDockScale(pos.scale)));
+		}
+		if (spin && typeof pos.tilt === 'number' && Number.isFinite(pos.tilt)) {
+			spin.style.setProperty('--site-social-tilt', `${pos.tilt}deg`);
+		}
+		setSocialDockCustomized(wrap, isCustomized);
+		if (isCustomized) {
+			clampPlacedSocialDockInViewport(wrap);
+		}
+	} catch (_) {}
+}
+
+function persistSocialDockPosition(wrap) {
+	try {
+		/** @type { { left?: number; top?: number; scale?: number; tilt?: number; customized?: boolean } } */
+		const next = {};
+		if (wrap.classList.contains(SOCIAL_DOCK_CUSTOMIZED_CLASS)) {
+			next.customized = true;
+		}
+		if (next.customized === true && wrap.classList.contains('site-support-dock--placed')) {
+			const left = parseFloat(wrap.style.left);
+			const top = parseFloat(wrap.style.top);
+			if (Number.isFinite(left) && Number.isFinite(top)) {
+				next.left = left;
+				next.top = top;
+			}
+		}
+		const spin = wrap.querySelector('.site-social-nav__spin');
+		if (spin) {
+			const sv = spin.style.getPropertyValue('--site-social-scale').trim();
+			const n = parseFloat(sv);
+			if (Number.isFinite(n) && Math.abs(n - 1) > 0.001) {
+				next.scale = clampSocialDockScale(n);
+			}
+			const tv = spin.style.getPropertyValue('--site-social-tilt').trim();
+			const tiltParsed = parseSocialDockTiltDeg(tv);
+			if (tiltParsed !== null && Math.abs(tiltParsed) > 0.001) {
+				next.tilt = tiltParsed;
+			}
+		}
+		if (
+			typeof next.left !== 'number' &&
+			typeof next.top !== 'number' &&
+			typeof next.scale !== 'number' &&
+			typeof next.tilt !== 'number' &&
+			next.customized !== true
+		) {
+			localStorage.removeItem(SOCIAL_DOCK_POS_KEY);
+			return;
+		}
+		localStorage.setItem(SOCIAL_DOCK_POS_KEY, JSON.stringify(next));
+	} catch (_) {}
+}
+
+function unlockSocialDockMoveAchievement() {
+	if (typeof window.owenminercsUnlockAchievement !== 'function') return;
+	try {
+		window.owenminercsUnlockAchievement(ACH_SOCIAL_DOCK_MOVE);
+	} catch (_) {}
+}
+
+function clearSocialDockPosition(wrap) {
+	wrap.classList.remove('site-support-dock--placed', 'site-support-dock--dragging');
+	setSocialDockCustomized(wrap, false);
+	wrap.style.left = '';
+	wrap.style.top = '';
+	const spin = wrap.querySelector('.site-social-nav__spin');
+	if (spin) {
+		spin.style.removeProperty('--site-social-scale');
+		spin.style.removeProperty('--site-social-tilt');
+	}
+	try {
+		localStorage.removeItem(SOCIAL_DOCK_POS_KEY);
+	} catch (_) {}
+}
+
+function resetSocialDockToDefault(wrap) {
+	try {
+		wrap.dispatchEvent(new CustomEvent('owen-social-dock-reset'));
+	} catch (_) {}
+	clearSocialDockPosition(wrap);
+	ensureSocialDockDefaultSlotIfUnplaced(wrap);
+	setSocialDockCustomized(wrap, false);
+	persistSocialDockPosition(wrap);
+}
+
+function getSocialDockDefaultViewportPosition(wrap) {
+	const logo = document.querySelector('.site-logo-link--header .site-logo');
+	if (logo) {
+		const logoRect = logo.getBoundingClientRect();
+		if (logoRect.width > 0 && logoRect.height > 0) {
+			return {
+				left: Math.round(logoRect.left),
+				top: Math.round(logoRect.top),
+			};
+		}
+	}
+	const r = wrap.getBoundingClientRect();
+	return {
+		left: Math.round(r.left),
+		top: Math.round(r.top),
+	};
+}
+
+/** When nothing is saved for placement, lock the dock to the logo's top-left default spot. */
+function ensureSocialDockDefaultSlotIfUnplaced(wrap) {
+	if (wrap.classList.contains('site-support-dock--placed')) return;
+	wrap.style.left = '';
+	wrap.style.top = '';
+	const pos = getSocialDockDefaultViewportPosition(wrap);
+	wrap.classList.add('site-support-dock--placed');
+	const c = clampSocialDockToViewport(wrap, pos.left, pos.top);
+	wrap.style.left = `${c.left}px`;
+	wrap.style.top = `${c.top}px`;
+	persistSocialDockPosition(wrap);
+}
+
+const TWO_PI = Math.PI * 2;
+/** Flick the rotate handle: carry angular velocity, damp over time, tap anywhere on the bar to stop */
+const MOMENTUM_MIN_SPEED = 100;
+const MOMENTUM_STOP_SPEED = 5;
+const MOMENTUM_DAMP = 2.2;
+const MOMENTUM_MAX_SPEED = 2200;
+/** 5+ full net turns in one drag (or one-way wiggle-free path), then 2s ultra-fast coast + spin-down (unlock) */
+const FIDGET_FIVE_REV_DEG = 5 * 360;
+/** Slight under-threshold: float math + wobble that splits one-way odometer without changing net */
+const FIDGET_DEG_TOL = 20;
+const FIDGET_TURBO_MS = 2000;
+const FIDGET_TURBO_DEG_PER_SEC = 8200;
+const ACH_FIDGET_SPINNER = 'fidget-spinner';
+const ACH_SOCIAL_DOCK_MOVE = 'social-dock-move';
+/** Visual preset for the achievement “turbo” spin; CSS keyed by `data-fidget-fx`. */
+const FIDGET_FX_VARIANTS = 6;
+function pickFidgetFxVariant() {
+	return Math.floor(Math.random() * FIDGET_FX_VARIANTS);
+}
+/** @param { Element | null } spinEl */
+function clearFidgetTurboVisual(spinEl) {
+	if (!(spinEl instanceof Element)) return;
+	spinEl.classList.remove('is-fidget-turbo');
+	spinEl.removeAttribute('data-fidget-fx');
+}
+
+function getPivotFromMark(mark) {
+	if (!(mark instanceof Element)) return null;
+	const r = mark.getBoundingClientRect();
+	return {
+		x: r.left + r.width / 2,
+		y: r.top + r.height / 2,
+	};
+}
+
+function initSiteSocialDragRotate(wrap) {
+	const nav = wrap.querySelector('.site-social-nav--dock');
+	if (!nav) return;
+	const spin = nav.querySelector('.site-social-nav__spin');
+	const mark = nav.querySelector('.site-social-nav__pivot-mark');
+	const handles = nav.querySelectorAll(
+		'.site-social-nav__rotate-handle[data-owen-rotate-handle]'
+	);
+	if (!spin || !mark || handles.length === 0) return;
+	function readTiltDegFromSpin() {
+		const tv = spin.style.getPropertyValue('--site-social-tilt').trim();
+		const p = parseSocialDockTiltDeg(tv);
+		return p !== null ? p : 0;
+	}
+	let currentDeg = readTiltDegFromSpin();
+	function readScaleFromSpin() {
+		const sv = spin.style.getPropertyValue('--site-social-scale').trim();
+		if (!sv) return 1;
+		const n = parseFloat(sv);
+		return Number.isFinite(n) ? clampSocialDockScale(n) : 1;
+	}
+	let currentScale = readScaleFromSpin();
+	/**
+	 * @type { { lastT: number; rafId: number; phase: 'damp' | 'turbo'; v: number; turboMs: number; sign: 1 | -1 } | null }
+	 */
+	let spinMomentum = null;
+	/** Unbounded total rotation; CSS `rotate(deg)` is periodic so values need not be mod 360. */
+	function setRotation(deg) {
+		if (!Number.isFinite(deg)) return;
+		currentDeg = deg;
+		spin.style.setProperty('--site-social-tilt', `${deg}deg`);
+	}
+	/** Uniform scale keeps bar proportions; driven by pointer distance from pivot vs gesture start. */
+	function setScale(s) {
+		const sc = clampSocialDockScale(s);
+		currentScale = sc;
+		if (Math.abs(sc - 1) < 0.0005) {
+			spin.style.removeProperty('--site-social-scale');
+		} else {
+			spin.style.setProperty('--site-social-scale', String(sc));
+		}
+	}
+	function onVisibilityForMomentum() {
+		if (document.hidden) {
+			/* rAF throttles in the background; stop the loop to avoid a pile-up of state */
+			stopSpinMomentum();
+		}
+	}
+	function stopSpinMomentum() {
+		if (!spinMomentum) return;
+		cancelAnimationFrame(spinMomentum.rafId);
+		document.removeEventListener('visibilitychange', onVisibilityForMomentum);
+		spinMomentum = null;
+		clearFidgetTurboVisual(spin);
+		persistSocialDockPosition(wrap);
+	}
+	wrap.addEventListener('owen-social-dock-reset', () => {
+		stopSpinMomentum();
+	});
+	function startFidgetChampionSpin(sign) {
+		stopSpinMomentum();
+		if (sign !== 1 && sign !== -1) return;
+		/** @type { typeof spinMomentum } */
+		const state = {
+			phase: /** @type { 'turbo' } */ ('turbo'),
+			sign: /** @type { 1 | -1 } */ (sign),
+			turboMs: 0,
+			v: FIDGET_TURBO_DEG_PER_SEC * sign,
+			lastT: performance.now(),
+			rafId: 0,
+		};
+		if (typeof window.owenminercsUnlockAchievement === 'function') {
+			try {
+				window.owenminercsUnlockAchievement(ACH_FIDGET_SPINNER);
+			} catch (_) {}
+		}
+		if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			spin.setAttribute('data-fidget-fx', String(pickFidgetFxVariant()));
+			spin.classList.add('is-fidget-turbo');
+		}
+		function step(rafT) {
+			if (spinMomentum !== state) return;
+			const tMs = typeof rafT === 'number' ? rafT : performance.now();
+			const dt = Math.max(0, Math.min(0.05, (tMs - state.lastT) / 1000));
+			state.lastT = tMs;
+			if (state.phase === 'turbo') {
+				const rate = FIDGET_TURBO_DEG_PER_SEC * state.sign;
+				setRotation(currentDeg + rate * dt);
+				state.turboMs += dt * 1000;
+				if (state.turboMs >= FIDGET_TURBO_MS) {
+					/* Start coast at full turbo speed, then let exponential damp take over */
+					state.v = FIDGET_TURBO_DEG_PER_SEC * state.sign;
+					state.phase = 'damp';
+				}
+			} else {
+				const nextV = state.v * Math.exp(-MOMENTUM_DAMP * dt);
+				setRotation(currentDeg + state.v * dt);
+				if (Math.abs(nextV) < MOMENTUM_STOP_SPEED) {
+					document.removeEventListener('visibilitychange', onVisibilityForMomentum);
+					if (spinMomentum === state) {
+						spinMomentum = null;
+					}
+					clearFidgetTurboVisual(spin);
+					persistSocialDockPosition(wrap);
+					return;
+				}
+				state.v = nextV;
+			}
+			state.rafId = requestAnimationFrame(step);
+		}
+		spinMomentum = state;
+		state.rafId = requestAnimationFrame(step);
+		document.addEventListener('visibilitychange', onVisibilityForMomentum);
+	}
+	function startSpinMomentum(v0DegPerSec) {
+		stopSpinMomentum();
+		const v0 = Math.max(-MOMENTUM_MAX_SPEED, Math.min(MOMENTUM_MAX_SPEED, v0DegPerSec));
+		if (Math.abs(v0) < MOMENTUM_MIN_SPEED) return;
+		/** @type { typeof spinMomentum } */
+		const state = {
+			phase: /** @type { 'damp' } */ ('damp'),
+			v: v0,
+			lastT: performance.now(),
+			rafId: 0,
+			turboMs: 0,
+			sign: /** @type { 1 | -1 } */ (v0 >= 0 ? 1 : -1),
+		};
+		function step(rafT) {
+			if (spinMomentum !== state) return;
+			const tMs = typeof rafT === 'number' ? rafT : performance.now();
+			const dt = Math.max(0, Math.min(0.05, (tMs - state.lastT) / 1000));
+			state.lastT = tMs;
+			setRotation(currentDeg + state.v * dt);
+			const nextV = state.v * Math.exp(-MOMENTUM_DAMP * dt);
+			if (Math.abs(nextV) < MOMENTUM_STOP_SPEED) {
+				document.removeEventListener('visibilitychange', onVisibilityForMomentum);
+				if (spinMomentum === state) {
+					spinMomentum = null;
+				}
+				persistSocialDockPosition(wrap);
+				return;
+			}
+			state.v = nextV;
+			state.rafId = requestAnimationFrame(step);
+		}
+		spinMomentum = state;
+		state.rafId = requestAnimationFrame(step);
+		document.addEventListener('visibilitychange', onVisibilityForMomentum);
+	}
+	/** @param { boolean } fromCancel */
+	function endRotate(e, fromCancel) {
+		if (!active || e.pointerId !== active.pointerId) return;
+		const { handleEl, samples, posDeg, negDeg } = active;
+		if (!fromCancel) {
+			const p = posDeg > 0 ? posDeg : 0;
+			const n = negDeg > 0 ? negDeg : 0;
+			const maxOneWay = Math.max(p, n);
+			const netAbs = Math.abs(
+				typeof active.gestureStartDeg === 'number' ? currentDeg - active.gestureStartDeg : 0
+			);
+			/* Wobble in a slow spin can add to pos and neg separately so both one-way sums stay under 5×360; net travel still matches the bar. */
+			const overThreshold = FIDGET_FIVE_REV_DEG - FIDGET_DEG_TOL;
+			if (maxOneWay >= overThreshold || netAbs >= overThreshold) {
+				const sign =
+					maxOneWay >= overThreshold
+						? p > n
+							? 1
+							: p < n
+								? -1
+								: currentDeg >= (active.gestureStartDeg || 0)
+									? 1
+									: -1
+						: currentDeg >= (active.gestureStartDeg || 0)
+							? 1
+							: -1;
+				startFidgetChampionSpin(sign);
+			} else if (samples && samples.length >= 2) {
+				const a = samples[0];
+				const b = samples[samples.length - 1];
+				const tDiff = b.t - a.t;
+				let v0 = 0;
+				if (tDiff > 0) {
+					v0 = ((b.deg - a.deg) / tDiff) * 1000;
+				} else {
+					const s2 = samples[samples.length - 2];
+					if (s2) {
+						const t2 = b.t - s2.t;
+						if (t2 > 0) v0 = ((b.deg - s2.deg) / t2) * 1000;
+					}
+				}
+				if (Number.isFinite(v0)) {
+					if (samples.length >= 2) {
+						const p0 = samples[samples.length - 2];
+						const p1 = samples[samples.length - 1];
+						const dt0 = p1.t - p0.t;
+						if (dt0 > 0) {
+							const vInstant = ((p1.deg - p0.deg) / dt0) * 1000;
+							if (Number.isFinite(vInstant)) {
+								v0 = v0 * 0.35 + vInstant * 0.65;
+							}
+						}
+					}
+					startSpinMomentum(v0);
+				}
+			}
+			if (active.changed) {
+				setSocialDockCustomized(wrap, true);
+				clampPlacedSocialDockInViewport(wrap);
+			}
+			persistSocialDockPosition(wrap);
+		}
+		try {
+			handleEl.releasePointerCapture(e.pointerId);
+		} catch (_) {}
+		handleEl.classList.remove('is-dragging');
+		active = null;
+	}
+	function pushAngleSample(/** @type { { t: number; deg: number; }[] } */ arr) {
+		const now = performance.now();
+		arr.push({ t: now, deg: currentDeg });
+		/* keep ~100ms of history for a stable release velocity, cap length */
+		while (arr.length > 1 && now - arr[0].t > 100) {
+			arr.shift();
+		}
+		while (arr.length > 8) {
+			arr.shift();
+		}
+	}
+	let active = null;
+	function onPointerDown(e) {
+		if (e.button !== 0) return;
+		stopSpinMomentum();
+		const handleEl = e.currentTarget;
+		const pivot = getPivotFromMark(mark);
+		if (!pivot) return;
+		const a0 = Math.atan2(e.clientY - pivot.y, e.clientX - pivot.x);
+		e.preventDefault();
+		const t0 = performance.now();
+		const startDeg = currentDeg;
+		const rGesture = Math.hypot(e.clientX - pivot.x, e.clientY - pivot.y);
+		const r0 = Math.max(rGesture, SOCIAL_DOCK_RESIZE_R0_MIN_PX);
+		active = {
+			pointerId: e.pointerId,
+			pivot,
+			lastPointerAngle: a0,
+			handleEl,
+			samples: [{ t: t0, deg: currentDeg }],
+			posDeg: 0,
+			negDeg: 0,
+			gestureStartDeg: startDeg,
+			r0,
+			scale0: currentScale,
+			changed: false,
+		};
+		try {
+			handleEl.setPointerCapture(e.pointerId);
+		} catch (_) {}
+	}
+	function onPointerMove(e) {
+		if (!active || e.pointerId !== active.pointerId) return;
+		/* Re-sample pivot: layout / dock position can change during the gesture. */
+		const pNow = getPivotFromMark(mark);
+		if (pNow) {
+			active.pivot = pNow;
+		}
+		const a = Math.atan2(e.clientY - active.pivot.y, e.clientX - active.pivot.x);
+		/* Incremental delta (unwrap atan2 -π/π steps) so full 360°+ drags and passing the start do not snap */
+		let delta = a - active.lastPointerAngle;
+		while (delta > Math.PI) delta -= TWO_PI;
+		while (delta < -Math.PI) delta += TWO_PI;
+		active.lastPointerAngle = a;
+		const dDeg = (delta * 180) / Math.PI;
+		if (dDeg > 0) {
+			active.posDeg += dDeg;
+		} else if (dDeg < 0) {
+			active.negDeg += -dDeg;
+		}
+		if (Math.abs(dDeg) > 0.001) {
+			active.changed = true;
+		}
+		setRotation(currentDeg + dDeg);
+		pushAngleSample(active.samples);
+		const rNow = Math.hypot(e.clientX - active.pivot.x, e.clientY - active.pivot.y);
+		const nextScale = active.scale0 * (rNow / active.r0);
+		if (Math.abs(clampSocialDockScale(nextScale) - currentScale) > 0.001) {
+			active.changed = true;
+		}
+		setScale(nextScale);
+		if (wrap.classList.contains('site-support-dock--placed')) {
+			const left = parseFloat(wrap.style.left);
+			const top = parseFloat(wrap.style.top);
+			if (Number.isFinite(left) && Number.isFinite(top)) {
+				const c = clampSocialDockToViewport(wrap, left, top);
+				wrap.style.left = `${c.left}px`;
+				wrap.style.top = `${c.top}px`;
+			}
+		}
+	}
+	function onPointerUp(e) {
+		endRotate(e, false);
+	}
+	function onPointerCancel(e) {
+		endRotate(e, true);
+	}
+	nav.addEventListener(
+		'pointerdown',
+		() => {
+			stopSpinMomentum();
+		},
+		{ capture: true }
+	);
+	for (const handle of handles) {
+		handle.addEventListener('pointerdown', (e) => {
+			onPointerDown(e);
+			if (active) e.currentTarget.classList.add('is-dragging');
+		});
+		handle.addEventListener('pointermove', (e) => onPointerMove(e), { passive: true });
+		handle.addEventListener('pointerup', (e) => onPointerUp(e));
+		handle.addEventListener('pointercancel', (e) => onPointerCancel(e));
+	}
+}
+
+function initSiteSupportDockDrag(wrap) {
+	const nav = wrap.querySelector('.site-social-nav--dock');
+	if (!nav) return;
+
+	let drag = null;
+
+	function isBackdropPointerTarget(target) {
+		if (!(target instanceof Element)) return false;
+		if (target.closest('a.site-social-nav__link')) return false;
+		if (target.closest('.site-social-nav__rotate-handle')) return false;
+		return Boolean(target.closest('.site-social-nav--dock'));
+	}
+
+	nav.addEventListener('pointerdown', (e) => {
+		if (!isBackdropPointerTarget(e.target)) return;
+		if (e.pointerType === 'mouse' && e.button !== 0) return;
+		const r = wrap.getBoundingClientRect();
+		if (!wrap.classList.contains('site-support-dock--placed')) {
+			wrap.style.left = `${r.left}px`;
+			wrap.style.top = `${r.top}px`;
+			wrap.classList.add('site-support-dock--placed');
+		}
+		const baseLeft = Number.parseFloat(wrap.style.left);
+		const baseTop = Number.parseFloat(wrap.style.top);
+		drag = {
+			pointerId: e.pointerId,
+			originX: e.clientX,
+			originY: e.clientY,
+			baseLeft: Number.isFinite(baseLeft) ? baseLeft : r.left,
+			baseTop: Number.isFinite(baseTop) ? baseTop : r.top,
+			active: false,
+		};
+		try {
+			nav.setPointerCapture(e.pointerId);
+		} catch (_) {}
+	});
+
+	nav.addEventListener(
+		'pointermove',
+		(e) => {
+			if (!drag || e.pointerId !== drag.pointerId) return;
+			const dx = e.clientX - drag.originX;
+			const dy = e.clientY - drag.originY;
+			if (!drag.active) {
+				if (
+					dx * dx + dy * dy <
+					SOCIAL_DOCK_DRAG_THRESHOLD_PX * SOCIAL_DOCK_DRAG_THRESHOLD_PX
+				)
+					return;
+				drag.active = true;
+				wrap.classList.add('site-support-dock--dragging');
+			}
+			e.preventDefault();
+			const c = clampSocialDockToViewport(wrap, drag.baseLeft + dx, drag.baseTop + dy);
+			wrap.style.left = `${c.left}px`;
+			wrap.style.top = `${c.top}px`;
+		},
+		{ passive: false }
+	);
+
+	function endPointer(e) {
+		if (!drag || e.pointerId !== drag.pointerId) return;
+		const wasActive = drag.active;
+		try {
+			nav.releasePointerCapture(e.pointerId);
+		} catch (_) {}
+		if (wasActive) {
+			setSocialDockCustomized(wrap, true);
+			clampPlacedSocialDockInViewport(wrap);
+			persistSocialDockPosition(wrap);
+			unlockSocialDockMoveAchievement();
+		}
+		wrap.classList.remove('site-support-dock--dragging');
+		drag = null;
+	}
+
+	nav.addEventListener('pointerup', endPointer);
+	nav.addEventListener('pointercancel', endPointer);
+
+	nav.addEventListener('lostpointercapture', (e) => {
+		if (!drag || e.pointerId !== drag.pointerId) return;
+		if (drag.active) {
+			setSocialDockCustomized(wrap, true);
+			clampPlacedSocialDockInViewport(wrap);
+			persistSocialDockPosition(wrap);
+			unlockSocialDockMoveAchievement();
+		}
+		wrap.classList.remove('site-support-dock--dragging');
+		drag = null;
+	});
+
+	nav.addEventListener('dblclick', (e) => {
+		if (
+			e.target.closest('a.site-social-nav__link') ||
+			e.target.closest('.site-social-nav__rotate-handle')
+		)
+			return;
+		resetSocialDockToDefault(wrap);
+	});
+
+	const resetButton = document.querySelector('[data-owen-social-dock-reset]');
+	if (resetButton) {
+		resetButton.addEventListener('click', () => {
+			resetSocialDockToDefault(wrap);
+		});
+	}
+
+	window.addEventListener(
+		'resize',
+		debounce(() => {
+			if (!wrap.classList.contains('site-support-dock--placed')) return;
+			const left = parseFloat(wrap.style.left);
+			const top = parseFloat(wrap.style.top);
+			if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+			const c = clampSocialDockToViewport(wrap, left, top);
+			wrap.style.left = `${c.left}px`;
+			wrap.style.top = `${c.top}px`;
+			persistSocialDockPosition(wrap);
+		}, 120)
+	);
+}
+
+/**
+ * Idle-only micro-animations on the floating social dock (dog hop, marble roll, bump, rainbow, plinko, “rack” trio).
+ * Throttled scheduling + transform/opacity-only CSS; skipped when `prefers-reduced-motion: reduce`.
+ */
+function initSocialDockEasterEggs(wrap) {
+	const nav = wrap.querySelector('.site-social-nav--dock');
+	if (!nav) return;
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+	const EE_HOP = 'site-social-nav__link--ee-hop';
+	const EE_MARBLE = 'site-social-nav__link--ee-marble';
+	const EE_BUMP_L = 'site-social-nav__link--ee-bump-left';
+	const EE_BUMP_R = 'site-social-nav__link--ee-bump-right';
+	const EE_RAIN = 'site-social-nav__links-level--ee-rainbow';
+	const EE_PLINKO = 'site-social-nav__link--ee-plinko';
+	const EE_RACK = 'site-social-nav__link--ee-rack789';
+	const EE_PLINKO_SHELL = 'site-social-nav--ee-plinko-mode';
+
+	const IDLE_MS = 36000;
+	const ROLL_WHEN_IDLE = 0.23;
+
+	let lastActivity = Date.now();
+	let quirkBusy = false;
+	let timerId = 0;
+
+	function links() {
+		return Array.from(nav.querySelectorAll('a.site-social-nav__link'));
+	}
+
+	function bumpActivity() {
+		lastActivity = Date.now();
+	}
+
+	function delay(ms) {
+		return new Promise((r) => setTimeout(r, ms));
+	}
+
+	function shuffleInPlace(arr) {
+		for (let i = arr.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[arr[i], arr[j]] = [arr[j], arr[i]];
+		}
+		return arr;
+	}
+
+	function pickRandomDistinct(arr, n) {
+		const c = arr.slice();
+		shuffleInPlace(c);
+		return c.slice(0, Math.min(n, c.length));
+	}
+
+	async function dogHop() {
+		const L = links();
+		if (L.length < 2) return;
+		const picks = pickRandomDistinct(L, 2);
+		picks[0].classList.add(EE_HOP);
+		picks[1].classList.add(EE_HOP);
+		picks[1].style.animationDelay = '0.14s';
+		await delay(1500);
+		picks[0].classList.remove(EE_HOP);
+		picks[1].classList.remove(EE_HOP);
+		picks[1].style.animationDelay = '';
+	}
+
+	async function marbleRoll() {
+		const L = links();
+		const n = Math.min(L.length, 2 + (Math.random() < 0.55 ? 1 : 0));
+		const picks = pickRandomDistinct(L, n);
+		picks.forEach((el, i) => {
+			el.classList.add(EE_MARBLE);
+			el.style.animationDelay = `${i * 0.16}s`;
+		});
+		await delay(1680 + n * 160);
+		picks.forEach((el) => {
+			el.classList.remove(EE_MARBLE);
+			el.style.animationDelay = '';
+		});
+	}
+
+	async function billiardBump() {
+		const L = links();
+		if (L.length < 2) return;
+		const i = Math.floor(Math.random() * (L.length - 1));
+		const a = L[i];
+		const b = L[i + 1];
+		a.classList.add(EE_BUMP_L);
+		b.classList.add(EE_BUMP_R);
+		await delay(650);
+		a.classList.remove(EE_BUMP_L);
+		b.classList.remove(EE_BUMP_R);
+	}
+
+	async function rainbowFlash() {
+		const row = nav.querySelector('.site-social-nav__links-level');
+		if (!row) return;
+		row.classList.add(EE_RAIN);
+		await delay(2500);
+		row.classList.remove(EE_RAIN);
+	}
+
+	async function plinkoDrop() {
+		const L = links();
+		if (!L.length) return;
+		nav.classList.add(EE_PLINKO_SHELL);
+		L.forEach((el, i) => {
+			el.classList.add(EE_PLINKO);
+			el.style.animationDelay = `${i * 0.08}s`;
+		});
+		await delay(3300);
+		L.forEach((el) => {
+			el.classList.remove(EE_PLINKO);
+			el.style.animationDelay = '';
+		});
+		nav.classList.remove(EE_PLINKO_SHELL);
+	}
+
+	/** Three adjacent “balls” jostle like a sloppy break (789 / taboli energy, not literal gambling). */
+	async function rackTrio() {
+		const L = links();
+		if (L.length < 3) return;
+		const start = Math.floor(Math.random() * (L.length - 2));
+		const trio = L.slice(start, start + 3);
+		trio.forEach((el, i) => {
+			el.classList.add(EE_RACK);
+			el.style.animationDelay = `${i * 0.08}s`;
+		});
+		await delay(900);
+		trio.forEach((el) => {
+			el.classList.remove(EE_RACK);
+			el.style.animationDelay = '';
+		});
+	}
+
+	const quirks = [dogHop, marbleRoll, billiardBump, rainbowFlash, plinkoDrop, rackTrio];
+
+	function schedulePeek() {
+		if (timerId) window.clearTimeout(timerId);
+		const wait = 26000 + Math.random() * 54000;
+		timerId = window.setTimeout(runMaybeQuirk, wait);
+	}
+
+	function runMaybeQuirk() {
+		schedulePeek();
+		if (document.hidden || quirkBusy) return;
+		if (Date.now() - lastActivity < IDLE_MS) return;
+		if (Math.random() > ROLL_WHEN_IDLE) return;
+		quirkBusy = true;
+		const run = quirks[Math.floor(Math.random() * quirks.length)];
+		Promise.resolve(run())
+			.catch(() => {})
+			.finally(() => {
+				quirkBusy = false;
+			});
+	}
+
+	const capOpt = { capture: true, passive: true };
+	let lastScrollBump = 0;
+	function bumpActivityScroll() {
+		const n = Date.now();
+		if (n - lastScrollBump < 500) return;
+		lastScrollBump = n;
+		bumpActivity();
+	}
+	document.addEventListener('pointerdown', bumpActivity, capOpt);
+	document.addEventListener('keydown', bumpActivity, capOpt);
+	window.addEventListener('scroll', bumpActivityScroll, { passive: true });
+	nav.addEventListener('pointerdown', bumpActivity, capOpt);
+
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') {
+			if (timerId) window.clearTimeout(timerId);
+			timerId = 0;
+		} else {
+			schedulePeek();
+		}
+	});
+
+	schedulePeek();
+}
+
+(function injectSiteSupportDock() {
+	if (document.getElementById('site-support-dock')) return;
+	if (!document.body) {
+		document.addEventListener('DOMContentLoaded', injectSiteSupportDock, { once: true });
+		return;
+	}
+	const wrap = document.createElement('div');
+	wrap.id = 'site-support-dock';
+	wrap.innerHTML = socialNavMarkup('site-social-nav--dock');
+	if (!document.querySelector('[data-owen-social-dock-reset]')) {
+		const resetButton = document.createElement('button');
+		resetButton.type = 'button';
+		resetButton.className = 'site-social-dock-reset';
+		resetButton.setAttribute('data-owen-social-dock-reset', '1');
+		resetButton.setAttribute('title', 'Reset social bar position');
+		resetButton.hidden = true;
+		resetButton.textContent = 'Reset Social Bar';
+		const brandRow = document.querySelector('.site-header-brand-row');
+		const logoLink = brandRow && brandRow.querySelector('.site-logo-link--header');
+		if (brandRow && logoLink) {
+			brandRow.insertBefore(resetButton, logoLink);
+		} else {
+			(brandRow || document.body).appendChild(resetButton);
+		}
+	}
+	document.body.appendChild(wrap);
+	document.body.classList.add('has-site-support-dock');
+	applySavedSocialDockPosition(wrap);
+	ensureSocialDockDefaultSlotIfUnplaced(wrap);
+	requestAnimationFrame(() => {
+		applySavedSocialDockPosition(wrap);
+		ensureSocialDockDefaultSlotIfUnplaced(wrap);
+	});
+	initSiteSocialDragRotate(wrap);
+	initSiteSupportDockDrag(wrap);
+	initSocialDockEasterEggs(wrap);
+	function flushSocialDockState() {
+		try {
+			persistSocialDockPosition(wrap);
+		} catch (_) {}
+	}
+	window.addEventListener('pagehide', flushSocialDockState);
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') flushSocialDockState();
+	});
 })();
 
-(function loadLogoRainScript() {
-  if (document.querySelector('script[data-logo-rain]')) return;
-  const el = document.createElement('script');
-  el.src = `${siteRoot}scripts/logo-rain.js`;
-  el.defer = true;
-  el.dataset.logoRain = '1';
-  document.head.appendChild(el);
+/** Opens the Ko-fi overlay (same as clicking the floating donate control). Widget_2.js only renders an external link; overlay-widget.js is Ko-fi’s in-page iframe. */
+function tryOpenKofiWidgetOverlayFromLink() {
+	const host = document.querySelector('div[id^="kofi-widget-overlay-"]');
+	if (!host) return false;
+	const cssId = host.id;
+	const iframeIds = ['kofi-wo-container' + cssId, 'kofi-wo-container-mobi' + cssId];
+	for (let i = 0; i < iframeIds.length; i++) {
+		const iframe = document.getElementById(iframeIds[i]);
+		if (!iframe) continue;
+		const rect = iframe.getBoundingClientRect();
+		if (rect.width < 2 || rect.height < 2) continue;
+		const doc = iframe.contentDocument;
+		if (!doc) continue;
+		const btn = doc.getElementById(cssId + '-donate-button');
+		if (!btn) continue;
+		if (btn.classList.contains('open')) return true;
+		btn.click();
+		return true;
+	}
+	for (let j = 0; j < iframeIds.length; j++) {
+		const iframe2 = document.getElementById(iframeIds[j]);
+		if (!iframe2) continue;
+		const doc2 = iframe2.contentDocument;
+		if (!doc2) continue;
+		const btn2 = doc2.getElementById(cssId + '-donate-button');
+		if (!btn2) continue;
+		if (btn2.classList.contains('open')) return true;
+		btn2.click();
+		return true;
+	}
+	return false;
+}
+
+const KOFI_FLOAT_POS_KEY = 'owenminercs-kofi-floating-chat-pos';
+const KOFI_FLOAT_DRAG_THRESHOLD_PX = 5;
+
+function clampKofiFloatingHostToViewport(host, left, top) {
+	const margin = 2;
+	const rect = host.getBoundingClientRect();
+	const width = Math.max(1, Math.round(rect.width));
+	const height = Math.max(1, Math.round(rect.height));
+	const vw = window.innerWidth;
+	const vh = window.innerHeight;
+	const minLeft = margin;
+	const minTop = margin;
+	const maxLeft = Math.max(margin, vw - margin - width);
+	const maxTop = Math.max(margin, vh - margin - height);
+	return {
+		left: Math.round(Math.min(maxLeft, Math.max(minLeft, left))),
+		top: Math.round(Math.min(maxTop, Math.max(minTop, top))),
+	};
+}
+
+function placeKofiFloatingHost(host, left, top) {
+	const clamped = clampKofiFloatingHostToViewport(host, left, top);
+	host.style.position = 'fixed';
+	host.style.left = `${clamped.left}px`;
+	host.style.top = `${clamped.top}px`;
+	host.style.right = 'auto';
+	host.style.bottom = 'auto';
+	return clamped;
+}
+
+function applySavedKofiFloatingPosition(host) {
+	if (!(host instanceof Element)) return;
+	if (host.dataset.owenKofiPosApplied === '1') return;
+	host.dataset.owenKofiPosApplied = '1';
+	try {
+		const raw = localStorage.getItem(KOFI_FLOAT_POS_KEY);
+		if (!raw) return;
+		const pos = JSON.parse(raw);
+		if (!pos || typeof pos.left !== 'number' || typeof pos.top !== 'number') {
+			localStorage.removeItem(KOFI_FLOAT_POS_KEY);
+			return;
+		}
+		const clamped = placeKofiFloatingHost(host, pos.left, pos.top);
+		host.dataset.owenKofiCustomized = '1';
+		host.dataset.owenKofiLeft = String(clamped.left);
+		host.dataset.owenKofiTop = String(clamped.top);
+	} catch (_) {}
+}
+
+function persistKofiFloatingPosition(host) {
+	if (!(host instanceof Element)) return;
+	try {
+		if (host.dataset.owenKofiCustomized !== '1') {
+			localStorage.removeItem(KOFI_FLOAT_POS_KEY);
+			return;
+		}
+		const left = parseFloat(host.style.left);
+		const top = parseFloat(host.style.top);
+		if (!Number.isFinite(left) || !Number.isFinite(top)) {
+			localStorage.removeItem(KOFI_FLOAT_POS_KEY);
+			return;
+		}
+		localStorage.setItem(
+			KOFI_FLOAT_POS_KEY,
+			JSON.stringify({
+				left: Math.round(left),
+				top: Math.round(top),
+			})
+		);
+	} catch (_) {}
+}
+
+function bindKofiFloatingDonateDragFromIframe(host, iframe) {
+	if (!(host instanceof Element) || !(iframe instanceof HTMLIFrameElement)) return false;
+	let doc;
+	try {
+		doc = iframe.contentDocument;
+	} catch (_) {
+		return false;
+	}
+	if (!doc) return false;
+	const donateButton = doc.getElementById(host.id + '-donate-button');
+	if (!(donateButton instanceof Element)) return false;
+	if (donateButton.dataset.owenKofiDragBound === '1') return true;
+	donateButton.dataset.owenKofiDragBound = '1';
+	donateButton.style.cursor = 'grab';
+	donateButton.style.touchAction = 'none';
+
+	let dragging = false;
+	let moved = false;
+	let startPointerX = 0;
+	let startPointerY = 0;
+	let startLeft = 0;
+	let startTop = 0;
+	let suppressNextClick = false;
+
+	const onPointerMove = (e) => {
+		if (!dragging) return;
+		const nextLeft = startLeft + (e.clientX - startPointerX);
+		const nextTop = startTop + (e.clientY - startPointerY);
+		const clamped = placeKofiFloatingHost(host, nextLeft, nextTop);
+		host.dataset.owenKofiLeft = String(clamped.left);
+		host.dataset.owenKofiTop = String(clamped.top);
+		const dist = Math.hypot(e.clientX - startPointerX, e.clientY - startPointerY);
+		if (dist >= KOFI_FLOAT_DRAG_THRESHOLD_PX) {
+			moved = true;
+		}
+		e.preventDefault();
+	};
+
+	const finishDrag = () => {
+		if (!dragging) return;
+		dragging = false;
+		donateButton.style.cursor = 'grab';
+		if (moved) {
+			host.dataset.owenKofiCustomized = '1';
+			persistKofiFloatingPosition(host);
+			suppressNextClick = true;
+		}
+	};
+
+	donateButton.addEventListener(
+		'pointerdown',
+		(e) => {
+			if (e.button !== 0) return;
+			const hostRect = host.getBoundingClientRect();
+			dragging = true;
+			moved = false;
+			startPointerX = e.clientX;
+			startPointerY = e.clientY;
+			startLeft = Math.round(hostRect.left);
+			startTop = Math.round(hostRect.top);
+			donateButton.style.cursor = 'grabbing';
+			try {
+				donateButton.setPointerCapture(e.pointerId);
+			} catch (_) {}
+			e.preventDefault();
+		},
+		true
+	);
+	donateButton.addEventListener('pointermove', onPointerMove, true);
+	donateButton.addEventListener(
+		'pointerup',
+		(e) => {
+			try {
+				donateButton.releasePointerCapture(e.pointerId);
+			} catch (_) {}
+			finishDrag();
+		},
+		true
+	);
+	donateButton.addEventListener('pointercancel', finishDrag, true);
+	donateButton.addEventListener(
+		'click',
+		(e) => {
+			if (!suppressNextClick) return;
+			suppressNextClick = false;
+			e.preventDefault();
+			e.stopPropagation();
+		},
+		true
+	);
+	return true;
+}
+
+function bindKofiFloatingDonateDrag() {
+	const host = document.querySelector('div[id^="kofi-widget-overlay-"]');
+	if (!(host instanceof Element)) return false;
+	applySavedKofiFloatingPosition(host);
+	const iframeIds = ['kofi-wo-container' + host.id, 'kofi-wo-container-mobi' + host.id];
+	let bound = false;
+	for (let i = 0; i < iframeIds.length; i++) {
+		const frame = document.getElementById(iframeIds[i]);
+		if (!(frame instanceof HTMLIFrameElement)) continue;
+		if (bindKofiFloatingDonateDragFromIframe(host, frame)) {
+			bound = true;
+		}
+	}
+	return bound;
+}
+
+(function initKofiFloatingDonateDragBinding() {
+	let tries = 0;
+	const maxTries = 120;
+	function runBindAttempt() {
+		const bound = bindKofiFloatingDonateDrag();
+		tries += 1;
+		if (bound || tries >= maxTries) return;
+		window.setTimeout(runBindAttempt, 250);
+	}
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', runBindAttempt, { once: true });
+	} else {
+		runBindAttempt();
+	}
+	window.addEventListener('resize', () => {
+		const host = document.querySelector('div[id^="kofi-widget-overlay-"]');
+		if (!(host instanceof Element)) return;
+		if (host.dataset.owenKofiCustomized !== '1') return;
+		const left = parseFloat(host.style.left);
+		const top = parseFloat(host.style.top);
+		if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+		placeKofiFloatingHost(host, left, top);
+		persistKofiFloatingPosition(host);
+	});
+	window.addEventListener('pagehide', () => {
+		const host = document.querySelector('div[id^="kofi-widget-overlay-"]');
+		if (!(host instanceof Element)) return;
+		persistKofiFloatingPosition(host);
+	});
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState !== 'hidden') return;
+		const host = document.querySelector('div[id^="kofi-widget-overlay-"]');
+		if (!(host instanceof Element)) return;
+		persistKofiFloatingPosition(host);
+	});
+})();
+
+/** Used by e.g. Donators — open the same in-page donation overlay as clicking a Ko-fi link, without a separate “open Ko-fi” step. */
+window.owenminercsOpenKofiDonateOverlay = function () {
+	return tryOpenKofiWidgetOverlayFromLink();
+};
+
+(function initKofiLinkOverlayBinding() {
+	if (document.documentElement.dataset.kofiLinkOverlayBound) return;
+	document.documentElement.dataset.kofiLinkOverlayBound = '1';
+	document.addEventListener(
+		'click',
+		function (e) {
+			const a = e.target.closest && e.target.closest('a[data-kofi-link]');
+			if (!a) return;
+			if (tryOpenKofiWidgetOverlayFromLink()) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		},
+		true
+	);
 })();
 
 (function loadKofiOverlayWidget() {
-  if (document.querySelector('script[data-kofi-overlay]')) return;
-  const el = document.createElement('script');
-  el.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
-  el.dataset.kofiOverlay = '1';
-  el.onload = function () {
-    if (typeof kofiWidgetOverlay === 'undefined') return;
-    kofiWidgetOverlay.draw('owenminer', {
-      type: 'floating-chat',
-      'floating-chat.donateButton.text': 'Donate',
-      'floating-chat.donateButton.background-color': '#323842',
-      'floating-chat.donateButton.text-color': '#fff',
-    });
-  };
-  document.body.appendChild(el);
+	if (document.querySelector('script[data-kofi-overlay]')) return;
+	const el = document.createElement('script');
+	el.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
+	el.dataset.kofiOverlay = '1';
+	el.onload = function () {
+		if (typeof kofiWidgetOverlay === 'undefined') return;
+		kofiWidgetOverlay.draw('owenminer', {
+			type: 'floating-chat',
+			'floating-chat.donateButton.text': 'Donate',
+			'floating-chat.donateButton.background-color': '#323842',
+			'floating-chat.donateButton.text-color': '#fff',
+		});
+		window.setTimeout(bindKofiFloatingDonateDrag, 0);
+		window.setTimeout(bindKofiFloatingDonateDrag, 300);
+	};
+	document.body.appendChild(el);
 })();
+
+(function initAchievementCelebration() {
+	if (!document.body) {
+		document.addEventListener('DOMContentLoaded', initAchievementCelebration, { once: true });
+		return;
+	}
+	injectAchievementCelebrationClient();
+})();
+
+(function initConstructionNotice() {
+	const STORAGE_KEY = 'owenminercs-construction-notice-dismissed-v1';
+
+	function dismiss(host, backdrop, onKey) {
+		try {
+			localStorage.setItem(STORAGE_KEY, '1');
+		} catch (_) {}
+		if (typeof onKey === 'function') {
+			document.removeEventListener('keydown', onKey, true);
+		}
+		host.remove();
+		backdrop.remove();
+		document.body.style.overflow = '';
+	}
+
+	function run() {
+		if (document.documentElement.dataset.owenConstructionNoticeInit) return;
+		document.documentElement.dataset.owenConstructionNoticeInit = '1';
+		try {
+			if (localStorage.getItem(STORAGE_KEY) === '1') return;
+		} catch (_) {}
+
+		const backdrop = document.createElement('div');
+		backdrop.className = 'site-construction-backdrop';
+		backdrop.setAttribute('aria-hidden', 'true');
+
+		const dialog = document.createElement('div');
+		dialog.className = 'site-construction-dialog';
+		dialog.setAttribute('role', 'dialog');
+		dialog.setAttribute('aria-modal', 'true');
+		dialog.setAttribute('aria-labelledby', 'site-construction-title');
+
+		dialog.innerHTML = [
+			'<h2 id="site-construction-title" class="site-construction-dialog__title">Site under construction</h2>',
+			'<p class="site-construction-dialog__lede">',
+			'Pictures, graphics, theme, and most of the site can change <strong>day to day</strong> while work is in progress.',
+			'</p>',
+			'<p class="site-construction-dialog__sub">Here&rsquo;s the rough timeline:</p>',
+			'<ul class="site-construction-dialog__timeline">',
+			'<li><span class="site-construction-dialog__when">Now / this weekend</span>',
+			'<span class="site-construction-dialog__what">Heavy work on the backend and new features &mdash; I might push an update <strong>this weekend</strong> for testing.</span></li>',
+			'<li><span class="site-construction-dialog__when">Next week or two</span>',
+			'<span class="site-construction-dialog__what"><strong>Design and theme</strong> updates as I work on graphics and the site background.</span></li>',
+			'<li><span class="site-construction-dialog__when">Late May</span>',
+			'<span class="site-construction-dialog__what"><strong>New content</strong> (photos, reviews, etc.) as I experiment with my Insta360 and finish decorating my apartment.</span></li>',
+			'<li><span class="site-construction-dialog__when">July (hopefully)</span>',
+			'<span class="site-construction-dialog__what"><strong>Setup tour video</strong> &mdash; it&rsquo;s been at the top of my bucket list since I was 11, so I&rsquo;m taking my time to get it right.</span></li>',
+			'</ul>',
+			'<p class="site-construction-dialog__bugs">',
+			'Spotted a bug while things are moving fast? ',
+			'<a href="',
+			DISCORD_INVITE_URL,
+			'" target="_blank" rel="noopener noreferrer" class="site-construction-dialog__discord-link">Report it in Discord</a>',
+			' so I can track fixes alongside everything else.',
+			'</p>',
+			'<div class="site-construction-dialog__actions">',
+			'<button type="button" class="site-construction-dialog__btn">Got it</button>',
+			'</div>',
+		].join('');
+
+		const btn = dialog.querySelector('.site-construction-dialog__btn');
+		document.body.appendChild(backdrop);
+		document.body.appendChild(dialog);
+		document.body.style.overflow = 'hidden';
+
+		function onKey(e) {
+			if (e.key === 'Escape') {
+				dismiss(dialog, backdrop, onKey);
+			}
+		}
+
+		function close() {
+			dismiss(dialog, backdrop, onKey);
+		}
+
+		btn.addEventListener('click', close);
+		backdrop.addEventListener('click', close);
+		dialog.addEventListener('click', function (e) {
+			e.stopPropagation();
+		});
+
+		document.addEventListener('keydown', onKey, true);
+
+		window.setTimeout(function () {
+			try {
+				btn.focus();
+			} catch (_) {}
+		}, 0);
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', run, { once: true });
+	} else {
+		run();
+	}
+})();
+
+(function initSocialDockGrandTourTracking() {
+	if (document.documentElement.dataset.owenSocialDockTourBound) return;
+	document.documentElement.dataset.owenSocialDockTourBound = '1';
+	document.addEventListener(
+		'click',
+		function (e) {
+			const t = e.target;
+			const a = t && t.closest && t.closest('a.site-social-nav__link');
+			if (!a) return;
+			recordSocialDockTourClick(a);
+		},
+		true
+	);
+})();
+
+(function initMainNavTourTracking() {
+	function run() {
+		recordMainNavTourPageVisit();
+	}
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', run, { once: true });
+	} else {
+		run();
+	}
+})();
+
+/**
+ * Re-run DOM helpers under `root` after injecting fetched page HTML (moss-nocturne-site preview shell).
+ * Does not re-bind global listeners from initWordBackgroundGlow / initWordGlowBookmark.
+ */
+window.owenminercsHydrateRoot = function (root) {
+	if (!(root instanceof Element)) return;
+	disableTextInputControls(root);
+	enforceShortFormLooping(root);
+	prepareKeepCardLineGlows();
+	wrapAllEligibleLinksAsLineGlow(root);
+	const textNodes = collectWordGlowTextNodes(root);
+	for (let i = 0; i < textNodes.length; i++) {
+		wrapWordsInTextNode(textNodes[i]);
+	}
+};

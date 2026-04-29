@@ -1,108 +1,175 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../css/owenminercs.css">
-  <link rel="apple-touch-icon" href="/images/owenminercs-logo.png">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-GYG1QRQ8DY");
-  </script>
-  <title>Music | Listen Along | Owen Miner</title>
-  <meta name="author" content="Owen Miner">
-  <meta name="description" content="Listen along to what Owen Miner is currently playing on Spotify and submit song suggestions for stream sessions.">
-  <meta name="keywords" content="Owen Miner music, Spotify now playing, listen along, stream song suggestions">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="index, follow">
-  <meta name="twitter:site" content="@OwenMinerCS">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content="#050505">
-  <link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
-  <meta property="og:title" content="Music | Owen Miner">
-  <meta property="og:description" content="See what is playing on Spotify right now, join the Jam link when active, and suggest songs.">
-  <meta property="og:image" content="https://www.owenminercs.com/images/owenminercs-logo.png">
-  <meta property="og:url" content="https://www.owenminercs.com/Music/music.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Owen Miner CS">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Music | Owen Miner">
-  <meta name="twitter:description" content="Spotify now playing + viewer song suggestions for stream sessions.">
-  <meta name="twitter:image" content="https://www.owenminercs.com/images/owenminercs-logo.png">
-  <link rel="canonical" href="https://www.owenminercs.com/Music/music">
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-  <script src="../scripts/components.js" defer></script>
-  <script src="../scripts/music-listen-along.js" defer></script>
-</head>
-<body id="top" class="site-card-ui music-page">
-  <shared-header></shared-header>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-GYG1QRQ8DY');
+		</script>
+		<title>Music | Listen Along | Owen Miner</title>
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="Listen along to what Owen Miner is currently playing on Spotify and submit song suggestions for stream sessions."
+		/>
+		<meta name="keywords" content="Owen Miner music, Spotify now playing, listen along, stream song suggestions" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<meta name="twitter:site" content="@OwenMinerCS" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="theme-color" content="#050505" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<meta property="og:title" content="Music | Owen Miner" />
+		<meta
+			property="og:description"
+			content="See what is playing on Spotify right now, join the Jam link when active, and suggest songs."
+		/>
+		<meta property="og:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
+		<meta property="og:url" content="https://www.owenminercs.com/Music/music.html" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Owen Miner CS" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Music | Owen Miner" />
+		<meta name="twitter:description" content="Spotify now playing + viewer song suggestions for stream sessions." />
+		<meta name="twitter:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
+		<link rel="canonical" href="https://www.owenminercs.com/Music/music" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/music-listen-along.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui music-page">
+		<shared-header></shared-header>
 
-  <main class="container">
-    <section class="intro">
-      <h1>Listen Along</h1>
-      <p style="max-width: 44rem; margin-left: auto; margin-right: auto;">
-        This page mirrors what is currently playing on my Spotify.
-        The site does not stream audio directly - hit the button to open the same track (or Jam link) in your own Spotify app.
-      </p>
-    </section>
+		<main class="container">
+			<section class="intro">
+				<h1>Listen Along</h1>
+				<p style="max-width: 44rem; margin-left: auto; margin-right: auto">
+					This page mirrors what is currently playing on my Spotify. The site does not stream audio directly -
+					hit the button to open the same track (or Jam link) in your own Spotify app.
+				</p>
+			</section>
 
-    <section class="intro music-now-playing">
-      <p class="music-status" data-now-playing-status>Loading now playing...</p>
-      <article class="music-mini-card music-mini-card--loading" data-now-playing-card>
-        <img src="../images/owenminercs-logo.png" alt="Album art placeholder" class="music-mini-card__art" data-track-artwork>
-        <div class="music-mini-card__body">
-          <h2 class="music-mini-card__title" data-track-title>Loading track...</h2>
-          <p class="music-mini-card__artist" data-track-artist>Spotify</p>
-          <p class="music-mini-card__album" data-track-album>Connecting</p>
-          <div class="music-mini-card__progress" aria-hidden="true">
-            <span class="music-mini-card__progress-fill" data-track-progress-fill></span>
-          </div>
-          <p class="music-mini-card__progress-label" data-track-progress-label>0:00 / 0:00</p>
-          <div class="music-mini-card__actions">
-            <a class="modeButton" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" data-listen-button>
-              Listen along in Spotify
-            </a>
-            <a class="modeButton" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" data-open-track-button>
-              Open track
-            </a>
-          </div>
-        </div>
-      </article>
-      <p class="music-note">
-        Jam control is managed in Spotify host settings. If no Jam link is active, the button opens the current track.
-      </p>
-    </section>
+			<section class="intro music-now-playing">
+				<p class="music-status" data-now-playing-status>Loading now playing...</p>
+				<article class="music-mini-card music-mini-card--loading" data-now-playing-card>
+					<img
+						src="../images/owenminercs-logo.png"
+						alt="Album art placeholder"
+						class="music-mini-card__art"
+						data-track-artwork
+					/>
+					<div class="music-mini-card__body">
+						<h2 class="music-mini-card__title" data-track-title>Loading track...</h2>
+						<p class="music-mini-card__artist" data-track-artist>Spotify</p>
+						<p class="music-mini-card__album" data-track-album>Connecting</p>
+						<div class="music-mini-card__progress" aria-hidden="true">
+							<span class="music-mini-card__progress-fill" data-track-progress-fill></span>
+						</div>
+						<p class="music-mini-card__progress-label" data-track-progress-label>0:00 / 0:00</p>
+						<div class="music-mini-card__actions">
+							<a
+								class="modeButton"
+								href="https://open.spotify.com/"
+								target="_blank"
+								rel="noopener noreferrer"
+								data-listen-button
+							>
+								Listen along in Spotify
+							</a>
+							<a
+								class="modeButton"
+								href="https://open.spotify.com/"
+								target="_blank"
+								rel="noopener noreferrer"
+								data-open-track-button
+							>
+								Open track
+							</a>
+						</div>
+					</div>
+				</article>
+				<p class="music-note">
+					Jam control is managed in Spotify host settings. If no Jam link is active, the button opens the
+					current track.
+				</p>
+			</section>
 
-    <section class="intro music-suggestions">
-      <h2>Song Suggestions</h2>
-      <p>Drop song ideas for stream sessions. I will check these between games and recordings.</p>
-      <p class="music-status" data-suggestion-status>Ready for suggestions.</p>
-      <form class="music-suggestions__form" data-music-suggestion-form>
-        <label for="song-title">Song title</label>
-        <input id="song-title" name="songTitle" type="text" required placeholder="Example: Midnight City" data-placeholder="Example: Midnight City">
+			<section class="intro music-suggestions">
+				<h2>Song Suggestions</h2>
+				<p>Drop song ideas for stream sessions. I will check these between games and recordings.</p>
+				<p class="music-status" data-suggestion-status>Ready for suggestions.</p>
+				<form class="music-suggestions__form" data-music-suggestion-form>
+					<label for="song-title">Song title</label>
+					<input
+						id="song-title"
+						name="songTitle"
+						type="text"
+						required
+						placeholder="Example: Midnight City"
+						data-placeholder="Example: Midnight City"
+					/>
 
-        <label for="artist-name">Artist</label>
-        <input id="artist-name" name="artistName" type="text" required placeholder="Example: M83" data-placeholder="Example: M83">
+					<label for="artist-name">Artist</label>
+					<input
+						id="artist-name"
+						name="artistName"
+						type="text"
+						required
+						placeholder="Example: M83"
+						data-placeholder="Example: M83"
+					/>
 
-        <label for="viewer-name">Your name (optional)</label>
-        <input id="viewer-name" name="viewerName" type="text" placeholder="Anonymous is fine" data-placeholder="Anonymous is fine">
+					<label for="viewer-name">Your name (optional)</label>
+					<input
+						id="viewer-name"
+						name="viewerName"
+						type="text"
+						placeholder="Anonymous is fine"
+						data-placeholder="Anonymous is fine"
+					/>
 
-        <label for="suggestion-note">Note (optional)</label>
-        <textarea id="suggestion-note" name="note" rows="3" placeholder="Where should I play this? warm-up, queue, chill segment..." data-placeholder="Where should I play this? warm-up, queue, chill segment..."></textarea>
+					<label for="suggestion-note">Note (optional)</label>
+					<textarea
+						id="suggestion-note"
+						name="note"
+						rows="3"
+						placeholder="Where should I play this? warm-up, queue, chill segment..."
+						data-placeholder="Where should I play this? warm-up, queue, chill segment..."
+					></textarea>
 
-        <input type="text" name="website" autocomplete="off" tabindex="-1" class="music-suggestions__honeypot" aria-hidden="true">
-        <button type="submit" class="modeButton">Send suggestion</button>
-      </form>
+					<input
+						type="text"
+						name="website"
+						autocomplete="off"
+						tabindex="-1"
+						class="music-suggestions__honeypot"
+						aria-hidden="true"
+					/>
+					<button type="submit" class="modeButton">Send suggestion</button>
+				</form>
 
-      <h3>Recent suggestions</h3>
-      <ul class="music-suggestions__list" data-suggestion-list>
-        <li class="music-suggestions__empty">Loading suggestions...</li>
-      </ul>
-    </section>
-  </main>
+				<h3>Recent suggestions</h3>
+				<ul class="music-suggestions__list" data-suggestion-list>
+					<li class="music-suggestions__empty">Loading suggestions...</li>
+				</ul>
+			</section>
+		</main>
 
-  <shared-footer disclosure="<i>This page has optional tip links and no paid shopping links. Music playback happens in each viewer's Spotify app.</i>"></shared-footer>
-</body>
+		<shared-footer
+			disclosure="<i>This page has optional tip links and no paid shopping links. Music playback happens in each viewer's Spotify app.</i>"
+		></shared-footer>
+	</body>
 </html>

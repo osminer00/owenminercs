@@ -1,0 +1,29 @@
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	role="img"
+	viewBox="0 0 120 120"
+	aria-hidden="true"
+>
+	<title>Live stream tips</title>
+	<!-- Custom mark: camera + microphone (not a third-party logo). -->
+	<circle cx="60" cy="60" r="52" fill="none" stroke="#3d5a6b" stroke-width="2" opacity="0.45" />
+	<circle cx="60" cy="60" r="44" fill="none" stroke="#5eead4" stroke-width="1.5" opacity="0.35" />
+	<!-- Camera body -->
+	<rect x="14" y="38" width="58" height="44" rx="8" fill="#9ae6ff" />
+	<rect x="20" y="44" width="46" height="32" rx="4" fill="#1a3d4d" />
+	<circle cx="43" cy="60" r="12" fill="#0f1724" stroke="#5eead4" stroke-width="2" />
+	<circle cx="47" cy="56" r="4" fill="#5eead4" opacity="0.6" />
+	<rect x="72" y="52" width="10" height="16" rx="2" fill="#9ae6ff" />
+	<!-- Viewfinder -->
+	<rect x="36" y="30" width="22" height="12" rx="3" fill="#9ae6ff" />
+	<!-- Microphone -->
+	<path
+		fill="#c4b5fd"
+		d="M78 28c0-4.4 3.6-8 8-8s8 3.6 8 8v22c0 4.4-3.6 8-8 8s-8-3.6-8-8V28z"
+	/>
+	<rect x="82" y="50" width="4" height="28" rx="2" fill="#8b7fc9" />
+	<path fill="#6b5fa3" d="M72 82h24v6c0 4-3 7-7 7H79c-4 0-7-3-7-7v-6z" />
+	<!-- Live indicator -->
+	<circle cx="24" cy="28" r="5" fill="#f43f5e" />
+	<circle cx="24" cy="28" r="2" fill="#fecdd3" opacity="0.9" />
+</svg>

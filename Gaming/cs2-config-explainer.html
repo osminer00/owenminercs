@@ -1,45 +1,68 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../css/owenminercs.css">
-  <link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
-  <link rel="apple-touch-icon" href="/images/owenminercs-logo.png">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GYG1QRQ8DY');
-  </script>
-  <title>CS2 Config Explainer | Gaming | Owen Miner</title>
-  <meta name="description" content="Paste your CS2 settings or autoexec and get plain-English explanations for each command, plus flags for odd values.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://www.owenminercs.com/Gaming/cs2-config-explainer">
-  <script src="../scripts/components.js" defer></script>
-  <script src="../scripts/cs2-config-explainer.js" defer></script>
-</head>
-<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%;">
-  <shared-header></shared-header>
-  <div class="container">
-    <div class="intro">
-      <p class="setup-detail__back"><a href="gaming.html">← Gaming</a></p>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-GYG1QRQ8DY');
+		</script>
+		<title>CS2 Config Explainer | Gaming | Owen Miner</title>
+		<meta
+			name="description"
+			content="Paste your CS2 settings or autoexec and get plain-English explanations for each command, plus flags for odd values."
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="canonical" href="https://www.owenminercs.com/Gaming/cs2-config-explainer" />
+		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/cs2-config-explainer.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
+		<shared-header></shared-header>
+		<div class="container">
+			<div class="intro">
+				<p class="setup-detail__back"><a href="gaming.html">← Gaming</a></p>
 
-      <section class="cs2-config-explainer" aria-labelledby="cs2-config-explainer-heading">
-        <h1 id="cs2-config-explainer-heading" style="margin-top: 0;">CS2 Config Explainer</h1>
-        <p><strong>Temporary lock:</strong> text input is disabled right now.</p>
-        <p>Paste your <code>autoexec.cfg</code> or any CS2 settings snippet. This tool explains each command in plain English and flags values that look unusual.</p>
-        <label class="cs2-config-explainer__label" for="cs2-config-input">Paste config here</label>
-        <textarea id="cs2-config-input" class="cs2-config-explainer__input" rows="12" placeholder="Temporarily disabled" disabled aria-disabled="true"></textarea>
-        <div class="cs2-config-explainer__controls">
-          <button id="cs2-config-analyze" type="button" class="modeButton">Explain config</button>
-          <button id="cs2-config-clear" type="button" class="modeButton">Clear</button>
-        </div>
-        <p id="cs2-config-summary" class="cs2-config-explainer__summary" aria-live="polite"></p>
-        <ul id="cs2-config-results" class="cs2-config-explainer__results" aria-live="polite"></ul>
-      </section>
-    </div>
-  </div>
-  <shared-footer disclosure="<i>This page has no paid shopping links. The Apartment tour, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"></shared-footer>
-</body>
+				<section class="cs2-config-explainer" aria-labelledby="cs2-config-explainer-heading">
+					<h1 id="cs2-config-explainer-heading" style="margin-top: 0">CS2 Config Explainer</h1>
+					<p><strong>Testing note:</strong> this tool is currently read-only for visitors.</p>
+					<p>
+						Paste your <code>autoexec.cfg</code> or any CS2 settings snippet. This tool explains each
+						command in plain English and flags values that look unusual.
+					</p>
+					<label class="cs2-config-explainer__label" for="cs2-config-input">Paste config here</label>
+					<textarea
+						id="cs2-config-input"
+						class="cs2-config-explainer__input"
+						rows="12"
+						placeholder="Read-only during testing"
+						disabled
+						aria-disabled="true"
+					></textarea>
+					<div class="cs2-config-explainer__controls">
+						<button id="cs2-config-analyze" type="button" class="modeButton">Explain config</button>
+						<button id="cs2-config-clear" type="button" class="modeButton">Clear</button>
+					</div>
+					<p id="cs2-config-summary" class="cs2-config-explainer__summary" aria-live="polite"></p>
+					<ul id="cs2-config-results" class="cs2-config-explainer__results" aria-live="polite"></ul>
+				</section>
+			</div>
+		</div>
+		<shared-footer
+			disclosure="<i>This page has no paid shopping links. Bigfoot's Jungle, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+		></shared-footer>
+	</body>
 </html>

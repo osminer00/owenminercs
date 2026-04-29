@@ -1,0 +1,18 @@
+Brand marks in this folder (donators row)
+=========================================
+
+steam.svg
+  Derives from Wikimedia Commons “Steam icon logo” (Steam_icon_logo.svg): the
+  circular gradient disc path is removed; the remaining paths are split into
+  two fills (#e8ebef valve / arm, #8a939e joint), transparent background.
+  Commons file page: https://commons.wikimedia.org/wiki/File:Steam_icon_logo.svg
+  Trademarks: Valve Corporation. Nominative use for the Steam trade link.
+
+live-stream-tip.svg
+  Site-original decorative mark: camera + microphone + small “live” dot on
+  transparent background. Used for the StreamElements tip hero (not a service
+  logotype).
+
+rainbow-mug-kofi.gif
+  Site-specific / decorative art (not the Ko-fi logotype).
+

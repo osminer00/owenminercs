@@ -1,23 +1,8 @@
-# owenminercs Website
+# Claude Guide
 
-Personal website for owenminercs.
+Read `AGENTS.md` first. It is the canonical low-token project memory entry point.
 
-## Project Structure
+Use `memory/` for durable project state, preferences, issues, and decisions. Update those files when the user gives lasting site facts, bug patterns, ratios, workflow rules, or unresolved issues.
 
-- `index.html` — Homepage / landing page
-- `css/owenminercs.css` — Global stylesheet used across all pages
-- `About/` — About page (profile image: owenProfile.webp)
-- `Counter-Strike/CS.html` — CS2 settings/config page with autoexec, nvidia settings, etc.
-- `Counter-Strike/nosmoking.html` — No smoking redirect page
-- `Desk Setup/setup.html` — Desk setup page with images
-- `Desk Setup/fit-check.html` — OBS multi-camera fit check guide (one camera per display)
-- `Keyboard/60he.html` — Wooting 60HE keyboard build page (images in `Keyboard/images/`)
-- `Keyboard/scripts/keyboardBuild.js` — JS for keyboard page
-- `PC/pc.html` — PC specs/build page
-- `Socials/socials.html` — Social media links page
-- `images/` — Global images (profile photos, desktop backgrounds)
-- `_redirects` — Netlify redirect rules
+Claude-specific note: avoid loading old handoff docs unless the current task clearly needs them. Start with `memory/issues.md` for bugs and `memory/preferences.md` for design/content preferences.
 
-## Tech Stack
-
-Static HTML/CSS/JS website, likely hosted on Netlify (has `_redirects` file).

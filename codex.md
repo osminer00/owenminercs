@@ -1,6 +1,10 @@
 # Codex Guide
 
-Working notes for Codex agents on the OwenMinerCS site.
+Read `AGENTS.md` first. It is the canonical low-token project memory entry point.
+
+Use `memory/` for durable project state, preferences, issues, and decisions. Update those files when the user gives lasting site facts, bug patterns, ratios, workflow rules, or unresolved issues.
+
+The notes below are kept for Codex-specific continuity.
 
 ## Project Snapshot
 

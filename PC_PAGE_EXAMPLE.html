@@ -1,7 +1,7 @@
 <!-- ===== PC PAGE AFFILIATE INTEGRATION EXAMPLE ===== -->
 
 <!-- ADD THIS TO YOUR <head> SECTION OF PC/pc.html -->
-<link rel="stylesheet" href="../css/affiliate-styles.css">
+<link rel="stylesheet" href="../css/affiliate-styles.css" />
 <script src="../scripts/affiliate-links.js"></script>
 
 <!-- ===== BEFORE: Current PC Page Structure ===== -->
@@ -16,35 +16,36 @@
 
 <!-- Option 1: Quick Insert (Easiest) -->
 <div class="product-card">
-    <h1>CPU Cooler:</h1>
-    <span class="item-desc">Noctua NH-D15S chromax.Black</span>
-    <div data-affiliate-product="pc_components.noctua_cooler"></div>
+	<h1>CPU Cooler:</h1>
+	<span class="item-desc">Noctua NH-D15S chromax.Black</span>
+	<div data-affiliate-product="pc_components.noctua_cooler"></div>
 </div>
 
 <!-- Option 2: Using Product Card -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (affiliateManager && affiliateManager.loaded) {
-            // Insert CPU Cooler
-            document.getElementById('cooler-links').innerHTML = 
-                affiliateManager.generateLinkButtons('pc_components.noctua_cooler');
-            
-            // Insert GPU
-            document.getElementById('gpu-links').innerHTML = 
-                affiliateManager.generateProductCard('pc_components.rtx_4090');
-            
-            // Insert Monitor
-            document.getElementById('monitor-links').innerHTML = 
-                affiliateManager.generateProductCard('pc_components.rog_swift_monitor');
-        }
-    });
+	document.addEventListener('DOMContentLoaded', function () {
+		if (affiliateManager && affiliateManager.loaded) {
+			// Insert CPU Cooler
+			document.getElementById('cooler-links').innerHTML =
+				affiliateManager.generateLinkButtons('pc_components.noctua_cooler');
+
+			// Insert GPU
+			document.getElementById('gpu-links').innerHTML =
+				affiliateManager.generateProductCard('pc_components.rtx_4090');
+
+			// Insert Monitor
+			document.getElementById('monitor-links').innerHTML = affiliateManager.generateProductCard(
+				'pc_components.rog_swift_monitor'
+			);
+		}
+	});
 </script>
 
 <!-- Place these divs where you want the links -->
 <div class="product-card">
-    <h1>CPU Cooler:</h1>
-    <span class="item-desc">Noctua NH-D15S chromax.Black</span>
-    <div id="cooler-links"></div>
+	<h1>CPU Cooler:</h1>
+	<span class="item-desc">Noctua NH-D15S chromax.Black</span>
+	<div id="cooler-links"></div>
 </div>
 
 <div id="gpu-links"></div>
@@ -53,86 +54,85 @@
 <!-- ===== FULL UPDATED PC/pc.html CASE2 SECTION ===== -->
 
 <div class="case2">
-    <!-- Disclosure -->
-    <div id="affiliate-disclosure"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (affiliateManager) {
-                document.getElementById('affiliate-disclosure').innerHTML = 
-                    affiliateManager.generateDisclosureBox();
-            }
-        });
-    </script>
+	<!-- Disclosure -->
+	<div id="affiliate-disclosure"></div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			if (affiliateManager) {
+				document.getElementById('affiliate-disclosure').innerHTML = affiliateManager.generateDisclosureBox();
+			}
+		});
+	</script>
 
-    <!-- Motherboard -->
-    <div class="product-card">
-        <h1>Motherboard:</h1>
-        <span class="item-desc">Gigabyte B650 GAMING X AX V2</span>
-        <div data-affiliate-product="pc_components.gigabyte_motherboard"></div>
-    </div>
+	<!-- Motherboard -->
+	<div class="product-card">
+		<h1>Motherboard:</h1>
+		<span class="item-desc">Gigabyte B650 GAMING X AX V2</span>
+		<div data-affiliate-product="pc_components.gigabyte_motherboard"></div>
+	</div>
 
-    <!-- CPU -->
-    <div class="product-card">
-        <h1>CPU:</h1>
-        <span class="item-desc">AMD Ryzen 7 9800X3D</span>
-        <div data-affiliate-product="pc_components.ryzen_9800x3d"></div>
-    </div>
+	<!-- CPU -->
+	<div class="product-card">
+		<h1>CPU:</h1>
+		<span class="item-desc">AMD Ryzen 7 9800X3D</span>
+		<div data-affiliate-product="pc_components.ryzen_9800x3d"></div>
+	</div>
 
-    <!-- CPU Cooler -->
-    <div class="product-card">
-        <h1>CPU Cooler:</h1>
-        <span class="item-desc">Noctua NH-D15S chromax.Black</span>
-        <div data-affiliate-product="pc_components.noctua_cooler"></div>
-    </div>
+	<!-- CPU Cooler -->
+	<div class="product-card">
+		<h1>CPU Cooler:</h1>
+		<span class="item-desc">Noctua NH-D15S chromax.Black</span>
+		<div data-affiliate-product="pc_components.noctua_cooler"></div>
+	</div>
 
-    <!-- GPU -->
-    <div class="product-card">
-        <h1>GPU:</h1>
-        <span class="item-desc">NVIDIA GeForce RTX 4090 Founders Edition</span>
-        <div data-affiliate-product="pc_components.rtx_4090"></div>
-    </div>
+	<!-- GPU -->
+	<div class="product-card">
+		<h1>GPU:</h1>
+		<span class="item-desc">NVIDIA GeForce RTX 4090 Founders Edition</span>
+		<div data-affiliate-product="pc_components.rtx_4090"></div>
+	</div>
 
-    <!-- PSU -->
-    <div class="product-card">
-        <h1>PSU:</h1>
-        <span class="item-desc">Corsair RM1000x 1000W 80+ Gold</span>
-        <div data-affiliate-product="pc_components.corsair_psu"></div>
-    </div>
+	<!-- PSU -->
+	<div class="product-card">
+		<h1>PSU:</h1>
+		<span class="item-desc">Corsair RM1000x 1000W 80+ Gold</span>
+		<div data-affiliate-product="pc_components.corsair_psu"></div>
+	</div>
 
-    <!-- RAM -->
-    <div class="product-card">
-        <h1>RAM:</h1>
-        <span class="item-desc">G.Skill Ripjaws M5 Neo RGB Series 32GB</span>
-        <div data-affiliate-product="pc_components.gskill_ram"></div>
-    </div>
+	<!-- RAM -->
+	<div class="product-card">
+		<h1>RAM:</h1>
+		<span class="item-desc">G.Skill Ripjaws M5 Neo RGB Series 32GB</span>
+		<div data-affiliate-product="pc_components.gskill_ram"></div>
+	</div>
 
-    <!-- SSD -->
-    <div class="product-card">
-        <h1>SSD:</h1>
-        <span class="item-desc">WD_BLACK SN850X NVMe™ SSD</span>
-        <div data-affiliate-product="pc_components.wd_black_ssd"></div>
-    </div>
+	<!-- SSD -->
+	<div class="product-card">
+		<h1>SSD:</h1>
+		<span class="item-desc">WD_BLACK SN850X NVMe™ SSD</span>
+		<div data-affiliate-product="pc_components.wd_black_ssd"></div>
+	</div>
 
-    <!-- Case -->
-    <div class="product-card">
-        <h1>Case:</h1>
-        <span class="item-desc">Lian Li O11 Dynamic Evo (Black)</span>
-        <div data-affiliate-product="pc_components.lian_li_case"></div>
-    </div>
+	<!-- Case -->
+	<div class="product-card">
+		<h1>Case:</h1>
+		<span class="item-desc">Lian Li O11 Dynamic Evo (Black)</span>
+		<div data-affiliate-product="pc_components.lian_li_case"></div>
+	</div>
 
-    <!-- Case Fans -->
-    <div class="product-card">
-        <h1>(10) Case Fans:</h1>
-        <span class="item-desc">Lian Li UNI Fan SL120 V2</span>
-        <div data-affiliate-product="pc_components.lian_li_fans"></div>
-    </div>
+	<!-- Case Fans -->
+	<div class="product-card">
+		<h1>(10) Case Fans:</h1>
+		<span class="item-desc">Lian Li UNI Fan SL120 V2</span>
+		<div data-affiliate-product="pc_components.lian_li_fans"></div>
+	</div>
 
-    <!-- OS -->
-    <div class="product-card">
-        <h1>OS:</h1>
-        <span class="item-desc">Windows 11 Pro</span>
-        <div data-affiliate-product="pc_components.windows_11_pro"></div>
-    </div>
+	<!-- OS -->
+	<div class="product-card">
+		<h1>OS:</h1>
+		<span class="item-desc">Windows 11 Pro</span>
+		<div data-affiliate-product="pc_components.windows_11_pro"></div>
+	</div>
 </div>
 
 <!-- ===== ALTERNATIVE: MINIMAL INTEGRATION ===== -->
@@ -140,94 +140,94 @@
 
 <!-- Keep existing structure and just add affiliate links below -->
 <a href="https://rog.asus.com/us/monitors/..." target="_blank" class="itemlink">
-    <h1>Gaming Monitor:</h1>
-    <span class="item-desc">ROG Swift OLED PG27AQDP</span>
+	<h1>Gaming Monitor:</h1>
+	<span class="item-desc">ROG Swift OLED PG27AQDP</span>
 </a>
 
 <!-- Add affiliate options right below -->
-<div class="product-links-group" style="margin: 10px 0 20px 0;">
-    <a href="[YOUR_AMAZON_AFFILIATE_URL]" class="affiliate-button amazon" target="_blank" rel="noopener noreferrer">
-        Buy on Amazon <span class="affiliate">(affiliate)</span>
-    </a>
-    <a href="[YOUR_BESTBUY_AFFILIATE_URL]" class="affiliate-button bestbuy" target="_blank" rel="noopener noreferrer">
-        Best Buy <span class="affiliate">(affiliate)</span>
-    </a>
-    <a href="[YOUR_NEWEGG_AFFILIATE_URL]" class="affiliate-button newegg" target="_blank" rel="noopener noreferrer">
-        Newegg <span class="affiliate">(affiliate)</span>
-    </a>
+<div class="product-links-group" style="margin: 10px 0 20px 0">
+	<a href="[YOUR_AMAZON_AFFILIATE_URL]" class="affiliate-button amazon" target="_blank" rel="noopener noreferrer">
+		Buy on Amazon <span class="affiliate">(affiliate)</span>
+	</a>
+	<a href="[YOUR_BESTBUY_AFFILIATE_URL]" class="affiliate-button bestbuy" target="_blank" rel="noopener noreferrer">
+		Best Buy <span class="affiliate">(affiliate)</span>
+	</a>
+	<a href="[YOUR_NEWEGG_AFFILIATE_URL]" class="affiliate-button newegg" target="_blank" rel="noopener noreferrer">
+		Newegg <span class="affiliate">(affiliate)</span>
+	</a>
 </div>
 
 <!-- ===== IN YOUR CSS (or add to affiliate-styles.css) ===== -->
 <style>
-    .product-card {
-        border: 2px solid #000;
-        border-radius: 8px;
-        padding: 15px;
-        margin: 10px 0;
-        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
-        transition: all 0.3s ease;
-    }
+	.product-card {
+		border: 2px solid #000;
+		border-radius: 8px;
+		padding: 15px;
+		margin: 10px 0;
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+		transition: all 0.3s ease;
+	}
 
-    .product-card:hover {
-        box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
-    }
+	.product-card:hover {
+		box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+	}
 
-    .product-links-group {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-    }
+	.product-links-group {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		margin-top: 10px;
+	}
 
-    .affiliate-button {
-        padding: 8px 12px;
-        background-color: #000;
-        color: #fff;
-        border: 1px solid #fff;
-        border-radius: 4px;
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-        display: inline-block;
-    }
+	.affiliate-button {
+		padding: 8px 12px;
+		background-color: #000;
+		color: #fff;
+		border: 1px solid #fff;
+		border-radius: 4px;
+		text-decoration: none;
+		font-size: 0.9rem;
+		transition: all 0.2s ease;
+		display: inline-block;
+	}
 
-    .affiliate-button:hover {
-        transform: scale(1.05);
-    }
+	.affiliate-button:hover {
+		transform: scale(1.05);
+	}
 
-    .affiliate-button.amazon {
-        background: linear-gradient(135deg, #FF9900 0%, #146EB4 100%);
-        border: none;
-    }
+	.affiliate-button.amazon {
+		background: linear-gradient(135deg, #ff9900 0%, #146eb4 100%);
+		border: none;
+	}
 
-    .affiliate-button.bestbuy {
-        background: #0046BE;
-        border: none;
-    }
+	.affiliate-button.bestbuy {
+		background: #0046be;
+		border: none;
+	}
 
-    .affiliate-button.newegg {
-        background: #E4002B;
-        border: none;
-    }
+	.affiliate-button.newegg {
+		background: #e4002b;
+		border: none;
+	}
 
-    .affiliate {
-        display: inline-block;
-        background-color: #ffd700;
-        color: #000;
-        padding: 2px 6px;
-        border-radius: 3px;
-        font-size: 0.75rem;
-        font-weight: bold;
-        margin-left: 5px;
-        text-transform: uppercase;
-    }
+	.affiliate {
+		display: inline-block;
+		background-color: #ffd700;
+		color: #000;
+		padding: 2px 6px;
+		border-radius: 3px;
+		font-size: 0.75rem;
+		font-weight: bold;
+		margin-left: 5px;
+		text-transform: uppercase;
+	}
 </style>
 
 <!-- ===== STEP-BY-STEP FOR YOUR PC PAGE ===== -->
 
 <!-- 1. Update your <head> -->
 <!-- ADD THIS: -->
-<link rel="stylesheet" href="../css/affiliate-styles.css">
+<link rel="stylesheet" href="../css/affiliate-styles.css" />
 <script src="../scripts/affiliate-links.js"></script>
 
 <!-- 2. Find the <div class="case2"> section (around line 80-150) -->
@@ -236,17 +236,17 @@
 
 <!-- BEFORE: -->
 <a href="https://www.gigabyte.com/Motherboard/..." target="_blank" class="itemlink">
-    <h1>Motherboard:</h1>
-    <span class="item-desc">Gigabyte B650 GAMING X AX V2</span>
+	<h1>Motherboard:</h1>
+	<span class="item-desc">Gigabyte B650 GAMING X AX V2</span>
 </a>
 
 <!-- AFTER: -->
 <div class="product-card">
-    <a href="https://www.gigabyte.com/Motherboard/..." target="_blank" class="itemlink">
-        <h1>Motherboard:</h1>
-        <span class="item-desc">Gigabyte B650 GAMING X AX V2</span>
-    </a>
-    <div data-affiliate-product="pc_components.gigabyte_motherboard"></div>
+	<a href="https://www.gigabyte.com/Motherboard/..." target="_blank" class="itemlink">
+		<h1>Motherboard:</h1>
+		<span class="item-desc">Gigabyte B650 GAMING X AX V2</span>
+	</a>
+	<div data-affiliate-product="pc_components.gigabyte_motherboard"></div>
 </div>
 
 <!-- 4. Repeat for all 10 components -->
@@ -269,20 +269,20 @@
 <!-- Show product info without affiliate links -->
 <div id="container"></div>
 <script>
-    const html = affiliateManager.getProduct('pc_components.rog_swift_monitor');
-    document.getElementById('container').innerHTML = '<h3>' + html.name + '</h3><p>' + html.price + '</p>';
+	const html = affiliateManager.getProduct('pc_components.rog_swift_monitor');
+	document.getElementById('container').innerHTML = '<h3>' + html.name + '</h3><p>' + html.price + '</p>';
 </script>
 
 <!-- Search for products -->
 <script>
-    const results = affiliateManager.searchProducts('monitor');
-    // Returns: [{ key: 'pc_components.rog_swift_monitor', name: '...', ... }]
+	const results = affiliateManager.searchProducts('monitor');
+	// Returns: [{ key: 'pc_components.rog_swift_monitor', name: '...', ... }]
 </script>
 
 <!-- Get all products for just your page -->
 <script>
-    const pageProducts = affiliateManager.getProductsForPage('PC/pc.html');
-    console.log('Products on this page:', pageProducts);
+	const pageProducts = affiliateManager.getProductsForPage('PC/pc.html');
+	console.log('Products on this page:', pageProducts);
 </script>
 
 <!-- ===== THAT'S IT! ===== -->
