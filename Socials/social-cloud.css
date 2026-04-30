@@ -44,9 +44,45 @@ body.socials-cloud-bg shared-footer footer {
 	background: linear-gradient(180deg, rgba(4, 6, 9, 0.72), rgba(4, 6, 9, 0.22)) !important;
 	border-color: rgba(255, 255, 255, 0.07) !important;
 	box-shadow: none !important;
-	margin-top: 0.45rem !important;
-	padding-top: 0.65rem !important;
-	padding-bottom: 0.55rem !important;
+	margin-top: 0.25rem !important;
+	padding-top: 0.45rem !important;
+	padding-bottom: 0.4rem !important;
+}
+
+/* Credits copy is hidden here; dropping the empty column removes a wide dead band */
+body.socials-cloud-bg .site-footer-meta__credits {
+	display: none !important;
+}
+
+body.socials-cloud-bg .site-footer-meta {
+	grid-template-columns: minmax(0, 1fr);
+	gap: 0.35rem;
+	margin: 0.15rem 10px 0;
+}
+
+/* 50/50 grid left a huge gap beside the 4×2 icon block; auto + 1fr pulls Discord copy closer */
+body.socials-cloud-bg .site-footer-top-row {
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 0.65rem 0.85rem;
+	align-items: start;
+	margin: 0.2rem 10px 0.35rem;
+}
+
+@media (max-width: 52rem) {
+	body.socials-cloud-bg .site-footer-top-row {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Global bar reserves ~5–6rem for tips; tighten on this page while keeping hover tips usable */
+body.socials-cloud-bg .site-footer-social-bar {
+	width: max-content;
+	max-width: 100%;
+	padding: clamp(1.65rem, 3.6vmin, 2.45rem) 0 clamp(1.75rem, 3.8vmin, 2.55rem);
+}
+
+body.socials-cloud-bg .site-footer-meta__home-mark {
+	margin-top: 0.35rem;
 }
 
 /* Keep footer compact on this page so cards remain visible */
