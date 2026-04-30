@@ -9,7 +9,7 @@
 		{ path: 'Counter-Strike/CS.html', label: 'CS2' },
 		{ path: 'Counter-Strike/nosmoking.html', label: 'No Smoking wallpapers' },
 		{ path: 'Posts/post-builder.html', label: 'Post builder' },
-		{ path: 'Garage Sale/garage-sale.html', label: 'Shop' },
+		{ path: 'Garage Sale/garage-sale.html', label: 'For sale' },
 		{ path: 'Socials/socials.html', label: 'Socials' },
 	];
 

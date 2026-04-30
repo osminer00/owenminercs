@@ -1,6 +1,10 @@
 # Legacy / default favicon requests → site logo
 /favicon.ico   /images/owenminercs-logo.png   301
 
+# About → home (same content lives at `/`)
+/about    /   301
+/about.html    /   301
+
 # Netlify function paths → Cloudflare Pages Functions
 /.netlify/functions/:splat   /api/:splat   200
 

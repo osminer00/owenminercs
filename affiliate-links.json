@@ -153,7 +153,8 @@
 				"pages": [
 					"Desk Setup/setup.html",
 					"The Setup/the-setup.html",
-					"The Setup/audio-interface.html"
+					"The Setup/audio-interface.html",
+					"The Setup/audio.html"
 				]
 			},
 			"shure_sm7b": {
@@ -168,7 +169,8 @@
 				"pages": [
 					"Desk Setup/setup.html",
 					"The Setup/the-setup.html",
-					"The Setup/microphone.html"
+					"The Setup/microphone.html",
+					"The Setup/audio.html"
 				]
 			},
 			"elgato_wave_mic_arm": {
@@ -184,7 +186,8 @@
 				"pages": [
 					"Desk Setup/setup.html",
 					"The Setup/the-setup.html",
-					"The Setup/microphone-arm.html"
+					"The Setup/microphone-arm.html",
+					"The Setup/audio.html"
 				]
 			},
 			"sony_zv_e10": {
@@ -199,7 +202,8 @@
 				"pages": [
 					"Desk Setup/setup.html",
 					"The Setup/the-setup.html",
-					"The Setup/camera.html"
+					"The Setup/camera.html",
+					"The Setup/cameras.html"
 				]
 			},
 			"godox_keylight": {
@@ -341,7 +345,8 @@
 				"pages": [
 					"Desk Setup/setup.html",
 					"The Setup/the-setup.html",
-					"The Setup/webcam.html"
+					"The Setup/webcam.html",
+					"The Setup/cameras.html"
 				]
 			},
 			"suspension_boom_scissor_arm": {
@@ -386,6 +391,69 @@
 					"The Setup/the-setup.html",
 					"The Setup/lighting.html"
 				]
+			},
+			"sigma_16mm_sony_e": {
+				"name": "Sigma 16mm f/1.4 DC DN Contemporary (Sony E)",
+				"specs": "APS-C wide prime for low light on ZV-E10",
+				"category": "Camera Lens",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Sigma+16mm+f1.4+DC+DN+Sony+E+mount&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/camera.html", "The Setup/cameras.html"]
+			},
+			"mirrorless_cage_zv_e10_search": {
+				"name": "Camera cage for Sony ZV-E10 (SmallRig-style rig)",
+				"specs": "Cold shoes and 1/4\" threads—verify listing fits ZV-E10 before buying",
+				"category": "Camera Rig",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Sony+ZV-E10+camera+cage+SmallRig&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/camera-cage.html", "The Setup/cameras.html"]
+			},
+			"ulanzi_camera_mount_search": {
+				"name": "ULANZI camera mount / cold shoe accessory",
+				"specs": "Ball head, magic arm, or desk clamp—pick the listing that matches your rig",
+				"category": "Camera Mount",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=ULANZI+camera+mount+cold+shoe&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/ulanzi-camera-mount.html", "The Setup/cameras.html"]
+			},
+			"tripod_full_height_search": {
+				"name": "Full-height camera tripod",
+				"specs": "Tall tripod for standing angles and overhead setups",
+				"category": "Tripod",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=DSLR+camera+tripod+72+inch&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/tripod-full-height.html", "The Setup/cameras.html"]
+			},
+			"tripod_desktop_mini_search": {
+				"name": "Desktop / mini tripod",
+				"specs": "Short stand for desk-level shots and tight spaces",
+				"category": "Tripod",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=mini+desktop+camera+tripod&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/tripod-desk-mini.html", "The Setup/cameras.html"]
+			},
+			"insta360_x5_search": {
+				"name": "Insta360 X5",
+				"specs": "360° camera for reframed shots and fit-check backgrounds",
+				"category": "Camera",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Insta360+X5&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/insta360-x5.html", "The Setup/cameras.html"]
+			},
+			"iphone_pro_max_camera_search": {
+				"name": "Apple iPhone Pro Max (phone-as-camera)",
+				"specs": "Primary angle for streams via NDI / virtual webcam on Windows",
+				"category": "Camera",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Apple+iPhone+Pro+Max&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/iphone-main-camera.html", "The Setup/cameras.html"]
 			}
 		},
 		"keyboard_parts": {
@@ -441,8 +509,8 @@
 		}
 	},
 	"metadata": {
-		"last_updated": "2026-04-28",
-		"total_products": 32,
+		"last_updated": "2026-04-29",
+		"total_products": 41,
 		"affiliate_programs": ["Amazon Associates", "AliExpress Portals"],
 		"aliexpress_portals_signup": "https://portals.aliexpress.com/",
 		"aliexpress_note": "Optional per-product key links.aliexpress_portals: paste your Portals deeplink (s.click.aliexpress.com/...) from Link Generator; it overrides links.aliexpress for that product.",

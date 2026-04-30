@@ -95,110 +95,17 @@
 		</script>
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="./scripts/components.js" defer></script>
-		<script src="QA/scripts/qa-feed.js" defer></script>
-		<style>
-			.qa-intro {
-				max-width: 46rem;
-				margin: 0 auto 1.25rem;
-				text-align: left;
-			}
-			.qa-discord-cta {
-				max-width: 46rem;
-				margin: 0 auto 1.75rem;
-				padding: 1rem 1.1rem;
-				border-radius: var(--radius);
-				border: 1px solid var(--border-subtle);
-				background: rgba(0, 0, 0, 0.28);
-				text-align: left;
-			}
-			.qa-discord-cta h2 {
-				margin: 0 0 0.5rem;
-				font-size: 1.1rem;
-			}
-			.qa-discord-cta p {
-				margin: 0 0 0.75rem;
-				color: var(--text-dim);
-				font-size: 0.95rem;
-			}
-			.qa-btn-row {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.65rem;
-				align-items: center;
-			}
-			.qa-faq-block {
-				max-width: 46rem;
-				margin: 0 auto 2rem;
-				text-align: left;
-			}
-			.qa-faq-block h2 {
-				margin: 0 0 0.75rem;
-			}
-			.qa-details {
-				margin: 0 0 0.5rem;
-				border-radius: var(--radius);
-				border: 1px solid var(--border-subtle);
-				background: rgba(0, 0, 0, 0.22);
-				padding: 0.35rem 0.65rem;
-			}
-			.qa-details summary {
-				cursor: pointer;
-				font-weight: 600;
-				padding: 0.35rem 0;
-			}
-			.qa-details p {
-				margin: 0.5rem 0 0.35rem;
-				color: var(--text-dim);
-				font-size: 0.95rem;
-			}
-			.qa-feed-section h2 {
-				margin: 0 0 0.65rem;
-			}
-			.qa-feed-section {
-				max-width: 52rem;
-				margin: 0 auto 2rem;
-				text-align: left;
-			}
-			.qa-feed__item {
-				margin: 0 0 1rem;
-				padding: 1rem 1.1rem;
-				border-radius: var(--radius);
-				border: 1px solid var(--border-subtle);
-				background: rgba(0, 0, 0, 0.25);
-			}
-			.qa-feed__q {
-				margin: 0 0 0.5rem;
-				font-size: 1.05rem;
-			}
-			.qa-feed__a {
-				margin: 0;
-				color: var(--text-dim);
-				font-size: 0.95rem;
-				line-height: 1.45;
-			}
-			.qa-feed__meta {
-				margin: 0.65rem 0 0;
-				font-size: 0.85rem;
-				color: var(--text-muted);
-			}
-			.qa-feed-empty {
-				margin: 0;
-				padding: 1rem 1.1rem;
-				border-radius: var(--radius);
-				border: 1px dashed var(--border-subtle);
-				color: var(--text-muted);
-				font-size: 0.95rem;
-			}
-			.qa-feed-empty code {
-				font-size: 0.88em;
-				color: var(--text-dim);
-			}
-		</style>
 	</head>
 
 	<body id="top" class="site-card-ui">
 		<shared-header></shared-header>
 		<div class="container">
+			<section class="intro site-feed-section" id="whats-new" aria-labelledby="site-feed-heading">
+				<h2 id="site-feed-heading">What’s new</h2>
+				<p class="site-feed-lede">Recent additions and updates across the site.</p>
+				<ol class="site-feed-list" id="site-feed-list" aria-busy="true"></ol>
+				<p class="site-feed-error" id="site-feed-error" hidden></p>
+			</section>
 			<div class="intro">
 				<h1>Welcome to OwenMinerCS.com!</h1>
 				<p style="max-width: 42rem; margin-left: auto; margin-right: auto">
@@ -211,115 +118,7 @@
 						>Mercari referral</a
 					>, Vinted).
 				</p>
-				<p style="max-width: 42rem; margin-left: auto; margin-right: auto">
-					Support:
-					<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer"
-						>Ko-fi</a
-					>
-					·
-					<a
-						href="https://streamelements.com/owenminercs/tip"
-						data-streamelements-tip-link
-						target="_blank"
-						rel="noopener noreferrer"
-						>StreamElements tip</a
-					>
-					·
-					<a
-						href="https://steamcommunity.com/tradeoffer/new/?partner=169362392&amp;token=P_48mib_"
-						data-steam-trade-link
-						target="_blank"
-						rel="noopener noreferrer"
-						>Steam trade link</a
-					>
-					· <a href="Donators/donators.html">Donators wall</a> ·
-					<a href="Socials/socials.html">Socials page</a> (QR, embed &amp; more)
-				</p>
 			</div>
-			<section class="intro site-feed-section" id="whats-new" aria-labelledby="site-feed-heading">
-				<h2 id="site-feed-heading">What’s new</h2>
-				<p class="site-feed-lede">
-					Recent additions and updates across the site. Prefer a ping? Turn on optional browser alerts (they
-					only run while you have a tab open here).
-				</p>
-				<div class="site-feed-actions">
-					<button type="button" class="site-feed-notify-btn" id="site-feed-notify-btn">
-						Enable update alerts
-					</button>
-					<p class="site-feed-hint" id="site-feed-notify-hint" aria-live="polite"></p>
-				</div>
-				<ol class="site-feed-list" id="site-feed-list" aria-busy="true"></ol>
-				<p class="site-feed-error" id="site-feed-error" hidden></p>
-			</section>
-			<div class="column">
-				<p>Thanks For Stopping By!</p>
-			</div>
-			<div class="intro">
-				<h1>Q&amp;A</h1>
-				<p class="qa-intro">
-					Quick answers to common questions. For anything else, post in the Discord text channel
-					<strong>#questions-and-answers</strong> so the community (and I) can help. When a question is
-					answered there in the format the site mirrors, it can show up below as well.
-				</p>
-			</div>
-
-			<section class="qa-discord-cta" aria-label="Ask on Discord">
-				<h2>Ask in Discord</h2>
-				<p>
-					Join the server and post in <strong>#questions-and-answers</strong>. That keeps public questions in
-					one place and makes it easier to reply with screenshots or links.
-				</p>
-				<div class="qa-btn-row">
-					<a
-						href="https://discord.gg/fA9GbxmAge"
-						class="keep-card__cta"
-						target="_blank"
-						rel="noopener noreferrer"
-						style="display: inline-block; text-decoration: none"
-						>Open Discord invite</a
-					>
-					<span style="color: var(--text-muted); font-size: 0.9rem"
-						>After joining, open the <strong>#questions-and-answers</strong> channel from the channel
-						list.</span
-					>
-				</div>
-			</section>
-
-			<section class="qa-faq-block" aria-label="Frequently asked questions">
-				<h2>Frequently asked</h2>
-				<p style="margin: 0 0 1rem; color: var(--text-muted); font-size: 0.95rem; max-width: 46rem">
-					Height questions and how to report a site bug.
-				</p>
-
-				<details class="qa-details">
-					<summary>How tall are you?</summary>
-					<p>67</p>
-				</details>
-
-				<details class="qa-details">
-					<summary>How did you get so tall?</summary>
-					<p>Chocolate milk and carrots.</p>
-				</details>
-
-				<details class="qa-details">
-					<summary>I found a bug on this website. How do I report it?</summary>
-					<p>
-						The site footer points to Discord for bug reports and site suggestions, or you can message me
-						through the Socials page.
-					</p>
-				</details>
-			</section>
-
-			<section class="qa-feed-section" aria-label="Answered questions from Discord">
-				<h2>Recently answered</h2>
-				<p style="margin: 0 0 1rem; color: var(--text-muted); font-size: 0.95rem; max-width: 46rem">
-					These entries are read from <strong>#questions-and-answers</strong> when the site bot is configured
-					(see <code>functions/api/discord-qa.js</code>), and supplemented by
-					<code>QA/answered-qa.json</code> for manual highlights. Mirrored posts use a <strong>Q</strong> /
-					<strong>A</strong> layout in one message (see that file for the exact format).
-				</p>
-				<div id="discord-qa-feed"></div>
-			</section>
 		</div>
 
 		<shared-footer

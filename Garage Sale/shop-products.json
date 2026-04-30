@@ -3,7 +3,7 @@
 		"preferredProvider": "paypal",
 		"fallbackProvider": "stripe",
 		"model": "hosted-checkout-links",
-		"publicNote": "Small physical drops are priced with U.S. shipping, packaging, printing supplies, and payment fees baked in. USPS is the default because it keeps sticker and print orders cheaper than UPS for these sizes. Stickers ship in a USPS stamped envelope by default (no tracking); prints ship in rigid mailers with USPS Ground Advantage tracking. UPS can be arranged by request.",
+		"publicNote": "Sticker and print drops use PayPal or Stripe checkout here when live. The same items may appear on eBay for discovery — buying direct keeps more of your purchase out of marketplace fees.",
 		"hostedCheckout": {
 			"primaryCtaLabel": "Checkout",
 			"alternateCtaLabel": "Pay with card"
@@ -70,8 +70,8 @@
 				"Name or short note request can be added when checkout opens"
 			],
 			"checkoutUrl": "",
-			"secondaryUrl": "#shop-checkout",
-			"secondaryLabel": "Pricing and shipping details"
+			"secondaryUrl": "#for-sale",
+			"secondaryLabel": "For sale"
 		},
 		{
 			"id": "signed-photo-print-5x7",

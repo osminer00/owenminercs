@@ -35,7 +35,7 @@
 		{
 			"title": "Shop",
 			"url": "/Garage%20Sale/garage-sale",
-			"summary": "Shop page: sticker, print, and custom sewing catalog rows merge into the For Sale grid (#for-sale) alongside eBay cards; PayPal/Stripe checkout via hosted links; Mercari referral; photography (#photography). Data: Garage Sale/shop-products.json + Garage Sale/ebay-listings.json (loaded by scripts/garage-sale.js)."
+			"summary": "For sale page: Mercari + eBay buttons at top; #for-sale grids merge shop-products rows with ebay-listings.json cards; cart is eBay reminder list; photography (#photography). Data: Garage Sale/shop-products.json + Garage Sale/ebay-listings.json via scripts/garage-sale.js."
 		},
 		{
 			"title": "Socials",

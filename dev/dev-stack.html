@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-GYG1QRQ8DY');
+		</script>
+		<title>Dev stack | Owen Miner</title>
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="How owenminercs.com is edited and maintained: Cursor, Codex, Claude, Antigravity, Ollama — roles and when each is used."
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#0f0f0f" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<link rel="canonical" href="https://www.owenminercs.com/Dev/dev-stack" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<script src="../scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui" style="zoom: 95%">
+		<shared-header></shared-header>
+
+		<div class="container">
+			<div class="intro">
+				<div
+					class="gallery keep-board-intro"
+					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
+				>
+					<h1>Dev stack</h1>
+					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
+						This site is static HTML, CSS, and a little browser JavaScript. Nothing here is a secret recipe —
+						it is the honest split of tools used to ship fixes and content without turning the repo into a
+						second job.
+					</p>
+				</div>
+			</div>
+
+			<div class="keep-board" aria-label="Development tools">
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Editor</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Cursor</p>
+								<span class="keep-card__cta">Primary IDE + agent workspace</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							Cursor is where almost everything lands: multi-file edits, refactors, navigating this repo,
+							and running the integrated agent against real paths. It is the default for day-to-day
+							changes when I want fast feedback and tight loops with the codebase open beside the chat.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">CLI / IDE</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Codex (OpenAI)</p>
+								<span class="keep-card__cta">Terminal and alternate passes</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							Codex-style workflows get used when a terminal-first pass helps: batch edits, quick
+							scaffolding, or a second opinion after Cursor. Handy when the task is narrow and I already
+							know exactly what to verify afterward.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Assistant</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Claude</p>
+								<span class="keep-card__cta">Long explanations &amp; careful wording</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							Claude is the choice for bigger reasoning chunks: nuanced copy, accessibility wording,
+							structuring a page, or walking trade-offs before touching files. Not tied to one vendor UI —
+							whatever Claude-shaped surface is available for that session.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Experiment</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Antigravity</p>
+								<span class="keep-card__cta">Parallel tries &amp; exploratory UI</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							Antigravity comes out when I want an isolated or experimental pass — mockups, alternate
+							layouts, or ideas that might not ship. Keeps risky “what if” work off the main editing lane
+							until it is worth merging back.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Local</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Ollama</p>
+								<span class="keep-card__cta">Offline drafts on the RTX box</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							Ollama runs locally for first drafts of repetitive HTML/CSS text, list transforms, and bulk
+							summaries where I can verify output immediately. If it is slow or off-topic, I switch back to
+							a hosted model without guilt — local is for savings and privacy-tolerant grunt work, not
+							gatekeeping quality.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+			</div>
+
+			<p style="max-width: 42rem; margin: 1.5rem auto 0; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
+				No API keys or account identifiers belong on a public page — store those in your own password manager and
+				environment, not in git.
+			</p>
+		</div>
+
+		<shared-footer></shared-footer>
+	</body>
+</html>

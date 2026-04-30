@@ -437,7 +437,7 @@ a:hover {
 	max-height: 12rem;
 	color: #ccc;
 	white-space: pre-wrap;
-	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .card-assign-row {

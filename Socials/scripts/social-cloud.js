@@ -120,9 +120,73 @@
 	const SOCIAL_CARD_IDLE_SPIN_MS = 15 * 60 * 1000;
 	const SOCIAL_CARD_IDLE_SPIN_DEG_PER_SEC = 240;
 	const ACH_SOCIAL_DOCK_MOVE = 'social-dock-move';
+	const ACH_SOCIAL_CARD_PIN_AND_MOVE = 'social-card-pin-and-move';
+	const SOCIAL_CARD_PIN_MOVE_PROGRESS_KEY = 'smc-social-card-pin-move-progress-v1';
 	const SOCIAL_CARD_FIDGET_FX_VARIANTS = 6;
 	function pickSocialCardFidgetFxVariant() {
 		return Math.floor(Math.random() * SOCIAL_CARD_FIDGET_FX_VARIANTS);
+	}
+
+	function loadSocialCardPinMoveProgress() {
+		try {
+			const raw = localStorage.getItem(SOCIAL_CARD_PIN_MOVE_PROGRESS_KEY);
+			if (!raw) return { moved: false, pinned: false };
+			const parsed = JSON.parse(raw);
+			return {
+				moved: Boolean(parsed?.moved),
+				pinned: Boolean(parsed?.pinned),
+			};
+		} catch (_err) {
+			return { moved: false, pinned: false };
+		}
+	}
+
+	const socialCardPinMoveProgress = loadSocialCardPinMoveProgress();
+
+	function persistSocialCardPinMoveProgress() {
+		try {
+			localStorage.setItem(
+				SOCIAL_CARD_PIN_MOVE_PROGRESS_KEY,
+				JSON.stringify(socialCardPinMoveProgress)
+			);
+		} catch (_err) {
+			// Ignore storage errors.
+		}
+	}
+
+	function maybeUnlockSocialCardPinMoveAchievement() {
+		if (
+			!socialCardPinMoveProgress.moved ||
+			!socialCardPinMoveProgress.pinned ||
+			typeof window.owenminercsUnlockAchievement !== 'function'
+		) {
+			return;
+		}
+		try {
+			window.owenminercsUnlockAchievement(ACH_SOCIAL_CARD_PIN_AND_MOVE);
+		} catch (_err) {
+			// Achievement unlocks are best-effort and should never break card gestures.
+		}
+	}
+
+	function markSocialCardMoved() {
+		if (socialCardPinMoveProgress.moved) {
+			maybeUnlockSocialCardPinMoveAchievement();
+			return;
+		}
+		socialCardPinMoveProgress.moved = true;
+		persistSocialCardPinMoveProgress();
+		maybeUnlockSocialCardPinMoveAchievement();
+	}
+
+	function markSocialCardPinned() {
+		if (socialCardPinMoveProgress.pinned) {
+			maybeUnlockSocialCardPinMoveAchievement();
+			return;
+		}
+		socialCardPinMoveProgress.pinned = true;
+		persistSocialCardPinMoveProgress();
+		maybeUnlockSocialCardPinMoveAchievement();
 	}
 
 	function applyModeConfig() {
@@ -2658,6 +2722,7 @@
 			function setPinnedHint(text) {
 				openLink.textContent = text;
 				state.isPinned = true;
+				markSocialCardPinned();
 				if (pinnedLayer && card.parentElement !== pinnedLayer) {
 					pinnedLayer.appendChild(card);
 				}
@@ -2930,6 +2995,7 @@
 
 				if (!isDragging) {
 					isDragging = true;
+					markSocialCardMoved();
 					if (dragStartedOnPinStrip) {
 						suppressNextPinStripClick = true;
 					}
