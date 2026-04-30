@@ -748,6 +748,32 @@ body.site-card-ui #top > shared-header + div:not(.container) > h1:first-of-type 
 	max-width: min(100%, calc(100vw - 4px));
 }
 
+/* Keep header-style horizontal geometry during the first header->floating move drag. */
+#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__spin {
+	--site-social-tilt: 0deg;
+}
+
+#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__chrome,
+#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__main,
+#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__links-level {
+	flex-direction: row;
+	align-items: center;
+}
+
+#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__main {
+	padding: 0.18rem 0.38rem;
+}
+
+#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__links-level {
+	gap: 0.26rem;
+	min-height: 0;
+}
+
+#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__link .site-social-nav__icon {
+	width: 19px;
+	height: 19px;
+}
+
 /* Achievement “fidget” turbo: one of several motion presets per trigger (`data-fidget-fx` on `.site-social-nav__spin`). */
 @media (prefers-reduced-motion: no-preference) {
 	#site-support-dock .site-social-nav__spin.is-fidget-turbo {

@@ -1118,6 +1118,7 @@ if (document.readyState === 'loading') {
 
 const SOCIAL_DOCK_POS_KEY = 'owenminercs-social-dock-pos';
 const SOCIAL_DOCK_CUSTOMIZED_CLASS = 'site-support-dock--customized';
+const SOCIAL_DOCK_DRAG_LOCK_CLASS = 'site-support-dock--drag-lock-horizontal';
 
 function querySocialDockHeaderSlot() {
 	return document.querySelector('.site-header-dock-cluster');
@@ -1815,9 +1816,21 @@ function initSiteSocialDragRotate(wrap) {
 function initSiteSupportDockDrag(wrap) {
 	const nav = wrap.querySelector('.site-social-nav--dock');
 	if (!nav) return;
+	const spin = nav.querySelector('.site-social-nav__spin');
 
 	let drag = null;
 	let iceRaf = 0;
+
+	function setHeaderDragLock(enabled) {
+		if (enabled) {
+			wrap.classList.add(SOCIAL_DOCK_DRAG_LOCK_CLASS);
+			spin?.style.setProperty('--site-social-tilt', '0deg');
+			return;
+		}
+		if (!wrap.classList.contains(SOCIAL_DOCK_DRAG_LOCK_CLASS)) return;
+		wrap.classList.remove(SOCIAL_DOCK_DRAG_LOCK_CLASS);
+		spin?.style.removeProperty('--site-social-tilt');
+	}
 
 	function socialDockPrefersIceCoast() {
 		return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1931,6 +1944,7 @@ function initSiteSupportDockDrag(wrap) {
 				} catch (_) {}
 			}
 			const promotedFromHeader = !wrap.classList.contains('site-support-dock--placed');
+			setHeaderDragLock(promotedFromHeader);
 			const r = wrap.getBoundingClientRect();
 			if (!wrap.classList.contains('site-support-dock--placed')) {
 				document.body.appendChild(wrap);
@@ -2006,6 +2020,7 @@ function initSiteSupportDockDrag(wrap) {
 			nav.releasePointerCapture(e.pointerId);
 		} catch (_) {}
 		drag = null;
+		setHeaderDragLock(false);
 
 		if (wasActive) {
 			wrap.classList.remove('site-support-dock--dragging');
@@ -2033,6 +2048,7 @@ function initSiteSupportDockDrag(wrap) {
 		const velX = drag.velX;
 		const velY = drag.velY;
 		drag = null;
+		setHeaderDragLock(false);
 
 		if (wasActive) {
 			wrap.classList.remove('site-support-dock--dragging');
