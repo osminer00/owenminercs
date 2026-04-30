@@ -1,28 +1,16 @@
-# Social Cloud Content + API Handoff
+# Social Cloud Content Feed Runbook
 
 ## Goal
 
-Move the Social Cloud from hardcoded placeholder items to real, auto-updating social posts:
+Keep the Social Cloud on `Socials/socials.html` populated with verified public social posts while preserving the existing animated card interactions.
 
-- YouTube Shorts/videos
-- TikTok posts
-- Instagram posts/reels/photos
-- X (tweets/media posts)
-
-Each card should only show:
-
-1. Content media (photo/video/embed)
-2. Title
-3. Description
-4. Post date
-
-No API secrets can ever be exposed in the frontend (public Cloudflare Pages site).
+The browser renderer is `Socials/scripts/social-cloud.js`; layout and animations live in `Socials/social-cloud.css`.
 
 ---
 
-## Current UI/Interaction State (Already Built)
+## Current UI/Interaction State
 
-Social cloud behavior in `Socials/scripts/social-cloud.js` and `Socials/social-cloud.css` includes:
+The current card behavior includes:
 
 - Floating motion cards with pin/unpin state
 - Click card to pause/pin
@@ -32,159 +20,164 @@ Social cloud behavior in `Socials/scripts/social-cloud.js` and `Socials/social-c
 - Pinned rotate control (outside/top):
     - click = center rotation
     - drag = rotate card
-- External visit links now use explicit "Visit <Platform>" link inside card
+- Explicit "Visit <Platform>" links inside cards
+- Hashtag filters when available
+- Light/full mode selection stored in `localStorage` key `smc-cloud-mode`
+- Visited external links stored in `localStorage` key `smc-visited-links`
+- Idle "fidget spinner" rotation after 15 minutes of no interaction
 - Reduced motion path still supported
 
-The card data source is still local/hardcoded (`socialContentItems`).
+The static fallback card list is `manualSocialContentItems` in `Socials/scripts/social-cloud.js`, but production content should come from the JSON files below.
 
 ---
 
-## Critical Security Requirement
+## Content Sources
 
-This site is public. Treat **all client-side code as visible**.
+`initializeCloud()` merges:
 
-### Must do
+1. Local social JSON files from `Socials/data/`
+2. Top Reddit submissions fetched client-side from the public Reddit JSON endpoint
+3. `manualSocialContentItems` only when no local JSON items load
 
-- Keep API keys/tokens in server-side secrets only.
-- Use Cloudflare server-side components for API calls:
-    - Cloudflare Worker and/or Pages Functions
-    - optionally KV / D1 / R2 for cached feed data
-- Frontend fetches sanitized JSON from your own endpoint only.
+Local files loaded by `fetchLocalSocialContentItems()`:
 
-### Must not do
+| File                                | Producer / owner                      | Notes                                                 |
+| ----------------------------------- | ------------------------------------- | ----------------------------------------------------- |
+| `Socials/data/youtube-shorts.json`  | `scripts/sync-youtube-local-feed.mjs` | Short-form YouTube cards.                             |
+| `Socials/data/youtube-videos.json`  | `scripts/sync-youtube-local-feed.mjs` | Long-form YouTube cards.                              |
+| `Socials/data/x-top-posts.json`     | `scripts/sync-x-top-posts.py`         | Public X media posts, ranked by likes/views/comments. |
+| `Socials/data/tiktok-posts.json`    | `scripts/sync-tiktok-posts.mjs`       | Public TikTok profile videos.                         |
+| `Socials/data/instagram-posts.json` | Manual/static                         | Empty array is valid.                                 |
+| `Socials/data/facebook-posts.json`  | Manual/static                         | Empty array is valid.                                 |
+| `Socials/data/twitch-posts.json`    | Manual/static                         | Empty array is valid.                                 |
 
-- Do not put tokens in JS, HTML, CSS, or public JSON files.
-- Do not commit `.env` secrets to git, even in private repo.
-- Do not call privileged provider APIs directly from browser.
-
----
-
-## Target Architecture (Recommended)
-
-### 1) Aggregator endpoint
-
-Create a server endpoint (Worker or Pages Function), e.g.:
-
-- `GET /api/social-feed`
-
-Response: normalized list of card items ready for frontend rendering.
-
-### 2) Ingestion + cache
-
-Use scheduled ingestion (or webhook when available) to refresh a stored feed:
-
-- fetch from platform APIs with server-side secrets
-- normalize into one schema
-- cache/store in KV or D1
-- `social-cloud.js` fetches this single source
-
-### 3) Frontend rendering
-
-Replace hardcoded `socialContentItems` with fetched feed and graceful fallback.
+The renderer filters candidate cards to posts with at least `101` likes/upvotes via `MIN_SOCIAL_ENGAGEMENT`.
 
 ---
 
-## Normalized Content Schema
+## Local JSON Schema
 
-Use one consistent schema per card:
+Static source files use this compact shape before being normalized by `normalizeLocalSocialSourceItem()`:
 
 ```json
 {
-	"id": "platform_unique_id",
-	"platform": "youtube|tiktok|instagram|x",
-	"contentType": "short|video|reel|photo|tweet",
-	"title": "string",
-	"description": "string",
-	"publishedAt": "ISO-8601",
-	"permalink": "https://...",
-	"media": {
-		"kind": "image|video|embed",
-		"thumbnailUrl": "https://...",
-		"embedUrl": "https://...",
-		"aspectRatio": "16:9"
-	}
+	"platform": "youtube",
+	"contentType": "short",
+	"title": "Learn this Mechanic to Stay Hidden in CS2!",
+	"url": "https://www.youtube.com/shorts/ibGgdhWVHW8",
+	"thumbnail": "https://i.ytimg.com/vi/ibGgdhWVHW8/hqdefault.jpg",
+	"embedUrl": "",
+	"caption": "Short public description or caption",
+	"publishedAt": "2024-08-06T14:03:09.000Z",
+	"viewCount": 16570,
+	"likeCount": 543,
+	"commentCount": 0,
+	"mediaKind": "video",
+	"aspectRatio": "9 / 16"
 }
+```
+
+Constraints:
+
+- `platform` is normalized to lowercase; `twitter` becomes `x`.
+- `url` must be a public `http`/`https` permalink for the visit CTA.
+- `thumbnail` should be public and hotlink-safe enough for a public static site.
+- `aspectRatio` must be CSS ratio text such as `16 / 9`, `9 / 16`, or `586 / 334`.
+- Keep secrets and private scrape credentials out of these files.
+
+---
+
+## Refresh Workflows
+
+Run only the sync needed for the platform being updated:
+
+```bash
+node scripts/sync-youtube-local-feed.mjs
+node scripts/sync-tiktok-posts.mjs
+python3 scripts/sync-x-top-posts.py
 ```
 
 Notes:
 
-- Keep only required fields in UI: media, title, description, date.
-- Preserve `permalink` for "Visit" link.
+- YouTube and TikTok scripts shell out to `yt-dlp`, `py -m yt_dlp`, or `python -m yt_dlp`; install `yt-dlp` locally before running them.
+- The X script reads the username from `scripts/components.js` when possible, pulls public RSS candidates, enriches via `api.fxtwitter.com`, and writes media posts only.
+- Sync scripts overwrite their target JSON files. Review diffs before committing.
+- Do not commit Python `__pycache__` files or scrape scratch files.
 
 ---
 
-## Platform Reality Check (Important)
+## Optional `/api/social-feed` Prototype
 
-Not all platforms offer equal API access for auto-feed usage:
+`functions/api/social-feed.js` exposes `GET /api/social-feed` for Cloudflare Pages-style runtimes. It currently returns YouTube-only normalized cards and is not the active browser feed source.
 
-- **YouTube**: best supported via Data API; practical for auto updates.
-- **X**: API access may require paid tier; verify limits and policy.
-- **Instagram**: official access usually tied to Meta app + business/creator setup.
-- **TikTok**: access depends on approved app/scopes; verify if feed endpoints are available for your account/app type.
+Behavior verified from source:
 
-Plan for partial rollout:
+- Query parameter: `limit`, default `60`, max `200`.
+- Query parameter: `refresh=1` bypasses fresh in-memory cache.
+- Uses YouTube Data API when both `YOUTUBE_API_KEY` and `YOUTUBE_CHANNEL_ID` are set.
+- Falls back to YouTube RSS using `YOUTUBE_CHANNEL_ID` or `YOUTUBE_USERNAME` / `YOUTUBE_HANDLE` (default `OwenMinerCS`).
+- Caches successful payloads in memory for 15 minutes and can return stale cache for up to 24 hours after a refresh failure.
 
-1. Ship YouTube automation first.
-2. Add whichever of X/Instagram/TikTok can be legally and technically supported.
-3. For unsupported platforms, keep manual fallback JSON entries.
+Normalized API response item shape:
 
----
-
-## Implementation Plan For Next Agent
-
-1. Add backend endpoint and secret configuration.
-2. Implement YouTube ingestion (latest uploads/shorts -> normalized schema).
-3. Add feed cache with TTL and stale fallback.
-4. Update frontend to load `/api/social-feed` and render cards from response.
-5. Keep current interactions (drag/resize/rotate/pin) unchanged.
-6. Add platform adapters for X/Instagram/TikTok as access is confirmed.
-7. Add monitoring/logging for failed ingestion jobs.
-
----
-
-## Frontend Change Checklist
-
-- Replace local `socialContentItems` constant with async fetch.
-- Show loading state and fallback cards on failure.
-- Keep existing card controls and accessibility labels.
-- Continue using explicit "Visit <Platform>" link.
-
----
-
-## Security Checklist
-
-- Secrets only in Cloudflare environment vars (server runtime).
-- API responses sanitized (no tokens, no internal IDs that should stay private).
-- CORS restricted to site domain if needed.
-- Rate limit backend endpoint.
-- Cache third-party API results to reduce quota usage and abuse.
+```json
+{
+	"id": "youtube_ibGgdhWVHW8",
+	"platform": "youtube",
+	"contentType": "short",
+	"title": "string up to 120 chars",
+	"description": "string up to 260 chars",
+	"publishedAt": "2024-08-06T14:03:09.000Z",
+	"permalink": "https://www.youtube.com/watch?v=ibGgdhWVHW8",
+	"media": {
+		"kind": "embed",
+		"thumbnailUrl": "https://...",
+		"embedUrl": "https://...",
+		"aspectRatio": "16:9"
+	},
+	"metrics": {
+		"viewCount": 0,
+		"likeCount": 0,
+		"commentCount": 0
+	},
+	"isLive": false
+}
+```
 
 ---
 
-## Suggested Milestones
+## Security Requirements
 
-### Milestone 1 (fast win)
+This site is public. Treat all client-side code and JSON as visible.
 
-- YouTube-only auto cards (title, description, date, media thumbnail/embed)
-- live on `/api/social-feed`
+Must do:
 
-### Milestone 2
+- Keep API keys/tokens in server-side secrets only.
+- Frontend can fetch public JSON or sanitized serverless responses only.
+- Sanitize API responses: no tokens, no private IDs, no dashboard URLs.
 
-- Add one more platform with verified official access
+Must not do:
 
-### Milestone 3
-
-- Full multi-platform automation + reliability hardening
+- Do not put tokens in JS, HTML, CSS, or public JSON files.
+- Do not commit `.env` secrets.
+- Do not call privileged provider APIs directly from the browser.
 
 ---
 
-## Done Criteria
+## Troubleshooting
 
-- New YouTube uploads appear automatically in social cloud without manual edits.
-- No API keys appear in frontend source or network payloads.
-- Existing card interactions still work:
-    - pin/unpin
-    - drag
-    - resize with locked ratio
-    - rotate button click/drag
-- Errors gracefully degrade to cached/manual feed.
+- **Only hardcoded cards appear:** one or more `Socials/data/*.json` files failed to load or all were empty. Check browser network requests and JSON validity.
+- **Cards disappear after sync:** confirm posts meet the `101` engagement threshold and include a usable `url`.
+- **Portrait videos crop oddly:** provide a correct `aspectRatio`; TikTok and YouTube shorts should normally use `9 / 16`.
+- **Reddit videos do not play:** the renderer avoids HLS/DASH streams in plain `<video>` and falls back to Reddit embed URLs when possible.
+- **Low-end devices show fewer cards:** slow connections, Save-Data, reduced motion, or low hardware/memory switch to light mode automatically unless the user stored full mode.
+
+---
+
+## Change Checklist
+
+- Update the relevant JSON source or sync script.
+- Re-run the relevant sync command when source data changes.
+- Verify `Socials/socials.html` loads local JSON over HTTP.
+- Preserve existing interactions: pin/unpin, drag, resize, rotate, hashtag filters, and visit links.
+- Check mobile/reduced-motion behavior when editing animation or card count logic.

@@ -71,8 +71,15 @@ Use Stripe Payment Links if a product needs stronger card-first checkout, requir
 - `section`: `stickers`, `prints`, or `custom-work`.
 - `title`: public product name.
 - `price`: public price label.
+- `priceNumber`: optional numeric value for sorting when `price` is not easy to parse.
+- `status`: `coming-soon`, `tbd`, `available`, or `sold-out`.
+- `availabilityLabel`: optional customer-facing text that overrides the default status label.
+- `paymentProvider`: expected provider for the primary checkout link (`paypal` or `stripe` today).
+- `paypalUrl`, `checkoutUrl`, `buyOnSiteUrl`, `stripeUrl`: optional hosted checkout URLs. `scripts/garage-sale.js` prefers PayPal/generic checkout first and exposes Stripe as an alternate card payment when both are present.
 - `summary`: one short customer-facing description.
 - `details`: bullet points shown on the card.
 - `image`: optional relative image path from the JSON file.
-- `checkoutUrl`: hosted PayPal or Stripe payment link.
+- `imageAlt`: alt text for the product image. Keep this accurate when a real product photo replaces a placeholder.
 - `secondaryUrl` and `secondaryLabel`: optional supporting link.
+
+Only set `status` to `available` when at least one public hosted checkout URL is ready. Empty checkout URLs with `coming-soon`, `tbd`, or `sold-out` keep the card visible without enabling purchase.

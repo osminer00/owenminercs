@@ -9,6 +9,8 @@ Last reviewed: 2026-04-28
 - Serverless helpers also exist in `functions/api/`; check both paths before changing APIs.
 - Shared components live in `scripts/components.js`.
 - Shared CSS lives in `css/owenminercs.css`.
+- Root developer runbook: `README.md`.
+- Q&A mirror runbook: `QA/README.md`.
 
 ## Common Commands
 
