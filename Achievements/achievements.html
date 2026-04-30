@@ -150,11 +150,19 @@
 				font-size: 1.05rem;
 				margin: 0 4.5rem 0.5rem 0;
 				line-height: 1.25;
-				overflow-wrap: anywhere;
+				overflow-wrap: break-word;
 			}
+			/* Row + wrap so per-word .text-word-glow spans (from components.js) flow like a normal
+			   paragraph. flex-direction: column stacked each word on its own line. */
 			.achievement-card__hint {
 				display: flex;
-				align-items: center;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: center;
+				justify-content: flex-start;
+				align-items: baseline;
+				box-sizing: border-box;
+				width: 100%;
 				grid-area: body;
 				min-width: 0;
 				min-height: 10.5rem;
@@ -164,7 +172,7 @@
 				line-height: 1.45;
 				opacity: 0;
 				visibility: hidden;
-				overflow-wrap: anywhere;
+				overflow-wrap: break-word;
 				transition:
 					opacity 0.18s var(--ease-out),
 					visibility 0.18s var(--ease-out);
@@ -263,7 +271,7 @@
 					aria-labelledby="ach-lexicon-title"
 				>
 					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
-					<h2 class="achievement-card__title" id="ach-lexicon-title">Marginalia</h2>
+					<h2 class="achievement-card__title" id="ach-lexicon-title">Bookmark</h2>
 					<p class="achievement-card__hint">
 						Long paragraphs get a per-word glow. Leave a mark on one word — inside a link, try the modifier
 						key.
@@ -298,6 +306,21 @@
 
 				<article
 					class="achievement-card achievement-card--locked"
+					data-achievement="social-card-pin-and-move"
+					aria-labelledby="ach-social-card-pin-and-move-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-social-card-pin-and-move-title">
+						Hands on
+					</h2>
+					<p class="achievement-card__hint">
+						On the Content page, drag any social card, then pin any social card (same card or different
+						card both count).
+					</p>
+				</article>
+
+				<article
+					class="achievement-card achievement-card--locked"
 					data-achievement="social-dock-grand-tour"
 					aria-labelledby="ach-social-dock-grand-tour-title"
 				>
@@ -317,8 +340,8 @@
 					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
 					<h2 class="achievement-card__title" id="ach-main-nav-full-tour-title">Mega nerd</h2>
 					<p class="achievement-card__hint">
-						Load a page in every main nav section at least once: About, Bigfoot's Jungle, Gaming, Upgrades,
-						Donators, Shop, Help Wanted, Q&amp;A, Achievements, and Socials (subpages like CS2 or the
+						Load a page in every main nav section at least once: Home, Bigfoot's Jungle, Gaming,
+						Donators, For sale, Help Wanted, Q&amp;A, Achievements, and Content (subpages like CS2 or the
 						keyboard build count toward their parent tab).
 					</p>
 				</article>

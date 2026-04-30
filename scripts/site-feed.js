@@ -4,9 +4,6 @@
 	if (window.__owenSiteFeedInit) return;
 	window.__owenSiteFeedInit = true;
 
-	const LS_NOTIFY = 'owenminercs-feed-notify-enabled';
-	const LS_LAST_KNOWN = 'owenminercs-feed-lastKnownEntryId';
-	const POLL_MS = 12 * 60 * 1000;
 	const KO_FI_TIP_URL = 'https://ko-fi.com/owenminer';
 	const STREAMELEMENTS_TIP_URL = 'https://streamelements.com/owenminercs/tip';
 
@@ -65,73 +62,6 @@
 		return p.startsWith('/') ? p : `/${p}`;
 	}
 
-	function absoluteFromPath(path) {
-		const p = resolveHref(path);
-		if (/^https?:\/\//i.test(p)) return p;
-		return new URL(p, window.location.origin).href;
-	}
-
-	function readNotifyEnabled() {
-		try {
-			return window.localStorage.getItem(LS_NOTIFY) === '1';
-		} catch (_) {
-			return false;
-		}
-	}
-
-	function setNotifyEnabled(on) {
-		try {
-			if (on) window.localStorage.setItem(LS_NOTIFY, '1');
-			else window.localStorage.removeItem(LS_NOTIFY);
-		} catch (_) {}
-	}
-
-	function readLastKnown() {
-		try {
-			return window.localStorage.getItem(LS_LAST_KNOWN);
-		} catch (_) {
-			return null;
-		}
-	}
-
-	function writeLastKnown(id) {
-		try {
-			if (id) window.localStorage.setItem(LS_LAST_KNOWN, id);
-		} catch (_) {}
-	}
-
-	function notifyNewEntry(entry) {
-		if (!entry || !('Notification' in window) || Notification.permission !== 'granted') return;
-		const abs = absoluteFromPath(entry.path || entry.url || '/');
-		const n = new Notification('New on owenminercs', {
-			body: entry.title,
-			tag: `owen-feed-${entry.id}`,
-			icon: `${getSiteRoot()}images/owenminercs-logo.png`,
-		});
-		n.onclick = () => {
-			window.focus();
-			window.location.href = abs;
-			n.close();
-		};
-	}
-
-	function maybeAlertForNewTop(entries) {
-		if (!Array.isArray(entries) || entries.length === 0) return;
-		const top = entries[0];
-		if (!top || !top.id) return;
-		if (!readNotifyEnabled() || Notification.permission !== 'granted') return;
-
-		const last = readLastKnown();
-		if (last === null || last === undefined) {
-			writeLastKnown(top.id);
-			return;
-		}
-		if (last !== top.id) {
-			notifyNewEntry(top);
-			writeLastKnown(top.id);
-		}
-	}
-
 	function renderFeed(entries) {
 		const list = document.getElementById('site-feed-list');
 		if (!list || !Array.isArray(entries)) return;
@@ -174,61 +104,6 @@
 		});
 	}
 
-	function updateNotifyUi(btn, hint) {
-		if (!btn) return;
-		const insecure =
-			typeof window.isSecureContext === 'boolean' && window.isSecureContext === false;
-		const unsupported = !('Notification' in window) || insecure;
-		const denied = !unsupported && Notification.permission === 'denied';
-		const granted = !unsupported && Notification.permission === 'granted';
-		const on = readNotifyEnabled();
-
-		btn.disabled = unsupported || denied;
-		btn.textContent = unsupported
-			? insecure
-				? 'Alerts need HTTPS'
-				: 'Alerts not supported in this browser'
-			: denied
-				? 'Notifications blocked'
-				: on && granted
-					? 'Turn off update alerts'
-					: 'Enable update alerts';
-
-		if (hint) {
-			if (insecure) {
-				hint.textContent =
-					'Notifications only work on a secure origin (HTTPS or localhost).';
-			} else if (!('Notification' in window)) {
-				hint.textContent =
-					'Your browser does not expose the Notification API (common in some embedded views).';
-			} else if (denied) {
-				hint.textContent =
-					'Unblock notifications for this site in your browser settings if you want alerts when the feed changes.';
-			} else if (granted && on) {
-				hint.textContent =
-					'When you have a page on this site open, we recheck the feed periodically and notify you if a new entry appears at the top. This is not a push service when the tab is closed.';
-			} else {
-				hint.textContent =
-					'Optional: get a desktop notification when a new item is added to the feed (requires the site open in a tab).';
-			}
-		}
-	}
-
-	let pollTimer = null;
-
-	function clearPoll() {
-		if (pollTimer) {
-			window.clearInterval(pollTimer);
-			pollTimer = null;
-		}
-	}
-
-	function schedulePoll(run) {
-		clearPoll();
-		if (!readNotifyEnabled() || Notification.permission !== 'granted') return;
-		pollTimer = window.setInterval(run, POLL_MS);
-	}
-
 	async function run() {
 		const list = document.getElementById('site-feed-list');
 		const errEl = document.getElementById('site-feed-error');
@@ -256,84 +131,10 @@
 		if (errEl) errEl.hidden = true;
 		const entries = Array.isArray(data.entries) ? data.entries : [];
 		renderFeed(entries);
-		maybeAlertForNewTop(entries);
-	}
-
-	function wireNotifyButton(btn, hint) {
-		if (!btn) return;
-
-		btn.addEventListener('click', async () => {
-			if (!('Notification' in window)) return;
-
-			const granted = Notification.permission === 'granted';
-			const on = readNotifyEnabled();
-
-			if (granted && on) {
-				setNotifyEnabled(false);
-				clearPoll();
-				updateNotifyUi(btn, hint);
-				return;
-			}
-
-			if (Notification.permission === 'denied') {
-				updateNotifyUi(btn, hint);
-				return;
-			}
-
-			let perm = Notification.permission;
-			if (perm === 'default') {
-				perm = await Notification.requestPermission();
-			}
-
-			updateNotifyUi(btn, hint);
-
-			if (perm !== 'granted') return;
-
-			setNotifyEnabled(true);
-
-			try {
-				const res = await fetch(feedUrl(), { cache: 'no-store' });
-				if (!res.ok) throw new Error('feed');
-				const data = await res.json();
-				const entries = Array.isArray(data.entries) ? data.entries : [];
-				if (entries[0] && entries[0].id) {
-					writeLastKnown(entries[0].id);
-				}
-			} catch (_) {
-				/* baseline skipped if fetch fails */
-			}
-
-			updateNotifyUi(btn, hint);
-			schedulePoll(run);
-			void run();
-		});
 	}
 
 	function boot() {
-		const btn = document.getElementById('site-feed-notify-btn');
-		const hint = document.getElementById('site-feed-notify-hint');
-		updateNotifyUi(btn, hint);
-		wireNotifyButton(btn, hint);
-
 		void run();
-
-		if (
-			readNotifyEnabled() &&
-			'Notification' in window &&
-			Notification.permission === 'granted'
-		) {
-			schedulePoll(run);
-		}
-
-		document.addEventListener('visibilitychange', () => {
-			if (
-				document.visibilityState === 'visible' &&
-				readNotifyEnabled() &&
-				Notification.permission === 'granted'
-			) {
-				void run();
-			}
-		});
 	}
 
 	if (document.readyState === 'loading') {

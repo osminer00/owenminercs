@@ -7,9 +7,10 @@
 
 	const TITLES = {
 		'trophy-shelf': 'First steps',
-		'lexicon-pin': 'Marginalia',
+		'lexicon-pin': 'Bookmark',
 		'fidget-spinner': 'Fidget spinner',
 		'social-dock-move': 'Twist it',
+		'social-card-pin-and-move': 'Hands on',
 		'social-dock-grand-tour': 'Grand tour',
 		'main-nav-full-tour': 'Mega nerd',
 	};

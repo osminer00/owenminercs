@@ -171,6 +171,13 @@ body.moss-go-body::after {
 #moss-out {
 	flex: 1;
 	padding: 0 0 3rem;
+	--nav-pill-idle-border: rgba(120, 200, 140, 0.18);
+	--nav-pill-accent-fill: rgba(30, 55, 40, 0.45);
+	--nav-pill-accent-ring: rgba(196, 245, 94, 0.45);
+	--nav-pill-accent-glow: 0 0 18px rgba(110, 207, 140, 0.28);
+	--nav-pill-active-fill: rgba(40, 70, 48, 0.55);
+	--nav-pill-active-ring: rgba(196, 245, 94, 0.55);
+	--nav-pill-active-glow: 0 0 22px rgba(110, 207, 140, 0.32);
 }
 
 .moss-error {
@@ -201,16 +208,6 @@ body.moss-go-body::after {
 
 #moss-out .site-rule {
 	border-color: var(--moss-line) !important;
-}
-
-#moss-out {
-	--nav-pill-idle-border: rgba(120, 200, 140, 0.18);
-	--nav-pill-accent-fill: rgba(30, 55, 40, 0.45);
-	--nav-pill-accent-ring: rgba(196, 245, 94, 0.45);
-	--nav-pill-accent-glow: 0 0 18px rgba(110, 207, 140, 0.28);
-	--nav-pill-active-fill: rgba(40, 70, 48, 0.55);
-	--nav-pill-active-ring: rgba(196, 245, 94, 0.55);
-	--nav-pill-active-glow: 0 0 22px rgba(110, 207, 140, 0.32);
 }
 
 #moss-out .site-nav-link.site-nav-link--active {

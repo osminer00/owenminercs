@@ -5,9 +5,10 @@
 		'trophy-shelf': 'Score',
 		'green-thumb': 'Grow',
 		canopy: 'Max',
-		'lexicon-pin': 'Word',
+		'lexicon-pin': 'Mark',
 		'fidget-spinner': 'Spin',
 		'social-dock-move': 'Move',
+		'social-card-pin-and-move': 'Hand',
 		'social-dock-grand-tour': 'Link',
 		'main-nav-full-tour': 'Tour',
 	};

@@ -160,6 +160,9 @@ function recordSocialDockTourClick(anchor) {
 
 const MAIN_NAV_TOUR_PROGRESS_KEY = 'owenminercs-main-nav-tour-v1';
 const ACH_MAIN_NAV_FULL_TOUR = 'main-nav-full-tour';
+const NAV_RETURN_STATE_KEY = 'owenminercs-nav-return-state-v1';
+const NAV_RETURN_SCROLL_KEY = 'owenminercs-nav-return-scroll-v1';
+const NAV_RETURN_MAX_AGE_MS = 1000 * 60 * 60 * 8;
 /** Stable ids matching header/footer `data-nav` (order matches the bar). */
 const MAIN_NAV_TOUR_SLOTS = Object.freeze([
 	'index.html',
@@ -202,7 +205,7 @@ function getMainNavTourSlotFromLocation() {
 	}
 	const lc = currentPath.toLowerCase();
 
-	// About/home only — do not treat `/Socials/` etc. as home (unlike a loose trailing-slash check).
+	// Home (`index.html`) only — do not treat `/Socials/` etc. as home (unlike a loose trailing-slash check).
 	if (currentPath === '/' || currentPath === '' || lc.endsWith('index.html')) {
 		return 'index.html';
 	}
@@ -270,6 +273,149 @@ function recordMainNavTourPageVisit() {
 	}
 }
 
+function readJsonStorage(key) {
+	try {
+		const raw = localStorage.getItem(key);
+		return raw ? JSON.parse(raw) : null;
+	} catch (_) {
+		return null;
+	}
+}
+
+function writeJsonStorage(key, value) {
+	try {
+		localStorage.setItem(key, JSON.stringify(value));
+	} catch (_) {}
+}
+
+function normalizeUrlForMatch(rawUrl) {
+	try {
+		const parsed = new URL(rawUrl, window.location.href);
+		return `${parsed.origin}${parsed.pathname}${parsed.search}`;
+	} catch (_) {
+		return '';
+	}
+}
+
+function captureNavReturnState(anchor) {
+	if (!(anchor instanceof HTMLAnchorElement)) return;
+	if (!anchor.classList.contains('site-nav-link')) return;
+	if (anchor.target && anchor.target !== '_self') return;
+	const href = anchor.getAttribute('href');
+	if (!href) return;
+	let destination;
+	try {
+		destination = new URL(href, window.location.href);
+	} catch (_) {
+		return;
+	}
+	if (destination.origin !== window.location.origin) return;
+
+	const fromUrl = window.location.href;
+	const toUrl = destination.toString();
+	if (normalizeUrlForMatch(fromUrl) === normalizeUrlForMatch(toUrl)) return;
+
+	writeJsonStorage(NAV_RETURN_STATE_KEY, {
+		fromUrl,
+		fromTitle: (document.title || '').trim(),
+		fromScrollX: window.scrollX || 0,
+		fromScrollY: window.scrollY || 0,
+		toUrl,
+		createdAt: Date.now(),
+	});
+}
+
+function applyPendingNavReturnScrollRestore() {
+	const payload = readJsonStorage(NAV_RETURN_SCROLL_KEY);
+	if (!payload || typeof payload !== 'object') return;
+	if (Date.now() - Number(payload.createdAt || 0) > NAV_RETURN_MAX_AGE_MS) {
+		localStorage.removeItem(NAV_RETURN_SCROLL_KEY);
+		return;
+	}
+	const here = normalizeUrlForMatch(window.location.href);
+	const target = normalizeUrlForMatch(payload.targetUrl || '');
+	if (!here || !target || here !== target) return;
+
+	const x = Number(payload.scrollX);
+	const y = Number(payload.scrollY);
+	localStorage.removeItem(NAV_RETURN_SCROLL_KEY);
+	if (!Number.isFinite(x) || !Number.isFinite(y)) return;
+
+	const restore = function () {
+		window.scrollTo(x, y);
+	};
+	requestAnimationFrame(restore);
+	window.setTimeout(restore, 160);
+	window.setTimeout(restore, 420);
+}
+
+function buildNavReturnButton(record) {
+	const wrap = document.createElement('div');
+	wrap.className = 'site-nav-return-popup';
+	wrap.setAttribute('role', 'status');
+	wrap.setAttribute('aria-live', 'polite');
+	const button = document.createElement('button');
+	button.type = 'button';
+	button.className = 'site-nav-return-popup__button';
+	button.textContent = 'Return to where you were';
+	const labelSource = record.fromTitle || 'your previous page';
+	button.setAttribute('aria-label', `Return to ${labelSource}`);
+	button.addEventListener('click', function () {
+		writeJsonStorage(NAV_RETURN_SCROLL_KEY, {
+			targetUrl: record.fromUrl,
+			scrollX: Number(record.fromScrollX) || 0,
+			scrollY: Number(record.fromScrollY) || 0,
+			createdAt: Date.now(),
+		});
+		localStorage.removeItem(NAV_RETURN_STATE_KEY);
+		window.location.href = record.fromUrl;
+	});
+	wrap.appendChild(button);
+	return wrap;
+}
+
+function maybeShowNavReturnButton() {
+	const record = readJsonStorage(NAV_RETURN_STATE_KEY);
+	if (!record || typeof record !== 'object') return;
+	if (Date.now() - Number(record.createdAt || 0) > NAV_RETURN_MAX_AGE_MS) {
+		localStorage.removeItem(NAV_RETURN_STATE_KEY);
+		return;
+	}
+	const current = normalizeUrlForMatch(window.location.href);
+	const expected = normalizeUrlForMatch(record.toUrl || '');
+	const source = normalizeUrlForMatch(record.fromUrl || '');
+	if (!current || !expected || current !== expected || current === source) return;
+	if (document.querySelector('.site-nav-return-popup')) return;
+	document.body.appendChild(buildNavReturnButton(record));
+}
+
+function initMainNavReturnHistory() {
+	if (document.documentElement.dataset.owenNavReturnBound === '1') return;
+	document.documentElement.dataset.owenNavReturnBound = '1';
+	document.addEventListener(
+		'click',
+		function (event) {
+			if (event.defaultPrevented) return;
+			if (event.button !== 0) return;
+			if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+			const target = event.target;
+			const anchor = target && target.closest ? target.closest('a.site-nav-link') : null;
+			if (!anchor) return;
+			captureNavReturnState(anchor);
+		},
+		true
+	);
+	const run = function () {
+		applyPendingNavReturnScrollRestore();
+		maybeShowNavReturnButton();
+	};
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', run, { once: true });
+	} else {
+		run();
+	}
+}
+
 window.owenminercsClearAchievementProgress = function owenminercsClearAchievementProgress() {
 	try {
 		localStorage.removeItem(ACHIEVEMENT_STORAGE_KEY);
@@ -291,7 +437,7 @@ window.owenminercsClearAchievementProgress = function owenminercsClearAchievemen
 	});
 })();
 
-/** Loads homepage “What’s new” feed + optional update checks (see `data/site-feed.json`). */
+/** Loads homepage “What’s new” feed from `data/site-feed.json`. */
 function injectSiteFeedClient() {
 	if (document.querySelector('script[data-owen-site-feed]')) return;
 	const s = document.createElement('script');
@@ -331,54 +477,32 @@ function socialIconSvg(pathD) {
 	return `<svg class="site-social-nav__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="${pathD}"/></svg>`;
 }
 
-const SOCIAL_DOCK_ROTATE_GLYPH_SVG = `<svg class="site-social-nav__rotate-glyph" xmlns="http://www.w3.org/2000/svg" viewBox="-7.5 -0.1 9.5 35.1" width="9" height="32" fill="none" aria-hidden="true" focusable="false">
-  <path d="M 0.5 0.1 L 1.15 2.3 L -0.15 2.3 Z" fill="currentColor" />
-  <path d="M 0.5 2.3 L 0.5 3.5 C -6.2 10.2 -6.2 25.3 0.5 32" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
-</svg>`;
+/** Custom hover/focus labels for social pills (replaces native title tooltips). */
+function socialNavTipMarkup(brandTitle, detailText) {
+	return `<span class="site-social-nav__tip" aria-hidden="true"><span class="site-social-nav__tip-panel"><span class="site-social-nav__tip-title">${brandTitle}</span><span class="site-social-nav__tip-detail">${detailText}</span></span></span>`;
+}
 
+/** Footer (`site-social-nav--footer`), movable `#site-support-dock` (`site-social-nav--dock`), etc. share this HTML. */
 function socialNavMarkup(extraClass) {
 	const p = SOCIAL_ICON_PATHS;
 	const cls = extraClass ? `site-social-nav ${extraClass}` : 'site-social-nav';
-	const isDock = Boolean(extraClass && extraClass.includes('site-social-nav--dock'));
-	const dockDragHint =
-		isDock
-			? ' title="Drag empty space on this bar to move it. Double-click empty space to reset to the default position."'
-			: '';
-	const dockRotateHintAttrs =
-		isDock
-			? ' title="Drag around the bar center to rotate; drag toward or away from the center to resize (same proportions)." aria-label="Rotate and resize the social bar: drag in a circle to spin, drag inward or outward to scale while keeping the same shape."'
-			: '';
-	const rotateHandlesMarkup = isDock
-		? `
-          <button type="button" class="site-social-nav__rotate-handle" data-owen-rotate-handle${dockRotateHintAttrs}>
-            ${SOCIAL_DOCK_ROTATE_GLYPH_SVG}
-          </button>`
-		: '';
-	const rotateHandlesEndMarkup = isDock
-		? `
-          <button type="button" class="site-social-nav__rotate-handle site-social-nav__rotate-handle--end" data-owen-rotate-handle${dockRotateHintAttrs}>
-            ${SOCIAL_DOCK_ROTATE_GLYPH_SVG}
-          </button>`
-		: '';
 	return `
-    <div class="${cls}" role="navigation" aria-label="External social profiles"${dockDragHint}>
+    <div class="${cls}" role="navigation" aria-label="External social profiles">
       <div class="site-social-nav__spin" data-owen-social-spin>
         <span class="site-social-nav__pivot-mark" aria-hidden="true"></span>
         <div class="site-social-nav__chrome">
-          ${rotateHandlesMarkup}
           <div class="site-social-nav__main">
             <div class="site-social-nav__links-level">
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://x.com/OwenMinerCS" title="X: @OwenMinerCS" aria-label="X (Twitter)">${socialIconSvg(p.x)}</a>
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/user/OwenMCS" title="Reddit: OwenMCS" aria-label="Reddit">${socialIconSvg(p.reddit)}</a>
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@OwenMinerCS" title="YouTube: Owen Miner" aria-label="YouTube">${socialIconSvg(p.youtube)}</a>
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.twitch.tv/owenminercs" title="Twitch: owenminercs" aria-label="Twitch">${socialIconSvg(p.twitch)}</a>
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/owenminercs/" title="Instagram: owenminercs" aria-label="Instagram">${socialIconSvg(p.instagram)}</a>
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/profile.php?id=100095719715453" title="Facebook: Owen Miner" aria-label="Facebook">${socialIconSvg(p.facebook)}</a>
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@owenminercs" title="TikTok: @owenminercs" aria-label="TikTok">${socialIconSvg(p.tiktok)}</a>
-            <a class="site-social-nav__link" target="_blank" rel="noopener noreferrer" href="${DISCORD_INVITE_URL}" title="Discord: Owen M community" aria-label="Discord">${socialIconSvg(p.discord)}</a>
+            <a class="site-social-nav__link" data-social-brand="x" target="_blank" rel="noopener noreferrer" href="https://x.com/OwenMinerCS" aria-label="X (Twitter): @OwenMinerCS">${socialIconSvg(p.x)}${socialNavTipMarkup('X (Twitter)', '@OwenMinerCS')}</a>
+            <a class="site-social-nav__link" data-social-brand="reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/user/OwenMCS" aria-label="Reddit: u/OwenMCS">${socialIconSvg(p.reddit)}${socialNavTipMarkup('Reddit', 'u/OwenMCS')}</a>
+            <a class="site-social-nav__link" data-social-brand="youtube" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@OwenMinerCS" aria-label="YouTube: Owen Miner">${socialIconSvg(p.youtube)}${socialNavTipMarkup('YouTube', 'Owen Miner')}</a>
+            <a class="site-social-nav__link" data-social-brand="twitch" target="_blank" rel="noopener noreferrer" href="https://www.twitch.tv/owenminercs" aria-label="Twitch: owenminercs">${socialIconSvg(p.twitch)}${socialNavTipMarkup('Twitch', 'owenminercs')}</a>
+            <a class="site-social-nav__link" data-social-brand="instagram" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/owenminercs/" aria-label="Instagram: @owenminercs">${socialIconSvg(p.instagram)}${socialNavTipMarkup('Instagram', '@owenminercs')}</a>
+            <a class="site-social-nav__link" data-social-brand="facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/profile.php?id=100095719715453" aria-label="Facebook: Owen Miner">${socialIconSvg(p.facebook)}${socialNavTipMarkup('Facebook', 'Owen Miner')}</a>
+            <a class="site-social-nav__link" data-social-brand="tiktok" target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@owenminercs" aria-label="TikTok: @owenminercs">${socialIconSvg(p.tiktok)}${socialNavTipMarkup('TikTok', '@owenminercs')}</a>
+            <a class="site-social-nav__link" data-social-brand="discord" target="_blank" rel="noopener noreferrer" href="${DISCORD_INVITE_URL}" aria-label="Discord: Owen M community">${socialIconSvg(p.discord)}${socialNavTipMarkup('Discord', 'Owen M community')}</a>
             </div>
           </div>
-          ${rotateHandlesEndMarkup}
         </div>
       </div>
     </div>`;
@@ -442,22 +566,26 @@ class SharedHeader extends HTMLElement {
       <header class="site-shared-header">
         <div class="site-shared-header__content">
           <div class="site-header-brand-row">
-            <button type="button" class="site-social-dock-reset" data-owen-social-dock-reset="1" title="Reset social bar position" hidden>Reset Social Bar</button>
+            <span class="site-header-brand-row__balance" aria-hidden="true"></span>
             <a href="${siteRoot}" class="site-logo-link site-logo-link--header" title="owenminercs.com" aria-label="Home">
               <img class="site-logo" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs">
             </a>
+            <div class="site-header-dock-cluster">
+              <button type="button" class="site-social-dock-reset" data-owen-social-dock-reset="1" title="Reset social bar position" hidden>Reset Social Bar</button>
+            </div>
           </div>
           <nav>
             <ul>
-              <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html">About</a></li>
-              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup">Bigfoot's Jungle</a></li>
-              <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="Gaming (Counter-Strike for now)">Gaming</a></li>
-              <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators">Donators</a></li>
-              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale">Shop</a></li>
-              <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted">Help Wanted</a></li>
-              <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA">Q&amp;A</a></li>
+              <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home — bio, intro, and what’s new">Home</a></li>
+              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Bigfoot's Jungle</a></li>
+              <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
+              <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators" title="Supporters, tips, and thank-yous">Donators</a></li>
+              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
+              <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
+              <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
+              <li><a href="${getLink('Dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
-              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials">Content</a></li>
+              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
           </nav>
         </div>
@@ -507,22 +635,28 @@ class SharedFooter extends HTMLElement {
         <div>
           <nav aria-label="Main navigation">
             <ul>
-              <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html">About</a></li>
-              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup">Bigfoot's Jungle</a></li>
-              <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming">Gaming</a></li>
-              <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators">Donators</a></li>
-              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale">Shop</a></li>
-              <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted">Help Wanted</a></li>
-              <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA">Q&amp;A</a></li>
-              <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements">Achievements</a></li>
-              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials">Content</a></li>
+              <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home — bio, intro, and what’s new">Home</a></li>
+              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Bigfoot's Jungle</a></li>
+              <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
+              <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators" title="Supporters, tips, and thank-yous">Donators</a></li>
+              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
+              <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
+              <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
+              <li><a href="${getLink('Dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
+              <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
+              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
           </nav>
         </div>
-        <div class="site-footer-social-bar">
-          ${socialNavMarkup('site-social-nav--footer')}
+        <div class="site-footer-top-row">
+          <div class="site-footer-social-bar">
+            ${socialNavMarkup('site-social-nav--footer')}
+          </div>
+          <div class="site-footer-bug-report">
+            <p class="site-footer-bug-report__line">If you run into any problems on this website, report bugs in the <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+            <p class="site-footer-bug-report__line">Suggestions for the site are welcome there too, so I can track ideas alongside bug reports.</p>
+          </div>
         </div>
-        <p class="site-footer-bug-report">If you run into any problems on this website, report bugs in the <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a>. Suggestions for the site are welcome there too, so I can track ideas alongside bug reports.</p>
         <hr class="site-rule site-rule--spaced">
         <div class="site-footer-meta">
           <div class="site-footer-meta__credits">
@@ -533,10 +667,15 @@ class SharedFooter extends HTMLElement {
 									: ''
 							}
             </h4>
-            <h4 class="site-footer-meta__photos">Feel free to use any photos on this page, with credit to <a href="${siteRoot}" class="site-logo-link site-logo-link--inline" title="owenminercs.com" aria-label="Home"><img class="site-logo site-logo--credit" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs"></a></h4>
+            <h4 class="site-footer-meta__photos">Reach out on <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a> for usage rights on any content on this page. Small creators and individuals are highly encouraged to reach out and I usually give out rights for free! Large companies need to pay for usage for any commercial use including in AI models.</h4>
           </div>
           <div class="site-footer-meta__disclosure">
             <h4 id="Disclosure" class="site-footer-meta__disclosure-heading"><span class="site-footer-meta__disclosure-label">Disclosure:</span> ${disclosureForRight}</h4>
+            <div class="site-footer-meta__home-mark">
+              <a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home">
+                <img class="site-logo site-logo--footer" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs" loading="lazy" decoding="async" />
+              </a>
+            </div>
           </div>
         </div>  
         <hr class="site-rule site-rule--footer-end">
@@ -979,11 +1118,68 @@ if (document.readyState === 'loading') {
 
 const SOCIAL_DOCK_POS_KEY = 'owenminercs-social-dock-pos';
 const SOCIAL_DOCK_CUSTOMIZED_CLASS = 'site-support-dock--customized';
+
+function querySocialDockHeaderSlot() {
+	return document.querySelector('.site-header-dock-cluster');
+}
+
+/** Order: reset button (if any), then dock. Returns false when no header slot exists yet. */
+function appendDockToDefaultSlot(wrap) {
+	const slot = querySocialDockHeaderSlot();
+	if (!slot) return false;
+	const reset = slot.querySelector('[data-owen-social-dock-reset]');
+	if (reset) {
+		reset.after(wrap);
+	} else {
+		slot.appendChild(wrap);
+	}
+	return true;
+}
+
+/** Move dock into `.site-header-dock-cluster` when possible; otherwise fixed near header (same as inject fallback). */
+function relocateSocialDockToDefaultMount(wrap) {
+	if (appendDockToDefaultSlot(wrap)) return;
+	document.body.appendChild(wrap);
+	wrap.classList.add('site-support-dock--placed');
+	requestAnimationFrame(() => {
+		const pos = getSocialDockDefaultViewportPosition(wrap);
+		const c = clampSocialDockToViewport(wrap, pos.left, pos.top);
+		wrap.style.left = `${c.left}px`;
+		wrap.style.top = `${c.top}px`;
+	});
+}
+
+const SOCIAL_DOCK_DRAG_ARIA_DESC =
+	'Drag the middle of the pill to move the bar (you can drag it partly or fully off-screen). Drag near the outer edge of the pill to rotate and resize. Double-click empty space on the bar to reset, or use Reset Social Bar in the header if the bar is off-screen.';
 const SOCIAL_DOCK_DRAG_THRESHOLD_PX = 6;
+/** After release, short “ice” coast — scales pointer speed (keeps glide slow). */
+const SOCIAL_DOCK_ICE_VELOCITY_SCALE = 0.3;
+const SOCIAL_DOCK_ICE_FRICTION_PER_S = 6.2;
+const SOCIAL_DOCK_ICE_MIN_SPEED_PX_S = 7.5;
+const SOCIAL_DOCK_ICE_MAX_COAST_PX = 168;
+const SOCIAL_DOCK_ICE_MIN_FLING_PX_S = 35;
+const SOCIAL_DOCK_ICE_VEL_SMOOTH = 0.4;
 const SOCIAL_DOCK_SCALE_MIN = 0.5;
 const SOCIAL_DOCK_SCALE_MAX = 2;
 /** Avoid unstable ratio when the pointer starts very close to the pivot. */
 const SOCIAL_DOCK_RESIZE_R0_MIN_PX = 6;
+/** Distance from the pill edge (axis-aligned bounds) that counts as an edge drag for rotate/resize */
+const SOCIAL_DOCK_EDGE_ROTATE_PX = 14;
+
+/** True when the pointer lies inside the pill but within {@link SOCIAL_DOCK_EDGE_ROTATE_PX} of its rim */
+function isPointerOnSocialBarEdge(clientX, clientY, mainEl) {
+	if (!(mainEl instanceof Element)) return false;
+	const r = mainEl.getBoundingClientRect();
+	if (r.width < 2 || r.height < 2) return false;
+	const inside =
+		clientX >= r.left && clientX <= r.right && clientY >= r.top && clientY <= r.bottom;
+	if (!inside) return false;
+	const dl = clientX - r.left;
+	const dt = clientY - r.top;
+	const dr = r.right - clientX;
+	const db = r.bottom - clientY;
+	return Math.min(dl, dt, dr, db) <= SOCIAL_DOCK_EDGE_ROTATE_PX;
+}
 
 function clampSocialDockScale(s) {
 	if (!Number.isFinite(s)) return 1;
@@ -997,6 +1193,16 @@ function parseSocialDockTiltDeg(tv) {
 	return Number.isFinite(t) ? t : null;
 }
 
+/** Integer coords for fixed positioning (no viewport clamp — users may drag partially off-screen). */
+function socialDockCoordsRounded(x, y) {
+	return { left: Math.round(x), top: Math.round(y) };
+}
+
+/**
+ * Keeps the dock inside the viewport with a small margin. Use only for **default** anchor
+ * placement (header fallback, resize when not customized). Do not use while dragging — the
+ * iterative correction fights the pointer near edges and feels glitchy.
+ */
 function clampSocialDockToViewport(wrap, x, y) {
 	/* 2px: allow the dock to sit almost flush with the viewport when placed */
 	const margin = 2;
@@ -1042,12 +1248,13 @@ function setSocialDockCustomized(wrap, customized) {
 	}
 }
 
+/** Normalize fractional pixels after a gesture; does not pull the bar back into view. */
 function clampPlacedSocialDockInViewport(wrap) {
 	if (!wrap.classList.contains('site-support-dock--placed')) return;
 	const left = parseFloat(wrap.style.left);
 	const top = parseFloat(wrap.style.top);
 	if (!Number.isFinite(left) || !Number.isFinite(top)) return;
-	const c = clampSocialDockToViewport(wrap, left, top);
+	const c = socialDockCoordsRounded(left, top);
 	wrap.style.left = `${c.left}px`;
 	wrap.style.top = `${c.top}px`;
 }
@@ -1074,11 +1281,13 @@ function applySavedSocialDockPosition(wrap) {
 				Math.abs(pos.tilt) > 0.001);
 		if (!isCustomized) {
 			localStorage.removeItem(SOCIAL_DOCK_POS_KEY);
+			ensureSocialDockDefaultSlotIfUnplaced(wrap);
 			return;
 		}
 		if (typeof pos.left === 'number' && typeof pos.top === 'number') {
+			document.body.appendChild(wrap);
 			wrap.classList.add('site-support-dock--placed');
-			const c = clampSocialDockToViewport(wrap, pos.left, pos.top);
+			const c = socialDockCoordsRounded(pos.left, pos.top);
 			wrap.style.left = `${c.left}px`;
 			wrap.style.top = `${c.top}px`;
 		}
@@ -1155,6 +1364,7 @@ function clearSocialDockPosition(wrap) {
 		spin.style.removeProperty('--site-social-scale');
 		spin.style.removeProperty('--site-social-tilt');
 	}
+	relocateSocialDockToDefaultMount(wrap);
 	try {
 		localStorage.removeItem(SOCIAL_DOCK_POS_KEY);
 	} catch (_) {}
@@ -1166,38 +1376,85 @@ function resetSocialDockToDefault(wrap) {
 	} catch (_) {}
 	clearSocialDockPosition(wrap);
 	ensureSocialDockDefaultSlotIfUnplaced(wrap);
+	applyDefaultSocialDockAnchor(wrap);
 	setSocialDockCustomized(wrap, false);
 	persistSocialDockPosition(wrap);
 }
 
+/** Gap from viewport edge when floating without a header slot (fallback). */
+const SOCIAL_DOCK_VIEWPORT_FALLBACK_GAP_PX = 10;
+
+/**
+ * Reference viewport position for persistence comparisons and rare no-header fallback.
+ * When the dock sits in `.site-header-dock-cluster`, matches that slot on screen.
+ */
 function getSocialDockDefaultViewportPosition(wrap) {
-	const logo = document.querySelector('.site-logo-link--header .site-logo');
-	if (logo) {
-		const logoRect = logo.getBoundingClientRect();
-		if (logoRect.width > 0 && logoRect.height > 0) {
-			return {
-				left: Math.round(logoRect.left),
-				top: Math.round(logoRect.top),
-			};
-		}
+	const margin = 2;
+	if (!(wrap instanceof Element)) {
+		return { left: margin, top: margin };
 	}
-	const r = wrap.getBoundingClientRect();
-	return {
-		left: Math.round(r.left),
-		top: Math.round(r.top),
-	};
+	const slot = querySocialDockHeaderSlot();
+	if (slot && slot.contains(wrap)) {
+		const sr = slot.getBoundingClientRect();
+		const wr = wrap.getBoundingClientRect();
+		const dockW = Math.max(wr.width, 40);
+		const dockH = Math.max(wr.height, 32);
+		let left = Math.round(sr.right - dockW);
+		let top = Math.round(sr.top + (sr.height - dockH) / 2);
+		left = Math.max(margin, Math.min(left, window.innerWidth - margin - dockW));
+		top = Math.max(margin, Math.min(top, window.innerHeight - margin - dockH));
+		return { left, top };
+	}
+	const brand = document.querySelector('.site-header-brand-row');
+	const anchor = brand || document.querySelector('.site-shared-header');
+	if (!anchor) {
+		return { left: margin, top: margin };
+	}
+	const ar = anchor.getBoundingClientRect();
+	const wr = wrap.getBoundingClientRect();
+	const dockW = Math.max(wr.width, 40);
+	const dockH = Math.max(wr.height, 40);
+	let left = Math.round(ar.right - dockW - SOCIAL_DOCK_VIEWPORT_FALLBACK_GAP_PX);
+	left = Math.max(margin, left);
+	let top = Math.round(ar.top + (ar.height - dockH) / 2);
+	return { left, top };
 }
 
-/** When nothing is saved for placement, lock the dock to the logo's top-left default spot. */
-function ensureSocialDockDefaultSlotIfUnplaced(wrap) {
-	if (wrap.classList.contains('site-support-dock--placed')) return;
-	wrap.style.left = '';
-	wrap.style.top = '';
+/**
+ * Recompute default anchor (header-relative) when the dock is not user-customized.
+ * Safe after layout: uses live dock bounds for centering.
+ */
+function applyDefaultSocialDockAnchor(wrap) {
+	if (!(wrap instanceof Element)) return;
+	if (wrap.classList.contains(SOCIAL_DOCK_CUSTOMIZED_CLASS)) return;
+	if (!wrap.classList.contains('site-support-dock--placed')) return;
 	const pos = getSocialDockDefaultViewportPosition(wrap);
-	wrap.classList.add('site-support-dock--placed');
 	const c = clampSocialDockToViewport(wrap, pos.left, pos.top);
 	wrap.style.left = `${c.left}px`;
 	wrap.style.top = `${c.top}px`;
+}
+
+/** Default: dock lives in the header cluster (not fixed / not placed). Body fallback uses `--placed` + coords until the header exists. */
+function ensureSocialDockDefaultSlotIfUnplaced(wrap) {
+	if (wrap.classList.contains(SOCIAL_DOCK_CUSTOMIZED_CLASS)) return;
+	wrap.style.left = '';
+	wrap.style.top = '';
+	if (appendDockToDefaultSlot(wrap)) {
+		wrap.classList.remove('site-support-dock--placed');
+	} else {
+		relocateSocialDockToDefaultMount(wrap);
+	}
+	persistSocialDockPosition(wrap);
+}
+
+/** After `shared-header` connects, move dock from body fallback into `.site-header-dock-cluster`. */
+function syncSocialDockIntoHeaderWhenPossible(wrap) {
+	if (!(wrap instanceof Element)) return;
+	if (wrap.classList.contains(SOCIAL_DOCK_CUSTOMIZED_CLASS)) return;
+	if (!appendDockToDefaultSlot(wrap)) return;
+	wrap.classList.remove('site-support-dock--placed');
+	wrap.style.left = '';
+	wrap.style.top = '';
 	persistSocialDockPosition(wrap);
 }
 
@@ -1241,10 +1498,7 @@ function initSiteSocialDragRotate(wrap) {
 	if (!nav) return;
 	const spin = nav.querySelector('.site-social-nav__spin');
 	const mark = nav.querySelector('.site-social-nav__pivot-mark');
-	const handles = nav.querySelectorAll(
-		'.site-social-nav__rotate-handle[data-owen-rotate-handle]'
-	);
-	if (!spin || !mark || handles.length === 0) return;
+	if (!spin || !mark) return;
 	function readTiltDegFromSpin() {
 		const tv = spin.style.getPropertyValue('--site-social-tilt').trim();
 		const p = parseSocialDockTiltDeg(tv);
@@ -1388,7 +1642,7 @@ function initSiteSocialDragRotate(wrap) {
 	/** @param { boolean } fromCancel */
 	function endRotate(e, fromCancel) {
 		if (!active || e.pointerId !== active.pointerId) return;
-		const { handleEl, samples, posDeg, negDeg } = active;
+		const { samples, posDeg, negDeg } = active;
 		if (!fromCancel) {
 			const p = posDeg > 0 ? posDeg : 0;
 			const n = negDeg > 0 ? negDeg : 0;
@@ -1448,9 +1702,9 @@ function initSiteSocialDragRotate(wrap) {
 			persistSocialDockPosition(wrap);
 		}
 		try {
-			handleEl.releasePointerCapture(e.pointerId);
+			nav.releasePointerCapture(e.pointerId);
 		} catch (_) {}
-		handleEl.classList.remove('is-dragging');
+		nav.classList.remove('site-social-nav--edge-rotating');
 		active = null;
 	}
 	function pushAngleSample(/** @type { { t: number; deg: number; }[] } */ arr) {
@@ -1468,7 +1722,6 @@ function initSiteSocialDragRotate(wrap) {
 	function onPointerDown(e) {
 		if (e.button !== 0) return;
 		stopSpinMomentum();
-		const handleEl = e.currentTarget;
 		const pivot = getPivotFromMark(mark);
 		if (!pivot) return;
 		const a0 = Math.atan2(e.clientY - pivot.y, e.clientX - pivot.x);
@@ -1481,7 +1734,6 @@ function initSiteSocialDragRotate(wrap) {
 			pointerId: e.pointerId,
 			pivot,
 			lastPointerAngle: a0,
-			handleEl,
 			samples: [{ t: t0, deg: currentDeg }],
 			posDeg: 0,
 			negDeg: 0,
@@ -1491,8 +1743,24 @@ function initSiteSocialDragRotate(wrap) {
 			changed: false,
 		};
 		try {
-			handleEl.setPointerCapture(e.pointerId);
+			nav.setPointerCapture(e.pointerId);
 		} catch (_) {}
+	}
+	function onEdgeRotatePointerDown(e) {
+		if (e.pointerType === 'mouse' && e.button !== 0) return;
+		if (e.target.closest('a.site-social-nav__link')) return;
+		/*
+		 * Default header pill is small; most of the hit area reads as “edge” and would
+		 * steal the gesture for rotate/resize. Only enable edge gestures after the user
+		 * has moved the dock at least once (`site-support-dock--customized`).
+		 */
+		if (!wrap.classList.contains(SOCIAL_DOCK_CUSTOMIZED_CLASS)) return;
+		const mainEl = nav.querySelector('.site-social-nav__main');
+		if (!isPointerOnSocialBarEdge(e.clientX, e.clientY, mainEl)) return;
+		e.preventDefault();
+		e.stopPropagation();
+		onPointerDown(e);
+		if (active) nav.classList.add('site-social-nav--edge-rotating');
 	}
 	function onPointerMove(e) {
 		if (!active || e.pointerId !== active.pointerId) return;
@@ -1524,15 +1792,6 @@ function initSiteSocialDragRotate(wrap) {
 			active.changed = true;
 		}
 		setScale(nextScale);
-		if (wrap.classList.contains('site-support-dock--placed')) {
-			const left = parseFloat(wrap.style.left);
-			const top = parseFloat(wrap.style.top);
-			if (Number.isFinite(left) && Number.isFinite(top)) {
-				const c = clampSocialDockToViewport(wrap, left, top);
-				wrap.style.left = `${c.left}px`;
-				wrap.style.top = `${c.top}px`;
-			}
-		}
 	}
 	function onPointerUp(e) {
 		endRotate(e, false);
@@ -1547,15 +1806,10 @@ function initSiteSocialDragRotate(wrap) {
 		},
 		{ capture: true }
 	);
-	for (const handle of handles) {
-		handle.addEventListener('pointerdown', (e) => {
-			onPointerDown(e);
-			if (active) e.currentTarget.classList.add('is-dragging');
-		});
-		handle.addEventListener('pointermove', (e) => onPointerMove(e), { passive: true });
-		handle.addEventListener('pointerup', (e) => onPointerUp(e));
-		handle.addEventListener('pointercancel', (e) => onPointerCancel(e));
-	}
+	nav.addEventListener('pointerdown', onEdgeRotatePointerDown, true);
+	nav.addEventListener('pointermove', (e) => onPointerMove(e), { passive: false });
+	nav.addEventListener('pointerup', (e) => onPointerUp(e));
+	nav.addEventListener('pointercancel', (e) => onPointerCancel(e));
 }
 
 function initSiteSupportDockDrag(wrap) {
@@ -1563,37 +1817,149 @@ function initSiteSupportDockDrag(wrap) {
 	if (!nav) return;
 
 	let drag = null;
+	let iceRaf = 0;
+
+	function socialDockPrefersIceCoast() {
+		return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	}
+
+	function stopIceSlide() {
+		if (!iceRaf) return;
+		cancelAnimationFrame(iceRaf);
+		iceRaf = 0;
+		clampPlacedSocialDockInViewport(wrap);
+		persistSocialDockPosition(wrap);
+	}
+
+	function finalizePlacedDrag() {
+		setSocialDockCustomized(wrap, true);
+		clampPlacedSocialDockInViewport(wrap);
+		persistSocialDockPosition(wrap);
+		unlockSocialDockMoveAchievement();
+		wrap.classList.remove('site-support-dock--dragging');
+	}
+
+	function startIceCoast(vx, vy) {
+		if (iceRaf) {
+			cancelAnimationFrame(iceRaf);
+			iceRaf = 0;
+		}
+		let vxr = vx * SOCIAL_DOCK_ICE_VELOCITY_SCALE;
+		let vyr = vy * SOCIAL_DOCK_ICE_VELOCITY_SCALE;
+		const initialSpeed = Math.hypot(vxr, vyr);
+		if (initialSpeed < SOCIAL_DOCK_ICE_MIN_SPEED_PX_S) {
+			finalizePlacedDrag();
+			return;
+		}
+		let left = parseFloat(wrap.style.left);
+		let top = parseFloat(wrap.style.top);
+		if (!Number.isFinite(left) || !Number.isFinite(top)) {
+			finalizePlacedDrag();
+			return;
+		}
+		let traveled = 0;
+		const maxDist = SOCIAL_DOCK_ICE_MAX_COAST_PX;
+		let lastT = performance.now();
+
+		function frame(now) {
+			const dt = Math.min(1 / 24, Math.max(0.001, (now - lastT) / 1000));
+			lastT = now;
+
+			let dx = vxr * dt;
+			let dy = vyr * dt;
+			let step = Math.hypot(dx, dy);
+			if (step < 0.015) {
+				iceRaf = 0;
+				finalizePlacedDrag();
+				return;
+			}
+			if (traveled + step > maxDist) {
+				const s = (maxDist - traveled) / step;
+				dx *= s;
+				dy *= s;
+				step = maxDist - traveled;
+			}
+			traveled += step;
+			left += dx;
+			top += dy;
+			const c = socialDockCoordsRounded(left, top);
+			wrap.style.left = `${c.left}px`;
+			wrap.style.top = `${c.top}px`;
+			left = c.left;
+			top = c.top;
+
+			const damp = Math.exp(-SOCIAL_DOCK_ICE_FRICTION_PER_S * dt);
+			vxr *= damp;
+			vyr *= damp;
+			const speed = Math.hypot(vxr, vyr);
+			if (speed < SOCIAL_DOCK_ICE_MIN_SPEED_PX_S || traveled >= maxDist - 0.02) {
+				iceRaf = 0;
+				finalizePlacedDrag();
+				return;
+			}
+			iceRaf = requestAnimationFrame(frame);
+		}
+		iceRaf = requestAnimationFrame(frame);
+	}
+
+	wrap.addEventListener('owen-social-dock-reset', () => {
+		stopIceSlide();
+	});
+
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden' && iceRaf) stopIceSlide();
+	});
 
 	function isBackdropPointerTarget(target) {
 		if (!(target instanceof Element)) return false;
 		if (target.closest('a.site-social-nav__link')) return false;
-		if (target.closest('.site-social-nav__rotate-handle')) return false;
 		return Boolean(target.closest('.site-social-nav--dock'));
 	}
 
-	nav.addEventListener('pointerdown', (e) => {
-		if (!isBackdropPointerTarget(e.target)) return;
-		if (e.pointerType === 'mouse' && e.button !== 0) return;
-		const r = wrap.getBoundingClientRect();
-		if (!wrap.classList.contains('site-support-dock--placed')) {
-			wrap.style.left = `${r.left}px`;
-			wrap.style.top = `${r.top}px`;
-			wrap.classList.add('site-support-dock--placed');
-		}
-		const baseLeft = Number.parseFloat(wrap.style.left);
-		const baseTop = Number.parseFloat(wrap.style.top);
-		drag = {
-			pointerId: e.pointerId,
-			originX: e.clientX,
-			originY: e.clientY,
-			baseLeft: Number.isFinite(baseLeft) ? baseLeft : r.left,
-			baseTop: Number.isFinite(baseTop) ? baseTop : r.top,
-			active: false,
-		};
-		try {
-			nav.setPointerCapture(e.pointerId);
-		} catch (_) {}
-	});
+	nav.addEventListener(
+		'pointerdown',
+		(e) => {
+			if (!isBackdropPointerTarget(e.target)) return;
+			if (e.pointerType === 'mouse' && e.button !== 0) return;
+			stopIceSlide();
+			/* Touch browsers may scroll the page instead of delivering movement; keep this in
+			   sync with `#site-support-dock .site-social-nav--dock { touch-action: none }`.
+			   `passive: false` is required for preventDefault to bite on some engines. */
+			if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+				try {
+					e.preventDefault();
+				} catch (_) {}
+			}
+			const promotedFromHeader = !wrap.classList.contains('site-support-dock--placed');
+			const r = wrap.getBoundingClientRect();
+			if (!wrap.classList.contains('site-support-dock--placed')) {
+				document.body.appendChild(wrap);
+				wrap.style.left = `${r.left}px`;
+				wrap.style.top = `${r.top}px`;
+				wrap.classList.add('site-support-dock--placed');
+			}
+			const baseLeft = Number.parseFloat(wrap.style.left);
+			const baseTop = Number.parseFloat(wrap.style.top);
+			drag = {
+				pointerId: e.pointerId,
+				originX: e.clientX,
+				originY: e.clientY,
+				baseLeft: Number.isFinite(baseLeft) ? baseLeft : r.left,
+				baseTop: Number.isFinite(baseTop) ? baseTop : r.top,
+				active: false,
+				promotedFromHeader,
+				lastSampleT: e.timeStamp,
+				lastSampleX: e.clientX,
+				lastSampleY: e.clientY,
+				velX: 0,
+				velY: 0,
+			};
+			try {
+				nav.setPointerCapture(e.pointerId);
+			} catch (_) {}
+		},
+		{ passive: false }
+	);
 
 	nav.addEventListener(
 		'pointermove',
@@ -1611,9 +1977,21 @@ function initSiteSupportDockDrag(wrap) {
 				wrap.classList.add('site-support-dock--dragging');
 			}
 			e.preventDefault();
-			const c = clampSocialDockToViewport(wrap, drag.baseLeft + dx, drag.baseTop + dy);
+			const c = socialDockCoordsRounded(drag.baseLeft + dx, drag.baseTop + dy);
 			wrap.style.left = `${c.left}px`;
 			wrap.style.top = `${c.top}px`;
+
+			const dt = (e.timeStamp - drag.lastSampleT) / 1000;
+			if (dt > 0.001 && dt < 0.22) {
+				const ix = (e.clientX - drag.lastSampleX) / dt;
+				const iy = (e.clientY - drag.lastSampleY) / dt;
+				const a = SOCIAL_DOCK_ICE_VEL_SMOOTH;
+				drag.velX = drag.velX * (1 - a) + ix * a;
+				drag.velY = drag.velY * (1 - a) + iy * a;
+			}
+			drag.lastSampleT = e.timeStamp;
+			drag.lastSampleX = e.clientX;
+			drag.lastSampleY = e.clientY;
 		},
 		{ passive: false }
 	);
@@ -1621,17 +1999,28 @@ function initSiteSupportDockDrag(wrap) {
 	function endPointer(e) {
 		if (!drag || e.pointerId !== drag.pointerId) return;
 		const wasActive = drag.active;
+		const promotedFromHeader = drag.promotedFromHeader;
+		const velX = drag.velX;
+		const velY = drag.velY;
 		try {
 			nav.releasePointerCapture(e.pointerId);
 		} catch (_) {}
-		if (wasActive) {
-			setSocialDockCustomized(wrap, true);
-			clampPlacedSocialDockInViewport(wrap);
-			persistSocialDockPosition(wrap);
-			unlockSocialDockMoveAchievement();
-		}
-		wrap.classList.remove('site-support-dock--dragging');
 		drag = null;
+
+		if (wasActive) {
+			wrap.classList.remove('site-support-dock--dragging');
+			const fling = Math.hypot(velX, velY);
+			if (socialDockPrefersIceCoast() && fling >= SOCIAL_DOCK_ICE_MIN_FLING_PX_S) {
+				startIceCoast(velX, velY);
+			} else {
+				finalizePlacedDrag();
+			}
+		} else if (promotedFromHeader) {
+			wrap.classList.remove('site-support-dock--placed', 'site-support-dock--dragging');
+			wrap.style.left = '';
+			wrap.style.top = '';
+			relocateSocialDockToDefaultMount(wrap);
+		}
 	}
 
 	nav.addEventListener('pointerup', endPointer);
@@ -1639,40 +2028,60 @@ function initSiteSupportDockDrag(wrap) {
 
 	nav.addEventListener('lostpointercapture', (e) => {
 		if (!drag || e.pointerId !== drag.pointerId) return;
-		if (drag.active) {
-			setSocialDockCustomized(wrap, true);
-			clampPlacedSocialDockInViewport(wrap);
-			persistSocialDockPosition(wrap);
-			unlockSocialDockMoveAchievement();
-		}
-		wrap.classList.remove('site-support-dock--dragging');
+		const wasActive = drag.active;
+		const promotedFromHeader = drag.promotedFromHeader;
+		const velX = drag.velX;
+		const velY = drag.velY;
 		drag = null;
+
+		if (wasActive) {
+			wrap.classList.remove('site-support-dock--dragging');
+			const fling = Math.hypot(velX, velY);
+			if (socialDockPrefersIceCoast() && fling >= SOCIAL_DOCK_ICE_MIN_FLING_PX_S) {
+				startIceCoast(velX, velY);
+			} else {
+				finalizePlacedDrag();
+			}
+		} else if (promotedFromHeader) {
+			wrap.classList.remove('site-support-dock--placed', 'site-support-dock--dragging');
+			wrap.style.left = '';
+			wrap.style.top = '';
+			relocateSocialDockToDefaultMount(wrap);
+		}
 	});
 
 	nav.addEventListener('dblclick', (e) => {
-		if (
-			e.target.closest('a.site-social-nav__link') ||
-			e.target.closest('.site-social-nav__rotate-handle')
-		)
-			return;
+		if (e.target.closest('a.site-social-nav__link')) return;
 		resetSocialDockToDefault(wrap);
 	});
 
-	const resetButton = document.querySelector('[data-owen-social-dock-reset]');
-	if (resetButton) {
-		resetButton.addEventListener('click', () => {
+	document.addEventListener(
+		'click',
+		(e) => {
+			const t = e.target;
+			if (!(t instanceof Element)) return;
+			const btn = t.closest('[data-owen-social-dock-reset]');
+			if (!btn) return;
+			e.preventDefault();
 			resetSocialDockToDefault(wrap);
-		});
-	}
+		},
+		true
+	);
 
 	window.addEventListener(
 		'resize',
 		debounce(() => {
+			if (iceRaf) stopIceSlide();
 			if (!wrap.classList.contains('site-support-dock--placed')) return;
+			if (!wrap.classList.contains(SOCIAL_DOCK_CUSTOMIZED_CLASS)) {
+				applyDefaultSocialDockAnchor(wrap);
+				persistSocialDockPosition(wrap);
+				return;
+			}
 			const left = parseFloat(wrap.style.left);
 			const top = parseFloat(wrap.style.top);
 			if (!Number.isFinite(left) || !Number.isFinite(top)) return;
-			const c = clampSocialDockToViewport(wrap, left, top);
+			const c = socialDockCoordsRounded(left, top);
 			wrap.style.left = `${c.left}px`;
 			wrap.style.top = `${c.top}px`;
 			persistSocialDockPosition(wrap);
@@ -1868,6 +2277,7 @@ function initSocialDockEasterEggs(wrap) {
 	}
 	const wrap = document.createElement('div');
 	wrap.id = 'site-support-dock';
+	wrap.setAttribute('aria-description', SOCIAL_DOCK_DRAG_ARIA_DESC);
 	wrap.innerHTML = socialNavMarkup('site-social-nav--dock');
 	if (!document.querySelector('[data-owen-social-dock-reset]')) {
 		const resetButton = document.createElement('button');
@@ -1877,21 +2287,26 @@ function initSocialDockEasterEggs(wrap) {
 		resetButton.setAttribute('title', 'Reset social bar position');
 		resetButton.hidden = true;
 		resetButton.textContent = 'Reset Social Bar';
+		const slot = querySocialDockHeaderSlot();
 		const brandRow = document.querySelector('.site-header-brand-row');
-		const logoLink = brandRow && brandRow.querySelector('.site-logo-link--header');
-		if (brandRow && logoLink) {
-			brandRow.insertBefore(resetButton, logoLink);
+		if (slot) {
+			slot.insertBefore(resetButton, slot.firstChild);
+		} else if (brandRow) {
+			brandRow.appendChild(resetButton);
 		} else {
-			(brandRow || document.body).appendChild(resetButton);
+			document.body.appendChild(resetButton);
 		}
 	}
-	document.body.appendChild(wrap);
 	document.body.classList.add('has-site-support-dock');
 	applySavedSocialDockPosition(wrap);
 	ensureSocialDockDefaultSlotIfUnplaced(wrap);
 	requestAnimationFrame(() => {
 		applySavedSocialDockPosition(wrap);
 		ensureSocialDockDefaultSlotIfUnplaced(wrap);
+		applyDefaultSocialDockAnchor(wrap);
+	});
+	customElements.whenDefined('shared-header').then(() => {
+		syncSocialDockIntoHeaderWhenPossible(wrap);
 	});
 	initSiteSocialDragRotate(wrap);
 	initSiteSupportDockDrag(wrap);
@@ -2328,6 +2743,10 @@ window.owenminercsOpenKofiDonateOverlay = function () {
 	} else {
 		run();
 	}
+})();
+
+(function initMainNavReturnTracking() {
+	initMainNavReturnHistory();
 })();
 
 /**
