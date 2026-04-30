@@ -5,6 +5,7 @@
 	"scripts": {
 		"format": "prettier --write \"**/*.{html,css,js,json,md}\"",
 		"format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
+		"test:content": "node dev/public-content-regression-check.mjs",
 		"lint:css": "stylelint \"**/*.css\" --ignore-path .stylelintignore",
 		"lint:html": "htmlhint \"**/*.html\" --ignore \".claude/**\""
 	},
