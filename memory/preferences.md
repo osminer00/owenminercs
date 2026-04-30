@@ -30,6 +30,9 @@ Last reviewed: 2026-04-28
 
 - Preserve affiliate/support/legal disclosure accuracy.
 - Do not guess real affiliate IDs or private account details.
+- Public profile copy should stay channel/content focused; do not restore the old home-page personal bio block or DMACC/alumni copy on production pages unless the user explicitly asks.
+- Person JSON-LD on production pages should not include `alumniOf` unless there is a new explicit content decision; archived mockups/backups may still contain old bio/DMACC copy.
+- Public FAQ scope is intentionally short: height questions and website bug reporting. Livestream discovery, CS configs, and merch links belong in navigation/Socials/Gaming/content pages, not the embedded FAQ.
 - CS2 skins page preference: focus on expensive/cool skins (not full inventory dump), and include case/container counts.
 - For CS2 Perfect World merch callouts on `Gaming/cs2-merch.html`, use the user's preferred source link: `https://pwrdesports.aliexpress.com/store/1103775565?spm=a2g0o.store_pc_allItems_or_groupList.pcShopHead_2009118762807.0`.
 - Coaching is deferred for later; do not show or add coaching language on public site pages unless the user asks to restore it.
