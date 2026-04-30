@@ -31,6 +31,10 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 - Social cloud data: `Socials/data/` — card chrome layout (date + stats on one line) is a documented preference in `memory/preferences.md`.
 - Photos/posts data: `Photography/photos.json`, `Posts/posts.json`
 
+## Focused Docs
+
+- `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including social dock mount/persistence/drag behavior.
+
 ## Repo Hygiene
 
 - Worktree is often dirty. Do not clean, reset, or delete unrelated files.
