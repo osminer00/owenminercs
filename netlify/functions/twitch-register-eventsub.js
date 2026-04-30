@@ -6,6 +6,29 @@ const SUBSCRIPTION_TYPES = [
 	{ type: 'channel.subscription.gift', version: '1' },
 	{ type: 'channel.cheer', version: '1' },
 ];
+const REGISTER_SECRET_HEADER = 'x-twitch-register-secret';
+
+function timingSafeEqual(a, b) {
+	a = String(a);
+	b = String(b);
+	if (a.length !== b.length) return false;
+	let out = 0;
+	for (let i = 0; i < a.length; i += 1) {
+		out |= a.charCodeAt(i) ^ b.charCodeAt(i);
+	}
+	return out === 0;
+}
+
+function isAuthorizedRequest(headers = {}, expectedSecret) {
+	const headerSecret =
+		headers[REGISTER_SECRET_HEADER] || headers[REGISTER_SECRET_HEADER.toLowerCase()] || '';
+	const authorization = headers.authorization || headers.Authorization || '';
+	const bearerSecret = String(authorization).toLowerCase().startsWith('bearer ')
+		? String(authorization).slice(7).trim()
+		: '';
+	const providedSecret = headerSecret || bearerSecret;
+	return Boolean(providedSecret && expectedSecret && timingSafeEqual(providedSecret, expectedSecret));
+}
 
 async function getAppAccessToken(clientId, clientSecret) {
 	const response = await fetch('https://id.twitch.tv/oauth2/token', {
@@ -53,6 +76,14 @@ function callbackUrl(siteUrl) {
 exports.handler = async function handler(event) {
 	if (event.httpMethod !== 'POST') {
 		return json(405, { error: 'Method not allowed. Use POST.' });
+	}
+
+	const registerSecret = process.env.TWITCH_REGISTER_SECRET || process.env.TWITCH_EVENTSUB_SECRET;
+	if (!registerSecret) {
+		return json(503, { error: 'Twitch EventSub registration is not configured.' });
+	}
+	if (!isAuthorizedRequest(event.headers || {}, registerSecret)) {
+		return json(403, { error: 'Forbidden.' });
 	}
 
 	let clientId;
