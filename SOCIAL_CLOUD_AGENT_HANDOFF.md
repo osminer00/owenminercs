@@ -1,190 +1,148 @@
-# Social Cloud Content + API Handoff
+# Social Cloud Content Runbook
 
-## Goal
+Last reviewed: 2026-04-30
 
-Move the Social Cloud from hardcoded placeholder items to real, auto-updating social posts:
+The Socials area is a static, client-rendered content browser. It does **not** call
+privileged provider APIs from the browser. Public pages read committed JSON feed
+snapshots from `Socials/data/` plus Reddit's public JSON endpoint.
 
-- YouTube Shorts/videos
-- TikTok posts
-- Instagram posts/reels/photos
-- X (tweets/media posts)
+## Current Architecture
 
-Each card should only show:
+| Surface              | Codepath                                                                                               | Purpose                                                                                            |
+| -------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| Animated content hub | `Socials/socials.html`, `Socials/scripts/social-cloud.js`, `Socials/social-cloud.css`                  | Floating cards, lightweight mode, pin/drag/resize/rotate, media playback, hashtag filters.         |
+| All-content index    | `Socials/view-all-content.html`, `Socials/scripts/view-all-content.js`, `Socials/view-all-content.css` | Static grid that groups the same clip/post across platforms and links to each platform copy.       |
+| Feed data            | `Socials/data/*.json`                                                                                  | Sanitized public snapshots for YouTube, X, TikTok, Instagram, Facebook, and Twitch when available. |
+| Shared shell         | `scripts/components.js`, `css/owenminercs.css`                                                         | Header/footer, social dock, shared card styles used by Socials pages.                              |
 
-1. Content media (photo/video/embed)
-2. Title
-3. Description
-4. Post date
+## Feed Files
 
-No API secrets can ever be exposed in the frontend (public Cloudflare Pages site).
+`social-cloud.js` fetches these absolute paths and treats missing/unreachable files
+as empty optional feeds:
 
----
+- `/Socials/data/youtube-shorts.json`
+- `/Socials/data/youtube-videos.json`
+- `/Socials/data/x-top-posts.json`
+- `/Socials/data/instagram-posts.json`
+- `/Socials/data/tiktok-posts.json`
+- `/Socials/data/facebook-posts.json`
+- `/Socials/data/twitch-posts.json`
 
-## Current UI/Interaction State (Already Built)
+`view-all-content.js` reads the same filenames relative to `Socials/`:
 
-Social cloud behavior in `Socials/scripts/social-cloud.js` and `Socials/social-cloud.css` includes:
+- `data/youtube-videos.json`
+- `data/youtube-shorts.json`
+- `data/tiktok-posts.json`
+- `data/x-top-posts.json`
+- `data/instagram-posts.json`
+- `data/facebook-posts.json`
+- `data/twitch-posts.json`
 
-- Floating motion cards with pin/unpin state
-- Click card to pause/pin
-- Top-left `X`-style close control to resume drift
-- Drag card to reposition anywhere
-- 4-corner resize handles (aspect ratio locked)
-- Pinned rotate control (outside/top):
-    - click = center rotation
-    - drag = rotate card
-- External visit links now use explicit "Visit <Platform>" link inside card
-- Reduced motion path still supported
+The animated hub also fetches Reddit from the public JSON endpoint for
+`u/OwenMCS` and filters it through the same card catalog. If all local Socials
+JSON files are empty or fail, the hub falls back to the manual items inside
+`social-cloud.js`.
 
-The card data source is still local/hardcoded (`socialContentItems`).
+## Public Feed Schema
 
----
-
-## Critical Security Requirement
-
-This site is public. Treat **all client-side code as visible**.
-
-### Must do
-
-- Keep API keys/tokens in server-side secrets only.
-- Use Cloudflare server-side components for API calls:
-    - Cloudflare Worker and/or Pages Functions
-    - optionally KV / D1 / R2 for cached feed data
-- Frontend fetches sanitized JSON from your own endpoint only.
-
-### Must not do
-
-- Do not put tokens in JS, HTML, CSS, or public JSON files.
-- Do not commit `.env` secrets to git, even in private repo.
-- Do not call privileged provider APIs directly from browser.
-
----
-
-## Target Architecture (Recommended)
-
-### 1) Aggregator endpoint
-
-Create a server endpoint (Worker or Pages Function), e.g.:
-
-- `GET /api/social-feed`
-
-Response: normalized list of card items ready for frontend rendering.
-
-### 2) Ingestion + cache
-
-Use scheduled ingestion (or webhook when available) to refresh a stored feed:
-
-- fetch from platform APIs with server-side secrets
-- normalize into one schema
-- cache/store in KV or D1
-- `social-cloud.js` fetches this single source
-
-### 3) Frontend rendering
-
-Replace hardcoded `socialContentItems` with fetched feed and graceful fallback.
-
----
-
-## Normalized Content Schema
-
-Use one consistent schema per card:
+Each JSON file is an array of public objects. Keep secrets, private IDs, drafts,
+and raw API payloads out of these files.
 
 ```json
 {
-	"id": "platform_unique_id",
-	"platform": "youtube|tiktok|instagram|x",
-	"contentType": "short|video|reel|photo|tweet",
-	"title": "string",
-	"description": "string",
-	"publishedAt": "ISO-8601",
-	"permalink": "https://...",
-	"media": {
-		"kind": "image|video|embed",
-		"thumbnailUrl": "https://...",
-		"embedUrl": "https://...",
-		"aspectRatio": "16:9"
-	}
+	"platform": "youtube",
+	"contentType": "video",
+	"title": "He's Right Behind You - 4:3 Moment - CS2",
+	"url": "https://www.youtube.com/watch?v=C9e4xtgWftE",
+	"thumbnail": "https://i.ytimg.com/vi/C9e4xtgWftE/hqdefault.jpg",
+	"embedUrl": "",
+	"caption": "Public caption text",
+	"publishedAt": "2024-05-08T00:57:33.000Z",
+	"viewCount": 254820,
+	"likeCount": 3333,
+	"commentCount": 0,
+	"mediaKind": "video",
+	"aspectRatio": "16 / 9"
 }
 ```
 
-Notes:
+Field notes:
 
-- Keep only required fields in UI: media, title, description, date.
-- Preserve `permalink` for "Visit" link.
+- `platform`: normalized platform key. `twitter` is treated as `x` in the all-content page.
+- `contentType`: `short`, `video`, `reel`, `photo`, or similar user-facing type.
+- `url`: required for rendering and grouping.
+- `thumbnail`: optional, but missing thumbnails render as empty cards in the all-content grid.
+- `embedUrl`: optional direct media/embed URL for inline playback.
+- `caption`: used as card body copy and as a source for hashtag chips.
+- `publishedAt`: ISO-like date string. Invalid or missing dates sort/group poorly.
+- `likeCount` / `upvoteCount`: used for inclusion thresholds.
+- `mediaKind` and `aspectRatio`: improve image/video handling and card sizing.
 
----
+## Filtering And Grouping Rules
 
-## Platform Reality Check (Important)
+### Animated hub
 
-Not all platforms offer equal API access for auto-feed usage:
+- `MIN_SOCIAL_ENGAGEMENT` is `101`; non-Reddit posts need at least 101 likes or
+  upvotes, and Reddit posts use upvotes.
+- YouTube items are deduped by YouTube video ID, sorted by a score that combines
+  views, likes, and recency.
+- Livestream-like YouTube content is excluded from the YouTube card group.
+- Hashtag filters are derived from `title`, `caption`, and `description`, then
+  normalized to lowercase `a-z`, `0-9`, and `_`.
+- Known blocked terms in `isBlockedSocialContentItem()` hide specific unwanted
+  content from the card catalog.
 
-- **YouTube**: best supported via Data API; practical for auto updates.
-- **X**: API access may require paid tier; verify limits and policy.
-- **Instagram**: official access usually tied to Meta app + business/creator setup.
-- **TikTok**: access depends on approved app/scopes; verify if feed endpoints are available for your account/app type.
+### All-content page
 
-Plan for partial rollout:
+`view-all-content.js` groups entries with union-find so cross-posts appear once:
 
-1. Ship YouTube automation first.
-2. Add whichever of X/Instagram/TikTok can be legally and technically supported.
-3. For unsupported platforms, keep manual fallback JSON entries.
+- Same platform: same `url`, or same YouTube ID.
+- Different platforms: only video-like items can merge with video-like items, and
+  image-like items can merge with image-like items.
+- Date match: same UTC date and published within `20` hours.
+- Title match: normalized titles of at least 16 characters match within `14` days.
 
----
+The primary action is chosen by platform order: YouTube, YouTube Shorts, TikTok,
+Instagram, X, Facebook, Twitch, then Reddit/unknown platforms.
 
-## Implementation Plan For Next Agent
+## Runtime Preferences And Local Storage
 
-1. Add backend endpoint and secret configuration.
-2. Implement YouTube ingestion (latest uploads/shorts -> normalized schema).
-3. Add feed cache with TTL and stale fallback.
-4. Update frontend to load `/api/social-feed` and render cards from response.
-5. Keep current interactions (drag/resize/rotate/pin) unchanged.
-6. Add platform adapters for X/Instagram/TikTok as access is confirmed.
-7. Add monitoring/logging for failed ingestion jobs.
+- Lightweight mode key: `smc-cloud-mode`
+    - Values: `light`, `full`
+    - Auto-enables on reduced motion, slow connections, save-data, or low-end devices.
+- Visited social links key: `smc-visited-links`
+- Pin-and-move achievement progress key: `smc-social-card-pin-move-progress-v1`
 
----
+These keys are client-only conveniences. The site must keep working when storage
+is unavailable.
 
-## Frontend Change Checklist
+## Updating Feeds
 
-- Replace local `socialContentItems` constant with async fetch.
-- Show loading state and fallback cards on failure.
-- Keep existing card controls and accessibility labels.
-- Continue using explicit "Visit <Platform>" link.
+1. Refresh or edit the relevant file in `Socials/data/`.
+2. Confirm each item has `platform`, `contentType`, `title`, `url`, and `publishedAt`.
+3. Include public engagement counts when the item should appear in the animated hub.
+4. Keep `caption` concise enough for hover/peek text, but do not strip meaningful hashtags.
+5. Test:
+    - `Socials/socials.html` for animated cards, filters, and lightweight mode.
+    - `Socials/view-all-content.html` for grouping count and platform buttons.
 
----
+## Troubleshooting
 
-## Security Checklist
+- **Card missing from animated hub:** verify `likeCount` or `upvoteCount` is at
+  least `101`, `url` is present, and the item is not caught by the blocked-term list.
+- **Card visible on all-content page but not animated hub:** the all-content page
+  does not apply the 101-engagement threshold.
+- **Duplicate cross-posts in all-content:** confirm dates are close enough, titles
+  match after punctuation removal, or the same YouTube ID is present in the URL.
+- **Hashtag filter not shown:** filters only appear when video cards expose hashtags
+  in `title`, `caption`, or `description`.
+- **Inline video does not play:** check `embedUrl`, `mediaKind`, and `aspectRatio`;
+  fallback thumbnail cards should still link out.
 
-- Secrets only in Cloudflare environment vars (server runtime).
-- API responses sanitized (no tokens, no internal IDs that should stay private).
-- CORS restricted to site domain if needed.
-- Rate limit backend endpoint.
-- Cache third-party API results to reduce quota usage and abuse.
+## Security Constraints
 
----
-
-## Suggested Milestones
-
-### Milestone 1 (fast win)
-
-- YouTube-only auto cards (title, description, date, media thumbnail/embed)
-- live on `/api/social-feed`
-
-### Milestone 2
-
-- Add one more platform with verified official access
-
-### Milestone 3
-
-- Full multi-platform automation + reliability hardening
-
----
-
-## Done Criteria
-
-- New YouTube uploads appear automatically in social cloud without manual edits.
-- No API keys appear in frontend source or network payloads.
-- Existing card interactions still work:
-    - pin/unpin
-    - drag
-    - resize with locked ratio
-    - rotate button click/drag
-- Errors gracefully degrade to cached/manual feed.
+- Do not commit provider tokens, cookies, private API responses, or draft-only
+  content to `Socials/data/`.
+- Any future server-side ingestion must sanitize its output down to the public
+  schema above before writing JSON or serving an endpoint.
+- Browser code can only consume public JSON or public unauthenticated endpoints.

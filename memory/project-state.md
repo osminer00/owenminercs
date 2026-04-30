@@ -28,7 +28,7 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 - Shop product drops: `Garage Sale/shop-products.json`
 - Referrals page is temporarily removed; the Mercari referral lives near the top of `Garage Sale/garage-sale.html`.
 - Donator data: `Donators/donators.json`
-- Social cloud data: `Socials/data/` — card chrome layout (date + stats on one line) is a documented preference in `memory/preferences.md`.
+- Social cloud data: `Socials/data/`; current runbook is `SOCIAL_CLOUD_AGENT_HANDOFF.md`. Card chrome layout (date + stats on one line) is a documented preference in `memory/preferences.md`.
 - Photos/posts data: `Photography/photos.json`, `Posts/posts.json`
 
 ## Repo Hygiene
