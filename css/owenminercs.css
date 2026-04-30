@@ -209,15 +209,13 @@ a.site-logo-link:focus-visible {
 		width: 100%;
 		justify-content: center;
 		padding-right: 0;
+		gap: 0.3rem;
 	}
 
 	.site-logo-link--header {
 		order: 2;
 	}
 
-	.site-header-dock-cluster {
-		gap: 0.3rem;
-	}
 }
 
 .text3d {
