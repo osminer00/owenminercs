@@ -19,10 +19,17 @@ function timingSafeEqual(a, b) {
 	return out === 0;
 }
 
+function getHeader(headers, name) {
+	const target = String(name).toLowerCase();
+	for (const [key, value] of Object.entries(headers || {})) {
+		if (String(key).toLowerCase() === target) return value;
+	}
+	return '';
+}
+
 function isAuthorizedRequest(headers = {}, expectedSecret) {
-	const headerSecret =
-		headers[REGISTER_SECRET_HEADER] || headers[REGISTER_SECRET_HEADER.toLowerCase()] || '';
-	const authorization = headers.authorization || headers.Authorization || '';
+	const headerSecret = getHeader(headers, REGISTER_SECRET_HEADER);
+	const authorization = getHeader(headers, 'authorization');
 	const bearerSecret = String(authorization).toLowerCase().startsWith('bearer ')
 		? String(authorization).slice(7).trim()
 		: '';
