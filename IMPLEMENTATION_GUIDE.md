@@ -7,7 +7,8 @@
 1. [HTML Structure](#html-structure)
 2. [JavaScript Helper](#javascript-helper)
 3. [CSS Integration](#css-integration)
-4. [Deployment Checklist](#deployment-checklist)
+4. [Partner Network Site Verification](#partner-network-site-verification)
+5. [Deployment Checklist](#deployment-checklist)
 
 ---
 
@@ -291,6 +292,26 @@ function getFeaturedProducts(page) {
 
 ---
 
+## Partner Network Site Verification
+
+Some affiliate networks verify domain ownership by scanning a public page for a specific
+`<meta>` tag. The current Impact/Govee verification lives in the home page head:
+
+```html
+<!-- index.html -->
+<meta name="impact-site-verification" content="c2720152-1086-48f5-be5e-2dd0f0988bde" />
+```
+
+Guidelines:
+
+- Keep verification tags in `index.html` unless the partner explicitly requires every page.
+- Place them inside `<head>` near the other site metadata so crawlers can read them before page scripts run.
+- Do not move partner verification tokens into `affiliate-links.json`; that file is only for product/link data rendered by `scripts/affiliate-links.js`.
+- Treat verification values like public tokens: they are safe to publish when supplied for HTML verification, but do not invent or guess IDs. Copy them exactly from the partner dashboard.
+- After deployment, verify against the production URL (`https://www.owenminercs.com/`), because most partner crawlers do not check local builds.
+
+---
+
 ## Deployment Checklist
 
 ### Before Going Live:
@@ -299,6 +320,7 @@ function getFeaturedProducts(page) {
 - [ ] Sign up for AliExpress Affiliate program
 - [ ] Get your affiliate links/API keys
 - [ ] Update `affiliate-links.json` with REAL affiliate URLs
+- [ ] Add any required partner site-verification meta tags to `index.html`
 - [ ] Test all affiliate links in incognito mode
 - [ ] Verify affiliate link attribution in account dashboards
 - [ ] Add affiliate stylesheet to all product pages
@@ -306,10 +328,11 @@ function getFeaturedProducts(page) {
 
 ### Files to Modify:
 
-- [ ] `HTML//pc.html` - Add affiliate links for PC components
+- [ ] `PC/pc.html` - Add affiliate links for PC components
 - [ ] `Desk Setup/setup.html` - Add affiliate links for all products
 - [ ] `Keyboard/60he.html` - Add affiliate links for keyboard parts
 - [ ] `index.html` - Optional: add featured products with links
+- [ ] `index.html` - Required for partner verification meta tags
 - [ ] `Counter-Strike/CS.html` - Optional: add recommended products
 
 ### QA Testing:
@@ -391,6 +414,11 @@ function getFeaturedProducts(page) {
 **Q: Affiliate parameters disappearing?**
 
 - A: Some retailers strip parameters. Use direct product ASIN links or official retailer tracking.
+
+**Q: Partner network cannot verify the site?**
+
+- A: Confirm the verification `<meta>` tag is in the deployed `index.html` `<head>`, then view
+  source on `https://www.owenminercs.com/` to make sure the exact partner token is public.
 
 ---
 
