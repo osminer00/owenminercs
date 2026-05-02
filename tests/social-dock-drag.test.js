@@ -111,7 +111,10 @@ class FakeElement {
 
 	closest(selector) {
 		if (selector === 'a.site-social-nav__link') return null;
-		if (selector === '.site-social-nav--dock' && this.classList.contains('site-social-nav--dock')) {
+		if (
+			selector === '.site-social-nav--dock' &&
+			this.classList.contains('site-social-nav--dock')
+		) {
 			return this;
 		}
 		return this.parentNode?.closest(selector) || null;
