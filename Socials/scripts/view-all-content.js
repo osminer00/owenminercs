@@ -263,26 +263,7 @@
 		return '';
 	}
 
-	async function main() {
-		const entries = [];
-		for (const spec of DATA_FILES) {
-			try {
-				const data = await loadJson(spec.path);
-				const rows = flattenPayload(data);
-				for (const row of rows) {
-					if (!row || typeof row !== 'object') continue;
-					const url = String(row.url || '').trim();
-					if (!url) continue;
-					entries.push({
-						...row,
-						platform: normalizePlatform(row.platform) || hintFromPath(spec.path),
-					});
-				}
-			} catch {
-				/* optional files */
-			}
-		}
-
+	function clusterEntries(entries) {
 		const n = entries.length;
 		const uf = new UnionFind(n);
 
@@ -343,10 +324,42 @@
 			const tB = Math.max(...B.map((e) => parseTime(e.publishedAt)));
 			return tB - tA;
 		});
+		return clusters;
+	}
+
+	if (window.__OWEN_ENABLE_TEST_HOOKS__) {
+		window.__owenViewAllContentTestHooks = {
+			clusterEntries,
+			normalizePlatform,
+			extractYoutubeId,
+		};
+	}
+
+	async function main() {
+		const entries = [];
+		for (const spec of DATA_FILES) {
+			try {
+				const data = await loadJson(spec.path);
+				const rows = flattenPayload(data);
+				for (const row of rows) {
+					if (!row || typeof row !== 'object') continue;
+					const url = String(row.url || '').trim();
+					if (!url) continue;
+					entries.push({
+						...row,
+						platform: normalizePlatform(row.platform) || hintFromPath(spec.path),
+					});
+				}
+			} catch {
+				/* optional files */
+			}
+		}
+
+		const clusters = clusterEntries(entries);
 
 		board.innerHTML = clusters.map(renderCard).join('');
 		if (statusEl) {
-			statusEl.textContent = `${clusters.length} grouped posts (${n} total items from feeds).`;
+			statusEl.textContent = `${clusters.length} grouped posts (${entries.length} total items from feeds).`;
 		}
 	}
 
