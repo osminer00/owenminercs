@@ -3,6 +3,7 @@
 	"private": true,
 	"description": "Static site tooling (formatting). Pages remain plain HTML/CSS/JS.",
 	"scripts": {
+		"test": "python3 -m unittest discover -s tests",
 		"format": "prettier --write \"**/*.{html,css,js,json,md}\"",
 		"format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
 		"lint:css": "stylelint \"**/*.css\" --ignore-path .stylelintignore",
