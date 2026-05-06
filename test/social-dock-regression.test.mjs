@@ -41,6 +41,15 @@ function extractCssRuleByPattern(selectorPattern, label) {
 	return match.groups.body;
 }
 
+function extractCssRuleContaining(selector, bodyPattern) {
+	const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	const rulePattern = new RegExp(`${escaped}\\s*\\{(?<body>[\\s\\S]*?)\\}`, 'gm');
+	for (const match of cssSource.matchAll(rulePattern)) {
+		if (bodyPattern.test(match.groups.body)) return match.groups.body;
+	}
+	assert.fail(`${selector} rule containing ${bodyPattern} should exist`);
+}
+
 test('social dock first drag keeps header geometry until the pointer is released', () => {
 	assert.match(
 		componentsSource,
@@ -92,8 +101,9 @@ test('social dock drag-lock CSS mirrors header horizontal layout while fixed', (
 	);
 	assert.match(mainRule, /padding:\s*0\.18rem 0\.38rem;/);
 
-	const linksRule = extractCssRule(
-		'#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__links-level'
+	const linksRule = extractCssRuleContaining(
+		'#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__links-level',
+		/gap:\s*0\.26rem;/
 	);
 	assert.match(linksRule, /gap:\s*0\.26rem;/);
 	assert.match(linksRule, /min-height:\s*0;/);
