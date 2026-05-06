@@ -23,7 +23,7 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 ## Important Data
 
 - Public setup hub name: Bigfoot's Jungle. Keep existing `The Setup/the-setup.html` paths/routes unless the user asks to rename URLs.
-- Affiliate products: `affiliate-links.json`
+- Affiliate products: `affiliate-links.json`; partner network site-verification meta tags belong in `index.html` and are documented in `IMPLEMENTATION_GUIDE.md`.
 - Donation/support links: `donation-links.json`
 - Shop product drops: `Garage Sale/shop-products.json`
 - Referrals page is temporarily removed; the Mercari referral lives near the top of `Garage Sale/garage-sale.html`.
