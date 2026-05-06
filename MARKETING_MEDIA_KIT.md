@@ -76,6 +76,30 @@ Tip (Ko-fi): https://ko-fi.com/owenminer
 
 ---
 
+## Public profile and FAQ maintenance
+
+Keep public-facing profile copy focused on OwenMinerCS channels, CS2, keyboard, PC, and setup content.
+
+- **Production pages:** Do not restore the old home-page personal bio block or DMACC/alumni copy on public pages unless Owen explicitly asks for it.
+- **Structured data:** Person JSON-LD on production pages should include `name`, `url`, `sameAs`, and `jobTitle`. Do not add `alumniOf` back to shared or page-level Person schemas without a new content decision.
+- **Current production codepaths:** `index.html`, `shared/sharedHeadSection.html`, `Desk Setup/setup.html`, `Keyboard/60he.html`, `PC/pc.html`, `Socials/socials.html`, and `Counter-Strike/nosmoking.html`.
+- **Q&A scope:** The embedded FAQ on `index.html` and `QA/qa.html` is intentionally short: height questions and the website bug-report path. Livestream discovery, Counter-Strike configs, and merch links belong in navigation, Socials, Gaming, or content pages instead of the FAQ.
+- **Mockups/backups:** Files under `mockups/` and `backup-pre-the-setup-2026-04-08/` may still contain archived bio/DMACC copy. Treat those as non-production references unless a mockup is promoted.
+
+Example Person JSON-LD shape:
+
+```json
+{
+  "@type": "Person",
+  "name": "Owen Miner",
+  "url": "https://www.owenminercs.com/",
+  "sameAs": ["https://x.com/OwenMinerCS", "https://www.youtube.com/@OwenMinerCS"],
+  "jobTitle": "Content Creator & Software Developer"
+}
+```
+
+---
+
 ## Post-launch checklist (SEO)
 
 1. In [Google Search Console](https://search.google.com/search-console), add the property `https://www.owenminercs.com/` (URL-prefix or domain).
