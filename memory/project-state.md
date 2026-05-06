@@ -1,6 +1,6 @@
 # Project State
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-05-06
 
 ## Stack
 
@@ -16,6 +16,8 @@ Last reviewed: 2026-04-28
 node .\dev\media-accessibility-check.mjs
 npm run format:check
 npm run lint:css
+npm test
+npm run test:content
 ```
 
 Use only commands relevant to the change. Some scripts need local credentials, local files, or network access.
