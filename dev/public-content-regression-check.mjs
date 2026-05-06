@@ -17,7 +17,13 @@ const EXCLUDED_DIRS = new Set([
 	'node_modules',
 	'package',
 ]);
-const EXCLUDED_FILES = new Set(['package-lock.json', 'package.json']);
+const EXCLUDED_FILES = new Set([
+	'package-lock.json',
+	'package.json',
+	// Generated search artifacts (matched by basename below; may embed stale snippets locally)
+	'site-search-index.json',
+	'search-manual-keywords.json',
+]);
 
 const FORBIDDEN_PUBLIC_CONTENT = [
 	{

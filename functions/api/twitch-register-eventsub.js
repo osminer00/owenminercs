@@ -9,6 +9,8 @@ const SUBSCRIPTION_TYPES = [
 ];
 
 function timingSafeEqual(a, b) {
+	a = String(a);
+	b = String(b);
 	if (a.length !== b.length) return false;
 	let out = 0;
 	for (let i = 0; i < a.length; i += 1) {
