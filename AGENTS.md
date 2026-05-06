@@ -33,6 +33,7 @@ Key files:
 - `_redirects` - Netlify redirects
 - `sitemap.xml`, `robots.txt` - manually maintained
 - `affiliate-links.json`, `donation-links.json` - support/affiliate data
+- `SITE_CHROME_GUIDE.md` - shared header/footer, Social Cloud chrome, and verification metadata docs
 
 Important areas:
 

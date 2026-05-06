@@ -9,6 +9,7 @@ Last reviewed: 2026-04-28
 - Serverless helpers also exist in `functions/api/`; check both paths before changing APIs.
 - Shared components live in `scripts/components.js`.
 - Shared CSS lives in `css/owenminercs.css`.
+- Shared header/footer, Social Cloud chrome overrides, and home-page verification metadata are documented in `SITE_CHROME_GUIDE.md`.
 
 ## Common Commands
 
