@@ -35,6 +35,8 @@ http://www.owenminercs.com/*  https://www.owenminercs.com/:splat  301!
 /music.html    /   301
 /Music/music    /   301
 /Music/music.html    /   301
+/Dev/dev-stack    /dev/dev-stack   301!
+/Dev/dev-stack.html    /dev/dev-stack   301!
 
 /Desk%20Setup/setup    /The%20Setup/the-setup   301!
 /Desk%20Setup/setup.html    /The%20Setup/the-setup   301!

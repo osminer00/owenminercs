@@ -583,7 +583,7 @@ class SharedHeader extends HTMLElement {
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
               <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
-              <li><a href="${getLink('Dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
+              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
               <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
@@ -642,7 +642,7 @@ class SharedFooter extends HTMLElement {
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
               <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
-              <li><a href="${getLink('Dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
+              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
               <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
