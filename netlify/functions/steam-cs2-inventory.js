@@ -3,7 +3,9 @@ const STEAM_COMMUNITY_BASE = 'https://steamcommunity.com';
 const CS2_APP_ID = 730;
 const CS2_CONTEXT_ID = 2;
 const MAX_PAGE_COUNT = 8;
-const MAX_FETCH_COUNT = 2000;
+const MAX_FETCH_COUNT = 250;
+const MAX_PRICED_ITEMS = 300;
+const MAX_PRICE_LOOKUPS = 80;
 const DEFAULT_EXPENSIVE_MIN = 100;
 const PRICE_CURRENCY_USD = 1;
 const MARKET_PRICE_ENDPOINT = `${STEAM_COMMUNITY_BASE}/market/priceoverview/`;
@@ -165,7 +167,15 @@ async function fetchPriceOverview(marketHashName) {
 }
 
 async function enrichItemsWithPricing(items) {
-	const uniqueNames = [...new Set(items.map((item) => item.marketHashName).filter(Boolean))];
+	const pricedItems = items.filter((item) => {
+		return (
+			item?.marketHashName &&
+			(isSkinLikeItem(item) || isContainerItem(item) || isCoolItem(item))
+		);
+	});
+	const uniqueNames = [
+		...new Set(pricedItems.slice(0, MAX_PRICED_ITEMS).map((item) => item.marketHashName)),
+	].slice(0, MAX_PRICE_LOOKUPS);
 	const pricingMap = new Map();
 	for (const marketHashName of uniqueNames) {
 		const pricing = await fetchPriceOverview(marketHashName);

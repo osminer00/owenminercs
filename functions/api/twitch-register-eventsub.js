@@ -1,11 +1,29 @@
 import { callbackUrl, json, requireEnv, safeJsonParse } from './_twitch-utils';
 
+const REGISTER_SECRET_HEADER = 'x-twitch-register-secret';
 const SUBSCRIPTION_TYPES = [
 	{ type: 'channel.follow', version: '2' },
 	{ type: 'channel.subscribe', version: '1' },
 	{ type: 'channel.subscription.gift', version: '1' },
 	{ type: 'channel.cheer', version: '1' },
 ];
+
+function timingSafeEqual(a, b) {
+	if (a.length !== b.length) return false;
+	let out = 0;
+	for (let i = 0; i < a.length; i += 1) {
+		out |= a.charCodeAt(i) ^ b.charCodeAt(i);
+	}
+	return out === 0;
+}
+
+function isAuthorizedRequest(request, expectedSecret) {
+	const headerSecret = request?.headers?.get(REGISTER_SECRET_HEADER) || '';
+	const bearer = request?.headers?.get('authorization') || '';
+	const bearerSecret = bearer.toLowerCase().startsWith('bearer ') ? bearer.slice(7).trim() : '';
+	const providedSecret = headerSecret || bearerSecret;
+	return Boolean(providedSecret && expectedSecret && timingSafeEqual(providedSecret, expectedSecret));
+}
 
 async function getAppAccessToken(clientId, clientSecret) {
 	const response = await fetch('https://id.twitch.tv/oauth2/token', {
@@ -46,7 +64,15 @@ async function twitchHelix(url, token, clientId, method = 'GET', body = null) {
 }
 
 export async function onRequestPost(context) {
-	const { env } = context;
+	const { env, request } = context;
+	const registerSecret = env?.TWITCH_REGISTER_SECRET || env?.TWITCH_EVENTSUB_SECRET;
+	if (!registerSecret) {
+		return json({ error: 'Twitch EventSub registration is not configured.' }, 503);
+	}
+	if (!isAuthorizedRequest(request, registerSecret)) {
+		return json({ error: 'Forbidden.' }, 403);
+	}
+
 	let clientId;
 	let clientSecret;
 	let secret;
