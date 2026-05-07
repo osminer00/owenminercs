@@ -1,53 +1,11 @@
 {
 	"entries": [
 		{
-			"id": "2026-04-28-shop-drops",
-			"date": "2026-04-28",
-			"title": "Signed sticker and print shop prep",
-			"summary": "Shop stickers, prints, custom sewing placeholders, and resale rows load together into the For Sale grid on the shop page (#for-sale).",
-			"path": "/Garage%20Sale/garage-sale.html#for-sale"
-		},
-		{
-			"id": "2026-04-24-site-feed",
-			"date": "2026-04-24",
-			"title": "What’s new feed & optional browser alerts",
-			"summary": "Changelog-style list on the homepage, plus optional notifications when this feed changes.",
-			"path": "/#whats-new"
-		},
-		{
-			"id": "2026-04-01-donators",
-			"date": "2026-04-01",
-			"title": "Donators wall",
-			"summary": "Thank-you page for supporters with Ko-fi and StreamElements tips.",
-			"path": "/Donators/donators.html"
-		},
-		{
-			"id": "2026-03-20-garage-sale",
-			"date": "2026-03-20",
-			"title": "Shop hub",
-			"summary": "Resale links for eBay, Depop, Mercari, and Vinted.",
-			"path": "/Garage%20Sale/garage-sale.html"
-		},
-		{
-			"id": "2026-03-01-gaming-hub",
-			"date": "2026-03-01",
-			"title": "Gaming section",
-			"summary": "Counter-Strike hub: Faceit, merch, wallpapers, config explainers, and more.",
-			"path": "/Gaming/gaming.html"
-		},
-		{
-			"id": "2026-02-15-the-setup",
-			"date": "2026-02-15",
-			"title": "The Setup hub",
-			"summary": "Desk, monitors, peripherals, and the custom gaming PC write-up.",
-			"path": "/The%20Setup/the-setup.html"
-		},
-		{
-			"id": "2026-01-10-60he",
-			"date": "2026-01-10",
-			"title": "Wooting 60HE keyboard build",
-			"summary": "Parts, switches, silicone pour, and sound tuning notes.",
-			"path": "/Keyboard/60he.html"
+			"id": "2026-05-omcs-v2",
+			"date": "2026-05-02",
+			"title": "Owen Miner CS V2",
+			"summary": "Complete site rework. New pages, new features, more to come. Check the Discord for news on website updates.",
+			"path": "https://discord.gg/fA9GbxmAge"
 		}
 	]
 }

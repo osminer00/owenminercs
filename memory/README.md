@@ -9,6 +9,7 @@ Use it like a growing project brain:
 - `issues.md` - active bugs, recurring problems, diagnosis notes
 - `decisions.md` - architectural/design decisions and why
 - `updates.md` - short chronological log of important memory changes
+- `future-work.md` - deferred tasks and content ideas (read when planning or when the user asks for backlog/reminders)
 - `archive/` - stale memories and old handoffs
 
 Memory should be concise, factual, and reusable. Update these files when new durable information appears.

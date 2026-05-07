@@ -1,5 +1,9 @@
 # Memory Updates
 
+## 2026-05-02
+
+- Added `memory/future-work.md` as a personal backlog/reminders file; linked from `AGENTS.md` and `memory/README.md`.
+
 ## 2026-04-28
 
 - Added `AGENTS.md` as the canonical cross-platform entry point.

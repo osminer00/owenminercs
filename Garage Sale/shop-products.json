@@ -1,9 +1,12 @@
 {
 	"payment": {
-		"preferredProvider": "paypal",
-		"fallbackProvider": "stripe",
-		"model": "hosted-checkout-links",
-		"publicNote": "Sticker and print drops use PayPal or Stripe checkout here when live. The same items may appear on eBay for discovery — buying direct keeps more of your purchase out of marketplace fees.",
+		"preferredProvider": "stripe",
+		"fallbackProvider": "paypal",
+		"model": "stripe-checkout-session",
+		"checkoutApi": {
+			"stripeEndpoint": "/api/shop-checkout"
+		},
+		"publicNote": "Sticker and print checkout runs on Stripe (cards, Apple/Google Pay, Link). Prices and SKUs are confirmed server-side — no manual payment links. The same items may appear on eBay for discovery.",
 		"hostedCheckout": {
 			"primaryCtaLabel": "Checkout",
 			"alternateCtaLabel": "Pay with card"
@@ -57,9 +60,9 @@
 			"title": "Signed Sticker Pack (3-pack)",
 			"eyebrow": "USPS envelope",
 			"price": "$6 shipped in the U.S.",
-			"status": "coming-soon",
-			"availabilityLabel": "Checkout opening soon",
-			"paymentProvider": "paypal",
+			"status": "available",
+			"checkoutBackend": "stripe",
+			"paymentProvider": "stripe",
 			"image": "../images/owenminercs-logo.png",
 			"imageAlt": "OwenMinerCS logo sticker preview",
 			"summary": "Three small OwenMinerCS stickers printed and packed at home, with a signed insert and U.S. envelope shipping included.",
@@ -79,9 +82,9 @@
 			"title": "Signed Photo Print (5x7)",
 			"eyebrow": "Tracked USPS mailer",
 			"price": "$16 shipped in the U.S.",
-			"status": "coming-soon",
-			"availabilityLabel": "Checkout opening soon",
-			"paymentProvider": "paypal",
+			"status": "available",
+			"checkoutBackend": "stripe",
+			"paymentProvider": "stripe",
 			"image": "../images/DSC01093.webp",
 			"imageAlt": "Photography print preview",
 			"summary": "A 5x7 photo print from Owen's archive, printed at home, signed, and shipped in protective packaging.",
@@ -101,9 +104,9 @@
 			"title": "Signed Art Print (8x10)",
 			"eyebrow": "Tracked USPS mailer",
 			"price": "$24 shipped in the U.S.",
-			"status": "coming-soon",
-			"availabilityLabel": "Checkout opening soon",
-			"paymentProvider": "paypal",
+			"status": "available",
+			"checkoutBackend": "stripe",
+			"paymentProvider": "stripe",
 			"image": "../images/Desktop_background/No Smoking Logo Desktop Background Agent K CS2 Light theme.webp",
 			"imageAlt": "No Smoking art print preview",
 			"summary": "An 8x10 print of wallpaper or art pieces from older OwenMinerCS projects, signed and shipped from home.",
@@ -114,7 +117,7 @@
 				"Artwork list can rotate by drop"
 			],
 			"checkoutUrl": "",
-			"secondaryUrl": "../Gaming/cs2-wallpapers.html",
+			"secondaryUrl": "../Counter-Strike/nosmoking.html",
 			"secondaryLabel": "See wallpapers"
 		},
 		{

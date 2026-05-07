@@ -44,3 +44,20 @@ http://www.owenminercs.com/*  https://www.owenminercs.com/:splat  301!
 /PC/pc.html    /The%20Setup/the-setup   301!
 /Counter-Strike/CS    /Gaming/gaming   301!
 /Counter-Strike/CS.html    /Gaming/gaming   301!
+
+/Gaming/cs2-wallpapers    /Counter-Strike/nosmoking   301
+/Gaming/cs2-wallpapers.html    /Counter-Strike/nosmoking   301
+
+# Merged setup detail pages → combined destinations
+/The%20Setup/camera-cage    /The%20Setup/camera#camera-cage-zve10   301
+/The%20Setup/camera-cage.html    /The%20Setup/camera.html#camera-cage-zve10   301
+/The%20Setup/tripod-full-height    /The%20Setup/tripod#tripod-full-height   301
+/The%20Setup/tripod-full-height.html    /The%20Setup/tripod.html#tripod-full-height   301
+/The%20Setup/tripod-desk-mini    /The%20Setup/tripod#tripod-desk-mini   301
+/The%20Setup/tripod-desk-mini.html    /The%20Setup/tripod.html#tripod-desk-mini   301
+
+/The%20Setup/desks    /The%20Setup/furniture   301
+/The%20Setup/desks.html    /The%20Setup/furniture   301
+
+/Keyboard/wooting-60he-v1    /Keyboard/60he-2023    301
+/Keyboard/wooting-60he-v1.html    /Keyboard/60he-2023    301

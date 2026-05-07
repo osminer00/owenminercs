@@ -19,11 +19,11 @@
 			gtag('js', new Date());
 			gtag('config', 'G-GYG1QRQ8DY');
 		</script>
-		<title>Dev stack | Owen Miner</title>
+		<title>Programs | Owen Miner</title>
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="How owenminercs.com is edited and maintained: Cursor, Codex, Claude, Antigravity, Ollama — roles and when each is used."
+			content="Programs Owen uses: coding stack (Cursor, Codex, Claude, Antigravity, Ollama), Adobe Creative Cloud, GIMP, OBS, and open-source multi-streaming."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
@@ -42,16 +42,23 @@
 					class="gallery keep-board-intro"
 					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
 				>
-					<h1>Dev stack</h1>
+					<h1>Programs</h1>
 					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
-						This site is static HTML, CSS, and a little browser JavaScript. Nothing here is a secret recipe —
-						it is the honest split of tools used to ship fixes and content without turning the repo into a
-						second job.
+						Software I actually open — from shipping this static site to editing video and going live. Nothing
+						here is sponsored; it is the honest split of what sits on disk when work needs to get done.
 					</p>
 				</div>
 			</div>
 
-			<div class="keep-board" aria-label="Development tools">
+			<h2 id="coding" style="font-size: 1.15rem; margin: 1.75rem 0 0.75rem; text-align: center">Coding &amp; development</h2>
+			<p style="max-width: 42rem; margin: 0 auto 1rem; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
+				This site is HTML, CSS, and a little browser JavaScript. On <strong>Cursor Pro+</strong> ($60/mo as of
+				May&nbsp;2026) to finish it; <strong>ChatGPT</strong> for planning; <strong>Gemini</strong> for everyday
+				Q&amp;A. I tried OpenClaw on Ubuntu in a VM — interesting, but API spend added up fast; local-only was not
+				enough for the heavy lifting I need right now.
+			</p>
+
+			<div class="keep-board" aria-label="Coding and development tools">
 				<article class="keep-card keep-card--static">
 					<span class="keep-card__inner">
 						<div class="keep-card__scalable">
@@ -64,9 +71,9 @@
 					>
 					<div class="keep-card__peek">
 						<p>
-							Cursor is where almost everything lands: multi-file edits, refactors, navigating this repo,
-							and running the integrated agent against real paths. It is the default for day-to-day
-							changes when I want fast feedback and tight loops with the codebase open beside the chat.
+							Cursor is my main editor: multi-file edits, refactors, this repo, and the integrated agent on
+							real paths. I upgraded to <strong>Pro+</strong> so hosted models and agents have enough
+							headroom to finish the site without constantly bouncing to other tools.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
@@ -75,18 +82,20 @@
 				<article class="keep-card keep-card--static">
 					<span class="keep-card__inner">
 						<div class="keep-card__scalable">
-							<div class="keep-card__video-slot">CLI / IDE</div>
+							<div class="keep-card__video-slot">Fallback</div>
 							<div class="keep-card__body">
 								<p class="keep-card__label">Codex (OpenAI)</p>
-								<span class="keep-card__cta">Terminal and alternate passes</span>
+								<span class="keep-card__cta">Backup when Cursor limits bite</span>
 							</div>
 						</div></span
 					>
 					<div class="keep-card__peek">
 						<p>
-							Codex-style workflows get used when a terminal-first pass helps: batch edits, quick
-							scaffolding, or a second opinion after Cursor. Handy when the task is narrow and I already
-							know exactly what to verify afterward.
+							When I hit Cursor usage limits, Codex-style workflows are the first fallback. I use
+							<strong>Visual Studio Code</strong> for that lane. For Codex together with cloud-oriented
+							integrations, I reach for full <strong>Visual Studio</strong> instead — same family of tools,
+							different shell depending on whether I am in a light editor session or a heavier VS + cloud
+							setup.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
@@ -98,15 +107,18 @@
 							<div class="keep-card__video-slot">Assistant</div>
 							<div class="keep-card__body">
 								<p class="keep-card__label">Claude</p>
-								<span class="keep-card__cta">Long explanations &amp; careful wording</span>
+								<span class="keep-card__cta">Paused — may come back</span>
 							</div>
 						</div></span
 					>
 					<div class="keep-card__peek">
 						<p>
-							Claude is the choice for bigger reasoning chunks: nuanced copy, accessibility wording,
-							structuring a page, or walking trade-offs before touching files. Not tied to one vendor UI —
-							whatever Claude-shaped surface is available for that session.
+							I gave the Claude app and the Visual Studio integrations a real try. The experience was solid,
+							but the lower paid tier ran out of usage too quickly for what I was doing, so I canceled for
+							now. I might resubscribe later — especially after seeing <strong>Premiere Pro</strong>
+							integrations show up (the Adobe video tool is covered below), which looked genuinely useful.
+							For Claude-shaped help today I lean on Antigravity via the Gemini stack instead of a standalone
+							Claude subscription.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
@@ -115,18 +127,21 @@
 				<article class="keep-card keep-card--static">
 					<span class="keep-card__inner">
 						<div class="keep-card__scalable">
-							<div class="keep-card__video-slot">Experiment</div>
+							<div class="keep-card__video-slot">Third lane</div>
 							<div class="keep-card__body">
-								<p class="keep-card__label">Antigravity</p>
-								<span class="keep-card__cta">Parallel tries &amp; exploratory UI</span>
+								<p class="keep-card__label">Antigravity + Gemini</p>
+								<span class="keep-card__cta">Third option &amp; everyday answers</span>
 							</div>
 						</div></span
 					>
 					<div class="keep-card__peek">
 						<p>
-							Antigravity comes out when I want an isolated or experimental pass — mockups, alternate
-							layouts, or ideas that might not ship. Keeps risky “what if” work off the main editing lane
-							until it is worth merging back.
+							<strong>Antigravity</strong> is my third lane after Cursor and Codex when I want another angle
+							or a more exploratory pass — including mockups and “what if” UI that might not ship. The
+							Gemini subscription also opens <strong>Claude</strong> there, which covers some of what I
+							used to route to a standalone Claude plan. Separately, I use <strong>Gemini</strong> all the
+							time for quick general Q&amp;A outside project files — not a replacement for Cursor, but a
+							natural first stop for questions.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
@@ -144,10 +159,160 @@
 					>
 					<div class="keep-card__peek">
 						<p>
-							Ollama runs locally for first drafts of repetitive HTML/CSS text, list transforms, and bulk
-							summaries where I can verify output immediately. If it is slow or off-topic, I switch back to
-							a hosted model without guilt — local is for savings and privacy-tolerant grunt work, not
-							gatekeeping quality.
+							<strong>Ollama</strong> on the RTX box handles the local grunt work — first drafts, repetitive
+							transforms, and summaries — so hosted quotas last longer. Cloud models still win when the task
+							needs stronger reasoning; local is deliberately “good enough to verify,” not a substitute for
+							everything.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+			</div>
+
+			<h2 id="creative-cloud" style="font-size: 1.15rem; margin: 2rem 0 0.75rem; text-align: center">
+				Adobe Creative Cloud &amp; design
+			</h2>
+			<p style="max-width: 42rem; margin: 0 auto 1rem; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
+				Most serious photo and video work lives in Creative Cloud. Video-wise, my first editor was the one bundled
+				with <strong>Windows</strong> (the simple built-in timeline app — cut my teeth there first). In my early
+				teens I bought <strong>Sony Vegas Movie Studio</strong> on Amazon and moved my edits there; I was deep into
+				<strong>YouTube</strong> and making videos at the time. Today <strong>Premiere Pro</strong> carries that
+				thread (exact purchase dates from back then TBD when I dig them up). On stills I leaned on
+				<strong>GIMP</strong> early when Photoshop was not in the budget.
+			</p>
+
+			<div class="keep-board" aria-label="Adobe Creative Cloud and design tools">
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Video</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Premiere Pro</p>
+								<span class="keep-card__cta">Editing &amp; finishing</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							<strong>Premiere Pro</strong> is where most of my video editing happens now — timelines, color
+							passes, exports for social and long-form — after years that started with Windows’ bundled editor
+							and <strong>Vegas Movie Studio</strong>. It pairs with the rest of the stack when a project needs
+							to leave the NLE and land on the site or a stream.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Raster</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Photoshop</p>
+								<span class="keep-card__cta">Still imaging &amp; composites</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							I use <strong>Photoshop</strong> constantly — assets for the site, thumbnails, cleanup, and
+							layers-on-layers work I have been doing since I was young. It is the default when pixels need
+							to be precise.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Motion</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">After Effects</p>
+								<span class="keep-card__cta">Learning — projection &amp; motion</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							I want to go deeper on <strong>After Effects</strong> — especially for motion pieces that feed
+							<strong>projection mapping</strong> and immersive visuals. That future setup is sketched on my
+							<a href="../Upgrades/upgrades.html#projection-mapping">Upgrades</a> page (full-apartment
+							ideas). AE is the logical tool for map-aligned content and animated plates before they hit the
+							projectors.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">FOSS</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">GIMP</p>
+								<span class="keep-card__cta">Where I started</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							Before I could justify Creative Cloud, <strong>GIMP</strong> carried most of my raster work. I
+							still respect it — it taught me a lot of the same habits I use in Photoshop today. If budget
+							is tight, GIMP remains a capable option.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+			</div>
+
+			<h2 id="streaming" style="font-size: 1.15rem; margin: 2rem 0 0.75rem; text-align: center">Streaming</h2>
+			<p style="max-width: 42rem; margin: 0 auto 1rem; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
+				Live video goes through <strong>OBS Studio</strong>, with an open-source multi-destination helper from
+				GitHub so I am not locked to a single RTMP endpoint.
+			</p>
+
+			<div class="keep-board" aria-label="Streaming tools">
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Live</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">OBS Studio</p>
+								<span class="keep-card__cta">Capture &amp; broadcast</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							<strong>OBS Studio</strong> is my hub for streaming and recording: scenes, audio routing,
+							cameras, and whatever needs to hit viewers in real time. Everything else in this section
+							plugs into or sits beside OBS.
+						</p>
+						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+					</div>
+				</article>
+
+				<article class="keep-card keep-card--static">
+					<span class="keep-card__inner">
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">OSS</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Multi RTMP</p>
+								<span class="keep-card__cta">Open-source multi-stream (GitHub)</span>
+							</div>
+						</div></span
+					>
+					<div class="keep-card__peek">
+						<p>
+							For streaming to more than one platform without relying only on paid relay services, I use the
+							open-source <strong>OBS Multi RTMP</strong> plugin (<a
+								href="https://github.com/sorayuki/obs-multi-rtmp"
+								target="_blank"
+								rel="noopener noreferrer"
+								>sorayuki / obs-multi-rtmp on GitHub</a
+							>). It adds multiple RTMP outputs from one OBS session — handy when you want redundancy or
+							simultaneous destinations.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>

@@ -44,6 +44,171 @@ function getLink(path) {
 	return siteRoot + path + (isLocal ? '.html' : '');
 }
 
+/** Resolve a canonical site path (same shape as `getLink` paths) to an href for anchors. */
+function resolveSiteSearchHref(pagePath) {
+	if (pagePath === '' || pagePath === '/') return siteRoot;
+	const normalized = String(pagePath).replace(/^\/+/, '');
+	return siteRoot + normalized + (isLocal ? '.html' : '');
+}
+
+/** Dedicated search results page URL (same extension rules as `getLink`). */
+function getSearchPageUrl() {
+	return siteRoot + 'search' + (isLocal ? '.html' : '');
+}
+
+function searchNormalizeBlob(entry) {
+	let pathDec = '';
+	try {
+		pathDec = decodeURIComponent(entry.path || '').toLowerCase();
+	} catch {
+		pathDec = String(entry.path || '').toLowerCase();
+	}
+	const body = (entry.text || '').toLowerCase();
+	return `${(entry.title || '').toLowerCase()} ${(entry.snippet || '').toLowerCase()} ${body} ${pathDec}`;
+}
+
+/**
+ * True when `data/search-manual-keywords.json` listed this query (or phrase) for this page.
+ * Lets curated pages outrank long pages that only mention the term incidentally (e.g. a video title).
+ */
+function searchManualKeywordHit(entry, qLower, tokens) {
+	const manual = entry.manualTerms;
+	if (!Array.isArray(manual) || !manual.length) return false;
+	if (manual.includes(qLower)) return true;
+	if (tokens.length > 1) {
+		const joined = tokens.join(' ');
+		if (manual.includes(joined)) return true;
+	}
+	return false;
+}
+
+/**
+ * Rank using title, full indexed page text (`entry.text`), snippet, and path.
+ * Multi-word queries match when every token appears somewhere in the combined blob.
+ */
+function searchRankEntry(entry, qLower) {
+	if (!qLower || qLower.length < 2) return 0;
+	const title = (entry.title || '').toLowerCase();
+	const text = (entry.text || '').toLowerCase();
+	const snippet = (entry.snippet || '').toLowerCase();
+	let pathDec = '';
+	try {
+		pathDec = decodeURIComponent(entry.path || '').toLowerCase();
+	} catch {
+		pathDec = String(entry.path || '').toLowerCase();
+	}
+	const blob = `${title} ${snippet} ${text} ${pathDec}`.replace(/\s+/g, ' ');
+
+	const tokens = qLower.split(/\s+/).filter(Boolean);
+	let matched = blob.includes(qLower);
+	if (!matched) {
+		if (tokens.length >= 2) {
+			matched = tokens.every((t) => blob.includes(t));
+		} else if (tokens.length === 1) {
+			const t = tokens[0];
+			matched = t.length >= 2 && blob.includes(t);
+		}
+	}
+	if (!matched) return 0;
+
+	let score = 28;
+	if (title.includes(qLower)) score += 40;
+	else if (tokens.length > 1 && tokens.every((t) => title.includes(t))) score += 34;
+	else if (tokens.some((t) => t.length >= 2 && title.includes(t))) score += 16;
+
+	if (text.includes(qLower)) score += 34;
+	else if (tokens.length > 1 && tokens.every((t) => text.includes(t))) score += 26;
+	else if (tokens.some((t) => t.length >= 2 && text.includes(t))) score += 12;
+
+	if (snippet.includes(qLower)) score += 10;
+	if (pathDec.includes(qLower)) score += 6;
+
+	if (searchManualKeywordHit(entry, qLower, tokens)) score += 36;
+
+	return Math.min(score, 100);
+}
+
+/**
+ * @param {number} maxResults Cap matches; use `Infinity` for the full results page.
+ */
+function searchFilterEntries(entries, query, maxResults = 40) {
+	const q = query.trim().toLowerCase();
+	if (!q || q.length < 2) return [];
+	const out = [];
+	for (let i = 0; i < entries.length; i++) {
+		const e = entries[i];
+		if (searchRankEntry(e, q) > 0) out.push(e);
+	}
+	out.sort((a, b) => {
+		const ra = searchRankEntry(a, q);
+		const rb = searchRankEntry(b, q);
+		if (rb !== ra) return rb - ra;
+		return String(a.path || '').localeCompare(String(b.path || ''));
+	});
+	if (maxResults === Infinity || out.length <= maxResults) return out;
+	return out.slice(0, maxResults);
+}
+
+/**
+ * @param {'preview'|'fullPage'} variant Empty-query messaging for modal/home vs dedicated page.
+ */
+function searchRenderResults(container, list, query, variant) {
+	container.textContent = '';
+	const q = query.trim();
+	if (!q) {
+		const p = document.createElement('p');
+		p.className = 'site-search-results__hint';
+		p.textContent =
+			variant === 'fullPage'
+				? 'No search terms were in the link. Use Search in the navigation bar or the search section on the home page.'
+				: 'Type at least 2 characters to search page copy, titles, image captions, and paths.';
+		container.appendChild(p);
+		return;
+	}
+	if (q.length < 2) {
+		const p = document.createElement('p');
+		p.className = 'site-search-results__hint';
+		p.textContent = 'Use at least 2 characters to search the full site.';
+		container.appendChild(p);
+		return;
+	}
+	if (!list.length) {
+		const p = document.createElement('p');
+		p.className = 'site-search-results__empty';
+		p.textContent = 'No matching pages.';
+		container.appendChild(p);
+		return;
+	}
+	const ul = document.createElement('ul');
+	ul.className = 'site-search-results__list';
+	for (let i = 0; i < list.length; i++) {
+		const item = list[i];
+		const li = document.createElement('li');
+		li.className = 'site-search-results__item';
+		const a = document.createElement('a');
+		a.className = 'site-search-results__link';
+		a.href = resolveSiteSearchHref(item.path);
+		a.textContent = item.title || item.path || 'Page';
+		const sn = document.createElement('span');
+		sn.className = 'site-search-results__snippet';
+		sn.textContent = item.snippet || '';
+		li.appendChild(a);
+		li.appendChild(sn);
+		ul.appendChild(li);
+	}
+	container.appendChild(ul);
+}
+
+const SITE_SEARCH_INDEX_URL = `${siteRoot}data/site-search-index.json`;
+
+window.owenminercsSiteSearchApi = {
+	indexUrl: SITE_SEARCH_INDEX_URL,
+	resolveHref: resolveSiteSearchHref,
+	getSearchPageUrl,
+	filterEntries: searchFilterEntries,
+	renderResults: searchRenderResults,
+};
+
 const DISCORD_INVITE_URL = 'https://discord.gg/fA9GbxmAge';
 
 const ACHIEVEMENT_STORAGE_KEY = 'owenminercs-achievements-v1';
@@ -357,9 +522,9 @@ function buildNavReturnButton(record) {
 	const button = document.createElement('button');
 	button.type = 'button';
 	button.className = 'site-nav-return-popup__button';
-	button.textContent = 'Return to where you were';
+	button.textContent = 'Back';
 	const labelSource = record.fromTitle || 'your previous page';
-	button.setAttribute('aria-label', `Return to ${labelSource}`);
+	button.setAttribute('aria-label', `Back to ${labelSource}`);
 	button.addEventListener('click', function () {
 		writeJsonStorage(NAV_RETURN_SCROLL_KEY, {
 			targetUrl: record.fromUrl,
@@ -437,9 +602,11 @@ window.owenminercsClearAchievementProgress = function owenminercsClearAchievemen
 	});
 })();
 
-/** Loads homepage “What’s new” feed from `data/site-feed.json`. */
+/** Loads homepage “What’s new” feed from `data/site-feed.json` (skipped when `#site-feed-list` has `data-site-feed-static`). */
 function injectSiteFeedClient() {
 	if (document.querySelector('script[data-owen-site-feed]')) return;
+	const list = document.getElementById('site-feed-list');
+	if (list && list.hasAttribute('data-site-feed-static')) return;
 	const s = document.createElement('script');
 	s.src = `${siteRoot}scripts/site-feed.js`;
 	s.defer = true;
@@ -574,8 +741,15 @@ class SharedHeader extends HTMLElement {
               <button type="button" class="site-social-dock-reset" data-owen-social-dock-reset="1" title="Reset social bar position" hidden>Reset Social Bar</button>
             </div>
           </div>
-          <nav>
+          <div class="site-header-sticky-bar">
+            <nav aria-label="Primary">
             <ul>
+              <li class="site-nav__item site-nav__item--search">
+                <a href="${getSearchPageUrl()}" class="site-header-search-open site-nav-search-open" title="Search site" aria-label="Search site">
+                  <svg class="site-header-search-open__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  <span class="site-visually-hidden">Search site</span>
+                </a>
+              </li>
               <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home — bio, intro, and what’s new">Home</a></li>
               <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Bigfoot's Jungle</a></li>
               <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
@@ -583,13 +757,14 @@ class SharedHeader extends HTMLElement {
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
               <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
-              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
+              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
               <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
           </nav>
+          <hr class="site-rule site-rule--flush">
+          </div>
         </div>
-        <hr class="site-rule site-rule--flush">
       </header>
     `;
 
@@ -642,7 +817,7 @@ class SharedFooter extends HTMLElement {
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
               <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
-              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Tools used to build and maintain this site">Dev stack</a></li>
+              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
               <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
@@ -659,23 +834,21 @@ class SharedFooter extends HTMLElement {
         </div>
         <hr class="site-rule site-rule--spaced">
         <div class="site-footer-meta">
-          <div class="site-footer-meta__credits">
-            <h4 class="site-footer-meta__byline">
-              <span class="site-footer-meta__creator">This website was created by Owen Miner</span>${
-								showCrossPageAmazonByline
-									? '<span class="site-footer-meta__amazon"> As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</span>'
-									: ''
-							}
-            </h4>
-            <h4 class="site-footer-meta__photos">Reach out on <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a> for usage rights on any content on this page. Small creators and individuals are highly encouraged to reach out and I usually give out rights for free! Large companies need to pay for usage for any commercial use including in AI models.</h4>
-          </div>
           <div class="site-footer-meta__disclosure">
             <h4 id="Disclosure" class="site-footer-meta__disclosure-heading"><span class="site-footer-meta__disclosure-label">Disclosure:</span> ${disclosureForRight}</h4>
-            <div class="site-footer-meta__home-mark">
-              <a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home">
-                <img class="site-logo site-logo--footer" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs" loading="lazy" decoding="async" />
-              </a>
-            </div>
+            ${
+							showCrossPageAmazonByline
+								? '<p class="site-footer-meta__amazon">As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</p>'
+								: ''
+						}
+          </div>
+          <div class="site-footer-meta__brand">
+            <a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home — owenminercs.com">
+              <img class="site-logo site-logo--footer" src="${siteRoot}images/${brandLogoFilename('dark')}" alt="owenminercs" loading="lazy" decoding="async" />
+            </a>
+          </div>
+          <div class="site-footer-meta__usage">
+            <h4 class="site-footer-meta__photos">Reach out on <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a> for usage rights on any content on this page. Small creators and individuals are highly encouraged to reach out and I usually give out rights for free! Large companies need to pay for usage for any commercial use including in AI models.</h4>
           </div>
         </div>  
         <hr class="site-rule site-rule--footer-end">
@@ -690,10 +863,68 @@ class SharedFooter extends HTMLElement {
 customElements.define('shared-header', SharedHeader);
 customElements.define('shared-footer', SharedFooter);
 
+/** Client-side search over static JSON; results rendered with DOM APIs only (no HTML injection). */
+function initSiteSearch() {
+	let entries = [];
+
+	function wireInputToResults(input, resultsEl) {
+		function run() {
+			const q = input.value || '';
+			searchRenderResults(
+				resultsEl,
+				searchFilterEntries(entries, q, 40),
+				q,
+				'preview'
+			);
+		}
+		input.addEventListener('input', run);
+		input.addEventListener('change', run);
+		run();
+	}
+
+	const homeInput = document.getElementById('home-site-search-input');
+	const homeResults = document.getElementById('home-site-search-results');
+	if (homeInput && homeResults) {
+		wireInputToResults(homeInput, homeResults);
+		const homeForm = homeInput.closest('.site-search-form--home');
+		if (homeForm) {
+			homeForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const first = homeResults.querySelector('.site-search-results__link');
+				if (first instanceof HTMLAnchorElement) first.click();
+			});
+		}
+	}
+
+	fetch(SITE_SEARCH_INDEX_URL)
+		.then((r) => {
+			if (!r.ok) throw new Error('search index');
+			return r.json();
+		})
+		.then((data) => {
+			if (data && Array.isArray(data.entries)) entries = data.entries;
+			if (homeInput) {
+				const ev = new Event('input', { bubbles: true });
+				homeInput.dispatchEvent(ev);
+			}
+		})
+		.catch(() => {
+			entries = [];
+			if (homeResults) {
+				homeResults.textContent = '';
+				const p = document.createElement('p');
+				p.className = 'site-search-results__empty';
+				p.textContent = 'Could not load search index.';
+				homeResults.appendChild(p);
+			}
+		});
+}
+
 function disableTextInputControls(root) {
 	if (!root || typeof root.querySelectorAll !== 'function') return;
 
 	root.querySelectorAll(TEXT_ENTRY_SELECTOR).forEach((el) => {
+		if (el.closest && el.closest('[data-owen-site-search]')) return;
 		if (el.dataset && el.dataset.inputDisabledForNow === '1') return;
 		el.disabled = true;
 		if ('readOnly' in el) el.readOnly = true;
@@ -1110,10 +1341,12 @@ if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', initWordBackgroundGlow);
 	document.addEventListener('DOMContentLoaded', initTemporaryInputLockdown);
 	document.addEventListener('DOMContentLoaded', initShortFormLooping);
+	document.addEventListener('DOMContentLoaded', initSiteSearch);
 } else {
 	initWordBackgroundGlow();
 	initTemporaryInputLockdown();
 	initShortFormLooping();
+	initSiteSearch();
 }
 
 const SOCIAL_DOCK_POS_KEY = 'owenminercs-social-dock-pos';
@@ -2780,3 +3013,49 @@ window.owenminercsHydrateRoot = function (root) {
 		wrapWordsInTextNode(textNodes[i]);
 	}
 };
+
+/** Scroll to the image matching #keep-img-xxxxxxxx (hash from scripts/keep-thumbs.js jump links). */
+(function initPhotoFocusFromHash() {
+	function hash8(str) {
+		let h = 2166136261;
+		for (let i = 0; i < str.length; i++) {
+			h ^= str.charCodeAt(i);
+			h = Math.imul(h, 16777619);
+		}
+		return ('00000000' + (h >>> 0).toString(16)).slice(-8);
+	}
+	function resolveUrl(src, base) {
+		try {
+			return new URL(src, base).href;
+		} catch (_) {
+			return src;
+		}
+	}
+	function run() {
+		const m = /^#keep-img-([0-9a-f]{8})$/i.exec(window.location.hash || '');
+		if (!m) return;
+		const want = m[1].toLowerCase();
+		const imgs = document.querySelectorAll('img[src], picture > img[src]');
+		for (let i = 0; i < imgs.length; i++) {
+			const abs = resolveUrl(imgs[i].getAttribute('src'), window.location.href);
+			if (hash8(abs) === want) {
+				imgs[i].scrollIntoView({ block: 'center', behavior: 'smooth' });
+				try {
+					imgs[i].style.outline = '2px solid rgba(255, 190, 90, 0.95)';
+					imgs[i].style.outlineOffset = '3px';
+					window.setTimeout(() => {
+						imgs[i].style.outline = '';
+						imgs[i].style.outlineOffset = '';
+					}, 2200);
+				} catch (_) {}
+				return;
+			}
+		}
+	}
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', run, { once: true });
+	} else {
+		run();
+	}
+	window.addEventListener('hashchange', run);
+})();

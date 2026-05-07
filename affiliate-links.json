@@ -12,7 +12,8 @@
 				"paid_price": "$999.00",
 				"category": "Monitor",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=ASUS+ROG+Swift+OLED+PG27AQDP&tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/dp/B0BZ9YT6L4?tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": [
 					"PC/pc.html",
@@ -25,10 +26,13 @@
 			"gigabyte_b650_motherboard": {
 				"name": "Gigabyte B650 GAMING X AX V2",
 				"specs": "AM5, DDR5, PCIe 4.0",
+				"asin": "B0CSKH56WN",
+				"price": "$159.99",
 				"category": "Motherboard",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=Gigabyte+B650+GAMING+X+AX+V2&tag=owenminercs-20",
-					"official": "https://www.gigabyte.com/Motherboard/B650-GAMING-X-AX-V2-rev-1x"
+					"amazon": "https://www.amazon.com/dp/B0CSKH56WN?tag=owenminercs-20",
+					"official": "https://www.gigabyte.com/Motherboard/B650-GAMING-X-AX-V2-rev-1x",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -39,7 +43,8 @@
 				"category": "CPU",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=AMD+Ryzen+7+9800X3D&tag=owenminercs-20",
-					"microcenter": "https://www.microcenter.com/search/results?Ntt=Ryzen+9800X3D"
+					"microcenter": "https://www.microcenter.com/search/results?Ntt=Ryzen+9800X3D",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -49,7 +54,8 @@
 				"price": "$1,599.00",
 				"category": "GPU",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=NVIDIA+RTX+4090&tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/s?k=NVIDIA+RTX+4090&tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -60,7 +66,8 @@
 				"paid_price": "$89.95",
 				"category": "CPU Cooler",
 				"links": {
-					"amazon": "https://www.amazon.com/Noctua-NH-D15S-chromax-Black-Premium/dp/B08HM1T6RL?tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/Noctua-NH-D15S-chromax-Black-Premium/dp/B08HM1T6RL?tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -70,7 +77,8 @@
 				"price": "$149.99",
 				"category": "PSU",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=Corsair+RM1000x&tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/s?k=Corsair+RM1000x&tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -80,7 +88,8 @@
 				"price": "$129.99",
 				"category": "RAM",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=G+Skill+Ripjaws+M5+Neo&tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/s?k=G+Skill+Ripjaws+M5+Neo&tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -90,7 +99,8 @@
 				"price": "$79.99",
 				"category": "Storage",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=WD+Black+SN850X&tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/s?k=WD+Black+SN850X&tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -100,7 +110,8 @@
 				"price": "$199.99",
 				"category": "Case",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=Lian+Li+O11+Dynamic+Evo&tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/s?k=Lian+Li+O11+Dynamic+Evo&tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -110,7 +121,8 @@
 				"price": "$49.99",
 				"category": "Case Fans",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=Lian+Li+UNI+Fan+SL120&tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/s?k=Lian+Li+UNI+Fan+SL120&tag=owenminercs-20",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			},
@@ -120,7 +132,8 @@
 				"category": "OS",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Windows+11+Pro&tag=owenminercs-20",
-					"official": "https://www.microsoft.com/en-us/d/windows-11-pro/dg7gmgf0d8h4"
+					"official": "https://www.microsoft.com/en-us/d/windows-11-pro/dg7gmgf0d8h4",
+					"disable_aliexpress": true
 				},
 				"pages": ["PC/pc.html", "The Setup/gaming-pc.html"]
 			}
@@ -190,6 +203,17 @@
 					"The Setup/audio.html"
 				]
 			},
+			"beats_flex": {
+				"name": "Beats Flex Wireless Earbuds",
+				"specs": "Apple W1 chip, Class 1 Bluetooth, magnetic earbuds, built-in mic, up to 12h listening",
+				"asin": "B08L6ZYW21",
+				"paid_price": "$69.99",
+				"category": "Audio",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B08L6ZYW21?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/audio.html"]
+			},
 			"sony_zv_e10": {
 				"name": "Sony Alpha ZV-E10 Mirrorless Camera",
 				"specs": "APS-C, 4K Video, Compact",
@@ -253,6 +277,39 @@
 					"The Setup/the-setup.html",
 					"The Setup/walking-pad.html"
 				]
+			},
+			"cordless_drill_b0dxqtydfc": {
+				"name": "Cordless drill",
+				"specs": "Amazon listing B0DXQTDYFC — see product page for brand, battery, and kit contents",
+				"asin": "B0DXQTDYFC",
+				"paid_price": "See Amazon",
+				"category": "Tools",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0DXQTDYFC?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/drill.html"]
+			},
+			"toolant_impact_bits_ph2_10pk": {
+				"name": "toolant #2 Phillips impact screwdriver bits (10-pack)",
+				"specs": "2-inch magnetic anti-slip impact driver bits",
+				"asin": "B0F65PQRFW",
+				"paid_price": "$3.99",
+				"category": "Tools",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0F65PQRFW?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/drill.html"]
+			},
+			"metallixity_hss_drill_bits_3mm_2pc": {
+				"name": "METALLIXITY 3mm HSS drill bits (2-pack)",
+				"specs": "4241 high-speed steel twist bits, 118° point — see Amazon for full title and materials list",
+				"asin": "B0F59BSK6K",
+				"paid_price": "See Amazon",
+				"category": "Tools",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0F59BSK6K?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/drill.html"]
 			},
 			"logitech_superlight": {
 				"name": "Logitech G PRO X SUPERLIGHT",
@@ -346,6 +403,7 @@
 					"Desk Setup/setup.html",
 					"The Setup/the-setup.html",
 					"The Setup/webcam.html",
+					"The Setup/camera.html",
 					"The Setup/cameras.html"
 				]
 			},
@@ -384,7 +442,8 @@
 				"specs": "Room and accent lighting (search)",
 				"category": "Lighting",
 				"links": {
-					"amazon": "https://www.amazon.com/s?k=Govee+LED&tag=owenminercs-20"
+					"official": "https://us.govee.com/",
+					"amazon_search": "https://www.amazon.com/s?k=Govee+LED&tag=owenminercs-20"
 				},
 				"pages": [
 					"Desk Setup/setup.html",
@@ -408,7 +467,7 @@
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Sony+ZV-E10+camera+cage+SmallRig&tag=owenminercs-20"
 				},
-				"pages": ["The Setup/camera-cage.html", "The Setup/cameras.html"]
+				"pages": ["The Setup/camera.html", "The Setup/cameras.html"]
 			},
 			"ulanzi_camera_mount_search": {
 				"name": "ULANZI camera mount / cold shoe accessory",
@@ -417,7 +476,7 @@
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=ULANZI+camera+mount+cold+shoe&tag=owenminercs-20"
 				},
-				"pages": ["The Setup/ulanzi-camera-mount.html", "The Setup/cameras.html"]
+				"pages": ["The Setup/ulanzi-camera-mount.html", "The Setup/mounts-arms.html"]
 			},
 			"tripod_full_height_search": {
 				"name": "Full-height camera tripod",
@@ -426,7 +485,7 @@
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=DSLR+camera+tripod+72+inch&tag=owenminercs-20"
 				},
-				"pages": ["The Setup/tripod-full-height.html", "The Setup/cameras.html"]
+				"pages": ["The Setup/tripod.html", "The Setup/cameras.html", "The Setup/mounts-arms.html"]
 			},
 			"tripod_desktop_mini_search": {
 				"name": "Desktop / mini tripod",
@@ -435,7 +494,7 @@
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=mini+desktop+camera+tripod&tag=owenminercs-20"
 				},
-				"pages": ["The Setup/tripod-desk-mini.html", "The Setup/cameras.html"]
+				"pages": ["The Setup/tripod.html", "The Setup/cameras.html", "The Setup/mounts-arms.html"]
 			},
 			"insta360_x5_search": {
 				"name": "Insta360 X5",
@@ -448,12 +507,106 @@
 			},
 			"iphone_pro_max_camera_search": {
 				"name": "Apple iPhone Pro Max (phone-as-camera)",
-				"specs": "Primary angle for streams via NDI / virtual webcam on Windows",
+				"specs": "Extra desk/fit-check angle via NDI—main YouTube camera is the Sony ZV-E10",
 				"category": "Camera",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Apple+iPhone+Pro+Max&tag=owenminercs-20"
 				},
 				"pages": ["The Setup/iphone-main-camera.html", "The Setup/cameras.html"]
+			},
+			"nikon_d3100_legacy_search": {
+				"name": "Nikon D3100 (legacy DSLR)",
+				"specs": "Entry APS-C DSLR (2010 era)—discontinued; listings are mostly used / refurbished",
+				"category": "Camera",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Nikon+D3100&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/nikon-d3100-legacy.html", "The Setup/cameras.html"]
+			},
+			"ocoopa_hand_warmer": {
+				"name": "Ocoopa rechargeable hand warmers",
+				"specs": "USB-C pocket warmers for cold rooms and winter LANs",
+				"category": "Desk accessory",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=Ocoopa+hand+warmer+rechargeable&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/gadgets.html"]
+			},
+			"electric_air_duster": {
+				"name": "Electric air duster (PC and desk cleaning)",
+				"specs": "Reusable blower for keyboards, cases, and fans—check nozzle and power before buying",
+				"category": "Desk accessory",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=electric+air+duster+keyboard+pc&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/gadgets.html"]
+			},
+			"under_desk_cable_trays_2pack_15in": {
+				"name": "Under-desk cable management trays (2-pack, 15.7\", no drill)",
+				"specs": "Wire organizer baskets—clamp or adhesive style varies by listing; check mount type before buying",
+				"asin": "B09NBPQ1KP",
+				"category": "Desk accessory",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B09NBPQ1KP?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/cable-management.html"]
+			},
+			"metal_power_strip_10outlet_12ft": {
+				"name": "10-outlet under-desk surge protector (12 ft cord, 125V / 15A)",
+				"specs": "Heavy-duty strip for under-desk mount—wide-spaced outlets; listing cites metal housing and surge protection—confirm ratings on the buy box",
+				"asin": "B09ZL8V5Y7",
+				"category": "Desk accessory",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B09ZL8V5Y7?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/cable-management.html", "The Setup/power.html"]
+			},
+			"amazon_basics_rechargeable_aa_16pack": {
+				"name": "Amazon Basics 16-Pack Rechargeable AA NiMH Batteries",
+				"specs": "2000 mAh, 1.2V, pre-charged, low self-discharge—listing cites up to ~1000 recharge cycles",
+				"asin": "B007B9NV8Q",
+				"category": "Power",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B007B9NV8Q?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/power.html", "The Setup/the-setup.html"]
+			},
+			"rechargeable_d_lithium_usbc_4pack": {
+				"name": "Rechargeable D lithium batteries with USB-C (4-pack)",
+				"specs": "1.5V constant-style D cells, USB-C recharge—exact capacity and kit contents vary by listing",
+				"asin": "B0F2SKX4GN",
+				"category": "Power",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0F2SKX4GN?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/power.html", "The Setup/the-setup.html"]
+			},
+			"magnetic_cable_clips": {
+				"name": "Magnetic cable clips / cord organizers",
+				"specs": "Desk-edge routing for USB, mouse, and headset cables",
+				"category": "Desk accessory",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=magnetic+cable+clips+desk&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/magnets.html"]
+			},
+			"neodymium_magnets": {
+				"name": "Neodymium disc magnets",
+				"specs": "Small strong rare-earth magnets for DIY mounts and display",
+				"category": "Desk accessory",
+				"links": {
+					"amazon": "https://www.amazon.com/s?k=neodymium+magnets+small+disc&tag=owenminercs-20"
+				},
+				"pages": ["The Setup/magnets.html"]
+			},
+			"trymag_neodymium_10x2": {
+				"name": "TRYMAG 200 × 10×2mm neodymium disc magnets",
+				"specs": "Small black rare-earth discs for mounts, whiteboard, crafts, desk projects",
+				"category": "Desk accessory",
+				"links": {
+					"amazon": "https://www.amazon.com/dp/B0CXPFXF5Z?tag=owenminercs-20"
+				},
+				"pages": ["The Setup/magnets.html"]
 			}
 		},
 		"keyboard_parts": {
@@ -509,8 +662,8 @@
 		}
 	},
 	"metadata": {
-		"last_updated": "2026-04-29",
-		"total_products": 41,
+		"last_updated": "2026-05-02",
+		"total_products": 45,
 		"affiliate_programs": ["Amazon Associates", "AliExpress Portals"],
 		"aliexpress_portals_signup": "https://portals.aliexpress.com/",
 		"aliexpress_note": "Optional per-product key links.aliexpress_portals: paste your Portals deeplink (s.click.aliexpress.com/...) from Link Generator; it overrides links.aliexpress for that product.",

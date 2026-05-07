@@ -5,8 +5,8 @@ Last reviewed: 2026-05-06
 ## Stack
 
 - Static HTML/CSS/JS site.
-- Hosted/deployed through Netlify-style files (`_redirects`, `netlify/functions/`).
-- Serverless helpers also exist in `functions/api/`; check both paths before changing APIs.
+- **Production:** repo on **GitHub**, site on **Cloudflare** (not Netlify).
+- Repo still has Netlify-oriented paths (`_redirects`, `netlify/functions/`) and `functions/api/`; check all relevant paths before changing APIs or redirects.
 - Shared components live in `scripts/components.js`.
 - Shared CSS lives in `css/owenminercs.css`.
 
@@ -27,11 +27,18 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 - Public setup hub name: Bigfoot's Jungle. Keep existing `The Setup/the-setup.html` paths/routes unless the user asks to rename URLs.
 - Affiliate products: `affiliate-links.json`; partner network site-verification meta tags belong in `index.html` and are documented in `IMPLEMENTATION_GUIDE.md`.
 - Donation/support links: `donation-links.json`
-- Shop product drops: `Garage Sale/shop-products.json`
+- Shop product drops: `Garage Sale/shop-products.json` (optional `checkoutBackend: "stripe"` → `POST /api/shop-checkout`, prices in `functions/api/_shop-catalog.js`, env `STRIPE_SECRET_KEY` on Cloudflare Pages)
 - Referrals page is temporarily removed; the Mercari referral lives near the top of `Garage Sale/garage-sale.html`.
 - Donator data: `Donators/donators.json`
 - Social cloud data: `Socials/data/` — card chrome layout (date + stats on one line) is a documented preference in `memory/preferences.md`.
 - Photos/posts data: `Photography/photos.json`, `Posts/posts.json`
+- Site search index: `data/site-search-index.json` — deep index from HTML text + optional `data/search-manual-keywords.json`. Regenerate with `npm run build:search-index` or `node dev/build-deep-search-index.mjs` after content changes (113+ pages; ~200KB gzippable). Client-side substring/token matching only in `scripts/components.js` (`window.owenminercsSiteSearchApi`); dedicated results page `search.html` / `/search` + `scripts/search-page.js`. Nav **Search** links to `/search`; home search uses `#home-site-search-results`. Inputs under `[data-owen-site-search]` skip the temporary input lockdown.
+
+## Computers archive (`The Setup`)
+
+- Hub: `The Setup/computers.html` — cards include **Razer Blade 2019** (specs line from college build page), **2020 desktop upgrade** (Ryzen 3800X / 2070 Super / B550-F / storage / NZXT Phantom), **2016 PC build** (year from PNG XMP `DateCreated` Aug 2016 on `images/archive/old-pcs/first-pc-build-instagram.png`).
+- Detail page: `The Setup/old-pc-laptop.html` — full laptop + desktop spec lists; links to `college-desk-setup-site/pc.html` for the archived assignment HTML. Section IDs **`#legacy-laptop`** and **`#first-pc-build`** kept for deep links.
+- **Privacy:** that Instagram screenshot should keep **profile pictures and usernames blurred** so handles are not readable; if re-exporting the asset, re-apply redaction before commit.
 
 ## Focused Docs
 

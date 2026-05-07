@@ -1,8 +1,29 @@
 # Shop Payment Setup
 
-Last reviewed: 2026-04-29
+Last reviewed: 2026-05-02
 
-The shop page reads `Garage Sale/shop-products.json` via `scripts/garage-sale.js`, merges sticker / print / custom sewing rows into the **For Sale** grid (`#for-sale`) ahead of `ebay-listings.json`, applies `payment.publicNote`, then sends buyers to hosted PayPal or Stripe checkouts for payment, shipping address collection, receipts, and payment security. The standalone `scripts/shop-products.js` loader is not used on `garage-sale.html`.
+The shop page reads `Garage Sale/shop-products.json` via `scripts/garage-sale.js`, merges sticker / print / custom sewing rows into the **For Sale** grid (`#for-sale`) ahead of `ebay-listings.json`, then sends buyers to checkout.
+
+**Primary path (live):** products with `"checkoutBackend": "stripe"` call **`POST /api/shop-checkout`** (Cloudflare Pages Function `functions/api/shop-checkout.js`). The server builds a **Stripe Checkout Session** from **`functions/api/_shop-catalog.js`** (trusted USD cents per SKU). No manual Stripe Payment Links or PayPal link typing required for those SKUs.
+
+**Legacy path:** paste hosted PayPal or Stripe Payment Link URLs into `checkoutUrl` / `stripeUrl` when not using `checkoutBackend`.
+
+The standalone `scripts/shop-products.js` loader is not used on `garage-sale.html`.
+
+## Stripe secret & catalog (production)
+
+1. **Cloudflare Dashboard** → your **Pages** project → **Settings** → **Environment variables** (Production):
+
+   - **`STRIPE_SECRET_KEY`** — your Stripe **secret** key (`sk_live_…` or `sk_test_…` for testing).
+
+2. Optional overrides:
+
+   - **`STRIPE_CHECKOUT_SUCCESS_URL`** and **`STRIPE_CHECKOUT_CANCEL_URL`** — full URLs for redirect after Stripe Checkout. If omitted, success/cancel URLs are derived from the **Origin** header + path below.
+   - **`STRIPE_CHECKOUT_RETURN_PATH`** — path only, default `/Garage%20Sale/garage-sale.html` (used with request Origin when full URLs are not set).
+
+3. When you **change prices or add SKUs**, edit **`functions/api/_shop-catalog.js`** (amounts in **cents**) and keep **`Garage Sale/shop-products.json`** titles/copy aligned.
+
+4. Deploy Pages so **`/api/shop-checkout`** is live, then test Checkout on the garage sale page.
 
 ## Current Launch Prices
 
@@ -45,7 +66,7 @@ After creating each hosted PayPal link:
 1. Paste the live URL into that product's `checkoutUrl` in `Garage Sale/shop-products.json`.
 2. Change `status` from `coming-soon` to `available`.
 3. Keep `paymentProvider` as `paypal`.
-4. Test the merged **For Sale** grid in `Garage Sale/garage-sale.html` (#for-sale).
+4. Test **For Sale** in `Garage Sale/garage-sale.html` (#for-sale): live rows appear as full sale cards (checkout, add to cart) at the **top** of the first grid; anything still `coming-soon` / `tbd` stays in the previews grid below.
 
 ## Stripe Option
 

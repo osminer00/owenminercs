@@ -2112,6 +2112,15 @@
 		return Math.max(getVisibleTop() + 120, cloudHeight - pageFooterHeight - 8);
 	}
 
+	/** Pinned drag/resize: use full cloud height so fixed header/footer do not cap geometry. */
+	function getPinnedCardMinY() {
+		return 8;
+	}
+
+	function getPinnedCardMaxBottom() {
+		return Math.max(getPinnedCardMinY() + 1, cloudHeight - 8);
+	}
+
 	function getStateWidth(state) {
 		return state?.el?.offsetWidth || state?.width || getCardWidth();
 	}
@@ -2984,8 +2993,9 @@
 				const cloudRect = cloud.getBoundingClientRect();
 				const cardWidth = card.offsetWidth;
 				const cardHeight = card.offsetHeight;
-				const minY = getVisibleTop();
-				const maxY = Math.max(minY, getVisibleBottom() - cardHeight);
+				const minY = state.isPinned ? getPinnedCardMinY() : getVisibleTop();
+				const maxBottom = state.isPinned ? getPinnedCardMaxBottom() : getVisibleBottom();
+				const maxY = Math.max(minY, maxBottom - cardHeight);
 				const nextX = clamp(
 					event.clientX - cloudRect.left - dragOffsetX,
 					8,
@@ -3093,8 +3103,8 @@
 				const maxWidth = Math.max(minWidth, cloudWidth);
 				const minX = 8;
 				const maxRight = Math.max(minX + minWidth, cloudWidth - 8);
-				const minY = getVisibleTop();
-				const maxBottom = getVisibleBottom();
+				const minY = getPinnedCardMinY();
+				const maxBottom = getPinnedCardMaxBottom();
 				const dx = event.clientX - resizeStartClientX;
 				const dy = event.clientY - resizeStartClientY;
 				const r = resizeStartRatio;
@@ -3196,8 +3206,8 @@
 					card.style.height = `${dims.nextHeight}px`;
 					state.y = clamp(
 						state.y,
-						getVisibleTop(),
-						Math.max(getVisibleTop(), getVisibleBottom() - dims.nextHeight)
+						getPinnedCardMinY(),
+						Math.max(getPinnedCardMinY(), getPinnedCardMaxBottom() - dims.nextHeight)
 					);
 					const playerWrap = state.inlinePlayerWrap || state.playerWrap;
 					if (playerWrap && typeof playerWrap.__smcRefitIframe === 'function') {

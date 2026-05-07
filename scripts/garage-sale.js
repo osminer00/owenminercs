@@ -27,6 +27,8 @@
 	var ebayUrl = new URL(ebayRel, window.location.href).href;
 	var productsRel = (script && script.getAttribute('data-shop-products')) || 'shop-products.json';
 	var productsUrl = new URL(productsRel, window.location.href).href;
+	var shopStripeEndpoint =
+		(script && script.getAttribute('data-shop-stripe-checkout')) || '';
 
 	var PLACEHOLDER_IMG = new URL('../images/owenminercs-logo.png', window.location.href).href;
 	var CART_KEY = 'owenminercs-ebay-cart-v1';
@@ -34,7 +36,8 @@
 	var SHOP_SECTION_ORDER = ['stickers', 'prints', 'custom-work'];
 
 	var dataEbay = [];
-	var dataHold = [];
+	var dataShopLive = [];
+	var dataShopHold = [];
 	var dataDigital = [];
 	var currentSort = 'order';
 	function showNodeError(node, msg) {
@@ -115,9 +118,15 @@
 
 	function shopIsCheckoutLive(product) {
 		var pair = resolveCheckoutPair(product, productsUrl);
+		var stripeBackend =
+			String((product && product.checkoutBackend) || '')
+				.toLowerCase()
+				.trim() === 'stripe';
+		var stripeReady = !stripeBackend || Boolean(resolveStripeCheckoutEndpoint());
 		return (
 			String((product && product.status) || '').toLowerCase() === 'available' &&
-			Boolean(pair.primary || pair.alternate)
+			stripeReady &&
+			(Boolean(pair.primary || pair.alternate) || stripeBackend)
 		);
 	}
 
@@ -126,6 +135,12 @@
 		if (product.availabilityLabel && String(product.availabilityLabel).trim() !== '')
 			return String(product.availabilityLabel);
 		var status = String((product && product.status) || '').toLowerCase();
+		var stripeBackend =
+			String((product && product.checkoutBackend) || '')
+				.toLowerCase()
+				.trim() === 'stripe';
+		if (status === 'available' && stripeBackend && !resolveStripeCheckoutEndpoint())
+			return 'Checkout unavailable (add Stripe on the server)';
 		if (status === 'available') return 'Available';
 		if (status === 'tbd') return 'TBD';
 		if (status === 'sold-out') return 'Sold out';
@@ -133,13 +148,17 @@
 	}
 
 	function mapShopProductToListing(product) {
-		var checkoutRaw =
-			(product.checkoutUrl != null ? String(product.checkoutUrl) : '') ||
-			(product.buyOnSiteUrl != null ? String(product.buyOnSiteUrl) : '') ||
-			(product.paypalUrl != null ? String(product.paypalUrl) : '') ||
-			(product.stripeUrl != null ? String(product.stripeUrl) : '');
-		var checkoutResolved = resolveProductUrl(checkoutRaw, productsUrl);
-		var buyOnSite = shopIsCheckoutLive(product) ? checkoutResolved : '';
+		var pair = resolveCheckoutPair(product, productsUrl);
+		var checkoutBackend =
+			product && product.checkoutBackend != null
+				? String(product.checkoutBackend).toLowerCase().trim()
+				: '';
+		var stripeBackend = checkoutBackend === 'stripe';
+		var live = shopIsCheckoutLive(product);
+		var buyOnSite =
+			live && !stripeBackend ? pair.primary || pair.alternate || '' : '';
+		var alternateCheckout =
+			live && !stripeBackend && pair.primary && pair.alternate ? pair.alternate : '';
 
 		var imgRaw = product.image ? String(product.image).trim() : '';
 		var imgResolved = imgRaw ? resolveProductUrl(imgRaw, productsUrl) : '';
@@ -182,16 +201,20 @@
 			publishedAt: product.publishedAt || '',
 			buyOnSiteUrl: buyOnSite || '',
 			checkoutUrl: buyOnSite || '',
+			alternateCheckoutUrl: alternateCheckout || '',
 			paypalUrl: product.paypalUrl || '',
 			stripeUrl: product.stripeUrl || '',
 			ebayUrl: '',
 			secondaryCtaUrl: secondaryResolved || '',
 			secondaryCtaLabel: secondaryLabel || '',
 			__shopSource: true,
-			__saleHold: true,
+			__saleHold: !live,
 			__suppressEbayHint: true,
 			shopAvailabilityText: shopAvailabilityLine(product),
 			shopImageAlt: imageAltTrim,
+			checkoutBackend: checkoutBackend,
+			dynamicStripeCheckout: Boolean(live && stripeBackend),
+			shopProductId: product.id != null ? String(product.id) : '',
 		};
 
 		if (!isNaN(parsedPrice)) row.priceNumber = parsedPrice;
@@ -271,6 +294,8 @@
 		var u = getEbayUrl(item);
 		var m = u && u.match(/\/itm\/(\d+)/i);
 		if (m) return m[1];
+		if (item.shopProductId && String(item.shopProductId).trim() !== '')
+			return 'shop-' + String(item.shopProductId).trim();
 		var d = getBuyOnSiteUrl(item);
 		if (!d) return '';
 		var s = d + '\n' + String(item.title || '');
@@ -397,6 +422,47 @@
 		if (cartCountEl) cartCountEl.textContent = String(items.length);
 	}
 
+	function resolveStripeCheckoutEndpoint() {
+		var raw = shopStripeEndpoint;
+		if (!raw || typeof raw !== 'string') return '';
+		var t = raw.trim();
+		if (!t) return '';
+		if (/^https?:\/\//i.test(t)) return t;
+		try {
+			return new URL(t, window.location.origin).href;
+		} catch (_) {
+			return '';
+		}
+	}
+
+	function startStripeSession(items) {
+		var endpoint = resolveStripeCheckoutEndpoint();
+		if (!endpoint || !items.length) return;
+		fetch(endpoint, {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({ items: items }),
+		})
+			.then(function (r) {
+				return r.json().then(function (data) {
+					return { ok: r.ok, data: data };
+				});
+			})
+			.then(function (result) {
+				if (result.ok && result.data && result.data.url) {
+					window.location.href = result.data.url;
+					return;
+				}
+				var msg =
+					(result.data && result.data.error) ||
+					'Checkout could not start. Verify Stripe is configured on the server.';
+				window.alert(msg);
+			})
+			.catch(function () {
+				window.alert('Checkout could not start. Check your connection.');
+			});
+	}
+
 	function cartPayloadFromItem(item) {
 		var imgs = normalizeEbayImages(item);
 		var id = stableCartId(item);
@@ -408,13 +474,24 @@
 			shipping: item.shipping || '',
 			url: getEbayUrl(item),
 			checkoutUrl: getBuyOnSiteUrl(item) || '',
+			dynamicStripe: Boolean(item.dynamicStripeCheckout),
+			shopProductId: item.shopProductId || '',
 			image: imgs[0] || PLACEHOLDER_IMG,
 		};
 	}
 
 	function addToCart(item) {
 		if (!stableCartId(item)) return;
-		if (!getBuyOnSiteUrl(item) && (!getEbayUrl(item) || !/\/itm\//i.test(getEbayUrl(item)))) return;
+		var stripeOk =
+			item.dynamicStripeCheckout &&
+			item.shopProductId &&
+			resolveStripeCheckoutEndpoint();
+		if (
+			!getBuyOnSiteUrl(item) &&
+			!stripeOk &&
+			(!getEbayUrl(item) || !/\/itm\//i.test(getEbayUrl(item)))
+		)
+			return;
 		var payload = cartPayloadFromItem(item);
 		var cart = readCart();
 		var exists = cart.some(function (x) {
@@ -455,15 +532,18 @@
 			title.textContent = line.title || 'Item';
 			var price = document.createElement('span');
 			price.className = 'shop-cart-line-price';
-			price.textContent = line.checkoutUrl
-				? 'Price (direct): ' + (line.price || '—')
-				: 'Price (eBay): ' + (line.price || '—');
+			price.textContent =
+				(line.checkoutUrl || line.dynamicStripe
+					? 'Price (direct): ' + (line.price || '—')
+					: 'Price (eBay): ' + (line.price || '—'));
 			var ship = document.createElement('span');
 			ship.className = 'shop-cart-line-ship';
 			if (line.checkoutUrl) {
 				ship.textContent = line.url
 					? 'Prefer direct checkout — eBay is optional for the same item.'
 					: 'Pay on the seller checkout page.';
+			} else if (line.dynamicStripe) {
+				ship.textContent = 'Checkout opens Stripe (cards and wallets). U.S. shipping collected at checkout.';
 			} else {
 				ship.textContent = 'Shipping: ' + (line.shipping || '—') + ' · U.S. only';
 			}
@@ -482,6 +562,15 @@
 				ck.rel = 'noopener noreferrer';
 				ck.textContent = 'Checkout direct';
 				actions.appendChild(ck);
+			} else if (line.dynamicStripe && line.shopProductId && resolveStripeCheckoutEndpoint()) {
+				var ckSt = document.createElement('button');
+				ckSt.type = 'button';
+				ckSt.className = 'modeButton shop-cart-checkout-direct';
+				ckSt.textContent = 'Checkout';
+				ckSt.addEventListener('click', function () {
+					startStripeSession([{ id: line.shopProductId, quantity: 1 }]);
+				});
+				actions.appendChild(ckSt);
 			}
 			if (line.url && /\/itm\//i.test(line.url)) {
 				var eb = document.createElement('a');
@@ -490,7 +579,8 @@
 				eb.href = line.url;
 				eb.target = '_blank';
 				eb.rel = 'noopener noreferrer';
-				eb.textContent = line.checkoutUrl ? 'View on eBay' : 'Buy on eBay';
+				eb.textContent =
+					line.checkoutUrl || line.dynamicStripe ? 'View on eBay' : 'Buy on eBay';
 				actions.appendChild(eb);
 			}
 			var rm = document.createElement('button');
@@ -574,27 +664,39 @@
 		var imgs = normalizeEbayImages(item);
 		var carouselHost = document.createElement('div');
 		carouselHost.className = 'shop-ig-wrap shop-ig-wrap--modal';
-		buildIgCarousel(carouselHost, imgs, item.title);
+		var modalAlt =
+			item.shopImageAlt && String(item.shopImageAlt).trim() !== ''
+				? String(item.shopImageAlt).trim()
+				: item.title || '';
+		buildIgCarousel(carouselHost, imgs, modalAlt);
 		detailGallery.appendChild(carouselHost);
 
 		var direct = getBuyOnSiteUrl(item);
+		var stripeBtn =
+			item.dynamicStripeCheckout &&
+			item.shopProductId &&
+			resolveStripeCheckoutEndpoint();
 		var ebay = getEbayUrl(item);
 
 		while (detailBody.firstChild) detailBody.removeChild(detailBody.firstChild);
 		var priceP = document.createElement('p');
 		priceP.className = 'ebay-detail-price';
 		if (item.price) {
-			priceP.textContent = direct ? 'Price: ' + item.price : 'Price (eBay): ' + item.price;
+			priceP.textContent =
+				direct || stripeBtn ? 'Price: ' + item.price : 'Price (eBay): ' + item.price;
 		} else {
-			priceP.textContent = direct ? 'See direct checkout for price.' : 'See eBay for price.';
+			priceP.textContent =
+				direct || stripeBtn ? 'See checkout for price.' : 'See eBay for price.';
 		}
 		detailBody.appendChild(priceP);
 		var shipP = document.createElement('p');
 		shipP.className = 'ebay-detail-ship';
-		if (direct) {
-			shipP.textContent = ebay
-				? 'Prefer buying direct when checkout is available — marketplace fees on eBay add up. Shipping may differ between checkout and eBay.'
-				: 'Shipping and totals are shown on the direct checkout page.';
+		if (direct || stripeBtn) {
+			shipP.textContent = stripeBtn
+				? 'Stripe checkout collects name, phone, and U.S. shipping address. Totals are confirmed before you pay.'
+				: ebay
+					? 'Prefer buying direct when checkout is available — marketplace fees on eBay add up. Shipping may differ between checkout and eBay.'
+					: 'Shipping and totals are shown on the direct checkout page.';
 		} else {
 			shipP.textContent =
 				'Shipping (eBay): ' + (item.shipping || 'See listing') + ' · U.S. only';
@@ -605,18 +707,45 @@
 			c.textContent = 'Condition: ' + item.condition;
 			detailBody.appendChild(c);
 		}
+		if (item.shopSummary && String(item.shopSummary).trim() !== '') {
+			var sumP = document.createElement('p');
+			sumP.className = 'ebay-detail-desc';
+			sumP.textContent = String(item.shopSummary).trim();
+			detailBody.appendChild(sumP);
+		}
+		if (Array.isArray(item.detailNotes) && item.detailNotes.length) {
+			var ul = document.createElement('ul');
+			ul.className = 'ebay-detail-desc ebay-detail-notes';
+			item.detailNotes.forEach(function (note) {
+				var li = document.createElement('li');
+				li.textContent = note;
+				ul.appendChild(li);
+			});
+			detailBody.appendChild(ul);
+		}
 		if (item.description) {
 			var desc = document.createElement('div');
 			desc.className = 'ebay-detail-desc';
 			desc.textContent = String(item.description);
 			detailBody.appendChild(desc);
-		} else {
+		} else if (!item.__shopSource) {
 			var hint = document.createElement('p');
 			hint.className = 'garage-sale-ebay-spread-note';
 			hint.textContent = direct
 				? 'Details may also appear on the eBay listing when linked. Complete payment on checkout or eBay — whichever you choose.'
 				: 'Full item specifics, returns, and exact shipping options are on the eBay listing. Purchases complete on eBay.';
 			detailBody.appendChild(hint);
+		} else if (
+			(!item.shopSummary || String(item.shopSummary).trim() === '') &&
+			!(Array.isArray(item.detailNotes) && item.detailNotes.length)
+		) {
+			var hintShop = document.createElement('p');
+			hintShop.className = 'garage-sale-ebay-spread-note';
+			hintShop.textContent =
+				direct || stripeBtn
+					? 'Totals and shipping details are confirmed at checkout.'
+					: 'Checkout for this drop is not live yet.';
+			detailBody.appendChild(hintShop);
 		}
 
 		var actionsHost = detailDialog.querySelector('.photo-dialog-actions');
@@ -631,17 +760,41 @@
 				aChk.rel = 'noopener noreferrer';
 				aChk.textContent = 'Checkout (direct)';
 				actionsHost.appendChild(aChk);
+				var altD =
+					item.alternateCheckoutUrl != null ? String(item.alternateCheckoutUrl).trim() : '';
+				if (/^https?:\/\//i.test(altD) && altD !== direct) {
+					var aAlt = document.createElement('a');
+					aAlt.className =
+						'modeButton photography-action-btn garage-sale-direct-checkout garage-sale-direct-checkout--alt';
+					aAlt.href = altD;
+					aAlt.target = '_blank';
+					aAlt.rel = 'noopener noreferrer';
+					aAlt.textContent = 'Pay with card';
+					actionsHost.appendChild(aAlt);
+				}
+			}
+			if (stripeBtn) {
+				var stBtn = document.createElement('button');
+				stBtn.type = 'button';
+				if (!direct) stBtn.id = 'ebay-detail-buy';
+				stBtn.className = 'modeButton photography-action-btn garage-sale-direct-checkout';
+				stBtn.textContent = 'Checkout';
+				stBtn.addEventListener('click', function () {
+					startStripeSession([{ id: item.shopProductId, quantity: 1 }]);
+				});
+				actionsHost.appendChild(stBtn);
 			}
 			if (ebay) {
 				var aEb = document.createElement('a');
-				if (!direct) aEb.id = 'ebay-detail-buy';
+				if (!direct && !stripeBtn) aEb.id = 'ebay-detail-buy';
 				aEb.className =
 					'modeButton photography-action-btn' +
-					(direct ? ' garage-sale-ebay-secondary-cta' : '');
+					(direct || stripeBtn ? ' garage-sale-ebay-secondary-cta' : '');
 				aEb.href = ebay;
 				aEb.target = '_blank';
 				aEb.rel = 'noopener noreferrer';
-				aEb.textContent = direct ? 'Also on eBay' : 'Open listing on eBay';
+				aEb.textContent =
+					direct || stripeBtn ? 'Also on eBay' : 'Open listing on eBay';
 				actionsHost.appendChild(aEb);
 			}
 		}
@@ -651,11 +804,16 @@
 	function renderEbayInstaCard(item) {
 		var card = document.createElement('article');
 		card.className = 'garage-sale-card garage-sale-ebay-card shop-ebay-sale-card';
+		if (item && item.__shopSource) card.classList.add('garage-sale-card--shop-drop');
 
 		var imgs = normalizeEbayImages(item);
 		var ig = document.createElement('div');
 		ig.className = 'shop-ig-wrap';
-		buildIgCarousel(ig, imgs, item.title);
+		var carouselAlt =
+			item.shopImageAlt && String(item.shopImageAlt).trim() !== ''
+				? String(item.shopImageAlt).trim()
+				: item.title || '';
+		buildIgCarousel(ig, imgs, carouselAlt);
 		card.appendChild(ig);
 
 		var h = document.createElement('h3');
@@ -663,17 +821,30 @@
 		h.textContent = item.title || 'Untitled listing';
 		card.appendChild(h);
 
+		if (item.shopEyebrow && String(item.shopEyebrow).trim() !== '') {
+			var eyeb = document.createElement('p');
+			eyeb.className = 'garage-sale-ebay-spread-note';
+			eyeb.textContent = String(item.shopEyebrow).trim();
+			card.appendChild(eyeb);
+		}
+
 		var direct = getBuyOnSiteUrl(item);
+		var stripeBtn =
+			item.dynamicStripeCheckout &&
+			item.shopProductId &&
+			resolveStripeCheckoutEndpoint();
 
 		if (item.price) {
 			var priceEl = document.createElement('p');
 			priceEl.className = 'garage-sale-ebay-price';
-			priceEl.textContent = direct ? 'Price: ' + item.price : 'Price (eBay): ' + item.price;
+			priceEl.textContent =
+				direct || stripeBtn ? 'Price: ' + item.price : 'Price (eBay): ' + item.price;
 			card.appendChild(priceEl);
 		} else {
 			var np = document.createElement('p');
 			np.className = 'garage-sale-ebay-spread-note';
-			np.textContent = direct ? 'Price — see direct checkout.' : 'Price — open eBay listing.';
+			np.textContent =
+				direct || stripeBtn ? 'Price — see checkout.' : 'Price — open eBay listing.';
 			card.appendChild(np);
 		}
 
@@ -702,21 +873,45 @@
 		addBtn.className = 'modeButton shop-ebay-add-cart';
 		addBtn.textContent = 'Add to cart';
 		addBtn.disabled =
-			!stableCartId(item) || (!direct && !canBuy);
+			!stableCartId(item) || (!direct && !stripeBtn && !canBuy);
 		addBtn.addEventListener('click', function () {
 			addToCart(item);
 		});
 
-		if (direct) {
+		if (direct || stripeBtn) {
 			var primaryRowDir = document.createElement('div');
 			primaryRowDir.className = 'shop-ebay-cta-primary-row';
-			var chk = document.createElement('a');
-			chk.className = 'modeButton garage-sale-direct-checkout';
-			chk.href = direct;
-			chk.target = '_blank';
-			chk.rel = 'noopener noreferrer';
-			chk.textContent = 'Checkout';
-			primaryRowDir.appendChild(chk);
+			if (direct) {
+				var chk = document.createElement('a');
+				chk.className = 'modeButton garage-sale-direct-checkout';
+				chk.href = direct;
+				chk.target = '_blank';
+				chk.rel = 'noopener noreferrer';
+				chk.textContent = 'Checkout';
+				primaryRowDir.appendChild(chk);
+				var altDirect =
+					item.alternateCheckoutUrl != null ? String(item.alternateCheckoutUrl).trim() : '';
+				if (/^https?:\/\//i.test(altDirect) && altDirect !== direct) {
+					var altChk = document.createElement('a');
+					altChk.className =
+						'modeButton garage-sale-direct-checkout garage-sale-direct-checkout--alt';
+					altChk.href = altDirect;
+					altChk.target = '_blank';
+					altChk.rel = 'noopener noreferrer';
+					altChk.textContent = 'Pay with card';
+					primaryRowDir.appendChild(altChk);
+				}
+			}
+			if (stripeBtn) {
+				var stChk = document.createElement('button');
+				stChk.type = 'button';
+				stChk.className = 'modeButton garage-sale-direct-checkout';
+				stChk.textContent = 'Checkout';
+				stChk.addEventListener('click', function () {
+					startStripeSession([{ id: item.shopProductId, quantity: 1 }]);
+				});
+				primaryRowDir.appendChild(stChk);
+			}
 			if (canBuy) {
 				var ebaySecond = document.createElement('a');
 				ebaySecond.className = 'modeButton garage-sale-ebay-secondary-cta';
@@ -776,7 +971,9 @@
 
 		var badge = document.createElement('p');
 		badge.className = 'shop-hold-badge';
-		badge.textContent = 'On hold — not sold here yet';
+		var availLower = String((item && item.shopAvailabilityText) || '').toLowerCase();
+		badge.textContent =
+			availLower === 'sold out' ? 'Sold out here' : 'On hold — not sold here yet';
 		card.appendChild(badge);
 
 		var galleryImages = Array.isArray(item.images) ? item.images.slice() : [];
@@ -865,30 +1062,34 @@
 		if (rootEbay) {
 			while (rootEbay.firstChild) rootEbay.removeChild(rootEbay.firstChild);
 			var sorted = sortEbayList(dataEbay);
-			if (!sorted.length) {
+			var sortedLiveShop = sortEbayList(dataShopLive);
+			var frag = document.createDocumentFragment();
+			sortedLiveShop.forEach(function (item) {
+				frag.appendChild(renderEbayInstaCard(item));
+			});
+			sorted.forEach(function (item) {
+				frag.appendChild(renderEbayInstaCard(item));
+			});
+			if (!frag.childNodes.length) {
 				var empty = document.createElement('p');
 				empty.className = 'garage-sale-empty';
 				empty.innerHTML =
-					'No eBay listings in JSON. Sync or edit <code>Garage Sale/ebay-listings.json</code>.';
+					'No live shop drops or eBay listings. Add PayPal/Stripe links in <code>Garage Sale/shop-products.json</code> or sync <code>Garage Sale/ebay-listings.json</code>.';
 				rootEbay.appendChild(empty);
 			} else {
-				var frag = document.createDocumentFragment();
-				sorted.forEach(function (item) {
-					frag.appendChild(renderEbayInstaCard(item));
-				});
 				rootEbay.appendChild(frag);
 			}
 		}
 		if (rootHold) {
 			while (rootHold.firstChild) rootHold.removeChild(rootHold.firstChild);
-			if (!dataHold.length) {
+			if (!dataShopHold.length) {
 				var e2 = document.createElement('p');
 				e2.className = 'garage-sale-empty';
-				e2.textContent = 'No direct-drop products in shop-products.json.';
+				e2.textContent = 'No upcoming direct-drop previews in shop-products.json.';
 				rootHold.appendChild(e2);
 			} else {
 				var f2 = document.createDocumentFragment();
-				dataHold.forEach(function (item) {
+				dataShopHold.forEach(function (item) {
 					f2.appendChild(renderHoldCard(item));
 				});
 				rootHold.appendChild(f2);
@@ -974,11 +1175,32 @@
 
 		var ebaySource = (ebayData && ebayData.source) || {};
 
-		var shopItems = [];
-		if (shopData && Array.isArray(shopData.products)) {
-			shopItems = orderedShopProducts(shopData.products);
+		var scriptStripeAttr = script && script.getAttribute('data-shop-stripe-checkout');
+		if (shopData && shopData.payment && shopData.payment.checkoutApi) {
+			var stripeEp = shopData.payment.checkoutApi.stripeEndpoint;
+			if (stripeEp && !scriptStripeAttr) {
+				shopStripeEndpoint = String(stripeEp).trim();
+			}
 		}
-		dataHold = assignFileOrder(shopItems);
+
+		var shopRows = [];
+		if (shopData && Array.isArray(shopData.products)) {
+			shopRows = orderedShopProducts(shopData.products);
+		}
+		var shopLiveRows = [];
+		var shopHoldRows = [];
+		for (var si = 0; si < shopRows.length; si++) {
+			var sr = shopRows[si];
+			if (
+				sr &&
+				(sr.buyOnSiteUrl ||
+					(sr.dynamicStripeCheckout && resolveStripeCheckoutEndpoint()))
+			)
+				shopLiveRows.push(sr);
+			else shopHoldRows.push(sr);
+		}
+		dataShopLive = assignFileOrder(shopLiveRows);
+		dataShopHold = assignFileOrder(shopHoldRows);
 
 		var all = (ebayData && ebayData.items) || [];
 		var ebayGarage = [];
@@ -995,7 +1217,7 @@
 		dataEbay = assignFileOrder(ebayGarage);
 		dataDigital = assignFileOrder(dataDigital);
 
-		if (dataEbay.length + dataHold.length + dataDigital.length > 0) {
+		if (dataEbay.length + dataShopLive.length + dataShopHold.length + dataDigital.length > 0) {
 			initSortControls();
 		}
 		applySortAndRender();

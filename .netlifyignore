@@ -34,6 +34,9 @@ package.json
 desktop.ini
 .DS_Store
 
+# Private scratch notes (not deployed; keep local-only — see .gitignore)
+ideas.txt
+
 # Local docs and handoffs
 *_HANDOFF.md
 ACTIONABLE_CHECKLIST.md

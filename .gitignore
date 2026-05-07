@@ -10,6 +10,9 @@ npm-debug.log*
 .mcp.json
 .cursor/mcp.json
 
+# Private scratch notes (never deploy — see .netlifyignore; not published in git)
+ideas.txt
+
 # Local/generated artifacts
 dev/test-output/
 # Scraped / scratch (can contain session-like tokens; do not publish)

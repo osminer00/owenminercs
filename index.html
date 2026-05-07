@@ -98,28 +98,175 @@
 		<script src="./scripts/components.js" defer></script>
 	</head>
 
-	<body id="top" class="site-card-ui">
+	<body id="top" class="site-card-ui home-page">
 		<shared-header></shared-header>
 		<div class="container">
 			<section class="intro site-feed-section" id="whats-new" aria-labelledby="site-feed-heading">
 				<h2 id="site-feed-heading">What’s new</h2>
-				<p class="site-feed-lede">Recent additions and updates across the site.</p>
-				<ol class="site-feed-list" id="site-feed-list" aria-busy="true"></ol>
-				<p class="site-feed-error" id="site-feed-error" hidden></p>
+				<p class="site-feed-lede">Major site update in progress—follow Discord for the latest.</p>
+				<ol class="site-feed-list" id="site-feed-list" data-site-feed-static="true" aria-busy="false">
+					<li class="site-feed-item">
+						<a
+							class="site-feed-item__link"
+							href="https://discord.gg/fA9GbxmAge"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Owen Miner CS V2: complete site rework, new pages and features; opens Discord for website update news"
+						>
+							<div class="site-feed-item__row">
+								<time class="site-feed-item__date" datetime="2026-05">May 2026</time>
+								<span class="site-feed-item__title">Owen Miner CS V2</span>
+							</div>
+							<p class="site-feed-item__summary">
+								Complete site rework. New pages, new features, more to come. Check the Discord for news on website
+								updates.
+							</p>
+						</a>
+					</li>
+				</ol>
 			</section>
-			<div class="intro">
+			<div class="intro home-welcome">
 				<h1>Welcome to OwenMinerCS.com!</h1>
-				<p style="max-width: 42rem; margin-left: auto; margin-right: auto">
-					Deep dives: <a href="Keyboard/60he.html">Wooting 60HE keyboard build</a> (parts, switches, keycaps),
-					<a href="Gaming/gaming.html">Gaming</a> (Counter-Strike for now: Faceit, merch, wallpapers),
-					<a href="The%20Setup/gaming-pc.html">2024 PC build</a>, and
-					<a href="The%20Setup/the-setup.html">Bigfoot's Jungle</a> (desk, monitors, peripherals). Resale:
-					<a href="Garage Sale/garage-sale.html">Shop</a> (eBay, Depop,
-					<a href="https://merc.li/vZarDtsWb" target="_blank" rel="noopener noreferrer nofollow sponsored"
-						>Mercari referral</a
-					>, Vinted).
+				<p class="home-welcome-lede">
+					Deep dives on the keyboard build, Counter-Strike, the 2024 gaming PC, and the full desk setup—plus resale
+					when listed. Jump in below.
 				</p>
 			</div>
+
+			<section
+				class="intro home-site-search-section"
+				id="site-search"
+				aria-labelledby="home-site-search-heading"
+				data-owen-site-search="1"
+			>
+				<h2 id="home-site-search-heading">Search the site</h2>
+				<p class="home-site-search-lede">Find a page by name or topic—same index as the Search link in the navigation bar.</p>
+				<form class="site-search-form site-search-form--home" role="search" action="#" method="get">
+					<label for="home-site-search-input" class="site-visually-hidden">Search pages</label>
+					<input
+						type="search"
+						id="home-site-search-input"
+						class="site-search__input"
+						name="q"
+						autocomplete="off"
+						spellcheck="false"
+						placeholder="Search pages…"
+						enterkeyhint="search"
+						data-owen-site-search="1"
+					/>
+				</form>
+				<div class="site-search-results" id="home-site-search-results" aria-live="polite"></div>
+			</section>
+
+			<section class="intro home-explore" id="explore" aria-labelledby="home-explore-heading">
+				<h2 id="home-explore-heading">Explore the site</h2>
+				<p class="home-explore-lede">A visual map of the main hubs—each card pulls from the same photo galleries as the destination pages.</p>
+				<div class="home-explore-grid">
+					<article class="home-explore-card">
+						<a class="home-explore-card__primary" href="Keyboard/60he.html">
+							<span class="home-explore-card__media">
+								<img
+									src="Keyboard/images/killowattKeyboard.webp"
+									width="640"
+									height="360"
+									loading="lazy"
+									decoding="async"
+									alt="Wooting 60HE Kilowatt keyboard build"
+								/>
+							</span>
+						</a>
+						<div class="home-explore-card__body">
+							<p class="home-explore-card__title">
+								<a href="Keyboard/60he.html">Wooting 60HE keyboard build</a>
+							</p>
+							<p class="home-explore-card__desc">Cases, switches, keycaps, silicone dampening, galleries, and build eras.</p>
+							<p class="home-explore-card__tags">
+								<span>Parts</span><span class="home-explore-card__dot" aria-hidden="true">·</span>
+								<span>Switches</span><span class="home-explore-card__dot" aria-hidden="true">·</span>
+								<span>Keycaps</span>
+							</p>
+						</div>
+					</article>
+
+					<article class="home-explore-card">
+						<a class="home-explore-card__primary" href="Gaming/gaming.html">
+							<span class="home-explore-card__media">
+								<img
+									src="images/csShelves.webp"
+									width="640"
+									height="360"
+									loading="lazy"
+									decoding="async"
+									alt="CS2 Major merchandise on shelves"
+								/>
+							</span>
+						</a>
+						<div class="home-explore-card__body">
+							<p class="home-explore-card__title">
+								<a href="Gaming/gaming.html">Gaming — Counter-Strike</a>
+							</p>
+							<p class="home-explore-card__desc">FACEIT-level play, merch shelves, wallpapers, skins, and CS2 pages.</p>
+							<ul class="home-explore-card__links">
+								<li><a href="Gaming/counter-strike-background.html">FACEIT &amp; background</a></li>
+								<li><a href="Gaming/cs2-merch.html">Merch</a></li>
+								<li><a href="Counter-Strike/nosmoking.html">Wallpapers</a></li>
+							</ul>
+						</div>
+					</article>
+
+					<article class="home-explore-card">
+						<a class="home-explore-card__primary" href="The%20Setup/gaming-pc.html">
+							<span class="home-explore-card__media">
+								<img
+									src="PC/images/pc.webp"
+									width="640"
+									height="360"
+									loading="lazy"
+									decoding="async"
+									alt="2024 gaming PC build"
+								/>
+							</span>
+						</a>
+						<div class="home-explore-card__body">
+							<p class="home-explore-card__title">
+								<a href="The%20Setup/gaming-pc.html">2024 PC build</a>
+							</p>
+							<p class="home-explore-card__desc">Ryzen, RTX 4090, case, and parts list with retailer links.</p>
+							<p class="home-explore-card__tags">
+								<span>Specs</span><span class="home-explore-card__dot" aria-hidden="true">·</span>
+								<span>Parts list</span><span class="home-explore-card__dot" aria-hidden="true">·</span>
+								<span>Gallery</span>
+							</p>
+						</div>
+					</article>
+
+					<article class="home-explore-card">
+						<a class="home-explore-card__primary" href="The%20Setup/the-setup.html">
+							<span class="home-explore-card__media">
+								<img
+									src="images/gamingSetup.webp"
+									width="640"
+									height="360"
+									loading="lazy"
+									decoding="async"
+									alt="Bigfoot's Jungle desk setup with monitors"
+								/>
+							</span>
+						</a>
+						<div class="home-explore-card__body">
+							<p class="home-explore-card__title">
+								<a href="The%20Setup/the-setup.html">Bigfoot's Jungle</a>
+							</p>
+							<p class="home-explore-card__desc">Desk, monitors, audio, lighting, peripherals, plants, and priced gear cards.</p>
+							<p class="home-explore-card__tags">
+								<span>Desk</span><span class="home-explore-card__dot" aria-hidden="true">·</span>
+								<span>Monitors</span><span class="home-explore-card__dot" aria-hidden="true">·</span>
+								<span>Peripherals</span>
+							</p>
+						</div>
+					</article>
+				</div>
+			</section>
 		</div>
 
 		<shared-footer

@@ -27,7 +27,7 @@ body.socials-cloud-bg shared-footer {
 	flex: 0 0 auto;
 }
 
-body.socials-cloud-bg shared-header header {
+body.socials-cloud-bg shared-header .site-header-sticky-bar {
 	background: linear-gradient(180deg, rgba(4, 6, 9, 0.84), rgba(4, 6, 9, 0.16)) !important;
 	border-color: rgba(255, 255, 255, 0.08) !important;
 	box-shadow: none !important;
@@ -47,11 +47,6 @@ body.socials-cloud-bg shared-footer footer {
 	margin-top: 0.25rem !important;
 	padding-top: 0.45rem !important;
 	padding-bottom: 0.4rem !important;
-}
-
-/* Credits copy is hidden here; dropping the empty column removes a wide dead band */
-body.socials-cloud-bg .site-footer-meta__credits {
-	display: none !important;
 }
 
 body.socials-cloud-bg .site-footer-meta {
@@ -78,11 +73,11 @@ body.socials-cloud-bg .site-footer-top-row {
 body.socials-cloud-bg .site-footer-social-bar {
 	width: max-content;
 	max-width: 100%;
-	padding: clamp(1.65rem, 3.6vmin, 2.45rem) 0 clamp(1.75rem, 3.8vmin, 2.55rem);
+	padding: clamp(1.35rem, 3vmin, 2.05rem) 0 clamp(1.45rem, 3.2vmin, 2.15rem);
 }
 
-body.socials-cloud-bg .site-footer-meta__home-mark {
-	margin-top: 0.35rem;
+body.socials-cloud-bg .site-footer-meta__brand {
+	margin-top: 0.15rem;
 }
 
 /* Keep footer compact on this page so cards remain visible */

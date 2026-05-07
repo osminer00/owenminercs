@@ -1,1 +1,15 @@
+# Private notes — not deployed (see .netlifyignore) and not tracked in git (see .gitignore).
+# Keep this file only on your machine; do not commit.
+
 csfloat price vs steam price calculator + sticker price calculator
+
+--- Adobe Affiliate Program (Creative Cloud) ---
+Overview / apply: https://www.adobe.com/affiliates.html
+(Program is commonly run via Partnerize; follow Adobe’s current signup flow from that page.)
+
+Ideas:
+- Natural tie-in: Dev/Programs page (Creative Cloud) and any thumbnails/site graphics workflow copy.
+- Only use official affiliate links from the dashboard after approval; add the same disclosure pattern you use for Amazon/others on live pages.
+- Eventually: set up automatic Discord updates for any new website content (e.g. webhook or feed triggered on publish/deploy).
+
+- Cameras / personal history: My very first Nikon was one my mom owned—I used it for airsoft videos. Ask her what model it was (she may still have it); then add a legacy/nostalgia note or card on the site next to the D3100 story if it fits.

@@ -201,23 +201,21 @@ body.site-card-ui .affiliate-button:visited:focus-visible {
 	background: linear-gradient(180deg, #86efac 0%, #22c55e 100%);
 }
 
-/* Keep affiliate badge readable on dark buttons */
+/* Affiliate suffix matches retailer label (same color as "Amazon" / "AliExpress" on the button) */
 .affiliate-button .affiliate {
-	display: inline-flex;
-	align-items: center;
-	height: 1.2rem;
-	margin-left: 0.04rem;
-	padding: 0 0.38rem;
-	background-color: rgba(74, 222, 128, 0.12);
-	color: rgba(201, 255, 221, 0.82);
-	border: 1px solid rgba(74, 222, 128, 0.18);
-	border-radius: 999px;
-	font-size: 0.6rem;
-	font-weight: 800;
-	letter-spacing: 0.03em;
-	line-height: 1;
-	text-transform: uppercase;
-	text-shadow: none;
+	display: inline;
+	margin-left: 0.28em;
+	padding: 0;
+	background: none;
+	color: inherit;
+	border: none;
+	border-radius: 0;
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: normal;
+	line-height: inherit;
+	text-transform: none;
+	text-shadow: inherit;
 }
 
 /* Inline title row: h4 + affiliate button side-by-side */

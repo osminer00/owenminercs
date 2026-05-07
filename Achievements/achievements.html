@@ -208,23 +208,114 @@
 					opacity 0.18s var(--ease-out),
 					visibility 0.18s var(--ease-out);
 			}
+			/* Achievement “tile” art: beveled square + handcrafted inline SVG (see achievements-page.js). */
+			@keyframes ach-tile-sheen {
+				0% {
+					transform: translate3d(-55%, -40%, 0) rotate(18deg);
+				}
+				100% {
+					transform: translate3d(55%, 40%, 0) rotate(18deg);
+				}
+			}
+			@keyframes ach-tile-float {
+				0%,
+				100% {
+					transform: perspective(320px) rotateX(5deg) rotateY(-7deg) translateZ(0);
+				}
+				50% {
+					transform: perspective(320px) rotateX(-3deg) rotateY(5deg) translateZ(0);
+				}
+			}
+			@keyframes ach-fidget-drift {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
 			.achievement-card__graphic-mark {
+				--ach-tile-edge: rgba(220, 245, 232, 0.55);
+				--ach-tile-face: rgba(12, 22, 18, 0.92);
+				position: relative;
 				display: grid;
 				place-items: center;
-				width: 4.25rem;
-				height: 4.25rem;
-				border-radius: 50%;
-				border: 2px solid rgba(210, 255, 220, 0.68);
-				background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 42%), rgba(0, 0, 0, 0.28);
+				width: 4.35rem;
+				height: 4.35rem;
+				aspect-ratio: 1;
+				border-radius: 0.78rem;
+				overflow: hidden;
+				border: 2px solid var(--ach-tile-edge);
+				background:
+					linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, transparent 42%),
+					linear-gradient(315deg, rgba(0, 0, 0, 0.35) 0%, transparent 55%),
+					radial-gradient(ellipse 90% 70% at 40% 25%, rgba(0, 255, 160, 0.12), transparent 55%),
+					var(--ach-tile-face);
 				box-shadow:
-					0 0 0 0.45rem rgba(0, 0, 0, 0.14),
-					0 0 1.25rem rgba(0, 255, 150, 0.18);
-				font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
-				font-size: 0.78rem;
-				font-weight: 800;
-				letter-spacing: 0.08em;
-				line-height: 1;
-				text-transform: uppercase;
+					inset 0 1px 0 rgba(255, 255, 255, 0.2),
+					inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+					0 0 0 1px rgba(0, 0, 0, 0.35),
+					0 0.35rem 0 rgba(0, 0, 0, 0.28),
+					0 0 1.15rem rgba(0, 255, 150, 0.16);
+				transform-style: preserve-3d;
+				backface-visibility: hidden;
+			}
+			.achievement-card__graphic-mark::after {
+				content: '';
+				position: absolute;
+				inset: -120%;
+				background: linear-gradient(
+					105deg,
+					transparent 42%,
+					rgba(255, 255, 255, 0.14) 48%,
+					rgba(255, 255, 255, 0.32) 50%,
+					rgba(255, 255, 255, 0.12) 52%,
+					transparent 58%
+				);
+				opacity: 0;
+				pointer-events: none;
+				mix-blend-mode: screen;
+			}
+			.achievement-card--unlocked .achievement-card__graphic-mark::after {
+				opacity: 0.85;
+				animation: ach-tile-sheen 4.8s ease-in-out infinite alternate;
+			}
+			.achievement-card--unlocked .achievement-card__graphic-mark {
+				animation: ach-tile-float 5.5s ease-in-out infinite;
+			}
+			.achievement-card__graphic-mark svg {
+				position: relative;
+				z-index: 1;
+				width: 62%;
+				height: 62%;
+				filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55));
+			}
+			.achievement-card--unlocked .achievement-card__graphic-mark--fidget-spinner svg {
+				animation: ach-fidget-drift 22s linear infinite;
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.achievement-card--unlocked .achievement-card__graphic-mark,
+				.achievement-card--unlocked .achievement-card__graphic-mark::after,
+				.achievement-card--unlocked .achievement-card__graphic-mark--fidget-spinner svg {
+					animation: none !important;
+				}
+				.achievement-card--unlocked .achievement-card__graphic-mark::after {
+					opacity: 0.35;
+					transform: translate3d(0, 0, 0);
+				}
+			}
+			.achievement-card__graphic-mark--svg {
+				letter-spacing: normal;
+				text-transform: none;
+				font-size: 0;
+				font-weight: 400;
+				padding: 0.4rem;
+				box-sizing: border-box;
+			}
+			.achievement-card__graphic-mark--svg svg {
+				width: 100%;
+				height: 100%;
+				display: block;
 			}
 			.achievement-card:hover .achievement-card__graphic,
 			.achievement-card:focus-within .achievement-card__graphic {
@@ -343,6 +434,19 @@
 						Load a page in every main nav section at least once: Home, Bigfoot's Jungle, Gaming,
 						Donators, For sale, Help Wanted, Q&amp;A, Achievements, and Content (subpages like CS2 or the
 						keyboard build count toward their parent tab).
+					</p>
+				</article>
+
+				<article
+					class="achievement-card achievement-card--locked"
+					data-achievement="bug-eater"
+					aria-labelledby="ach-bug-eater-title"
+				>
+					<span class="achievement-card__badge" data-achievement-badge>Locked</span>
+					<h2 class="achievement-card__title" id="ach-bug-eater-title">Bug Eater</h2>
+					<p class="achievement-card__hint">
+						Visit the CS2 Dust II pixel-gap bug write-up (page path contains
+						<code>cs2-dust2-gap-bug</code>) — the niche map gap that earned a patch shout-out.
 					</p>
 				</article>
 			</section>

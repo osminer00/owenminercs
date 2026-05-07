@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-05-02
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -22,7 +22,7 @@ This is the low-token entry point for any coding assistant working in this repo.
 
 ## Project Snapshot
 
-Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript, with Netlify/serverless helpers and local sync scripts.
+Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript, with Cloudflare/GitHub deployment and serverless helpers (`functions/api/`, legacy `netlify/functions/`) plus local sync scripts.
 
 Key files:
 
@@ -33,6 +33,7 @@ Key files:
 - `_redirects` - Netlify redirects
 - `sitemap.xml`, `robots.txt` - manually maintained
 - `affiliate-links.json`, `donation-links.json` - support/affiliate data
+- `memory/future-work.md` - deferred site tasks and content ideas (read when the user asks about backlog, reminders, or “stuff to do later”)
 
 Important areas:
 
