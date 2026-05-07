@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
 const cssSource = readFileSync(new URL('../css/owenminercs.css', import.meta.url), 'utf8');
 const indexSource = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const searchIndexUrl = new URL('../data/site-search-index.json', import.meta.url);
 
 function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
@@ -120,4 +121,23 @@ test('homepage keeps Impact affiliate verification meta tag in the head', () => 
 		indexSource,
 		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
 	);
+});
+
+test('global search navigation has a page and static index to load', () => {
+	assert.match(componentsSource, /href="\$\{getSearchPageUrl\(\)\}"/);
+	assert.ok(existsSync(new URL('../search.html', import.meta.url)), 'search.html should exist');
+	assert.ok(existsSync(searchIndexUrl), 'site-search-index.json should exist');
+
+	const searchIndex = JSON.parse(readFileSync(searchIndexUrl, 'utf8'));
+	assert.ok(Array.isArray(searchIndex.entries), 'search index should expose entries[]');
+	assert.ok(searchIndex.entries.length >= 5, 'search index should include useful public pages');
+	for (const entry of searchIndex.entries) {
+		assert.equal(typeof entry.title, 'string');
+		assert.equal(typeof entry.path, 'string');
+		assert.equal(typeof entry.snippet, 'string');
+		assert.ok(
+			existsSync(new URL(`../${decodeURIComponent(entry.path)}`, import.meta.url)),
+			`${entry.path} should point at a public file`
+		);
+	}
 });

@@ -1,0 +1,94 @@
+{
+	"entries": [
+		{
+			"title": "Home",
+			"path": "index.html",
+			"snippet": "Owen Miner / OwenMinerCS home page with recent updates, CS2 content, setup links, and support links.",
+			"text": "home Owen Miner OwenMinerCS recent updates CS2 content creator software developer Wooting 60HE keyboard build custom PC Bigfoot's Jungle setup gaming setup garage sale socials support"
+		},
+		{
+			"title": "Bigfoot's Jungle",
+			"path": "The%20Setup/the-setup.html",
+			"snippet": "Setup hub for desk gear, PC, keyboards, cameras, audio, lighting, plants, clothing, tools, and upgrades.",
+			"text": "setup Bigfoot's Jungle desk gear peripherals monitors PC keyboards mouse cameras audio headphones microphone lighting plants clothing tools upgrades workstation streaming"
+		},
+		{
+			"title": "Wooting 60HE Build Guides",
+			"path": "Keyboard/60he.html",
+			"snippet": "Hub for the 2025 Kilowatt Wooting 60HE build and the 2023 Crosshair Alpha / v1 archive.",
+			"text": "keyboard Wooting 60HE build guide Kilowatt Crosshair Alpha v1 parts switches keycaps mods Gateron Jade Pro Tofu 60 Redux GH60"
+		},
+		{
+			"title": "2025 Wooting 60HE Kilowatt Build",
+			"path": "Keyboard/60he-2025.html",
+			"snippet": "Latest Kilowatt-themed Wooting 60HE build with Tofu 60 Redux, Jade Pro switches, plate, pad, and photos.",
+			"text": "2025 Wooting 60HE Kilowatt keyboard Tofu 60 Redux Jade Pro switches Wooting PC switch plate friction fit pad keycaps CableMod"
+		},
+		{
+			"title": "2023 Wooting 60HE Crosshair Alpha & v1",
+			"path": "Keyboard/60he-2023.html",
+			"snippet": "Crosshair Alpha build notes, v1 first-build photos, parts, sound dampening, and lubing clips.",
+			"text": "2023 Wooting 60HE Crosshair Alpha v1 first build GH60 silicone dampening lubing clips switches keycaps photos"
+		},
+		{
+			"title": "Gaming",
+			"path": "Gaming/gaming.html",
+			"snippet": "Counter-Strike and gaming hub with videos, skins tools, wallpapers, merch, configs, and background pages.",
+			"text": "gaming CS2 Counter-Strike videos skins calculator expensive skins wallpapers merch config Faceit no smoking"
+		},
+		{
+			"title": "Programs",
+			"path": "dev/dev-stack.html",
+			"snippet": "Programs and tools used for coding, creative work, streaming, local AI, video editing, and site maintenance.",
+			"text": "programs dev stack Cursor Codex Visual Studio Claude Antigravity Gemini Ollama Adobe Premiere Photoshop After Effects GIMP OBS multi RTMP streaming"
+		},
+		{
+			"title": "Donators",
+			"path": "Donators/donators.html",
+			"snippet": "Supporters, tips, donation links, and thank-yous for OwenMinerCS.",
+			"text": "donators supporters donations tips Ko-fi StreamElements thank you support OwenMinerCS"
+		},
+		{
+			"title": "For sale",
+			"path": "Garage%20Sale/garage-sale.html",
+			"snippet": "Shop and resale page for stickers, prints, physical drops, and marketplace listings.",
+			"text": "for sale shop garage sale stickers prints PayPal Stripe eBay Depop Mercari Vinted listings"
+		},
+		{
+			"title": "Help Wanted",
+			"path": "Help%20Wanted/help-wanted.html",
+			"snippet": "Open roles, collaborations, project requests, and ways to help.",
+			"text": "help wanted roles collaboration requests projects feedback bug reports site ideas"
+		},
+		{
+			"title": "Q&A",
+			"path": "QA/qa.html",
+			"snippet": "Short public Q&A covering height questions and website bug reporting.",
+			"text": "questions answers QA FAQ height website bugs report Discord"
+		},
+		{
+			"title": "Achievements",
+			"path": "Achievements/achievements.html",
+			"snippet": "Easter eggs and site milestones unlocked while exploring OwenMinerCS.com.",
+			"text": "achievements easter eggs milestones unlock social dock grand tour main nav tour"
+		},
+		{
+			"title": "Content",
+			"path": "Socials/socials.html",
+			"snippet": "Social hub with profiles, featured posts, cloud cards, and content links.",
+			"text": "content socials social cloud YouTube Twitch TikTok Instagram Facebook X Reddit Discord posts videos shorts"
+		},
+		{
+			"title": "Photography",
+			"path": "Photography/photography.html",
+			"snippet": "Photography and visual work from Owen Miner.",
+			"text": "photography photos camera images visual work art prints"
+		},
+		{
+			"title": "PC Build",
+			"path": "PC/pc.html",
+			"snippet": "Custom PC build notes and parts.",
+			"text": "PC build custom gaming computer RTX 4090 parts specs setup"
+		}
+	]
+}
