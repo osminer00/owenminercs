@@ -86,6 +86,23 @@ Keep public-facing profile copy focused on OwenMinerCS channels, CS2, keyboard, 
 - **Q&A scope:** The embedded FAQ on `index.html` and `QA/qa.html` is intentionally short: height questions and the website bug-report path. Livestream discovery, Counter-Strike configs, and merch links belong in navigation, Socials, Gaming, or content pages instead of the FAQ.
 - **Mockups/backups:** Files under `mockups/` and `backup-pre-the-setup-2026-04-08/` may still contain archived bio/DMACC copy. Treat those as non-production references unless a mockup is promoted.
 
+### Automated public-content guardrail
+
+Run this check after editing public page copy, shared head metadata, or JSON-LD:
+
+```sh
+npm run test:content
+```
+
+`dev/public-content-regression-check.mjs` scans public `.html` and `.json` files for content that should not return to production:
+
+- `DMACC`
+- Person schema `alumniOf`
+- the old graduate bio sentence
+- the old programming-at-school bio sentence
+
+The script intentionally skips development, memory, mockup, backup, package, and generated search-index files. If a future content decision intentionally allows one of these phrases on a production page, update both `FORBIDDEN_PUBLIC_CONTENT` in the script and this section in the same change.
+
 Example Person JSON-LD shape:
 
 ```json
