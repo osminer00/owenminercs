@@ -6189,12 +6189,15 @@ html:not([data-theme='light']) body.site-card-ui .site-feed-item__link .site-fee
 .keep-card:focus-visible .keep-card__peek,
 .keep-card:focus-within .keep-card__peek,
 .keep-card--static:hover .keep-card__peek {
-	max-height: min(14rem, 52vh);
+	/* Tall enough for multi-line peek copy on Programs/dev-stack cards; scroll if still overflowing */
+	max-height: min(22rem, 62vh);
 	opacity: 1;
 	padding-top: 0.45rem;
 	padding-bottom: 0.65rem;
 	pointer-events: auto;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 .keep-card__peek p {
