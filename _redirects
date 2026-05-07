@@ -1,6 +1,10 @@
 # Legacy / default favicon requests → site logo
 /favicon.ico   /images/owenminercs-logo.png   301
 
+# Site search (pretty URL → static page; avoids SPA-style fallback to index when unset)
+/search /search.html 200
+/search/ /search.html 200
+
 # About → home (same content lives at `/`)
 /about    /   301
 /about.html    /   301
