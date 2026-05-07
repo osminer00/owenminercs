@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-GYG1QRQ8DY');
+		</script>
+		<title>CS2 Bug Found &amp; Fixed: Dust II Pixel Gap | Gaming | Owen Miner</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="CS2 bug found and fixed: Dust II pixel gap—June 2024 video, Reddit, NartOutHere credit, Valve patch."
+		/>
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href="https://www.owenminercs.com/Gaming/cs2-dust2-gap-bug" />
+		<script src="../scripts/components.js" defer></script>
+		<style>
+			.dust2-gap-embed-stats {
+				color: #aaa;
+				font-size: 0.95rem;
+				margin: 0 0 0.5rem;
+			}
+			.dust2-gap-embed-stats strong {
+				color: #e8e8e8;
+			}
+			/* YouTube Short (9:16) + Reddit, side by side — shared embed height */
+			.dust2-gap-embed-row {
+				--dust2-embed-h: 560px;
+				display: grid;
+				grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+				gap: 1rem 1.5rem;
+				align-items: stretch;
+				margin: 1.25rem 0;
+			}
+			.dust2-gap-embed-col {
+				min-width: 0;
+				min-height: 0;
+				display: flex;
+				flex-direction: column;
+			}
+			.dust2-gap-yt-short {
+				position: relative;
+				box-sizing: border-box;
+				width: min(100%, calc(var(--dust2-embed-h) * 9 / 16));
+				max-width: min(380px, calc(var(--dust2-embed-h) * 9 / 16));
+				margin: 0 auto;
+				aspect-ratio: 9 / 16;
+				max-height: var(--dust2-embed-h);
+				overflow: hidden;
+				background: #0a0a0a;
+				border-radius: 6px;
+				flex-shrink: 0;
+			}
+			.dust2-gap-yt-short iframe {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				border: 0;
+			}
+			.dust2-gap-reddit-slot {
+				box-sizing: border-box;
+				flex: 1 1 auto;
+				display: flex;
+				flex-direction: column;
+				min-height: 0;
+				height: var(--dust2-embed-h);
+				max-height: var(--dust2-embed-h);
+				overflow: hidden;
+				margin: 0;
+				border-radius: 6px;
+				background: #0a0a0a;
+			}
+			.dust2-gap-reddit-slot .reddit-embed-bq {
+				margin: 0;
+				flex: 1 1 auto;
+				min-height: 0;
+			}
+			@media (max-width: 800px) {
+				.dust2-gap-embed-row {
+					grid-template-columns: 1fr;
+				}
+				.dust2-gap-yt-short {
+					margin-inline: auto;
+				}
+			}
+			.dust2-gap-nart-row {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: flex-start;
+				gap: 1.25rem 1.5rem;
+				margin: 1rem 0 0.35rem;
+			}
+			.dust2-gap-nart-aside {
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+				flex: 1 1 12rem;
+				min-width: 0;
+			}
+			.dust2-gap-nart-aside-text {
+				margin: 0;
+				color: #ccc;
+				font-size: 0.95rem;
+				line-height: 1.45;
+			}
+			a.dust2-gap-nart-thumb {
+				display: block;
+				flex: 1 1 260px;
+				max-width: min(100%, 640px);
+				margin: 0;
+				border: solid 2px #000;
+				border-radius: 7px;
+				box-shadow: 5px 5px #000;
+				overflow: hidden;
+				line-height: 0;
+			}
+			a.dust2-gap-nart-thumb:focus-visible {
+				outline: 2px solid #6cf;
+				outline-offset: 3px;
+			}
+			a.dust2-gap-nart-thumb img {
+				width: 100%;
+				height: auto;
+				vertical-align: middle;
+			}
+			a.dust2-gap-nart-cta {
+				display: inline-flex;
+				align-items: center;
+				justify-content: flex-start;
+				align-self: flex-start;
+				gap: 0.45rem;
+				font-size: 1.05rem;
+				font-weight: 600;
+				line-height: 1.3;
+				text-decoration: none;
+				color: #7eb8ff;
+			}
+			a.dust2-gap-nart-cta:hover {
+				text-decoration: underline;
+			}
+			a.dust2-gap-nart-cta:focus-visible {
+				outline: 2px solid #6cf;
+				outline-offset: 3px;
+				border-radius: 4px;
+			}
+			a.dust2-gap-nart-cta .dust2-gap-nart-arrow {
+				font-size: 1.35rem;
+				line-height: 1;
+				font-weight: 700;
+			}
+			@media (max-width: 700px) {
+				.dust2-gap-nart-row {
+					flex-direction: column;
+					align-items: stretch;
+				}
+				.dust2-gap-nart-aside {
+					gap: 0.65rem;
+				}
+				a.dust2-gap-nart-cta {
+					align-self: center;
+					justify-content: center;
+					text-align: center;
+				}
+			}
+			.dust2-gap-nart-meta {
+				color: #aaa;
+				font-size: 0.9rem;
+				margin: 0 0 1rem;
+				max-width: 640px;
+			}
+			.dust2-gap-nart-meta__watch-row {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: baseline;
+				gap: 0.35rem 1rem;
+				margin-top: 0.35rem;
+				width: 100%;
+			}
+			.dust2-gap-nart-views-updated {
+				color: #888;
+				font-size: 0.85rem;
+			}
+		</style>
+	</head>
+	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
+		<shared-header></shared-header>
+
+		<div class="container">
+			<div class="intro" style="text-align: left">
+				<p class="setup-detail__back"><a href="gaming.html">← Gaming</a></p>
+
+				<div style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black; padding: 1rem 1.25rem">
+					<h1 style="margin-top: 0">CS2 Bug Found &amp; Fixed: Dust II Pixel Gap</h1>
+					<p style="margin-top: 0; color: #aaa; font-size: 0.95rem">
+						Documented June 28, 2024 · Counter-Strike 2
+					</p>
+
+					<div class="dust2-gap-embed-row">
+						<div class="dust2-gap-embed-col dust2-gap-embed-col--yt">
+							<p class="dust2-gap-embed-stats">
+								<strong>YouTube</strong> (Short, 9:16) — 7,802 views · 176 likes
+							</p>
+							<div class="dust2-gap-yt-short">
+								<iframe
+									width="315"
+									height="560"
+									src="https://www.youtube.com/embed/iDQz5wtm9MI"
+									title="YouTube: Dust 2 CS2 map gap documentation (Short)"
+									loading="lazy"
+									allow="
+										accelerometer;
+										autoplay;
+										clipboard-write;
+										encrypted-media;
+										gyroscope;
+										picture-in-picture;
+										web-share;
+									"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+						</div>
+						<div class="dust2-gap-embed-col dust2-gap-embed-col--reddit">
+							<p class="dust2-gap-embed-stats">
+								<strong>Reddit</strong> (r/GlobalOffensive) — 172 upvotes · 14 comments
+							</p>
+							<div class="dust2-gap-reddit-slot">
+								<blockquote class="reddit-embed-bq" data-embed-theme="dark" data-embed-height="560">
+									<a
+										href="https://www.reddit.com/r/GlobalOffensive/comments/1dql5e7/heads_up_this_wall_crack_reveals_your_position_on/"
+									>
+										Heads Up: This Wall Crack Reveals Your Position on Dust II!
+									</a>
+									<br />
+									in
+									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
+								</blockquote>
+							</div>
+						</div>
+					</div>
+					<script async src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
+
+					<p>
+						I recorded this tiny geometry gap on <strong>Dust II</strong>—the kind of spot you only notice
+						when you’re lining up angles—and posted it on YouTube and Reddit (embedded above), and a few
+						other places. At the time I meant to forward it through the same channel Valve uses for
+						Counter-Strike bug reports; I’m not 100% certain that email ever went out, but the intent was
+						there.
+					</p>
+					<p>
+						A day later (June 29, 2024), CS creator
+						<a href="https://www.youtube.com/@nartouthere" target="_blank" rel="noopener noreferrer"
+							>NartOutHere</a
+						>
+						featured the clip in <cite>70 Tips To Become A Better CS2 Player</cite> at 6:32 (with on-screen
+						credit) in a tips compilation.
+					</p>
+					<div class="dust2-gap-nart-row">
+						<a
+							class="dust2-gap-nart-thumb"
+							href="https://www.youtube.com/watch?v=emsFcrfFG-g&amp;t=392s"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<img
+								src="images/nartouthere-70-tips-credit-owenmcs.png"
+								width="1024"
+								height="799"
+								alt="YouTube screenshot: NartOutHere’s 70 Tips CS2 video on Dust II with Credit OwenMCS in the corner; 21,789 views and 578 likes."
+								loading="lazy"
+								decoding="async"
+							/>
+						</a>
+						<div class="dust2-gap-nart-aside">
+							<p class="dust2-gap-nart-aside-text">
+								Open the video on YouTube or use the screenshot below—the still shows the “Credit
+								OwenMCS” callout on the gap.
+							</p>
+							<a
+								class="dust2-gap-nart-cta"
+								href="https://www.youtube.com/watch?v=emsFcrfFG-g&amp;t=392s"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<span class="dust2-gap-nart-arrow" aria-hidden="true">← </span>Watch nartouthere video here
+							</a>
+						</div>
+					</div>
+					<p class="dust2-gap-nart-meta">
+						<strong>NartOutHere</strong> (YouTube) — 21,789 views · 578 likes · uploaded Jun 29, 2024
+						<span class="dust2-gap-nart-meta__watch-row">
+							<a
+								href="https://www.youtube.com/watch?v=emsFcrfFG-g&amp;t=392s"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								watch at 6:32
+							</a>
+							<span class="dust2-gap-nart-views-updated">views last updated 5/2/2026</span>
+						</span>
+					</p>
+					<p>
+						A few days after that, Valve shipped the
+						<a
+							href="https://store.steampowered.com/news/app/730/view/4257672198498686343"
+							target="_blank"
+							rel="noopener noreferrer"
+							title="Counter-Strike 2 — Release Notes for 7/2/2024 (Steam News)"
+						>
+							July 2, 2024 update
+						</a>, whose map notes included
+						<strong>“Fixed hole in brick stack on bombsite B”</strong> on Dust II—that closed this gap.
+					</p>
+					<p>
+						I’ve sent Valve quite a few reports over the years without seeing a clear match in patch notes.
+						This was the first time I could point at an update and feel pretty confident that
+						<strong>this</strong> little map fix was connected to the work I put out publicly—including that
+						first video—so it’s a personal milestone even if the change was small on paper.
+					</p>
+					<p style="margin-bottom: 0">
+						<a href="https://www.youtube.com/watch?v=iDQz5wtm9MI" target="_blank" rel="noopener noreferrer"
+							>My YouTube</a
+						>
+						·
+						<a
+							href="https://www.reddit.com/r/GlobalOffensive/comments/1dql5e7/heads_up_this_wall_crack_reveals_your_position_on/"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Reddit</a
+						>
+						·
+						<a
+							href="https://www.youtube.com/watch?v=emsFcrfFG-g&amp;t=392s"
+							target="_blank"
+							rel="noopener noreferrer"
+							>NartOutHere (6:32)</a
+						>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<shared-footer
+			disclosure="<i>This page has no paid shopping links. Bigfoot's Jungle, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+		></shared-footer>
+		<script>
+			(function () {
+				if (typeof window.owenminercsUnlockAchievement !== 'function') return;
+				var p = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+				if (p.indexOf('cs2-dust2-gap-bug') !== -1) {
+					window.owenminercsUnlockAchievement('bug-eater');
+				}
+			})();
+		</script>
+	</body>
+</html>

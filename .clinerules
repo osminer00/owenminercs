@@ -1,0 +1,68 @@
+# Cline Rules for OwenMinerCS
+
+## Project Context
+
+This is a static personal website (HTML/CSS/JS) for Owen Miner / OwenMinerCS.
+
+**Always read first:**
+1. `AGENTS.md` - canonical project entry point
+2. `memory/preferences.md` - durable UI/site preferences
+3. `memory/issues.md` - active bugs and unresolved issues
+
+## Coding Standards
+
+- **Static-first**: Prefer hand-written HTML/CSS/JS. Add JavaScript only when needed.
+- **Small edits**: Make scoped changes that match the existing page style.
+- **Reuse**: Use existing CSS classes and components before adding new styles.
+- **Relative links**: Pages in subfolders need `../` for shared assets.
+- **Conservative CSS**: Many pages share `css/owenminercs.css` - keep global changes minimal.
+
+## File Structure
+
+- `index.html` - home page
+- `css/owenminercs.css` - shared global stylesheet
+- `scripts/components.js` - shared custom elements (header/footer/dock)
+- `shared/` - reusable header/head snippets
+- `memory/` - durable project state and preferences
+
+## Important Areas
+
+- `Keyboard/` - Wooting 60HE build page
+- `PC/`, `The Setup/` - PC and desk setup pages
+- `Gaming/`, `Counter-Strike/` - CS2 content
+- `Garage Sale/` - resale/shop pages
+- `Socials/` - social feed and content
+- `Donators/` - supporter features
+
+## Preservation Rules
+
+- **Do not modify**: Affiliate/support/legal disclosure copy unless explicitly requested
+- **Do not guess**: Real affiliate IDs or private account details
+- **Check git**: Run `git status --short` before and after substantial edits
+- **Treat worktree as user-owned**: Many files may already be modified
+
+## Accessibility
+
+- Maintain meaningful alt text for images
+- Keep link text visible and descriptive
+- Ensure keyboard-friendly controls
+- Run media accessibility check before publishing:
+
+```powershell
+node .\dev\media-accessibility-check.mjs
+```
+
+## Publishing
+
+Use the manual review wrapper:
+
+```powershell
+.\dev\publish-with-media-check.ps1 -PublishCommand "netlify deploy --prod"
+```
+
+## AI Model Usage
+
+This project uses local Ollama models when possible. Configure Cline:
+- API Provider: OpenAI Compatible
+- Base URL: `http://localhost:11434/v1`
+- Model: Your installed Ollama model (e.g., `qwen3-coder:30b`)

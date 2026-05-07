@@ -28,3 +28,7 @@ Ko-fi Gifs/
 *.pyc
 .DS_Store
 desktop.ini
+
+# Local-only (exceed GitHub 100MB limit; keep on disk for imports)
+Keyboard/images/wooting-60he-v1/lubing/_DSC0640.MOV
+Keyboard/images/wooting-60he-v1/lubing/_DSC0641.MOV
