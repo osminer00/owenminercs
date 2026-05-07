@@ -12,6 +12,8 @@ From the repository root:
 npm install
 ```
 
+Prerequisite: use an environment with Node.js and npm available on `PATH`.
+
 The package scripts are defined in `package.json`. They do not build the site;
 they validate the hand-written source files and public content.
 
@@ -66,6 +68,8 @@ change the forbidden patterns when the underlying content policy has changed.
 
 ## Common pitfalls
 
+- If `npm` or `node` is not found, install Node.js/npm or switch to an
+  environment that provides them before running the repository checks.
 - Paths are case-sensitive on production-style static hosting. Match actual
   directory casing when editing links, redirects, sitemap entries, or canonical
   URLs.
