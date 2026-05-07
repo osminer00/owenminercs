@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/owenminercs.css" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<title>Search | Owen Miner</title>
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="Search OwenMinerCS pages for setup gear, keyboard builds, gaming content, social links, support pages, and site tools."
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#050505" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<link rel="canonical" href="https://www.owenminercs.com/search" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<script src="./scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui">
+		<shared-header></shared-header>
+		<main class="container">
+			<section class="intro" data-owen-site-search>
+				<div class="gallery">
+					<h1>Search OwenMinerCS</h1>
+					<p style="max-width: 42rem; margin-left: auto; margin-right: auto">
+						Search page titles, summaries, paths, and indexed page copy.
+					</p>
+					<form id="site-search-page-form" class="site-search-form site-search-form--page" role="search">
+						<label class="site-visually-hidden" for="site-search-page-input">Search this site</label>
+						<input
+							id="site-search-page-input"
+							type="search"
+							name="q"
+							autocomplete="off"
+							placeholder="Try keyboard, CS2, camera, donations..."
+						/>
+						<button type="submit">Search</button>
+					</form>
+					<div
+						id="site-search-page-results"
+						class="site-search-results"
+						role="region"
+						aria-live="polite"
+						aria-label="Search results"
+					></div>
+				</div>
+			</section>
+		</main>
+		<shared-footer></shared-footer>
+		<script>
+			(function () {
+				function run() {
+					const api = window.owenminercsSiteSearchApi;
+					const input = document.getElementById('site-search-page-input');
+					const results = document.getElementById('site-search-page-results');
+					const form = document.getElementById('site-search-page-form');
+					if (!api || !input || !results || !form) return;
+
+					let entries = [];
+					function getQuery() {
+						return input.value || '';
+					}
+					function render() {
+						api.renderResults(results, api.filterEntries(entries, getQuery(), Infinity), getQuery(), 'fullPage');
+					}
+					function syncUrl() {
+						const params = new URLSearchParams(window.location.search);
+						const q = getQuery().trim();
+						if (q) params.set('q', q);
+						else params.delete('q');
+						const next = `${window.location.pathname}${params.toString() ? `?${params}` : ''}`;
+						window.history.replaceState(null, '', next);
+					}
+
+					const params = new URLSearchParams(window.location.search);
+					input.value = params.get('q') || '';
+					input.addEventListener('input', render);
+					form.addEventListener('submit', function (event) {
+						event.preventDefault();
+						syncUrl();
+						render();
+					});
+					render();
+
+					fetch(api.indexUrl)
+						.then(function (response) {
+							if (!response.ok) throw new Error('search index');
+							return response.json();
+						})
+						.then(function (data) {
+							entries = data && Array.isArray(data.entries) ? data.entries : [];
+							render();
+						})
+						.catch(function () {
+							results.textContent = '';
+							const p = document.createElement('p');
+							p.className = 'site-search-results__empty';
+							p.textContent = 'Could not load search index.';
+							results.appendChild(p);
+						});
+				}
+
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', run, { once: true });
+				} else {
+					run();
+				}
+			})();
+		</script>
+	</body>
+</html>
