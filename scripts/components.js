@@ -979,6 +979,7 @@ function shouldWrapLinkAsLineGlow(a) {
 		return false;
 	if (a.closest('[data-no-word-glow], .no-word-glow')) return false;
 	if (a.matches('.site-nav-link, .site-logo-link, .site-social-nav__link')) return false;
+	if (a.matches('.site-header-search-open, .site-nav-search-open')) return false;
 	if (a.matches('.donators-support-hero')) return false;
 	if (a.closest('.site-nav-link, .site-social-nav')) return false;
 	if (
@@ -1302,7 +1303,7 @@ function initWordGlowBookmark() {
 		const w = t.closest('.text-word-glow');
 		if (!w) return;
 
-		if (w.closest('.site-nav-link')) return;
+		if (w.closest('.site-nav-link, .site-header-search-open')) return;
 		if (w.closest(WORD_GLOW_BOOKMARK_SKIP)) return;
 
 		const inLink = w.closest('a[href]');
