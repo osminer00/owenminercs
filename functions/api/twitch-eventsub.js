@@ -9,7 +9,6 @@ import {
 	safeJsonParse,
 	text,
 	upstashCommand,
-	upstashPipeline,
 	verifyTwitchSignature,
 } from './_twitch-utils';
 
@@ -19,6 +18,23 @@ const TWITCH_MESSAGE_TIMESTAMP = 'twitch-eventsub-message-timestamp';
 const TWITCH_SIGNATURE = 'twitch-eventsub-message-signature';
 const MAX_EVENTS = 100;
 const MAX_AGE_MS = 10 * 60 * 1000;
+const EVENT_IDEMPOTENCY_TTL_SECONDS = 86400;
+const PERSIST_EVENT_SCRIPT = `
+local claimed = redis.call('SET', KEYS[1], '1', 'NX', 'EX', tonumber(ARGV[1]) or 86400)
+if not claimed then
+	return 0
+end
+
+redis.call('LPUSH', KEYS[2], ARGV[2])
+redis.call('LTRIM', KEYS[2], 0, tonumber(ARGV[3]) or 99)
+redis.call('SET', KEYS[3], ARGV[4])
+
+for i = 5, #ARGV, 2 do
+	redis.call('HINCRBY', KEYS[4], ARGV[i], ARGV[i + 1])
+end
+
+return 1
+`;
 
 function messageIsFresh(timestamp) {
 	const ts = Date.parse(timestamp);
@@ -26,17 +42,38 @@ function messageIsFresh(timestamp) {
 	return Math.abs(Date.now() - ts) <= MAX_AGE_MS;
 }
 
-function statCommandsForEvent(event) {
-	const commands = [['HINCRBY', TOTALS_HASH_KEY, 'events_total', '1']];
-	if (event.type === 'follow') commands.push(['HINCRBY', TOTALS_HASH_KEY, 'follows_total', '1']);
-	if (event.type === 'subscribe') commands.push(['HINCRBY', TOTALS_HASH_KEY, 'subs_total', '1']);
+function statIncrementsForEvent(event) {
+	const increments = [['events_total', '1']];
+	if (event.type === 'follow') increments.push(['follows_total', '1']);
+	if (event.type === 'subscribe') increments.push(['subs_total', '1']);
 	if (event.type === 'gift_sub') {
-		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'gift_events_total', '1']);
-		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'gift_subs_total', String(event.total || 0)]);
+		increments.push(['gift_events_total', '1']);
+		increments.push(['gift_subs_total', String(event.total || 0)]);
 	}
-	if (event.type === 'bits')
-		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'bits_total', String(event.bits || 0)]);
-	return commands;
+	if (event.type === 'bits') increments.push(['bits_total', String(event.bits || 0)]);
+	return increments;
+}
+
+function persistEventCommand(idempotencyKey, event, nowIso) {
+	const args = [
+		String(EVENT_IDEMPOTENCY_TTL_SECONDS),
+		JSON.stringify(event),
+		String(MAX_EVENTS - 1),
+		nowIso,
+	];
+	for (const [field, amount] of statIncrementsForEvent(event)) {
+		args.push(field, String(amount));
+	}
+	return [
+		'EVAL',
+		PERSIST_EVENT_SCRIPT,
+		'4',
+		idempotencyKey,
+		EVENT_LIST_KEY,
+		LAST_UPDATED_KEY,
+		TOTALS_HASH_KEY,
+		...args,
+	];
 }
 
 export async function onRequestPost(context) {
@@ -91,23 +128,11 @@ export async function onRequestPost(context) {
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
 
 	try {
-		const idempotentResult = await upstashCommand(env, [
-			'SET',
-			idempotencyKey,
-			'1',
-			'NX',
-			'EX',
-			'86400',
-		]);
-		if (idempotentResult !== 'OK') return json({ ok: true, duplicate: true });
-
-		const pipeline = [
-			['LPUSH', EVENT_LIST_KEY, JSON.stringify(normalized)],
-			['LTRIM', EVENT_LIST_KEY, '0', String(MAX_EVENTS - 1)],
-			['SET', LAST_UPDATED_KEY, new Date().toISOString()],
-			...statCommandsForEvent(normalized),
-		];
-		await upstashPipeline(env, pipeline);
+		const persistResult = await upstashCommand(
+			env,
+			persistEventCommand(idempotencyKey, normalized, new Date().toISOString())
+		);
+		if (String(persistResult) !== '1') return json({ ok: true, duplicate: true });
 	} catch (error) {
 		return json(
 			{ error: 'Failed to persist Twitch event.', detail: String(error.message || error) },
