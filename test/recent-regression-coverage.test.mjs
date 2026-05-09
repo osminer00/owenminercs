@@ -35,7 +35,25 @@ function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
 	assert.notEqual(start, -1, `${functionName} should exist`);
 
-	const braceStart = source.indexOf('{', start);
+	const parenStart = source.indexOf('(', start);
+	assert.notEqual(parenStart, -1, `${functionName} should have parameters`);
+
+	let parenDepth = 0;
+	let signatureEnd = -1;
+	for (let i = parenStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '(') parenDepth += 1;
+		if (char === ')') {
+			parenDepth -= 1;
+			if (parenDepth === 0) {
+				signatureEnd = i;
+				break;
+			}
+		}
+	}
+	assert.notEqual(signatureEnd, -1, `${functionName} signature should close`);
+
+	const braceStart = source.indexOf('{', signatureEnd);
 	assert.notEqual(braceStart, -1, `${functionName} should have a body`);
 
 	let depth = 0;
