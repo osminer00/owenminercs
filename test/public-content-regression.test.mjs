@@ -43,13 +43,18 @@ test('public content checker ignores generated search JSON by basename', async (
 		await mkdir(path.join(root, 'data'));
 		await writeFile(
 			path.join(root, 'site-search-index.json'),
-			JSON.stringify({ entries: [{ snippet: 'Old DMACC snippet from a generated artifact' }] })
+			JSON.stringify({
+				entries: [{ snippet: 'Old DMACC snippet from a generated artifact' }],
+			})
 		);
 		await writeFile(
 			path.join(root, 'data', 'search-manual-keywords.json'),
 			JSON.stringify({ keywords: ['DMACC generated manual search keyword'] })
 		);
-		await writeFile(path.join(root, 'index.html'), '<h1>Public page without stale bio copy</h1>');
+		await writeFile(
+			path.join(root, 'index.html'),
+			'<h1>Public page without stale bio copy</h1>'
+		);
 
 		const result = await runContentCheck(root);
 
@@ -62,9 +67,14 @@ test('public content checker still fails real public html violations', async () 
 	await withTempSite(async (root) => {
 		await writeFile(
 			path.join(root, 'site-search-index.json'),
-			JSON.stringify({ entries: [{ snippet: 'Generated DMACC snippet should stay ignored' }] })
+			JSON.stringify({
+				entries: [{ snippet: 'Generated DMACC snippet should stay ignored' }],
+			})
 		);
-		await writeFile(path.join(root, 'index.html'), '<p>DMACC should not be on public pages.</p>');
+		await writeFile(
+			path.join(root, 'index.html'),
+			'<p>DMACC should not be on public pages.</p>'
+		);
 
 		const result = await runContentCheck(root);
 

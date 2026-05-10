@@ -13,15 +13,16 @@ async function importCloudflareTwitchRegisterModule() {
 	await writeFile(path.join(root, 'package.json'), '{"type":"module"}\n');
 
 	const utilsSource = await readFile(new URL('_twitch-utils.js', apiDir), 'utf8');
-	const registerSource = (await readFile(new URL('twitch-register-eventsub.js', apiDir), 'utf8')).replace(
-		"from './_twitch-utils'",
-		"from './_twitch-utils.js'"
-	);
+	const registerSource = (
+		await readFile(new URL('twitch-register-eventsub.js', apiDir), 'utf8')
+	).replace("from './_twitch-utils'", "from './_twitch-utils.js'");
 	await writeFile(path.join(moduleDir, '_twitch-utils.js'), utilsSource);
 	await writeFile(path.join(moduleDir, 'twitch-register-eventsub.js'), registerSource);
 
 	try {
-		const mod = await import(`${path.join(moduleDir, 'twitch-register-eventsub.js')}?t=${Date.now()}`);
+		const mod = await import(
+			`${path.join(moduleDir, 'twitch-register-eventsub.js')}?t=${Date.now()}`
+		);
 		return { mod, cleanup: () => rm(root, { force: true, recursive: true }) };
 	} catch (error) {
 		await rm(root, { force: true, recursive: true });
