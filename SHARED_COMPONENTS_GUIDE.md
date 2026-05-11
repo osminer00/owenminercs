@@ -60,10 +60,10 @@ instead of relying on broad substring matches.
 
 Storage keys:
 
-| Key | Shape | Owner |
-| --- | --- | --- |
-| `owenminercs-nav-return-state-v1` | Object with `fromUrl`, `fromTitle`, `fromScrollX`, `fromScrollY`, `toUrl`, `createdAt` | Destination-page Back prompt |
-| `owenminercs-nav-return-scroll-v1` | Object with `targetUrl`, `scrollX`, `scrollY`, `createdAt` | Source-page scroll restore |
+| Key                                | Shape                                                                                  | Owner                        |
+| ---------------------------------- | -------------------------------------------------------------------------------------- | ---------------------------- |
+| `owenminercs-nav-return-state-v1`  | Object with `fromUrl`, `fromTitle`, `fromScrollX`, `fromScrollY`, `toUrl`, `createdAt` | Destination-page Back prompt |
+| `owenminercs-nav-return-scroll-v1` | Object with `targetUrl`, `scrollX`, `scrollY`, `createdAt`                             | Source-page scroll restore   |
 
 Both payloads expire after `NAV_RETURN_MAX_AGE_MS` (8 hours). The popup styles
 live in `css/owenminercs.css` as `.site-nav-return-popup` and
