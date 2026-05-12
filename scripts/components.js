@@ -866,35 +866,74 @@ customElements.define('shared-footer', SharedFooter);
 /** Client-side search over static JSON; results rendered with DOM APIs only (no HTML injection). */
 function initSiteSearch() {
 	let entries = [];
+	const wiredInputs = new Set();
+	const widgets = [];
 
-	function wireInputToResults(input, resultsEl) {
+	function updateUrlQuery(input) {
+		try {
+			const url = new URL(window.location.href);
+			const q = (input.value || '').trim();
+			if (q) {
+				url.searchParams.set('q', q);
+			} else {
+				url.searchParams.delete('q');
+			}
+			window.history.replaceState(null, '', url);
+		} catch (_) {}
+	}
+
+	function wireInputToResults(input, resultsEl, variant = 'preview') {
+		if (wiredInputs.has(input)) return false;
+		wiredInputs.add(input);
 		function run() {
 			const q = input.value || '';
 			searchRenderResults(
 				resultsEl,
 				searchFilterEntries(entries, q, 40),
 				q,
-				'preview'
+				variant
 			);
 		}
 		input.addEventListener('input', run);
 		input.addEventListener('change', run);
+		const form = input.closest('form');
+		if (form) {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				if (variant === 'fullPage') {
+					updateUrlQuery(input);
+					run();
+					return;
+				}
+				const first = resultsEl.querySelector('.site-search-results__link');
+				if (first instanceof HTMLAnchorElement) first.click();
+			});
+		}
 		run();
+		widgets.push({ input, resultsEl });
+		return true;
 	}
 
 	const homeInput = document.getElementById('home-site-search-input');
 	const homeResults = document.getElementById('home-site-search-results');
 	if (homeInput && homeResults) {
-		wireInputToResults(homeInput, homeResults);
-		const homeForm = homeInput.closest('.site-search-form--home');
-		if (homeForm) {
-			homeForm.addEventListener('submit', (e) => {
-				e.preventDefault();
-				const first = homeResults.querySelector('.site-search-results__link');
-				if (first instanceof HTMLAnchorElement) first.click();
-			});
-		}
+		wireInputToResults(homeInput, homeResults, 'preview');
 	}
+
+	document.querySelectorAll('[data-owen-site-search]').forEach((root) => {
+		const input = root.querySelector('[data-owen-site-search-input]');
+		const resultsEl = root.querySelector('[data-owen-site-search-results]');
+		if (!(input instanceof HTMLInputElement) || !(resultsEl instanceof Element)) return;
+		const variant = root.getAttribute('data-owen-site-search') === 'fullPage' ? 'fullPage' : 'preview';
+		if (variant === 'fullPage' && !input.value) {
+			try {
+				input.value = new URLSearchParams(window.location.search).get('q') || '';
+			} catch (_) {}
+		}
+		wireInputToResults(input, resultsEl, variant);
+	});
+
+	if (!widgets.length) return;
 
 	fetch(SITE_SEARCH_INDEX_URL)
 		.then((r) => {
@@ -903,20 +942,20 @@ function initSiteSearch() {
 		})
 		.then((data) => {
 			if (data && Array.isArray(data.entries)) entries = data.entries;
-			if (homeInput) {
+			widgets.forEach(({ input }) => {
 				const ev = new Event('input', { bubbles: true });
-				homeInput.dispatchEvent(ev);
-			}
+				input.dispatchEvent(ev);
+			});
 		})
 		.catch(() => {
 			entries = [];
-			if (homeResults) {
-				homeResults.textContent = '';
+			widgets.forEach(({ resultsEl }) => {
+				resultsEl.textContent = '';
 				const p = document.createElement('p');
 				p.className = 'site-search-results__empty';
 				p.textContent = 'Could not load search index.';
-				homeResults.appendChild(p);
-			}
+				resultsEl.appendChild(p);
+			});
 		});
 }
 

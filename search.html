@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/owenminercs.css" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<title>Search | Owen Miner</title>
+		<meta name="author" content="Owen Miner" />
+		<meta name="description" content="Search Owen Miner's site for setup pages, gaming pages, content, support pages, and site information." />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#050505" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<link rel="canonical" href="https://www.owenminercs.com/search" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<script src="scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui">
+		<shared-header></shared-header>
+
+		<main class="container" data-owen-site-search="fullPage">
+			<section class="intro">
+				<div class="gallery">
+					<h1>Search</h1>
+					<p style="max-width: 42rem; margin-left: auto; margin-right: auto">
+						Search page titles, summaries, paths, and curated keywords across the main site sections.
+					</p>
+					<form class="site-search-form" role="search" aria-label="Search this website">
+						<label for="site-search-page-input">Search this site</label>
+						<input
+							id="site-search-page-input"
+							name="q"
+							type="search"
+							autocomplete="off"
+							placeholder="Try keyboard, CS2, setup, donations..."
+							data-owen-site-search-input
+						/>
+						<button type="submit">Search</button>
+					</form>
+				</div>
+			</section>
+
+			<section class="intro" aria-live="polite" aria-labelledby="site-search-results-heading">
+				<div class="gallery">
+					<h2 id="site-search-results-heading">Results</h2>
+					<div id="site-search-page-results" class="site-search-results" data-owen-site-search-results></div>
+				</div>
+			</section>
+		</main>
+
+		<shared-footer></shared-footer>
+	</body>
+</html>

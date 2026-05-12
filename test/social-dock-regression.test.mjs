@@ -5,6 +5,8 @@ import test from 'node:test';
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
 const cssSource = readFileSync(new URL('../css/owenminercs.css', import.meta.url), 'utf8');
 const indexSource = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const searchPageSource = readFileSync(new URL('../search.html', import.meta.url), 'utf8');
+const searchIndexSource = readFileSync(new URL('../data/site-search-index.json', import.meta.url), 'utf8');
 
 function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
@@ -120,4 +122,12 @@ test('homepage keeps Impact affiliate verification meta tag in the head', () => 
 		indexSource,
 		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
 	);
+});
+
+test('site-wide search nav has deployable page and index assets', () => {
+	assert.match(componentsSource, /getSearchPageUrl\(\)/);
+	assert.match(searchPageSource, /data-owen-site-search="fullPage"/);
+	const searchIndex = JSON.parse(searchIndexSource);
+	assert.ok(Array.isArray(searchIndex.entries), 'search index should contain entries');
+	assert.ok(searchIndex.entries.length > 0, 'search index should not be empty');
 });
