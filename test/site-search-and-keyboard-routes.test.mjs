@@ -70,10 +70,10 @@ test('site search ranks curated manual keyword hits above incidental body matche
 
 	const ranked = searchFilterEntries(entries, ' wooting ');
 
-	assert.deepEqual(
-		ranked.map((entry) => entry.path),
-		['Keyboard/60he', 'Gaming/cs2-videos']
-	);
+	assert.deepEqual(Array.from(ranked, (entry) => entry.path), [
+		'Keyboard/60he',
+		'Gaming/cs2-videos',
+	]);
 	assert.ok(
 		searchRankEntry(entries[1], 'wooting') > searchRankEntry(entries[0], 'wooting'),
 		'manual keyword match should materially boost the curated page'
@@ -106,14 +106,14 @@ test('site search supports multi-word token matches and deterministic result cap
 		},
 	];
 
-	assert.deepEqual(searchFilterEntries(entries, 'x'), [], 'one-character queries should not search');
+	assert.deepEqual(Array.from(searchFilterEntries(entries, 'x')), [], 'one-character queries should not search');
 	assert.deepEqual(
-		searchFilterEntries(entries, 'jade magnetic', Infinity).map((entry) => entry.path),
+		Array.from(searchFilterEntries(entries, 'jade magnetic', Infinity), (entry) => entry.path),
 		['a-page', 'b-page'],
 		'ties should sort by path for stable output'
 	);
 	assert.deepEqual(
-		searchFilterEntries(entries, 'jade magnetic', 1).map((entry) => entry.path),
+		Array.from(searchFilterEntries(entries, 'jade magnetic', 1), (entry) => entry.path),
 		['a-page'],
 		'maxResults should cap the stable result list'
 	);
