@@ -1,0 +1,131 @@
+{
+	"generatedAt": "2026-05-12T00:00:00.000Z",
+	"entries": [
+		{
+			"title": "Home",
+			"path": "",
+			"snippet": "Owen Miner homepage with recent updates, CS2 content, Wooting keyboard guide, PC build, setup links, and shop links.",
+			"text": "Owen Miner OwenMinerCS home recent updates CS2 content creator software developer Wooting 60HE keyboard build custom PC Bigfoot's Jungle setup gaming shop social links",
+			"manualTerms": ["home", "owen", "owen miner", "owenminercs"]
+		},
+		{
+			"title": "Bigfoot's Jungle",
+			"path": "The%20Setup/the-setup",
+			"snippet": "Setup hub for the desk, PC, keyboard, monitors, audio, camera gear, lighting, tools, clothing, and upgrades.",
+			"text": "Bigfoot's Jungle setup desk PC keyboard monitors audio microphone headphones camera webcam lighting tools clothing upgrades walking pad plants gear",
+			"manualTerms": ["setup", "bigfoot", "jungle", "desk"]
+		},
+		{
+			"title": "Wooting 60HE Build Guides",
+			"path": "Keyboard/60he",
+			"snippet": "Landing page for Owen Miner's Wooting 60HE keyboard builds: 2025 Kilowatt and the 2023 Crosshair Alpha archive.",
+			"text": "Wooting 60HE keyboard build guides Kilowatt Crosshair Alpha first build v1 parts switches keycaps lubing photos",
+			"manualTerms": ["keyboard", "wooting", "60he", "kilowatt"]
+		},
+		{
+			"title": "2025 Wooting 60HE Kilowatt Build",
+			"path": "Keyboard/60he-2025",
+			"snippet": "Latest Wooting 60HE build with Tofu 60 Redux, Jade Pro switches, and updated plate and pad setup.",
+			"text": "2025 Wooting 60HE Kilowatt Tofu 60 Redux Jade Pro switches plate pad setup keyboard parts",
+			"manualTerms": ["2025 keyboard", "kilowatt"]
+		},
+		{
+			"title": "2023 Wooting 60HE Crosshair Alpha Build",
+			"path": "Keyboard/60he-2023",
+			"snippet": "Crosshair Alpha Wooting 60HE build, first-build photos, parts, breakdown, and lubing clips.",
+			"text": "2023 Wooting 60HE Crosshair Alpha GH60 first build v1 photos parts breakdown lubing clips keyboard",
+			"manualTerms": ["2023 keyboard", "crosshair alpha"]
+		},
+		{
+			"title": "Gaming",
+			"path": "Gaming/gaming",
+			"snippet": "Gaming hub for CS2 pages, skins tools, merch, wallpapers, videos, and Counter-Strike content.",
+			"text": "Gaming CS2 Counter-Strike skins price calculator merch wallpapers videos config Faceit inventory tools",
+			"manualTerms": ["gaming", "cs2", "counter strike", "counter-strike"]
+		},
+		{
+			"title": "CS2 Skins",
+			"path": "Gaming/cs2-skins",
+			"snippet": "CS2 skins page focused on expensive or interesting skins, cases, and inventory highlights.",
+			"text": "CS2 skins expensive cool skins cases containers inventory Counter-Strike Steam price calculator",
+			"manualTerms": ["skins", "inventory", "cases"]
+		},
+		{
+			"title": "CS2 Merch",
+			"path": "Gaming/cs2-merch",
+			"snippet": "Counter-Strike and CS2 merch links, including Major merch callouts.",
+			"text": "CS2 merch Counter-Strike Major merchandise Perfect World AliExpress gaming apparel collectibles",
+			"manualTerms": ["merch", "major"]
+		},
+		{
+			"title": "CS2 Videos",
+			"path": "Gaming/cs2-videos",
+			"snippet": "CS2 video and content page for Counter-Strike clips and related posts.",
+			"text": "CS2 videos Counter-Strike clips YouTube Twitch gaming content OwenMinerCS",
+			"manualTerms": ["videos", "clips"]
+		},
+		{
+			"title": "CS2 Config Explainer",
+			"path": "Gaming/cs2-config-explainer",
+			"snippet": "Explainers for Counter-Strike 2 config and game settings.",
+			"text": "CS2 config explainer Counter-Strike settings commands game setup crosshair video graphics",
+			"manualTerms": ["config", "settings"]
+		},
+		{
+			"title": "No Smoking",
+			"path": "Counter-Strike/nosmoking",
+			"snippet": "Counter-Strike page for No Smoking content.",
+			"text": "No Smoking Counter-Strike CS2 gaming OwenMinerCS",
+			"manualTerms": ["nosmoking", "no smoking"]
+		},
+		{
+			"title": "Donators",
+			"path": "Donators/donators",
+			"snippet": "Supporters, donations, tip links, thank-yous, and donator information.",
+			"text": "Donators supporters donations tips Ko-fi StreamElements thanks support OwenMinerCS",
+			"manualTerms": ["donate", "donators", "support", "tips"]
+		},
+		{
+			"title": "For Sale",
+			"path": "Garage%20Sale/garage-sale",
+			"snippet": "Garage Sale shop page for stickers, prints, photography, items for sale, and marketplace links.",
+			"text": "For sale Garage Sale shop stickers prints photography PayPal Stripe eBay Depop Mercari Vinted items",
+			"manualTerms": ["shop", "for sale", "garage sale", "stickers", "prints"]
+		},
+		{
+			"title": "Help Wanted",
+			"path": "Help%20Wanted/help-wanted",
+			"snippet": "Open requests, collaboration needs, and help wanted information.",
+			"text": "Help Wanted open roles collaborations requests site help community OwenMinerCS",
+			"manualTerms": ["help", "collab", "collaboration"]
+		},
+		{
+			"title": "Q&A",
+			"path": "QA/qa",
+			"snippet": "Short public questions and answers, including height questions and website bug reporting.",
+			"text": "Q&A FAQ questions answers height bug reporting website issues Owen Miner",
+			"manualTerms": ["qa", "q&a", "faq", "bugs"]
+		},
+		{
+			"title": "Achievements",
+			"path": "Achievements/achievements",
+			"snippet": "Site easter eggs, milestones, unlockable achievements, and progress reset tools.",
+			"text": "Achievements easter eggs milestones unlocks progress social dock tour main nav tour word bookmark",
+			"manualTerms": ["achievements", "easter eggs", "milestones"]
+		},
+		{
+			"title": "Content",
+			"path": "Socials/socials",
+			"snippet": "Social hub for featured posts and content across YouTube, Twitch, Instagram, TikTok, Reddit, X, Facebook, and Discord.",
+			"text": "Content Socials social hub YouTube Twitch Instagram TikTok Reddit X Facebook Discord featured posts cloud videos shorts",
+			"manualTerms": ["content", "socials", "social", "youtube", "twitch", "instagram", "tiktok"]
+		},
+		{
+			"title": "Programs",
+			"path": "dev/dev-stack",
+			"snippet": "Programs and tools used for coding, creative work, streaming, and maintaining the site.",
+			"text": "Programs dev stack Cursor Codex Claude Antigravity Gemini Ollama Adobe Premiere Photoshop OBS GIMP coding creative streaming",
+			"manualTerms": ["programs", "dev stack", "tools", "cursor", "ollama", "obs"]
+		}
+	]
+}
