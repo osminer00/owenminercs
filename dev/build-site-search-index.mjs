@@ -10,12 +10,12 @@ const EXCLUDED_DIRS = new Set([
 	'.cursor',
 	'.vscode',
 	'backup-pre-the-setup-2026-04-08',
-	'dev',
 	'memory',
 	'mockups',
 	'node_modules',
 	'package',
 ]);
+const EXCLUDED_RELATIVE_DIRS = new Set(['dev/affiliate-idea-board']);
 
 function decodeEntities(value) {
 	return String(value || '')
@@ -95,6 +95,8 @@ async function* walk(dir) {
 
 		const abs = path.join(dir, entry.name);
 		if (entry.isDirectory()) {
+			const relDir = path.relative(ROOT, abs).split(path.sep).join('/');
+			if (EXCLUDED_RELATIVE_DIRS.has(relDir)) continue;
 			yield* walk(abs);
 			continue;
 		}
