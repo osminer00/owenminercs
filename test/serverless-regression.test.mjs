@@ -9,9 +9,12 @@ function readSource(relativePath) {
 	return readFileSync(new URL(relativePath, import.meta.url), 'utf8');
 }
 
-function loadServerlessModule(relativePath, fetchImpl = async () => {
-	throw new Error('Unexpected fetch call in serverless regression test.');
-}) {
+function loadServerlessModule(
+	relativePath,
+	fetchImpl = async () => {
+		throw new Error('Unexpected fetch call in serverless regression test.');
+	}
+) {
 	const source = readSource(relativePath)
 		.replace(/^import\s+[^;]+;\s*/gm, '')
 		.replace(/\bexport\s+(async\s+function\s+)/g, '$1')
@@ -83,15 +86,27 @@ for (const target of twitchRegistrationTargets) {
 		const moduleApi = loadServerlessModule(target.path);
 
 		assert.equal(
-			target.isAuthorized(moduleApi, { 'X-Twitch-Register-Secret': 'correct-secret' }, 'correct-secret'),
+			target.isAuthorized(
+				moduleApi,
+				{ 'X-Twitch-Register-Secret': 'correct-secret' },
+				'correct-secret'
+			),
 			true
 		);
 		assert.equal(
-			target.isAuthorized(moduleApi, { authorization: 'Bearer correct-secret' }, 'correct-secret'),
+			target.isAuthorized(
+				moduleApi,
+				{ authorization: 'Bearer correct-secret' },
+				'correct-secret'
+			),
 			true
 		);
 		assert.equal(
-			target.isAuthorized(moduleApi, { authorization: 'Basic correct-secret' }, 'correct-secret'),
+			target.isAuthorized(
+				moduleApi,
+				{ authorization: 'Basic correct-secret' },
+				'correct-secret'
+			),
 			false
 		);
 	});
@@ -101,8 +116,14 @@ for (const target of twitchRegistrationTargets) {
 
 		assert.equal(moduleApi.timingSafeEqual(123, 456), false);
 		assert.equal(moduleApi.timingSafeEqual(123, '123'), true);
-		assert.equal(target.isAuthorized(moduleApi, { 'x-twitch-register-secret': 123 }, 456), false);
-		assert.equal(target.isAuthorized(moduleApi, { 'x-twitch-register-secret': 'wrong' }, 'correct'), false);
+		assert.equal(
+			target.isAuthorized(moduleApi, { 'x-twitch-register-secret': 123 }, 456),
+			false
+		);
+		assert.equal(
+			target.isAuthorized(moduleApi, { 'x-twitch-register-secret': 'wrong' }, 'correct'),
+			false
+		);
 		assert.equal(target.isAuthorized(moduleApi, {}, 'correct'), false);
 	});
 }
@@ -148,7 +169,9 @@ for (const target of steamInventoryTargets) {
 	test(`${target.label} Steam inventory pricing caps market lookups at 80 unique names`, async () => {
 		const calls = [];
 		const moduleApi = loadServerlessModule(target.path, makePricingFetch(calls));
-		const items = Array.from({ length: 100 }, (_, index) => makeSkinItem(`AK-47 | Test ${index}`));
+		const items = Array.from({ length: 100 }, (_, index) =>
+			makeSkinItem(`AK-47 | Test ${index}`)
+		);
 
 		const enriched = await moduleApi.enrichItemsWithPricing(items);
 
@@ -172,7 +195,10 @@ for (const target of steamInventoryTargets) {
 			makeSkinItem(`Late Market Name ${index}`)
 		);
 
-		const enriched = await moduleApi.enrichItemsWithPricing([...firstPricedItems, ...latePricedItems]);
+		const enriched = await moduleApi.enrichItemsWithPricing([
+			...firstPricedItems,
+			...latePricedItems,
+		]);
 
 		assert.deepEqual(calls, ['Shared Market Name A', 'Shared Market Name B']);
 		assert.equal(enriched[0].pricing.lowestPriceUsd, 1.25);
