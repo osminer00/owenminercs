@@ -8,10 +8,10 @@ const require = createRequire(import.meta.url);
 const netlifyAssistant = require('../netlify/functions/site-assistant.js');
 
 function loadCloudflareAssistant() {
-	const source = readFileSync(new URL('../functions/api/site-assistant.js', import.meta.url), 'utf8').replaceAll(
-		'export async function ',
-		'async function '
-	);
+	const source = readFileSync(
+		new URL('../functions/api/site-assistant.js', import.meta.url),
+		'utf8'
+	).replaceAll('export async function ', 'async function ');
 	const context = {
 		Response,
 		fetch: (...args) => globalThis.fetch(...args),
@@ -24,7 +24,11 @@ function loadCloudflareAssistant() {
 	);
 }
 
-function cloudflareContext({ token, accessToken, body = { messages: [{ role: 'user', content: 'Hello' }] } } = {}) {
+function cloudflareContext({
+	token,
+	accessToken,
+	body = { messages: [{ role: 'user', content: 'Hello' }] },
+} = {}) {
 	const headers = new Headers({
 		'content-type': 'application/json',
 		'content-length': String(JSON.stringify(body).length),
@@ -61,10 +65,13 @@ function installFetchAssertion(assertRequest) {
 	globalThis.fetch = async (...args) => {
 		calls += 1;
 		assertRequest(...args);
-		return new Response(JSON.stringify({ choices: [{ message: { content: 'Assistant reply' } }] }), {
-			status: 200,
-			headers: { 'content-type': 'application/json' },
-		});
+		return new Response(
+			JSON.stringify({ choices: [{ message: { content: 'Assistant reply' } }] }),
+			{
+				status: 200,
+				headers: { 'content-type': 'application/json' },
+			}
+		);
 	};
 
 	return {

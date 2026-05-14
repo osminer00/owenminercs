@@ -37,7 +37,10 @@ exports.handler = async function handler(event) {
 		return json(413, { error: 'Request body is too large.' });
 	}
 
-	const accessCheck = validateAssistantAccess(event.headers, process.env.SITE_ASSISTANT_ACCESS_TOKEN);
+	const accessCheck = validateAssistantAccess(
+		event.headers,
+		process.env.SITE_ASSISTANT_ACCESS_TOKEN
+	);
 	if (!accessCheck.ok) {
 		return json(accessCheck.status, { error: accessCheck.error });
 	}
