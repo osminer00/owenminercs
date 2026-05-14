@@ -5,6 +5,7 @@ const MAX_MESSAGE_CHARS = 1200;
 const MAX_KNOWLEDGE_ENTRIES = 80;
 const MAX_KNOWLEDGE_FIELD_CHARS = 1000;
 const MAX_KNOWLEDGE_BLOB_CHARS = 20_000;
+const ASSISTANT_ACCESS_TOKEN_HEADER = 'x-site-assistant-token';
 
 function json(statusCode, payload) {
 	return {
@@ -22,7 +23,7 @@ exports.handler = async function handler(event) {
 			statusCode: 204,
 			headers: {
 				'Access-Control-Allow-Methods': 'POST, OPTIONS',
-				'Access-Control-Allow-Headers': 'Content-Type',
+				'Access-Control-Allow-Headers': 'Content-Type, X-Site-Assistant-Token',
 			},
 			body: '',
 		};
@@ -34,6 +35,11 @@ exports.handler = async function handler(event) {
 
 	if (Buffer.byteLength(event.body || '', 'utf8') > MAX_BODY_BYTES) {
 		return json(413, { error: 'Request body is too large.' });
+	}
+
+	const accessCheck = validateAssistantAccess(event.headers, process.env.SITE_ASSISTANT_ACCESS_TOKEN);
+	if (!accessCheck.ok) {
+		return json(accessCheck.status, { error: accessCheck.error });
 	}
 
 	if (!process.env.OPENAI_API_KEY) {
@@ -119,6 +125,44 @@ function cleanText(value, maxLength) {
 		.replace(/\s+/g, ' ')
 		.trim()
 		.slice(0, maxLength);
+}
+
+function validateAssistantAccess(headers, configuredToken) {
+	const expectedToken = String(configuredToken || '').trim();
+	if (!expectedToken) {
+		return {
+			ok: false,
+			status: 503,
+			error: 'Site assistant is disabled until SITE_ASSISTANT_ACCESS_TOKEN is configured.',
+		};
+	}
+
+	const providedToken = String(getHeader(headers, ASSISTANT_ACCESS_TOKEN_HEADER) || '').trim();
+	if (!timingSafeStringEqual(providedToken, expectedToken)) {
+		return { ok: false, status: 401, error: 'Unauthorized assistant request.' };
+	}
+
+	return { ok: true };
+}
+
+function getHeader(headers, name) {
+	if (!headers) return '';
+	const headerName = name.toLowerCase();
+	for (const [key, value] of Object.entries(headers)) {
+		if (key.toLowerCase() === headerName) return value;
+	}
+	return '';
+}
+
+function timingSafeStringEqual(left, right) {
+	let diff = left.length ^ right.length;
+	const length = Math.max(left.length, right.length);
+
+	for (let index = 0; index < length; index += 1) {
+		diff |= (left.charCodeAt(index) || 0) ^ (right.charCodeAt(index) || 0);
+	}
+
+	return diff === 0;
 }
 
 function normalizeMessages(value) {

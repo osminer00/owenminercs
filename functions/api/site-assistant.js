@@ -5,6 +5,7 @@ const MAX_MESSAGE_CHARS = 1200;
 const MAX_KNOWLEDGE_ENTRIES = 80;
 const MAX_KNOWLEDGE_FIELD_CHARS = 1000;
 const MAX_KNOWLEDGE_BLOB_CHARS = 20_000;
+const ASSISTANT_ACCESS_TOKEN_HEADER = 'x-site-assistant-token';
 
 function json(payload, status = 200, extraHeaders = {}) {
 	return new Response(JSON.stringify(payload), {
@@ -21,7 +22,7 @@ export async function onRequestOptions() {
 		status: 204,
 		headers: {
 			'access-control-allow-methods': 'POST, OPTIONS',
-			'access-control-allow-headers': 'Content-Type',
+			'access-control-allow-headers': 'Content-Type, X-Site-Assistant-Token',
 		},
 	});
 }
@@ -30,6 +31,14 @@ export async function onRequestPost(context) {
 	const bodyBytes = Number(context.request.headers.get('content-length') || '0');
 	if (bodyBytes > MAX_BODY_BYTES) {
 		return json({ error: 'Request body is too large.' }, 413);
+	}
+
+	const accessCheck = validateAssistantAccess(
+		context.request.headers,
+		context.env?.SITE_ASSISTANT_ACCESS_TOKEN
+	);
+	if (!accessCheck.ok) {
+		return json({ error: accessCheck.error }, accessCheck.status);
 	}
 
 	const apiKey = context.env?.OPENAI_API_KEY;
@@ -123,6 +132,35 @@ function cleanText(value, maxLength) {
 		.replace(/\s+/g, ' ')
 		.trim()
 		.slice(0, maxLength);
+}
+
+function validateAssistantAccess(headers, configuredToken) {
+	const expectedToken = String(configuredToken || '').trim();
+	if (!expectedToken) {
+		return {
+			ok: false,
+			status: 503,
+			error: 'Site assistant is disabled until SITE_ASSISTANT_ACCESS_TOKEN is configured.',
+		};
+	}
+
+	const providedToken = String(headers.get(ASSISTANT_ACCESS_TOKEN_HEADER) || '').trim();
+	if (!timingSafeStringEqual(providedToken, expectedToken)) {
+		return { ok: false, status: 401, error: 'Unauthorized assistant request.' };
+	}
+
+	return { ok: true };
+}
+
+function timingSafeStringEqual(left, right) {
+	let diff = left.length ^ right.length;
+	const length = Math.max(left.length, right.length);
+
+	for (let index = 0; index < length; index += 1) {
+		diff |= (left.charCodeAt(index) || 0) ^ (right.charCodeAt(index) || 0);
+	}
+
+	return diff === 0;
 }
 
 function normalizeMessages(value) {
