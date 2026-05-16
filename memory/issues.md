@@ -19,6 +19,7 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Worktree is often heavily modified before agent work starts. Always preserve unrelated changes.
 - Some docs and handoffs are stale or duplicated; verify current source files before trusting old handoffs.
 - Netlify/API code may exist in both `functions/api/` and `netlify/functions/`; check both before changing behavior.
+- Cloudflare request size limits must count the actual request stream bytes, not trust `Content-Length`; chunked/missing headers can otherwise bypass caps (see `functions/api/site-assistant.js`).
 - Local machine config file `.claude/settings.local.json` was once tracked; keep it gitignored and untracked to avoid leaking local command permissions or environment-related references.
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.
