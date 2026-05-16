@@ -59,20 +59,22 @@ test('site search ranks manual keyword matches and multi-token results determini
 			text: 'No matching hardware keywords here.',
 		},
 	];
+	const resultPaths = (query, maxResults) =>
+		Array.from(searchFilterEntries(entries, query, maxResults), (entry) => entry.path);
 
-	assert.deepEqual(searchFilterEntries(entries, 'r', 10), [], 'single-letter queries are ignored');
+	assert.deepEqual(resultPaths('r', 10), [], 'single-letter queries are ignored');
 	assert.deepEqual(
-		searchFilterEntries(entries, 'rapid trigger', 10).map((entry) => entry.path),
+		resultPaths('rapid trigger', 10),
 		['The%20Setup/the-setup', 'Gaming/rapid-trigger'],
 		'curated manual keyword matches should outrank generic title matches'
 	);
 	assert.deepEqual(
-		searchFilterEntries(entries, 'desk setup', 10).map((entry) => entry.path),
+		resultPaths('desk setup', 10),
 		['The%20Setup/the-setup'],
 		'multi-token queries can match across title, snippet, text, and decoded path'
 	);
 	assert.deepEqual(
-		searchFilterEntries(entries, 'rapid trigger', 1).map((entry) => entry.path),
+		resultPaths('rapid trigger', 1),
 		['The%20Setup/the-setup'],
 		'maxResults caps ranked matches without changing their order'
 	);
