@@ -16,6 +16,32 @@ function json(payload, status = 200, extraHeaders = {}) {
 	});
 }
 
+class RequestBodyTooLargeError extends Error {}
+
+async function readRequestBodyText(request) {
+	if (!request.body) return '';
+
+	const reader = request.body.getReader();
+	const decoder = new TextDecoder();
+	let bodyBytes = 0;
+	let bodyText = '';
+
+	while (true) {
+		const { done, value } = await reader.read();
+		if (done) break;
+
+		bodyBytes += value.byteLength;
+		if (bodyBytes > MAX_BODY_BYTES) {
+			await reader.cancel().catch(() => {});
+			throw new RequestBodyTooLargeError();
+		}
+
+		bodyText += decoder.decode(value, { stream: true });
+	}
+
+	return bodyText + decoder.decode();
+}
+
 export async function onRequestOptions() {
 	return new Response('', {
 		status: 204,
@@ -27,9 +53,14 @@ export async function onRequestOptions() {
 }
 
 export async function onRequestPost(context) {
-	const bodyBytes = Number(context.request.headers.get('content-length') || '0');
-	if (bodyBytes > MAX_BODY_BYTES) {
-		return json({ error: 'Request body is too large.' }, 413);
+	let rawBody;
+	try {
+		rawBody = await readRequestBodyText(context.request);
+	} catch (error) {
+		if (error instanceof RequestBodyTooLargeError) {
+			return json({ error: 'Request body is too large.' }, 413);
+		}
+		return json({ error: 'Invalid request body.' }, 400);
 	}
 
 	const apiKey = context.env?.OPENAI_API_KEY;
@@ -44,7 +75,7 @@ export async function onRequestPost(context) {
 
 	let parsedBody;
 	try {
-		parsedBody = await context.request.json();
+		parsedBody = JSON.parse(rawBody || '{}');
 	} catch {
 		return json({ error: 'Invalid JSON body.' }, 400);
 	}
