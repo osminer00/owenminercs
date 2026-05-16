@@ -118,7 +118,10 @@ test('main nav return flow captures same-site nav clicks and restores saved scro
 	assert.match(captureNavReturnState, /anchor instanceof HTMLAnchorElement/);
 	assert.match(captureNavReturnState, /anchor\.classList\.contains\('site-nav-link'\)/);
 	assert.match(captureNavReturnState, /destination\.origin !== window\.location\.origin/);
-	assert.match(captureNavReturnState, /normalizeUrlForMatch\(fromUrl\) === normalizeUrlForMatch\(toUrl\)/);
+	assert.match(
+		captureNavReturnState,
+		/normalizeUrlForMatch\(fromUrl\) === normalizeUrlForMatch\(toUrl\)/
+	);
 	assert.match(captureNavReturnState, /fromScrollX: window\.scrollX \|\| 0/);
 	assert.match(captureNavReturnState, /fromScrollY: window\.scrollY \|\| 0/);
 	assert.match(captureNavReturnState, /toUrl,/);
@@ -127,9 +130,15 @@ test('main nav return flow captures same-site nav clicks and restores saved scro
 	assert.match(initMainNavReturnHistory, /dataset\.owenNavReturnBound === '1'/);
 	assert.match(initMainNavReturnHistory, /event\.defaultPrevented/);
 	assert.match(initMainNavReturnHistory, /event\.button !== 0/);
-	assert.match(initMainNavReturnHistory, /event\.metaKey \|\| event\.ctrlKey \|\| event\.shiftKey \|\| event\.altKey/);
+	assert.match(
+		initMainNavReturnHistory,
+		/event\.metaKey \|\| event\.ctrlKey \|\| event\.shiftKey \|\| event\.altKey/
+	);
 	assert.match(initMainNavReturnHistory, /target\.closest\('a\.site-nav-link'\)/);
-	assert.match(initMainNavReturnHistory, /applyPendingNavReturnScrollRestore\(\);[\s\S]*maybeShowNavReturnButton\(\);/);
+	assert.match(
+		initMainNavReturnHistory,
+		/applyPendingNavReturnScrollRestore\(\);[\s\S]*maybeShowNavReturnButton\(\);/
+	);
 });
 
 test('main nav return button writes a scroll restore payload before navigating back', () => {
@@ -138,7 +147,10 @@ test('main nav return button writes a scroll restore payload before navigating b
 	assert.match(buildNavReturnButton, /wrap\.setAttribute\('role', 'status'\);/);
 	assert.match(buildNavReturnButton, /wrap\.setAttribute\('aria-live', 'polite'\);/);
 	assert.match(buildNavReturnButton, /button\.textContent = 'Back';/);
-	assert.match(buildNavReturnButton, /button\.setAttribute\('aria-label', `Back to \$\{labelSource\}`\);/);
+	assert.match(
+		buildNavReturnButton,
+		/button\.setAttribute\('aria-label', `Back to \$\{labelSource\}`\);/
+	);
 	assert.match(buildNavReturnButton, /writeJsonStorage\(NAV_RETURN_SCROLL_KEY, \{/);
 	assert.match(buildNavReturnButton, /targetUrl: record\.fromUrl/);
 	assert.match(buildNavReturnButton, /scrollX: Number\(record\.fromScrollX\) \|\| 0/);
@@ -149,7 +161,10 @@ test('main nav return button writes a scroll restore payload before navigating b
 		componentsSource,
 		'applyPendingNavReturnScrollRestore'
 	);
-	assert.match(applyPendingNavReturnScrollRestore, /localStorage\.removeItem\(NAV_RETURN_SCROLL_KEY\);/);
+	assert.match(
+		applyPendingNavReturnScrollRestore,
+		/localStorage\.removeItem\(NAV_RETURN_SCROLL_KEY\);/
+	);
 	assert.match(applyPendingNavReturnScrollRestore, /requestAnimationFrame\(restore\);/);
 	assert.match(applyPendingNavReturnScrollRestore, /window\.setTimeout\(restore, 160\);/);
 	assert.match(applyPendingNavReturnScrollRestore, /window\.setTimeout\(restore, 420\);/);
