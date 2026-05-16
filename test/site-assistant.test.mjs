@@ -3,7 +3,10 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 async function importCloudflareSiteAssistant() {
-	const source = readFileSync(new URL('../functions/api/site-assistant.js', import.meta.url), 'utf8');
+	const source = readFileSync(
+		new URL('../functions/api/site-assistant.js', import.meta.url),
+		'utf8'
+	);
 	const moduleUrl = `data:text/javascript;base64,${Buffer.from(source).toString('base64')}`;
 	return import(moduleUrl);
 }
