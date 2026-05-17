@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="Search OwenMinerCS pages for setup gear, keyboard builds, CS2 content, socials, and site guides."
+		/>
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#050505" />
+		<title>Search OwenMinerCS</title>
+		<link rel="stylesheet" href="css/owenminercs.css" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<link rel="canonical" href="https://www.owenminercs.com/search" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<script src="./scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui">
+		<shared-header></shared-header>
+
+		<main class="container">
+			<section class="intro site-search-page" aria-labelledby="site-search-heading">
+				<h1 id="site-search-heading">Search the site</h1>
+				<p class="site-search-page__lede">
+					Find setup pages, Wooting 60HE build notes, CS2 resources, social links, and site docs.
+				</p>
+				<form class="site-search-form site-search-form--page" data-owen-site-search>
+					<label class="site-search-form__label" for="site-search-page-input">Search OwenMinerCS</label>
+					<div class="site-search-form__row">
+						<input
+							id="site-search-page-input"
+							class="site-search-form__input"
+							name="q"
+							type="search"
+							autocomplete="off"
+							placeholder="Try keyboard, CS2, desk, socials..."
+						/>
+						<button class="site-search-form__button" type="submit">Search</button>
+					</div>
+				</form>
+				<div
+					id="site-search-page-results"
+					class="site-search-results site-search-results--page"
+					aria-live="polite"
+				></div>
+			</section>
+		</main>
+
+		<shared-footer></shared-footer>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const api = window.owenminercsSiteSearchApi;
+				const input = document.getElementById('site-search-page-input');
+				const results = document.getElementById('site-search-page-results');
+				const form = input && input.closest('form');
+				if (!api || !input || !results || !form) return;
+
+				let entries = [];
+				const params = new URLSearchParams(window.location.search);
+				input.value = params.get('q') || '';
+
+				function render() {
+					const query = input.value || '';
+					api.renderResults(results, api.filterEntries(entries, query, Infinity), query, 'fullPage');
+				}
+
+				form.addEventListener('submit', function (event) {
+					event.preventDefault();
+					const query = input.value.trim();
+					const url = new URL(window.location.href);
+					if (query) url.searchParams.set('q', query);
+					else url.searchParams.delete('q');
+					window.history.replaceState(null, '', url);
+					render();
+				});
+
+				input.addEventListener('input', render);
+				render();
+
+				fetch(api.indexUrl)
+					.then(function (response) {
+						if (!response.ok) throw new Error('search index');
+						return response.json();
+					})
+					.then(function (data) {
+						entries = data && Array.isArray(data.entries) ? data.entries : [];
+						render();
+					})
+					.catch(function () {
+						results.textContent = '';
+						const p = document.createElement('p');
+						p.className = 'site-search-results__empty';
+						p.textContent = 'Could not load search index.';
+						results.appendChild(p);
+					});
+			});
+		</script>
+	</body>
+</html>

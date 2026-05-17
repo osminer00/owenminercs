@@ -132,7 +132,9 @@ function searchRankEntry(entry, qLower) {
  * @param {number} maxResults Cap matches; use `Infinity` for the full results page.
  */
 function searchFilterEntries(entries, query, maxResults = 40) {
-	const q = query.trim().toLowerCase();
+	const q = String(query || '')
+		.trim()
+		.toLowerCase();
 	if (!q || q.length < 2) return [];
 	const out = [];
 	for (let i = 0; i < entries.length; i++) {
@@ -154,7 +156,7 @@ function searchFilterEntries(entries, query, maxResults = 40) {
  */
 function searchRenderResults(container, list, query, variant) {
 	container.textContent = '';
-	const q = query.trim();
+	const q = String(query || '').trim();
 	if (!q) {
 		const p = document.createElement('p');
 		p.className = 'site-search-results__hint';
@@ -745,7 +747,7 @@ class SharedHeader extends HTMLElement {
             <nav aria-label="Primary">
             <ul>
               <li class="site-nav__item site-nav__item--search">
-                <a href="${getSearchPageUrl()}" class="site-header-search-open site-nav-search-open" title="Search site" aria-label="Search site">
+                <a href="${getSearchPageUrl()}" class="site-header-search-open site-nav-search-open site-nav-link" data-nav="search" title="Search site" aria-label="Search site">
                   <svg class="site-header-search-open__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                   <span class="site-visually-hidden">Search site</span>
                 </a>
@@ -884,16 +886,16 @@ function initSiteSearch() {
 
 	const homeInput = document.getElementById('home-site-search-input');
 	const homeResults = document.getElementById('home-site-search-results');
-	if (homeInput && homeResults) {
-		wireInputToResults(homeInput, homeResults);
-		const homeForm = homeInput.closest('.site-search-form--home');
-		if (homeForm) {
-			homeForm.addEventListener('submit', (e) => {
-				e.preventDefault();
-				const first = homeResults.querySelector('.site-search-results__link');
-				if (first instanceof HTMLAnchorElement) first.click();
-			});
-		}
+	if (!homeInput || !homeResults) return;
+
+	wireInputToResults(homeInput, homeResults);
+	const homeForm = homeInput.closest('.site-search-form--home');
+	if (homeForm) {
+		homeForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const first = homeResults.querySelector('.site-search-results__link');
+			if (first instanceof HTMLAnchorElement) first.click();
+		});
 	}
 
 	fetch(SITE_SEARCH_INDEX_URL)
