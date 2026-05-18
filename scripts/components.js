@@ -795,7 +795,9 @@ class SharedFooter extends HTMLElement {
 			this.getAttribute('disclosure') ||
 			'<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Bigfoot&#39;s Jungle, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program.</i>';
 
-		const pageSpecificAmazonDisclosure = /This page includes Amazon shopping links/i.test(customDisclosure);
+		const pageSpecificAmazonDisclosure = /This page includes Amazon shopping links/i.test(
+			customDisclosure
+		);
 		const disclosureForRight = pageSpecificAmazonDisclosure
 			? customDisclosure
 			: stripFooterAmazonEarningsSuffix(customDisclosure);
@@ -837,10 +839,10 @@ class SharedFooter extends HTMLElement {
           <div class="site-footer-meta__disclosure">
             <h4 id="Disclosure" class="site-footer-meta__disclosure-heading"><span class="site-footer-meta__disclosure-label">Disclosure:</span> ${disclosureForRight}</h4>
             ${
-							showCrossPageAmazonByline
-								? '<p class="site-footer-meta__amazon">As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</p>'
-								: ''
-						}
+				showCrossPageAmazonByline
+					? '<p class="site-footer-meta__amazon">As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</p>'
+					: ''
+			}
           </div>
           <div class="site-footer-meta__brand">
             <a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home — owenminercs.com">

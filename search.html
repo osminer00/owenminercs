@@ -1,44 +1,58 @@
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="Owen Miner">
-	<meta name="description" content="Search OwenMinerCS.com pages for setup, gaming, keyboard, socials, supporters, and site updates.">
-	<meta name="robots" content="index, follow">
-	<title>Search | Owen Miner</title>
-	<link rel="canonical" href="https://www.owenminercs.com/search">
-	<link rel="stylesheet" href="css/owenminercs.css">
-	<link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
-	<script src="scripts/components.js" defer></script>
-</head>
-<body id="top" class="site-card-ui">
-	<shared-header></shared-header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="Search OwenMinerCS.com pages for setup, gaming, keyboard, socials, supporters, and site updates."
+		/>
+		<meta name="robots" content="index, follow" />
+		<title>Search | Owen Miner</title>
+		<link rel="canonical" href="https://www.owenminercs.com/search" />
+		<link rel="stylesheet" href="css/owenminercs.css" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<script src="scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui">
+		<shared-header></shared-header>
 
-	<main class="container">
-		<section class="intro">
-			<div class="gallery" data-owen-site-search>
-				<h1>Search OwenMinerCS.com</h1>
-				<p style="max-width: 42rem; margin-left: auto; margin-right: auto;">
-					Search page titles, summaries, paths, and key page copy across the public site.
-				</p>
-				<form class="site-search-form" action="search.html" method="get" role="search" style="display: grid; gap: 0.75rem; max-width: 42rem; margin: 1rem auto;">
-					<label for="site-search-input" class="site-visually-hidden">Search terms</label>
-					<input
-						id="site-search-input"
-						name="q"
-						type="search"
-						autocomplete="off"
-						placeholder="Try: Wooting, CS2, setup, socials..."
-						style="width: 100%; padding: 0.75rem 1rem; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.22);"
+		<main class="container">
+			<section class="intro">
+				<div class="gallery" data-owen-site-search>
+					<h1>Search OwenMinerCS.com</h1>
+					<p style="max-width: 42rem; margin-left: auto; margin-right: auto">
+						Search page titles, summaries, paths, and key page copy across the public site.
+					</p>
+					<form
+						class="site-search-form"
+						action="search.html"
+						method="get"
+						role="search"
+						style="display: grid; gap: 0.75rem; max-width: 42rem; margin: 1rem auto"
 					>
-					<button type="submit" class="site-button">Search</button>
-				</form>
-				<div id="site-search-results" class="site-search-results" aria-live="polite"></div>
-			</div>
-		</section>
-	</main>
+						<label for="site-search-input" class="site-visually-hidden">Search terms</label>
+						<input
+							id="site-search-input"
+							name="q"
+							type="search"
+							autocomplete="off"
+							placeholder="Try: Wooting, CS2, setup, socials..."
+							style="
+								width: 100%;
+								padding: 0.75rem 1rem;
+								border-radius: 999px;
+								border: 1px solid rgba(255, 255, 255, 0.22);
+							"
+						/>
+						<button type="submit" class="site-button">Search</button>
+					</form>
+					<div id="site-search-results" class="site-search-results" aria-live="polite"></div>
+				</div>
+			</section>
+		</main>
 
-	<shared-footer></shared-footer>
-</body>
+		<shared-footer></shared-footer>
+	</body>
 </html>
