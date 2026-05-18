@@ -13,7 +13,11 @@ const EXPECTED_MAIN_NAV = [
 	{ dataNav: 'Help Wanted', label: 'Help Wanted', href: "getLink('Help%20Wanted/help-wanted')" },
 	{ dataNav: 'QA', label: 'Q&amp;A', href: "getLink('QA/qa')" },
 	{ dataNav: 'Dev', label: 'Programs', href: "getLink('dev/dev-stack')" },
-	{ dataNav: 'Achievements', label: 'Achievements', href: "getLink('Achievements/achievements')" },
+	{
+		dataNav: 'Achievements',
+		label: 'Achievements',
+		href: "getLink('Achievements/achievements')",
+	},
 	{ dataNav: 'Socials', label: 'Content', href: "getLink('Socials/socials')" },
 ];
 
@@ -69,6 +73,9 @@ test('Programs nav route participates in active-link and tour matching', () => {
 		/function resolveActiveNavLink\(scope\) \{(?<body>[\s\S]*?)\n\}/
 	);
 	assert.ok(activeLinkFunction, 'resolveActiveNavLink should exist');
-	assert.match(activeLinkFunction.groups.body, /currentPathLower = currentPath\.toLowerCase\(\);/);
+	assert.match(
+		activeLinkFunction.groups.body,
+		/currentPathLower = currentPath\.toLowerCase\(\);/
+	);
 	assert.match(activeLinkFunction.groups.body, /querySelector\('a\[data-nav="Dev"\]'\)/);
 });
