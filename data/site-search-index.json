@@ -1,0 +1,110 @@
+{
+	"generatedAt": "2026-05-18T11:00:00.000Z",
+	"entries": [
+		{
+			"title": "Home",
+			"path": "",
+			"snippet": "Welcome page, site updates, featured setup, gaming, keyboard, shop, and content links.",
+			"text": "home welcome OwenMinerCS Owen Miner site updates keyboard Wooting 60HE gaming CS2 Counter-Strike setup Bigfoot's Jungle PC shop socials content",
+			"manualTerms": ["home", "about", "owen", "owen miner", "owenminercs"]
+		},
+		{
+			"title": "Bigfoot's Jungle",
+			"path": "The%20Setup/the-setup",
+			"snippet": "Setup hub for desk, monitors, peripherals, PC, keyboard, clothing, tools, and upgrades.",
+			"text": "setup Bigfoot's Jungle desk monitors peripherals keyboard mouse headphones microphone camera lighting PC build upgrades tools OBS multi-camera fit check",
+			"manualTerms": ["setup", "desk", "bigfoot", "bigfoot's jungle", "gear"]
+		},
+		{
+			"title": "Programs",
+			"path": "dev/dev-stack",
+			"snippet": "Coding, creative, streaming, and AI tools Owen uses or is testing.",
+			"text": "programs dev stack coding Cursor Codex Claude Gemini Antigravity Ollama Adobe Premiere Photoshop After Effects GIMP OBS streaming multi-RTMP",
+			"manualTerms": ["programs", "software", "dev", "tools", "apps"]
+		},
+		{
+			"title": "Gaming",
+			"path": "Gaming/gaming",
+			"snippet": "Gaming hub for CS2 pages, wallpapers, videos, merch, skins, and related projects.",
+			"text": "gaming CS2 Counter-Strike Faceit wallpapers videos merch skins inventory cases expensive skins configs Major",
+			"manualTerms": ["gaming", "cs2", "counter-strike", "counter strike", "skins"]
+		},
+		{
+			"title": "CS2 Skins",
+			"path": "Gaming/cs2-skins",
+			"snippet": "Expensive and cool CS2 skins, case/container counts, and inventory highlights.",
+			"text": "CS2 skins inventory cases containers expensive cool skins Steam market knives gloves rifles pistols",
+			"manualTerms": ["skins", "inventory", "cases", "knife", "gloves"]
+		},
+		{
+			"title": "Wooting 60HE Build Guides",
+			"path": "Keyboard/60he",
+			"snippet": "Hub for Owen's 2025 Kilowatt and 2023 Crosshair Alpha Wooting 60HE keyboard builds.",
+			"text": "Wooting 60HE keyboard build guides Kilowatt Crosshair Alpha v1 Tofu 60 Redux Jade Pro switches keycaps plate lube",
+			"manualTerms": ["wooting", "60he", "keyboard", "kilowatt", "crosshair"]
+		},
+		{
+			"title": "Wooting 60HE 2025 Kilowatt Build",
+			"path": "Keyboard/60he-2025",
+			"snippet": "Latest Wooting 60HE Kilowatt build with case, switches, keycaps, plate, and parts notes.",
+			"text": "2025 Kilowatt Wooting 60HE Tofu 60 Redux Gateron Magnetic Jade Pro switches PBTfans WOB Wooting PC plate friction fit pad",
+			"manualTerms": ["2025 keyboard", "kilowatt keyboard", "jade pro"]
+		},
+		{
+			"title": "Wooting 60HE 2023 Crosshair Alpha and v1",
+			"path": "Keyboard/60he-2023",
+			"snippet": "Earlier Crosshair Alpha and first-build Wooting 60HE photos, parts, and lubing clips.",
+			"text": "2023 Crosshair Alpha Wooting 60HE GH60 aluminum case Gateron Magnetic Jade switches keycaps silicone mold lubing clips first build",
+			"manualTerms": ["2023 keyboard", "crosshair alpha", "first build"]
+		},
+		{
+			"title": "Donators",
+			"path": "Donators/donators",
+			"snippet": "Supporters, thank-yous, donation links, and community support notes.",
+			"text": "donators supporters donations tips Ko-fi StreamElements thank you support community Twitch EventSub",
+			"manualTerms": ["donators", "supporters", "donate", "tips", "support"]
+		},
+		{
+			"title": "For sale",
+			"path": "Garage%20Sale/garage-sale",
+			"snippet": "Shop and garage sale hub for stickers, prints, listings, and marketplace links.",
+			"text": "for sale garage sale shop stickers prints PayPal Stripe eBay Depop Mercari Vinted listings photography",
+			"manualTerms": ["shop", "for sale", "garage sale", "stickers", "prints"]
+		},
+		{
+			"title": "Help Wanted",
+			"path": "Help%20Wanted/help-wanted",
+			"snippet": "Open roles, collaborations, requests, and ways to help with the site or content.",
+			"text": "help wanted collabs collaborations open roles requests site help content help volunteer",
+			"manualTerms": ["help", "help wanted", "collab", "collaboration"]
+		},
+		{
+			"title": "Q&A",
+			"path": "QA/qa",
+			"snippet": "Short public FAQ for height questions and website bug reporting.",
+			"text": "questions answers Q&A FAQ height website bugs bug report Discord contact",
+			"manualTerms": ["qa", "q&a", "faq", "questions", "bug report"]
+		},
+		{
+			"title": "Achievements",
+			"path": "Achievements/achievements",
+			"snippet": "Site easter eggs, milestones, badges, and achievement progress.",
+			"text": "achievements easter eggs badges milestones social dock grand tour main nav tour lexicon pin progress",
+			"manualTerms": ["achievements", "badges", "easter eggs", "milestones"]
+		},
+		{
+			"title": "Content",
+			"path": "Socials/socials",
+			"snippet": "Social profiles, featured posts, video embeds, and cross-platform content hub.",
+			"text": "content socials social cloud YouTube Twitch Instagram TikTok Reddit Facebook X Discord posts videos shorts featured posts",
+			"manualTerms": ["content", "socials", "social cloud", "youtube", "twitch"]
+		},
+		{
+			"title": "View all content",
+			"path": "Socials/view-all-content",
+			"snippet": "All indexed social cards and highlighted posts across linked platforms.",
+			"text": "view all content social cards posts YouTube Shorts TikTok Instagram Reddit X Twitch Facebook views likes upvotes comments",
+			"manualTerms": ["all content", "posts", "videos", "shorts"]
+		}
+	]
+}

@@ -795,7 +795,9 @@ class SharedFooter extends HTMLElement {
 			this.getAttribute('disclosure') ||
 			'<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Bigfoot&#39;s Jungle, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program.</i>';
 
-		const pageSpecificAmazonDisclosure = /This page includes Amazon shopping links/i.test(customDisclosure);
+		const pageSpecificAmazonDisclosure = /This page includes Amazon shopping links/i.test(
+			customDisclosure
+		);
 		const disclosureForRight = pageSpecificAmazonDisclosure
 			? customDisclosure
 			: stripFooterAmazonEarningsSuffix(customDisclosure);
@@ -837,10 +839,10 @@ class SharedFooter extends HTMLElement {
           <div class="site-footer-meta__disclosure">
             <h4 id="Disclosure" class="site-footer-meta__disclosure-heading"><span class="site-footer-meta__disclosure-label">Disclosure:</span> ${disclosureForRight}</h4>
             ${
-							showCrossPageAmazonByline
-								? '<p class="site-footer-meta__amazon">As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</p>'
-								: ''
-						}
+				showCrossPageAmazonByline
+					? '<p class="site-footer-meta__amazon">As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</p>'
+					: ''
+			}
           </div>
           <div class="site-footer-meta__brand">
             <a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home — owenminercs.com">
@@ -866,32 +868,50 @@ customElements.define('shared-footer', SharedFooter);
 /** Client-side search over static JSON; results rendered with DOM APIs only (no HTML injection). */
 function initSiteSearch() {
 	let entries = [];
+	const wiredSearchInputs = [];
 
-	function wireInputToResults(input, resultsEl) {
+	function wireInputToResults(input, resultsEl, variant = 'preview') {
 		function run() {
 			const q = input.value || '';
-			searchRenderResults(
-				resultsEl,
-				searchFilterEntries(entries, q, 40),
-				q,
-				'preview'
-			);
+			searchRenderResults(resultsEl, searchFilterEntries(entries, q, 40), q, variant);
 		}
 		input.addEventListener('input', run);
 		input.addEventListener('change', run);
+		wiredSearchInputs.push(input);
 		run();
 	}
 
 	const homeInput = document.getElementById('home-site-search-input');
 	const homeResults = document.getElementById('home-site-search-results');
 	if (homeInput && homeResults) {
-		wireInputToResults(homeInput, homeResults);
+		wireInputToResults(homeInput, homeResults, 'preview');
 		const homeForm = homeInput.closest('.site-search-form--home');
 		if (homeForm) {
 			homeForm.addEventListener('submit', (e) => {
 				e.preventDefault();
 				const first = homeResults.querySelector('.site-search-results__link');
 				if (first instanceof HTMLAnchorElement) first.click();
+			});
+		}
+	}
+
+	const fullPageInput = document.getElementById('site-search-input');
+	const fullPageResults = document.getElementById('site-search-results');
+	if (fullPageInput && fullPageResults) {
+		const params = new URLSearchParams(window.location.search || '');
+		const initialQuery = params.get('q') || '';
+		if (!fullPageInput.value && initialQuery) fullPageInput.value = initialQuery;
+		wireInputToResults(fullPageInput, fullPageResults, 'fullPage');
+		const fullPageForm = fullPageInput.closest('.site-search-form');
+		if (fullPageForm) {
+			fullPageForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const q = (fullPageInput.value || '').trim();
+				const nextUrl = q
+					? `${window.location.pathname}?q=${encodeURIComponent(q)}`
+					: window.location.pathname;
+				window.history.replaceState(null, '', nextUrl);
+				fullPageInput.dispatchEvent(new Event('input', { bubbles: true }));
 			});
 		}
 	}
@@ -903,10 +923,10 @@ function initSiteSearch() {
 		})
 		.then((data) => {
 			if (data && Array.isArray(data.entries)) entries = data.entries;
-			if (homeInput) {
+			wiredSearchInputs.forEach((input) => {
 				const ev = new Event('input', { bubbles: true });
-				homeInput.dispatchEvent(ev);
-			}
+				input.dispatchEvent(ev);
+			});
 		})
 		.catch(() => {
 			entries = [];
