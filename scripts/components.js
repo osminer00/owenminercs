@@ -866,32 +866,50 @@ customElements.define('shared-footer', SharedFooter);
 /** Client-side search over static JSON; results rendered with DOM APIs only (no HTML injection). */
 function initSiteSearch() {
 	let entries = [];
+	const wiredSearchInputs = [];
 
-	function wireInputToResults(input, resultsEl) {
+	function wireInputToResults(input, resultsEl, variant = 'preview') {
 		function run() {
 			const q = input.value || '';
-			searchRenderResults(
-				resultsEl,
-				searchFilterEntries(entries, q, 40),
-				q,
-				'preview'
-			);
+			searchRenderResults(resultsEl, searchFilterEntries(entries, q, 40), q, variant);
 		}
 		input.addEventListener('input', run);
 		input.addEventListener('change', run);
+		wiredSearchInputs.push(input);
 		run();
 	}
 
 	const homeInput = document.getElementById('home-site-search-input');
 	const homeResults = document.getElementById('home-site-search-results');
 	if (homeInput && homeResults) {
-		wireInputToResults(homeInput, homeResults);
+		wireInputToResults(homeInput, homeResults, 'preview');
 		const homeForm = homeInput.closest('.site-search-form--home');
 		if (homeForm) {
 			homeForm.addEventListener('submit', (e) => {
 				e.preventDefault();
 				const first = homeResults.querySelector('.site-search-results__link');
 				if (first instanceof HTMLAnchorElement) first.click();
+			});
+		}
+	}
+
+	const fullPageInput = document.getElementById('site-search-input');
+	const fullPageResults = document.getElementById('site-search-results');
+	if (fullPageInput && fullPageResults) {
+		const params = new URLSearchParams(window.location.search || '');
+		const initialQuery = params.get('q') || '';
+		if (!fullPageInput.value && initialQuery) fullPageInput.value = initialQuery;
+		wireInputToResults(fullPageInput, fullPageResults, 'fullPage');
+		const fullPageForm = fullPageInput.closest('.site-search-form');
+		if (fullPageForm) {
+			fullPageForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const q = (fullPageInput.value || '').trim();
+				const nextUrl = q
+					? `${window.location.pathname}?q=${encodeURIComponent(q)}`
+					: window.location.pathname;
+				window.history.replaceState(null, '', nextUrl);
+				fullPageInput.dispatchEvent(new Event('input', { bubbles: true }));
 			});
 		}
 	}
@@ -903,10 +921,10 @@ function initSiteSearch() {
 		})
 		.then((data) => {
 			if (data && Array.isArray(data.entries)) entries = data.entries;
-			if (homeInput) {
+			wiredSearchInputs.forEach((input) => {
 				const ev = new Event('input', { bubbles: true });
-				homeInput.dispatchEvent(ev);
-			}
+				input.dispatchEvent(ev);
+			});
 		})
 		.catch(() => {
 			entries = [];

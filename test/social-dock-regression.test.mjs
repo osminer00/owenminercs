@@ -5,6 +5,10 @@ import test from 'node:test';
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
 const cssSource = readFileSync(new URL('../css/owenminercs.css', import.meta.url), 'utf8');
 const indexSource = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const searchPageSource = readFileSync(new URL('../search.html', import.meta.url), 'utf8');
+const searchIndex = JSON.parse(
+	readFileSync(new URL('../data/site-search-index.json', import.meta.url), 'utf8')
+);
 
 function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
@@ -119,5 +123,24 @@ test('homepage keeps Impact affiliate verification meta tag in the head', () => 
 	assert.match(
 		indexSource,
 		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
+	);
+});
+
+test('global header search link has a static page and index to search', () => {
+	assert.match(componentsSource, /function getSearchPageUrl\(\)/);
+	assert.match(componentsSource, /data\/site-search-index\.json/);
+	assert.match(searchPageSource, /<script src="scripts\/components\.js" defer><\/script>/);
+	assert.match(searchPageSource, /data-owen-site-search/);
+	assert.match(searchPageSource, /id="site-search-input"/);
+	assert.match(searchPageSource, /id="site-search-results"/);
+	assert.ok(Array.isArray(searchIndex.entries), 'search index should expose entries');
+	assert.ok(searchIndex.entries.length >= 10, 'search index should cover primary pages');
+	assert.ok(
+		searchIndex.entries.some((entry) => entry.path === 'Keyboard/60he'),
+		'search index should include the keyboard hub'
+	);
+	assert.ok(
+		searchIndex.entries.every((entry) => !String(entry.path || '').endsWith('.html')),
+		'index paths should stay extensionless so local resolution does not append .html twice'
 	);
 });
