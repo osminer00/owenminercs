@@ -23,7 +23,26 @@ function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
 	assert.notEqual(start, -1, `${functionName} should exist`);
 
-	const braceStart = source.indexOf('{', start);
+	const paramsStart = source.indexOf('(', start);
+	assert.notEqual(paramsStart, -1, `${functionName} should have params`);
+
+	let paramsDepth = 0;
+	let paramsEnd = -1;
+	for (let i = paramsStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '(') paramsDepth += 1;
+		if (char === ')') {
+			paramsDepth -= 1;
+			if (paramsDepth === 0) {
+				paramsEnd = i;
+				break;
+			}
+		}
+	}
+
+	assert.notEqual(paramsEnd, -1, `${functionName} params should close`);
+
+	const braceStart = source.indexOf('{', paramsEnd);
 	assert.notEqual(braceStart, -1, `${functionName} should have a body`);
 
 	let depth = 0;
