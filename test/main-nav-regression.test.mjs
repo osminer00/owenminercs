@@ -86,7 +86,7 @@ test('shared header/footer nav ids stay in sync with main-nav tour slots', () =>
 	const headerNavIds = extractNavIdsBetween('class SharedHeader', 'class SharedFooter');
 	const footerNavIds = extractNavIdsBetween(
 		'class SharedFooter',
-		'function registerCustomElements'
+		"customElements.define('shared-header'"
 	);
 	const tourSlots = extractMainNavTourSlots();
 
