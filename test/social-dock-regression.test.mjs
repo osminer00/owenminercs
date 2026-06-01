@@ -5,6 +5,10 @@ import test from 'node:test';
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
 const cssSource = readFileSync(new URL('../css/owenminercs.css', import.meta.url), 'utf8');
 const indexSource = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const searchSource = readFileSync(new URL('../search.html', import.meta.url), 'utf8');
+const searchIndex = JSON.parse(
+	readFileSync(new URL('../data/site-search-index.json', import.meta.url), 'utf8')
+);
 
 function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
@@ -69,7 +73,9 @@ test('social dock first drag keeps header geometry until the pointer is released
 	);
 	const lockIndex = dragFunction.indexOf('setHeaderDragLock(promotedFromHeader);');
 	const bodyPromotionIndex = dragFunction.indexOf('document.body.appendChild(wrap);', lockIndex);
-	const placedClassIndex = dragFunction.indexOf("wrap.classList.add('site-support-dock--placed');");
+	const placedClassIndex = dragFunction.indexOf(
+		"wrap.classList.add('site-support-dock--placed');"
+	);
 
 	assert.ok(promotedIndex >= 0, 'drag start should capture whether the dock began in the header');
 	assert.ok(lockIndex > promotedIndex, 'drag lock should use the pre-promotion placement state');
@@ -77,10 +83,17 @@ test('social dock first drag keeps header geometry until the pointer is released
 		bodyPromotionIndex > lockIndex,
 		'dock should be locked horizontal before it is moved into fixed body placement'
 	);
-	assert.ok(placedClassIndex > lockIndex, 'placed class should not be added before the drag lock');
+	assert.ok(
+		placedClassIndex > lockIndex,
+		'placed class should not be added before the drag lock'
+	);
 
 	const unlockCalls = dragFunction.match(/setHeaderDragLock\(false\);/g) || [];
-	assert.equal(unlockCalls.length, 2, 'pointer release and lost capture should both clear the lock');
+	assert.equal(
+		unlockCalls.length,
+		2,
+		'pointer release and lost capture should both clear the lock'
+	);
 });
 
 test('social dock drag-lock CSS mirrors header horizontal layout while fixed', () => {
@@ -116,8 +129,20 @@ test('social dock drag-lock CSS mirrors header horizontal layout while fixed', (
 });
 
 test('homepage keeps Impact affiliate verification meta tag in the head', () => {
+	assert.match(indexSource, /<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/);
+});
+
+test('shared header search link resolves to committed search assets', () => {
 	assert.match(
-		indexSource,
-		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
+		componentsSource,
+		/href="\$\{getSearchPageUrl\(\)\}" class="site-nav-link site-header-search-open site-nav-search-open"/
+	);
+	assert.match(searchSource, /<script src="scripts\/components\.js" defer><\/script>/);
+	assert.match(searchSource, /data-owen-site-search/);
+	assert.ok(Array.isArray(searchIndex.entries), 'search index should expose entries');
+	assert.ok(searchIndex.entries.length > 0, 'search index should not be empty');
+	assert.ok(
+		searchIndex.entries.some((entry) => entry.path === 'Keyboard/60he'),
+		'search index should include the canonical keyboard page'
 	);
 });

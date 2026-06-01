@@ -6180,6 +6180,100 @@ html:not([data-theme='light']) .text-word-glow::-moz-selection {
 	box-shadow: var(--nav-pill-visited-active-glow) !important;
 }
 
+.site-visually-hidden {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
+.site-search-form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.6rem;
+	max-width: 46rem;
+	margin: 1rem auto;
+}
+
+.site-search-form input[type='search'] {
+	flex: 1 1 18rem;
+	min-width: min(100%, 16rem);
+	box-sizing: border-box;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--text);
+	font: inherit;
+	padding: 0.55rem 0.85rem;
+}
+
+.site-search-form input[type='search']::placeholder {
+	color: var(--text-dim);
+}
+
+.site-search-form input[type='search']:focus-visible {
+	outline: none;
+	border-color: var(--nav-pill-accent-ring);
+	box-shadow: var(--nav-pill-accent-glow);
+}
+
+.site-search-form button {
+	border: 1px solid var(--button-accent-ring);
+	border-radius: 999px;
+	background: var(--button-accent-fill);
+	color: var(--text);
+	font: inherit;
+	font-weight: 600;
+	padding: 0.55rem 1rem;
+	cursor: pointer;
+	box-shadow: var(--button-accent-glow);
+}
+
+.site-search-results {
+	max-width: 52rem;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.site-search-results__hint,
+.site-search-results__empty {
+	color: var(--text-muted);
+	text-align: center;
+}
+
+.site-search-results__list {
+	display: grid;
+	gap: 0.75rem;
+	padding: 0;
+	margin: 1rem 0 0;
+	list-style: none;
+}
+
+.site-search-results__item {
+	padding: 0.9rem 1rem;
+	border: 1px solid var(--border-subtle);
+	border-radius: var(--radius-sm);
+	background: rgba(255, 255, 255, 0.035);
+}
+
+.site-search-results__link {
+	display: inline-block;
+	font-weight: 700;
+}
+
+.site-search-results__snippet {
+	display: block;
+	margin-top: 0.3rem;
+	color: var(--text-muted);
+	font-size: 0.95rem;
+}
+
 .site-social-nav a:visited:not(:hover):not(:focus-visible),
 .site-social-nav__link:visited:not(:hover):not(:focus-visible) {
 	color: var(--social-nav-fg-visited);
