@@ -1,90 +1,100 @@
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="Owen Miner">
-	<meta name="description" content="Search Owen Miner's site for setup guides, CS2 pages, social content, support links, and project notes.">
-	<meta name="robots" content="noindex, follow">
-	<title>Search | Owen Miner</title>
-	<link rel="stylesheet" href="css/owenminercs.css">
-	<link rel="icon" href="/images/owenminercs-logo.png" type="image/png">
-	<script src="scripts/components.js" defer></script>
-</head>
-<body id="top" class="site-card-ui">
-	<shared-header></shared-header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="Search Owen Miner's site for setup guides, CS2 pages, social content, support links, and project notes."
+		/>
+		<meta name="robots" content="noindex, follow" />
+		<title>Search | Owen Miner</title>
+		<link rel="stylesheet" href="css/owenminercs.css" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<script src="scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui">
+		<shared-header></shared-header>
 
-	<main class="container">
-		<section class="intro site-search-page" data-owen-site-search>
-			<div class="gallery">
-				<h1>Search OwenMinerCS</h1>
-				<p>Search public page titles, descriptions, captions, and paths across the site.</p>
-				<form class="site-search-form site-search-form--page" action="search" method="get">
-					<label class="site-visually-hidden" for="site-search-page-input">Search terms</label>
-					<input id="site-search-page-input" name="q" type="search" autocomplete="off" placeholder="Try Wooting, CS2, donation, setup..." autofocus>
-					<button type="submit">Search</button>
-				</form>
-				<p id="site-search-page-status" class="site-search-results__hint" role="status"></p>
-			</div>
-			<div id="site-search-page-results" class="site-search-results" aria-live="polite"></div>
-		</section>
-	</main>
+		<main class="container">
+			<section class="intro site-search-page" data-owen-site-search>
+				<div class="gallery">
+					<h1>Search OwenMinerCS</h1>
+					<p>Search public page titles, descriptions, captions, and paths across the site.</p>
+					<form class="site-search-form site-search-form--page" action="search" method="get">
+						<label class="site-visually-hidden" for="site-search-page-input">Search terms</label>
+						<input
+							id="site-search-page-input"
+							name="q"
+							type="search"
+							autocomplete="off"
+							placeholder="Try Wooting, CS2, donation, setup..."
+							autofocus
+						/>
+						<button type="submit">Search</button>
+					</form>
+					<p id="site-search-page-status" class="site-search-results__hint" role="status"></p>
+				</div>
+				<div id="site-search-page-results" class="site-search-results" aria-live="polite"></div>
+			</section>
+		</main>
 
-	<shared-footer></shared-footer>
+		<shared-footer></shared-footer>
 
-	<script type="module">
-		const api = window.owenminercsSiteSearchApi;
-		const input = document.getElementById('site-search-page-input');
-		const form = input.closest('form');
-		const results = document.getElementById('site-search-page-results');
-		const status = document.getElementById('site-search-page-status');
-		let entries = [];
+		<script type="module">
+			const api = window.owenminercsSiteSearchApi;
+			const input = document.getElementById('site-search-page-input');
+			const form = input.closest('form');
+			const results = document.getElementById('site-search-page-results');
+			const status = document.getElementById('site-search-page-status');
+			let entries = [];
 
-		function setStatus(message) {
-			status.textContent = message || '';
-		}
-
-		function render(updateUrl = false) {
-			const query = input.value || '';
-			api.renderResults(results, api.filterEntries(entries, query, Infinity), query, 'fullPage');
-			if (updateUrl) {
-				const url = new URL(window.location.href);
-				if (query.trim()) url.searchParams.set('q', query.trim());
-				else url.searchParams.delete('q');
-				window.history.replaceState({}, '', url);
+			function setStatus(message) {
+				status.textContent = message || '';
 			}
-		}
 
-		if (!api || !input || !results) {
-			setStatus('Search is unavailable right now.');
-		} else {
-			const params = new URLSearchParams(window.location.search);
-			input.value = params.get('q') || '';
-			render(false);
+			function render(updateUrl = false) {
+				const query = input.value || '';
+				api.renderResults(results, api.filterEntries(entries, query, Infinity), query, 'fullPage');
+				if (updateUrl) {
+					const url = new URL(window.location.href);
+					if (query.trim()) url.searchParams.set('q', query.trim());
+					else url.searchParams.delete('q');
+					window.history.replaceState({}, '', url);
+				}
+			}
 
-			form.addEventListener('submit', (event) => {
-				event.preventDefault();
-				render(true);
-			});
+			if (!api || !input || !results) {
+				setStatus('Search is unavailable right now.');
+			} else {
+				const params = new URLSearchParams(window.location.search);
+				input.value = params.get('q') || '';
+				render(false);
 
-			input.addEventListener('input', () => render(false));
-
-			fetch(api.indexUrl)
-				.then((response) => {
-					if (!response.ok) throw new Error('search index');
-					return response.json();
-				})
-				.then((data) => {
-					entries = data && Array.isArray(data.entries) ? data.entries : [];
-					setStatus(`${entries.length} pages indexed.`);
-					render(false);
-				})
-				.catch(() => {
-					entries = [];
-					setStatus('Could not load the search index.');
-					render(false);
+				form.addEventListener('submit', (event) => {
+					event.preventDefault();
+					render(true);
 				});
-		}
-	</script>
-</body>
+
+				input.addEventListener('input', () => render(false));
+
+				fetch(api.indexUrl)
+					.then((response) => {
+						if (!response.ok) throw new Error('search index');
+						return response.json();
+					})
+					.then((data) => {
+						entries = data && Array.isArray(data.entries) ? data.entries : [];
+						setStatus(`${entries.length} pages indexed.`);
+						render(false);
+					})
+					.catch(() => {
+						entries = [];
+						setStatus('Could not load the search index.');
+						render(false);
+					});
+			}
+		</script>
+	</body>
 </html>
