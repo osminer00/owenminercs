@@ -168,7 +168,12 @@ test('Twitch EventSub registration accepts bearer auth and skips existing subscr
 						headers: { authorization: 'Bearer expected-secret' },
 					});
 					const payload = JSON.parse(response.body);
-					const createCalls = calls.filter((call) => call.options.method === 'POST');
+					const createCalls = calls.filter((call) => {
+						return (
+							call.options.method === 'POST' &&
+							call.url.includes('eventsub/subscriptions')
+						);
+					});
 
 					assert.equal(response.statusCode, 200);
 					assert.equal(payload.ok, true);
