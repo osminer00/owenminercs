@@ -4,8 +4,11 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 
-const scriptPath = new URL('../dev/public-content-regression-check.mjs', import.meta.url);
+const scriptPath = fileURLToPath(
+	new URL('../dev/public-content-regression-check.mjs', import.meta.url)
+);
 
 function runContentCheck(cwd) {
 	return spawnSync(process.execPath, [scriptPath], {
