@@ -19,6 +19,11 @@ const TWITCH_MESSAGE_TIMESTAMP = 'twitch-eventsub-message-timestamp';
 const TWITCH_SIGNATURE = 'twitch-eventsub-message-signature';
 const MAX_EVENTS = 100;
 const MAX_AGE_MS = 10 * 60 * 1000;
+const PROCESSING_STATE = 'processing';
+const PERSISTED_STATE = 'persisted';
+const LEGACY_PERSISTED_STATE = '1';
+const PROCESSING_TTL_SECONDS = '60';
+const PERSISTED_TTL_SECONDS = '86400';
 
 function messageIsFresh(timestamp) {
 	const ts = Date.parse(timestamp);
@@ -37,6 +42,22 @@ function statCommandsForEvent(event) {
 	if (event.type === 'bits')
 		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'bits_total', String(event.bits || 0)]);
 	return commands;
+}
+
+async function claimMessageForProcessing(env, idempotencyKey) {
+	const result = await upstashCommand(env, [
+		'SET',
+		idempotencyKey,
+		PROCESSING_STATE,
+		'NX',
+		'EX',
+		PROCESSING_TTL_SECONDS,
+	]);
+	if (result === 'OK') return { claimed: true, duplicate: false };
+
+	const state = await upstashCommand(env, ['GET', idempotencyKey]);
+	const persisted = state === PERSISTED_STATE || state === LEGACY_PERSISTED_STATE;
+	return { claimed: false, duplicate: persisted };
 }
 
 export async function onRequestPost(context) {
@@ -91,15 +112,11 @@ export async function onRequestPost(context) {
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
 
 	try {
-		const idempotentResult = await upstashCommand(env, [
-			'SET',
-			idempotencyKey,
-			'1',
-			'NX',
-			'EX',
-			'86400',
-		]);
-		if (idempotentResult !== 'OK') return json({ ok: true, duplicate: true });
+		const claim = await claimMessageForProcessing(env, idempotencyKey);
+		if (claim.duplicate) return json({ ok: true, duplicate: true });
+		if (!claim.claimed) {
+			return json({ error: 'Twitch event is already being persisted; retry later.' }, 500);
+		}
 
 		const pipeline = [
 			['LPUSH', EVENT_LIST_KEY, JSON.stringify(normalized)],
@@ -108,6 +125,13 @@ export async function onRequestPost(context) {
 			...statCommandsForEvent(normalized),
 		];
 		await upstashPipeline(env, pipeline);
+		await upstashCommand(env, [
+			'SET',
+			idempotencyKey,
+			PERSISTED_STATE,
+			'EX',
+			PERSISTED_TTL_SECONDS,
+		]);
 	} catch (error) {
 		return json(
 			{ error: 'Failed to persist Twitch event.', detail: String(error.message || error) },
