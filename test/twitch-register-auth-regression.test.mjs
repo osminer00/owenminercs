@@ -15,7 +15,10 @@ function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
 	assert.notEqual(start, -1, `${functionName} should exist`);
 
-	const braceStart = source.indexOf('{', start);
+	const paramsEnd = source.indexOf(')', start);
+	assert.notEqual(paramsEnd, -1, `${functionName} should have parameters`);
+
+	const braceStart = source.indexOf('{', paramsEnd);
 	assert.notEqual(braceStart, -1, `${functionName} should have a body`);
 
 	let depth = 0;
