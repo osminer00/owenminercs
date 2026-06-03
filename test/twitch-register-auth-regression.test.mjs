@@ -79,11 +79,17 @@ test('Cloudflare Twitch registration auth accepts header or bearer secret', () =
 	const { isAuthorizedRequest } = buildFunctionsApiAuth();
 
 	assert.equal(
-		isAuthorizedRequest(requestWithHeaders({ 'x-twitch-register-secret': 'expected-secret' }), 'expected-secret'),
+		isAuthorizedRequest(
+			requestWithHeaders({ 'x-twitch-register-secret': 'expected-secret' }),
+			'expected-secret'
+		),
 		true
 	);
 	assert.equal(
-		isAuthorizedRequest(requestWithHeaders({ authorization: 'Bearer expected-secret' }), 'expected-secret'),
+		isAuthorizedRequest(
+			requestWithHeaders({ authorization: 'Bearer expected-secret' }),
+			'expected-secret'
+		),
 		true
 	);
 });
@@ -93,11 +99,17 @@ test('Cloudflare Twitch registration auth rejects missing or mismatched secrets'
 
 	assert.equal(isAuthorizedRequest(requestWithHeaders({}), 'expected-secret'), false);
 	assert.equal(
-		isAuthorizedRequest(requestWithHeaders({ 'x-twitch-register-secret': 'wrong-secret' }), 'expected-secret'),
+		isAuthorizedRequest(
+			requestWithHeaders({ 'x-twitch-register-secret': 'wrong-secret' }),
+			'expected-secret'
+		),
 		false
 	);
 	assert.equal(
-		isAuthorizedRequest(requestWithHeaders({ 'x-twitch-register-secret': 'expected-secret' }), ''),
+		isAuthorizedRequest(
+			requestWithHeaders({ 'x-twitch-register-secret': 'expected-secret' }),
+			''
+		),
 		false
 	);
 });
@@ -113,13 +125,19 @@ test('Netlify Twitch registration auth handles case-insensitive headers and bear
 		isAuthorizedRequest({ 'X-Twitch-Register-Secret': 'expected-secret' }, 'expected-secret'),
 		true
 	);
-	assert.equal(isAuthorizedRequest({ Authorization: 'Bearer expected-secret' }, 'expected-secret'), true);
+	assert.equal(
+		isAuthorizedRequest({ Authorization: 'Bearer expected-secret' }, 'expected-secret'),
+		true
+	);
 });
 
 test('Netlify Twitch registration auth rejects missing or mismatched secrets', () => {
 	const { isAuthorizedRequest } = buildNetlifyAuth();
 
 	assert.equal(isAuthorizedRequest({}, 'expected-secret'), false);
-	assert.equal(isAuthorizedRequest({ 'x-twitch-register-secret': 'wrong-secret' }, 'expected-secret'), false);
+	assert.equal(
+		isAuthorizedRequest({ 'x-twitch-register-secret': 'wrong-secret' }, 'expected-secret'),
+		false
+	);
 	assert.equal(isAuthorizedRequest({ 'x-twitch-register-secret': 'expected-secret' }, ''), false);
 });

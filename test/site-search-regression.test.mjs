@@ -109,6 +109,12 @@ test('site search href resolution follows production and local extension rules',
 	const localApi = buildSearchApi({ siteRoot: 'http://localhost:5500/', isLocal: true });
 
 	assert.equal(remoteApi.resolveSiteSearchHref('/'), 'https://owenminercs.com/');
-	assert.equal(remoteApi.resolveSiteSearchHref('/Keyboard/60he'), 'https://owenminercs.com/Keyboard/60he');
-	assert.equal(localApi.resolveSiteSearchHref('Keyboard/60he'), 'http://localhost:5500/Keyboard/60he.html');
+	assert.equal(
+		remoteApi.resolveSiteSearchHref('/Keyboard/60he'),
+		'https://owenminercs.com/Keyboard/60he'
+	);
+	assert.equal(
+		localApi.resolveSiteSearchHref('Keyboard/60he'),
+		'http://localhost:5500/Keyboard/60he.html'
+	);
 });

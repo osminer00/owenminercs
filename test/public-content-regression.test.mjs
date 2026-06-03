@@ -29,7 +29,10 @@ function runChecker(cwd) {
 test('public content regression check ignores generated search artifacts by basename', () => {
 	withTempSite((siteRoot) => {
 		mkdirSync(path.join(siteRoot, 'data'));
-		writeFileSync(path.join(siteRoot, 'index.html'), '<main>Current public site copy.</main>\n');
+		writeFileSync(
+			path.join(siteRoot, 'index.html'),
+			'<main>Current public site copy.</main>\n'
+		);
 		writeFileSync(
 			path.join(siteRoot, 'data', 'site-search-index.json'),
 			JSON.stringify([{ text: 'Generated stale DMACC snippet' }])
@@ -48,7 +51,10 @@ test('public content regression check ignores generated search artifacts by base
 
 test('public content regression check still reports forbidden ordinary public files', () => {
 	withTempSite((siteRoot) => {
-		writeFileSync(path.join(siteRoot, 'page.html'), '<main>DMACC should not be public here.</main>\n');
+		writeFileSync(
+			path.join(siteRoot, 'page.html'),
+			'<main>DMACC should not be public here.</main>\n'
+		);
 
 		const result = runChecker(siteRoot);
 		const output = `${result.stdout}\n${result.stderr}`;
