@@ -139,11 +139,11 @@ export async function onRequestPost(context) {
 		);
 	}
 
-	return new Response('', { status: 204 });
+	return new Response(null, { status: 204 });
 }
 
 export async function onRequestOptions() {
-	return new Response('', {
+	return new Response(null, {
 		status: 204,
 		headers: {
 			'Access-Control-Allow-Methods': 'POST, OPTIONS',

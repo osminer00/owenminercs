@@ -23,6 +23,7 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.
 - Twitch EventSub idempotency must not mark a message as durably seen before writing the event feed/stats. Use a short `processing` lock, then mark `persisted` only after Redis writes succeed; legacy seen value `"1"` still means persisted.
+- Cloudflare/Fetch `new Response()` rejects status 204/304 when the body is `''`; use `new Response(null, { status: 204 })` for success/preflight responses.
 
 ## Issue Template
 

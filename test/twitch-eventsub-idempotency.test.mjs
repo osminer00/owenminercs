@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -11,6 +11,7 @@ const require = createRequire(import.meta.url);
 const TWITCH_SECRET = 'test-eventsub-secret';
 const REDIS_URL = 'https://redis.example.test';
 const REDIS_TOKEN = 'test-redis-token';
+const cloudflareFunctionsDir = new URL('../functions/api/', import.meta.url);
 
 function twitchSignature({ messageId, timestamp, rawBody }) {
 	return `sha256=${createHmac('sha256', TWITCH_SECRET)
@@ -270,5 +271,17 @@ test('Netlify EventSub mirrors retryable persistence and legacy duplicate handli
 		);
 	} finally {
 		restoreEnv();
+	}
+});
+
+test('Cloudflare 204 responses use a null body', () => {
+	for (const fileName of readdirSync(cloudflareFunctionsDir)) {
+		if (!fileName.endsWith('.js')) continue;
+		const source = readFileSync(new URL(fileName, cloudflareFunctionsDir), 'utf8');
+		assert.doesNotMatch(
+			source,
+			/new Response\('',\s*\{\s*status:\s*204/s,
+			`${fileName} should not construct a 204 Response with a body`
+		);
 	}
 });
