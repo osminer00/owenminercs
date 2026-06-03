@@ -72,7 +72,7 @@ export async function onRequestGet(context) {
 }
 
 export async function onRequestOptions() {
-	return new Response('', {
+	return new Response(null, {
 		status: 204,
 		headers: {
 			'Access-Control-Allow-Methods': 'GET, OPTIONS',

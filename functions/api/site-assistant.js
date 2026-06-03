@@ -17,7 +17,7 @@ function json(payload, status = 200, extraHeaders = {}) {
 }
 
 export async function onRequestOptions() {
-	return new Response('', {
+	return new Response(null, {
 		status: 204,
 		headers: {
 			'access-control-allow-methods': 'POST, OPTIONS',
