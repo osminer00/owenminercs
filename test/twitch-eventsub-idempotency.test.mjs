@@ -202,7 +202,11 @@ test('Cloudflare EventSub retries can persist after a transient Redis pipeline f
 						call.body[0] === 'SET' &&
 						call.body[2] === 'persisted'
 				);
-				assert.equal(persistedMarks.length, 1, 'only the successful retry marks the message persisted');
+				assert.equal(
+					persistedMarks.length,
+					1,
+					'only the successful retry marks the message persisted'
+				);
 			}
 		);
 	} finally {
