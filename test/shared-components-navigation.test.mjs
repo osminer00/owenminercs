@@ -25,7 +25,10 @@ function extractFunction(source, functionName) {
 }
 
 function extractArrayLiteral(source, constName) {
-	const pattern = new RegExp(`const ${constName} = Object\\.freeze\\(\\[(?<body>[\\s\\S]*?)\\]\\);`, 'm');
+	const pattern = new RegExp(
+		`const ${constName} = Object\\.freeze\\(\\[(?<body>[\\s\\S]*?)\\]\\);`,
+		'm'
+	);
 	const match = source.match(pattern);
 	assert.ok(match, `${constName} should be declared as an Object.freeze array`);
 	return [...match.groups.body.matchAll(/'([^']+)'/g)].map((item) => item[1]);
@@ -134,7 +137,11 @@ test('main nav tour slots stay in sync with header navigation entries', () => {
 	const tourSlots = extractArrayLiteral(componentsSource, 'MAIN_NAV_TOUR_SLOTS');
 	const headerNavSlots = extractHeaderNavDataValues();
 
-	assert.deepEqual(tourSlots, headerNavSlots, 'achievement tour slots should match header nav order');
+	assert.deepEqual(
+		tourSlots,
+		headerNavSlots,
+		'achievement tour slots should match header nav order'
+	);
 });
 
 test('Programs and setup subpages map to the expected main navigation slots', () => {
@@ -175,9 +182,15 @@ test('nav return state is captured only for same-origin route changes', () => {
 		}
 	);
 
-	assert.equal(captureNavReturnState({ href: 'https://external.example/Gaming/gaming.html' }), null);
+	assert.equal(
+		captureNavReturnState({ href: 'https://external.example/Gaming/gaming.html' }),
+		null
+	);
 	assert.equal(captureNavReturnState({ href: '#photos' }), null);
 	assert.equal(captureNavReturnState({ href: '/Keyboard/60he.html?build=2025' }), null);
 	assert.equal(captureNavReturnState({ href: '/Gaming/gaming.html', target: '_blank' }), null);
-	assert.equal(captureNavReturnState({ href: '/Gaming/gaming.html', classContains: false }), null);
+	assert.equal(
+		captureNavReturnState({ href: '/Gaming/gaming.html', classContains: false }),
+		null
+	);
 });
