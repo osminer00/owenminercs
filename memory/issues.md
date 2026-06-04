@@ -37,4 +37,3 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Verification:
 - Status: active | fixed | needs follow-up
 ```
-

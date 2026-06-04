@@ -150,13 +150,7 @@ exports.handler = async function handler(event) {
 			...statCommandsForEvent(normalized),
 		];
 		await upstashPipeline(pipeline);
-		await upstashCommand([
-			'SET',
-			idempotencyKey,
-			PERSISTED_STATE,
-			'EX',
-			PERSISTED_TTL_SECONDS,
-		]);
+		await upstashCommand(['SET', idempotencyKey, PERSISTED_STATE, 'EX', PERSISTED_TTL_SECONDS]);
 	} catch (error) {
 		return json(500, {
 			error: 'Failed to persist Twitch event.',
