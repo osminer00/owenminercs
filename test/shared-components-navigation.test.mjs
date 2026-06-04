@@ -104,7 +104,8 @@ function captureNavReturnState({ href, target = '', classContains = true }) {
 		'document',
 		'localStorage',
 		'anchor',
-		`${functions}
+		`const NAV_RETURN_STATE_KEY = 'owenminercs-nav-return-state-v1';
+		${functions}
 		captureNavReturnState(anchor);`
 	)(
 		FakeAnchor,
