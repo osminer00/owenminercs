@@ -26,7 +26,7 @@ test('EventSub persistence marks done only after the event/stat pipeline', async
 		command: async (command) => {
 			commandCalls.push(command);
 			assert.equal(command[0], 'SET');
-			assert.equal(command[3], 'pending');
+			assert.equal(command[2], 'pending');
 			return 'OK';
 		},
 		pipeline: async (commands) => {
