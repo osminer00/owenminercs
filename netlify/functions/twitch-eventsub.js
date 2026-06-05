@@ -17,6 +17,10 @@ const TOTALS_HASH_KEY = 'activity:twitch:totals';
 const SEEN_MESSAGE_PREFIX = 'activity:twitch:seen:';
 const MAX_EVENTS = 100;
 const MAX_AGE_MS = 10 * 60 * 1000;
+const IDEMPOTENCY_PENDING = 'pending';
+const IDEMPOTENCY_DONE = 'done';
+const IDEMPOTENCY_PENDING_TTL_SECONDS = 300;
+const IDEMPOTENCY_DONE_TTL_SECONDS = 86400;
 
 function getHeader(headers, name) {
 	if (!headers) return '';
@@ -40,6 +44,51 @@ function statCommandsForEvent(event) {
 	if (event.type === 'bits')
 		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'bits_total', String(event.bits || 0)]);
 	return commands;
+}
+
+async function persistTwitchEventOnce({
+	idempotencyKey,
+	normalized,
+	command = upstashCommand,
+	pipeline = upstashPipeline,
+	now = () => new Date().toISOString(),
+}) {
+	const pendingResult = await command([
+		'SET',
+		idempotencyKey,
+		IDEMPOTENCY_PENDING,
+		'NX',
+		'EX',
+		String(IDEMPOTENCY_PENDING_TTL_SECONDS),
+	]);
+
+	if (pendingResult !== 'OK') {
+		const state = await command(['GET', idempotencyKey]).catch(() => null);
+		if (state === IDEMPOTENCY_DONE) return { status: 'duplicate' };
+		throw new Error('Twitch event persistence is already pending. Retry later.');
+	}
+
+	const commands = [
+		['LPUSH', EVENT_LIST_KEY, JSON.stringify(normalized)],
+		['LTRIM', EVENT_LIST_KEY, '0', String(MAX_EVENTS - 1)],
+		['SET', 'activity:twitch:last_updated', now()],
+		...statCommandsForEvent(normalized),
+		['SET', idempotencyKey, IDEMPOTENCY_DONE, 'EX', String(IDEMPOTENCY_DONE_TTL_SECONDS)],
+	];
+
+	try {
+		await pipeline(commands);
+	} catch (error) {
+		try {
+			const state = await command(['GET', idempotencyKey]);
+			if (state !== IDEMPOTENCY_DONE) {
+				await command(['DEL', idempotencyKey]);
+			}
+		} catch (_) {}
+		throw error;
+	}
+
+	return { status: 'stored' };
 }
 
 exports.handler = async function handler(event) {
@@ -114,25 +163,13 @@ exports.handler = async function handler(event) {
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
 
 	try {
-		const idempotentResult = await upstashCommand([
-			'SET',
+		const result = await persistTwitchEventOnce({
 			idempotencyKey,
-			'1',
-			'NX',
-			'EX',
-			'86400',
-		]);
-		if (idempotentResult !== 'OK') {
+			normalized,
+		});
+		if (result.status === 'duplicate') {
 			return json(200, { ok: true, duplicate: true });
 		}
-
-		const pipeline = [
-			['LPUSH', EVENT_LIST_KEY, JSON.stringify(normalized)],
-			['LTRIM', EVENT_LIST_KEY, '0', String(MAX_EVENTS - 1)],
-			['SET', 'activity:twitch:last_updated', new Date().toISOString()],
-			...statCommandsForEvent(normalized),
-		];
-		await upstashPipeline(pipeline);
 	} catch (error) {
 		return json(500, {
 			error: 'Failed to persist Twitch event.',
@@ -146,3 +183,5 @@ exports.handler = async function handler(event) {
 		body: '',
 	};
 };
+
+exports.persistTwitchEventOnce = persistTwitchEventOnce;
