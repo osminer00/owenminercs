@@ -37,7 +37,12 @@ function makeTwitchNotificationEvent({ secret, messageId }) {
 			'twitch-eventsub-message-type': 'notification',
 			'twitch-eventsub-message-id': messageId,
 			'twitch-eventsub-message-timestamp': timestamp,
-			'twitch-eventsub-message-signature': twitchSignature(secret, messageId, timestamp, body),
+			'twitch-eventsub-message-signature': twitchSignature(
+				secret,
+				messageId,
+				timestamp,
+				body
+			),
 		},
 		body,
 	};
@@ -92,7 +97,12 @@ test('Twitch EventSub retries are not acknowledged as duplicates after persisten
 			if (pipelineAttempts === 1) {
 				return fetchResponse({ error: 'temporary outage' }, { ok: false, status: 500 });
 			}
-			return fetchResponse([{ result: 1 }, { result: 'OK' }, { result: 'OK' }, { result: 1 }]);
+			return fetchResponse([
+				{ result: 1 },
+				{ result: 'OK' },
+				{ result: 'OK' },
+				{ result: 1 },
+			]);
 		}
 
 		if (command[0] === 'SET') return fetchResponse({ result: 'OK' });
@@ -115,13 +125,21 @@ test('Twitch EventSub retries are not acknowledged as duplicates after persisten
 	const firstAttempt = await handler(event);
 	assert.equal(firstAttempt.statusCode, 500);
 	assert.ok(
-		calls.some((call) => call.command[0] === 'DEL' && call.command[1] === 'activity:twitch:seen:retry-message-1'),
+		calls.some(
+			(call) =>
+				call.command[0] === 'DEL' &&
+				call.command[1] === 'activity:twitch:seen:retry-message-1'
+		),
 		'failed persistence should clear the temporary idempotency marker'
 	);
 
 	const retryAttempt = await handler(event);
 	assert.equal(retryAttempt.statusCode, 204);
-	assert.equal(pipelineAttempts, 2, 'the retry should attempt persistence instead of returning duplicate');
+	assert.equal(
+		pipelineAttempts,
+		2,
+		'the retry should attempt persistence instead of returning duplicate'
+	);
 	assert.ok(
 		calls.some(
 			(call) =>
@@ -172,7 +190,8 @@ test('social feed cache keeps low-limit responses from truncating normal respons
 	assert.equal(defaultPayload.items.length, 3);
 	assert.equal(defaultPayload.cache.hit, false);
 	assert.equal(
-		fetchUrls.filter((url) => url.startsWith('https://www.youtube.com/feeds/videos.xml')).length,
+		fetchUrls.filter((url) => url.startsWith('https://www.youtube.com/feeds/videos.xml'))
+			.length,
 		2,
 		'default-limit response should fetch its own payload instead of reusing the limit=1 cache entry'
 	);
