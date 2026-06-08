@@ -3,11 +3,12 @@ import { execFile } from 'node:child_process';
 import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import test from 'node:test';
 
 const execFileAsync = promisify(execFile);
-const checkerPath = new URL('../dev/public-content-regression-check.mjs', import.meta.url);
+const checkerPath = fileURLToPath(new URL('../dev/public-content-regression-check.mjs', import.meta.url));
 
 async function withFixture(callback) {
 	const root = await mkdtemp(path.join(tmpdir(), 'public-content-check-'));
