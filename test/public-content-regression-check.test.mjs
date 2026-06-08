@@ -8,7 +8,9 @@ import { promisify } from 'node:util';
 import test from 'node:test';
 
 const execFileAsync = promisify(execFile);
-const checkerPath = fileURLToPath(new URL('../dev/public-content-regression-check.mjs', import.meta.url));
+const checkerPath = fileURLToPath(
+	new URL('../dev/public-content-regression-check.mjs', import.meta.url)
+);
 
 async function withFixture(callback) {
 	const root = await mkdtemp(path.join(tmpdir(), 'public-content-check-'));
