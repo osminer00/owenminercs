@@ -337,6 +337,7 @@ const MAIN_NAV_TOUR_SLOTS = Object.freeze([
 	'garage-sale',
 	'Help Wanted',
 	'QA',
+	'Dev',
 	'Achievements',
 	'Socials',
 ]);
@@ -391,6 +392,9 @@ function getMainNavTourSlotFromLocation() {
 	}
 	if (lc.includes('/qa/') || lc.endsWith('/qa')) {
 		return 'QA';
+	}
+	if (lc.includes('/dev/') || lc.endsWith('/dev') || lc.includes('dev-stack')) {
+		return 'Dev';
 	}
 	if (lc.includes('help') && lc.includes('wanted')) {
 		return 'Help Wanted';
@@ -710,6 +714,9 @@ function resolveActiveNavLink(scope) {
 		}
 		if (!activeLink && currentPath.includes('/PC/')) {
 			activeLink = scope.querySelector('a[data-nav="The Setup"]');
+		}
+		if (!activeLink && currentPath.toLowerCase().includes('/dev/')) {
+			activeLink = scope.querySelector('a[data-nav="Dev"]');
 		}
 	}
 	return activeLink;
