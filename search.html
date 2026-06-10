@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/owenminercs.css" />
+		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'G-GYG1QRQ8DY');
+		</script>
+		<title>Search | Owen Miner</title>
+		<meta name="author" content="Owen Miner" />
+		<meta
+			name="description"
+			content="Search OwenMinerCS.com pages by title and topic: desk setup, keyboard, PC, Counter-Strike, and more."
+		/>
+		<meta name="keywords" content="Owen Miner, OwenMinerCS, search, site search" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="index, follow" />
+		<meta name="twitter:site" content="@OwenMinerCS" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="theme-color" content="#050505" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<meta property="og:title" content="Search | Owen Miner" />
+		<meta property="og:description" content="Search pages across OwenMinerCS.com." />
+		<meta property="og:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
+		<meta property="og:url" content="https://www.owenminercs.com/search" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Owen Miner CS" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Search | Owen Miner" />
+		<meta name="twitter:description" content="Search pages across OwenMinerCS.com." />
+		<meta name="twitter:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
+		<link rel="canonical" href="https://www.owenminercs.com/search" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+		<style>
+			.site-search-page-main {
+				display: grid;
+				gap: 1.25rem;
+			}
+
+			.site-search-page-form {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				justify-content: center;
+				margin: 0 auto;
+				max-width: 760px;
+				width: 100%;
+			}
+
+			.site-search-page-input {
+				background: rgba(0, 0, 0, 0.58);
+				border: 1px solid rgba(176, 255, 76, 0.45);
+				border-radius: 999px;
+				color: #fff;
+				flex: 1 1 260px;
+				font: inherit;
+				min-height: 48px;
+				padding: 0.8rem 1rem;
+			}
+
+			.site-search-page-input:focus-visible {
+				box-shadow: 0 0 0 3px rgba(176, 255, 76, 0.28);
+				outline: 0;
+			}
+
+			.site-search-page-submit {
+				background: #b0ff4c;
+				border: 0;
+				border-radius: 999px;
+				color: #101010;
+				cursor: pointer;
+				font: inherit;
+				font-weight: 800;
+				min-height: 48px;
+				padding: 0.8rem 1.25rem;
+			}
+
+			.site-search-page-summary {
+				color: rgba(255, 255, 255, 0.82);
+				margin: 0;
+			}
+
+			.site-search-page-query {
+				color: #b0ff4c;
+				font-weight: 800;
+			}
+
+			.site-search-results__list {
+				display: grid;
+				gap: 0.8rem;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			.site-search-results__item {
+				background: rgba(0, 0, 0, 0.42);
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				border-radius: 18px;
+				padding: 1rem;
+				text-align: left;
+			}
+
+			.site-search-results__link {
+				color: #b0ff4c;
+				display: inline-block;
+				font-weight: 800;
+				margin-bottom: 0.35rem;
+			}
+
+			.site-search-results__snippet,
+			.site-search-results__empty,
+			.site-search-results__hint {
+				color: rgba(255, 255, 255, 0.78);
+				display: block;
+				margin: 0;
+			}
+		</style>
+		<script src="./scripts/components.js" defer></script>
+		<script src="./scripts/search-page.js" defer></script>
+	</head>
+
+	<body id="top" class="site-card-ui site-search-page">
+		<shared-header></shared-header>
+		<div class="container">
+			<main class="intro site-search-page-main" aria-labelledby="site-search-page-heading">
+				<h1 id="site-search-page-heading">Search results</h1>
+				<form class="site-search-page-form" method="get" data-owen-site-search>
+					<label class="site-visually-hidden" for="site-search-page-input">Search OwenMinerCS.com</label>
+					<input
+						id="site-search-page-input"
+						class="site-search-page-input"
+						type="search"
+						name="q"
+						placeholder="Search pages, gear, and Counter-Strike posts"
+						autocomplete="off"
+					/>
+					<button class="site-search-page-submit" type="submit">Search</button>
+				</form>
+				<p id="site-search-page-summary" class="site-search-page-summary"></p>
+				<div
+					id="site-search-page-results"
+					class="site-search-results site-search-page-results"
+					aria-live="polite"
+				></div>
+			</main>
+		</div>
+
+		<shared-footer
+			disclosure="<i>This page has optional tip links (<a href='https://ko-fi.com/owenminer' data-kofi-link target='_blank' rel='noopener noreferrer'>Ko-fi</a>, <a href='https://streamelements.com/owenminercs/tip' data-streamelements-tip-link target='_blank' rel='noopener noreferrer'>StreamElements</a>) and a Mercari referral link that may earn a reward or credit. Bigfoot's Jungle, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+		></shared-footer>
+		<script src="scripts/support-links.js"></script>
+	</body>
+</html>
