@@ -140,7 +140,10 @@ test('Twitch EventSub registration accepts custom header secrets case-insensitiv
 					});
 					const body = parseBody(response);
 					const createRequests = requests.filter(
-						(request) => request.options.method === 'POST' && request.options.body
+						(request) =>
+							request.url.includes('eventsub/subscriptions') &&
+							request.options.method === 'POST' &&
+							request.options.body
 					);
 
 					assert.equal(response.statusCode, 200);
