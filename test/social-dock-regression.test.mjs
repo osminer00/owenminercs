@@ -121,3 +121,18 @@ test('homepage keeps Impact affiliate verification meta tag in the head', () => 
 		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
 	);
 });
+
+test('shared header does not expose unfinished search route', () => {
+	assert.doesNotMatch(
+		componentsSource,
+		/href="\$\{getSearchPageUrl\(\)\}"/,
+		'Search nav link should stay hidden until search.html and data/site-search-index.json are shipped'
+	);
+
+	const initSiteSearch = extractFunction(componentsSource, 'initSiteSearch');
+	const guardIndex = initSiteSearch.indexOf('if (!homeInput || !homeResults) return;');
+	const fetchIndex = initSiteSearch.indexOf('fetch(SITE_SEARCH_INDEX_URL)');
+
+	assert.ok(guardIndex >= 0, 'site search should no-op when no search controls exist');
+	assert.ok(fetchIndex > guardIndex, 'missing search controls should prevent fetching a missing index');
+});
