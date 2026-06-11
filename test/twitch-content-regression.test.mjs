@@ -12,10 +12,8 @@ const twitchRegisterSource = readFileSync(
 	new URL('../functions/api/twitch-register-eventsub.js', import.meta.url),
 	'utf8'
 );
-const contentCheckerPath = new URL(
-	'../dev/public-content-regression-check.mjs',
-	import.meta.url
-).pathname;
+const contentCheckerPath = new URL('../dev/public-content-regression-check.mjs', import.meta.url)
+	.pathname;
 
 function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
@@ -62,10 +60,7 @@ test('Twitch registration auth compares non-string env secrets by value', () => 
 	assert.equal(timingSafeEqual(12345, '54321'), false);
 
 	assert.equal(
-		isAuthorizedRequest(
-			{ headers: new Headers({ authorization: 'Bearer 12345' }) },
-			12345
-		),
+		isAuthorizedRequest({ headers: new Headers({ authorization: 'Bearer 12345' }) }, 12345),
 		true
 	);
 	assert.equal(
@@ -81,8 +76,7 @@ test('public content checker ignores generated search JSON artifacts', async () 
 	const siteDir = await createTempSite({
 		'safe.html': '<!doctype html><title>Safe page</title>',
 		'site-search-index.json': '{"text":"DMACC stale generated snippet"}',
-		'search-manual-keywords.json':
-			'{"text":"While at DMACC I learned how to write software"}',
+		'search-manual-keywords.json': '{"text":"While at DMACC I learned how to write software"}',
 	});
 
 	const { stdout } = await execFileAsync(process.execPath, [contentCheckerPath], {
