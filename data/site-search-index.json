@@ -1,0 +1,110 @@
+{
+	"version": 1,
+	"entries": [
+		{
+			"title": "OwenMinerCS.com Home",
+			"path": "/",
+			"snippet": "Bio, what is new, setup links, CS2 content, Wooting 60HE, and resale links.",
+			"text": "Owen Miner CS2 content creator software developer homepage Bigfoot's Jungle keyboard gaming PC setup shop socials support",
+			"manualTerms": ["home", "owen", "owen miner", "owenminercs"]
+		},
+		{
+			"title": "Bigfoot's Jungle Setup",
+			"path": "The%20Setup/the-setup",
+			"snippet": "Desk, monitors, cameras, audio, PC, keyboard, and streaming gear hub.",
+			"text": "setup desk streaming gear monitors audio camera microphone keyboard mouse walking pad camping Bigfoot's Jungle",
+			"manualTerms": ["setup", "desk", "gear", "bigfoot", "bigfoot's jungle"]
+		},
+		{
+			"title": "Gaming",
+			"path": "Gaming/gaming",
+			"snippet": "Counter-Strike, CS2 resources, wallpapers, merch, videos, and gaming pages.",
+			"text": "gaming Counter-Strike CS2 videos skins config wallpapers merch Faceit esports OwenMinerCS",
+			"manualTerms": ["gaming", "cs2", "counter-strike", "counter strike"]
+		},
+		{
+			"title": "Wooting 60HE Build Guides",
+			"path": "Keyboard/60he",
+			"snippet": "Choose the 2025 Kilowatt or 2023 Crosshair Alpha Wooting 60HE build guide.",
+			"text": "Wooting 60HE keyboard build guides parts switches keycaps mods Kilowatt Crosshair Alpha",
+			"manualTerms": ["keyboard", "wooting", "wooting 60he", "60he"]
+		},
+		{
+			"title": "Wooting 60HE 2025 Kilowatt Build",
+			"path": "Keyboard/60he-2025",
+			"snippet": "Current Wooting 60HE build with Tofu 60 Redux, Jade Pro switches, PC plate, and friction fit pad.",
+			"text": "2025 Kilowatt Wooting 60HE Tofu 60 Redux Gateron Magnetic Jade Pro PBTfans WOB Wooting PC switch plate friction fit pad",
+			"manualTerms": ["kilowatt", "2025 keyboard", "jade pro", "tofu 60"]
+		},
+		{
+			"title": "Wooting 60HE 2023 Crosshair Alpha Build",
+			"path": "Keyboard/60he-2023",
+			"snippet": "Original Wooting 60HE Crosshair Alpha build with GH60 case, dampening, switches, and keycaps.",
+			"text": "2023 Crosshair Alpha Wooting 60HE GH60 aluminum case silicone dampening Gateron Magnetic Jades lube o-ring keycaps",
+			"manualTerms": ["crosshair", "2023 keyboard", "gh60", "magnetic jades"]
+		},
+		{
+			"title": "Keyboard And Mouse Setup",
+			"path": "The%20Setup/keyboard-mouse",
+			"snippet": "Keyboard, mouse, mousepad, and input gear from the setup collection.",
+			"text": "keyboard mouse setup Wooting 60HE mousepad peripherals input gear Bigfoot's Jungle",
+			"manualTerms": ["keyboard mouse", "mouse", "mousepad"]
+		},
+		{
+			"title": "Gaming PC Build",
+			"path": "The%20Setup/gaming-pc",
+			"snippet": "Owen's gaming PC build parts, component notes, and related setup links.",
+			"text": "gaming PC build RTX 4090 AMD Ryzen computer parts case components setup",
+			"manualTerms": ["pc", "gaming pc", "computer", "rtx 4090"]
+		},
+		{
+			"title": "For Sale",
+			"path": "Garage%20Sale/garage-sale",
+			"snippet": "Shop links for items, stickers, prints, resale listings, and Mercari referral.",
+			"text": "for sale garage sale shop eBay Depop Vinted Mercari referral stickers prints resale products",
+			"manualTerms": ["shop", "for sale", "garage sale", "resale"]
+		},
+		{
+			"title": "Help Wanted",
+			"path": "Help%20Wanted/help-wanted",
+			"snippet": "Open roles, collaborations, requests, and ways to work with Owen.",
+			"text": "help wanted roles collaboration collabs requests work with Owen creator support",
+			"manualTerms": ["help wanted", "collab", "collaboration"]
+		},
+		{
+			"title": "Q&A",
+			"path": "QA/qa",
+			"snippet": "Questions and answers from the community.",
+			"text": "Q&A questions answers community Discord forum help discussion",
+			"manualTerms": ["qa", "q&a", "questions", "answers"]
+		},
+		{
+			"title": "Programs",
+			"path": "dev/dev-stack",
+			"snippet": "Programs for coding, creative work, streaming, and maintaining the site.",
+			"text": "programs dev stack development software coding creative tools streaming website maintenance",
+			"manualTerms": ["programs", "dev stack", "software", "tools"]
+		},
+		{
+			"title": "Achievements",
+			"path": "Achievements/achievements",
+			"snippet": "Site easter eggs, achievements, unlocks, and progress.",
+			"text": "achievements easter eggs site milestones unlocks progress social dock tour",
+			"manualTerms": ["achievements", "easter eggs", "unlocks"]
+		},
+		{
+			"title": "Content And Socials",
+			"path": "Socials/socials",
+			"snippet": "Social hub with feeds, featured posts, videos, and support links.",
+			"text": "socials content YouTube Twitch TikTok Instagram Facebook Reddit X posts videos feed support OwenMinerCS",
+			"manualTerms": ["socials", "content", "youtube", "twitch", "instagram"]
+		},
+		{
+			"title": "Donators",
+			"path": "Donators/donators",
+			"snippet": "Donation options, supporter recognition, Twitch activity, and community support.",
+			"text": "donators donations supporters Ko-fi StreamElements Twitch activity bits subs community support",
+			"manualTerms": ["donate", "donators", "support", "kofi", "ko-fi"]
+		}
+	]
+}

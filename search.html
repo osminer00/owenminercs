@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Owen Miner" />
+		<meta name="description" content="Search OwenMinerCS.com pages, setup guides, gaming content, socials, and support links." />
+		<meta name="robots" content="index, follow" />
+		<title>Search OwenMinerCS.com | Owen Miner</title>
+		<link rel="canonical" href="https://www.owenminercs.com/search" />
+		<link rel="stylesheet" href="css/owenminercs.css" />
+		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<script src="./scripts/components.js" defer></script>
+	</head>
+	<body id="top" class="site-card-ui">
+		<shared-header></shared-header>
+
+		<main class="container">
+			<section class="intro site-search-page" aria-labelledby="site-search-heading">
+				<h1 id="site-search-heading">Search OwenMinerCS.com</h1>
+				<p>Find setup guides, keyboard parts, CS2 pages, social feeds, and support links.</p>
+				<form class="site-search-form site-search-form--page" data-owen-site-search action="/search" method="get">
+					<label class="site-search-form__label" for="site-search-page-input">Search terms</label>
+					<div class="site-search-form__row">
+						<input
+							id="site-search-page-input"
+							class="site-search-form__input"
+							name="q"
+							type="search"
+							autocomplete="off"
+							placeholder="Try keyboard, CS2, PC, donations..."
+						/>
+						<button class="site-search-form__button" type="submit">Search</button>
+					</div>
+				</form>
+				<div
+					id="site-search-page-results"
+					class="site-search-results site-search-results--page"
+					data-owen-site-search
+					aria-live="polite"
+				></div>
+			</section>
+		</main>
+
+		<shared-footer></shared-footer>
+	</body>
+</html>
