@@ -165,59 +165,62 @@ test('Netlify Steam inventory caps fetch size and eligible market price lookups'
 	const inventoryUrls = [];
 	const marketPriceUrls = [];
 
-	await withMockFetch(async (url) => {
-		const href = String(url);
-		if (href.includes('/inventory/')) {
-			inventoryUrls.push(href);
-			return {
-				ok: true,
-				text: async () => JSON.stringify(inventoryPayload),
-			};
+	await withMockFetch(
+		async (url) => {
+			const href = String(url);
+			if (href.includes('/inventory/')) {
+				inventoryUrls.push(href);
+				return {
+					ok: true,
+					text: async () => JSON.stringify(inventoryPayload),
+				};
+			}
+
+			if (href.includes('/market/priceoverview/')) {
+				marketPriceUrls.push(href);
+				return {
+					ok: true,
+					json: async () => ({
+						success: true,
+						lowest_price: '$1.25',
+						median_price: '$1.50',
+						volume: '12',
+					}),
+				};
+			}
+
+			throw new Error(`Unexpected Steam request: ${href}`);
+		},
+		async () => {
+			const response = await handler({
+				httpMethod: 'GET',
+				queryStringParameters: {
+					profile: '76561198000000000',
+					count: '999',
+					featured: '0',
+					limit: '1',
+				},
+			});
+
+			assert.equal(response.statusCode, 200);
+
+			const body = JSON.parse(response.body);
+			assert.equal(body.ok, true);
+			assert.equal(body.totalItems, 95);
+			assert.equal(body.items.length, 1);
+			assert.equal(inventoryUrls.length, 1);
+			assert.equal(new URL(inventoryUrls[0]).searchParams.get('count'), '250');
+			assert.equal(marketPriceUrls.length, 80);
+
+			const pricedNames = marketPriceUrls.map((priceUrl) =>
+				new URL(priceUrl).searchParams.get('market_hash_name')
+			);
+			assert.equal(pricedNames[0], 'AK-47 Test 0');
+			assert.equal(pricedNames.at(-1), 'AK-47 Test 79');
+			assert.ok(
+				pricedNames.every((name) => name?.startsWith('AK-47 Test ')),
+				'non-skin sticker items should not consume market price lookups'
+			);
 		}
-
-		if (href.includes('/market/priceoverview/')) {
-			marketPriceUrls.push(href);
-			return {
-				ok: true,
-				json: async () => ({
-					success: true,
-					lowest_price: '$1.25',
-					median_price: '$1.50',
-					volume: '12',
-				}),
-			};
-		}
-
-		throw new Error(`Unexpected Steam request: ${href}`);
-	}, async () => {
-		const response = await handler({
-			httpMethod: 'GET',
-			queryStringParameters: {
-				profile: '76561198000000000',
-				count: '999',
-				featured: '0',
-				limit: '1',
-			},
-		});
-
-		assert.equal(response.statusCode, 200);
-
-		const body = JSON.parse(response.body);
-		assert.equal(body.ok, true);
-		assert.equal(body.totalItems, 95);
-		assert.equal(body.items.length, 1);
-		assert.equal(inventoryUrls.length, 1);
-		assert.equal(new URL(inventoryUrls[0]).searchParams.get('count'), '250');
-		assert.equal(marketPriceUrls.length, 80);
-
-		const pricedNames = marketPriceUrls.map((priceUrl) =>
-			new URL(priceUrl).searchParams.get('market_hash_name')
-		);
-		assert.equal(pricedNames[0], 'AK-47 Test 0');
-		assert.equal(pricedNames.at(-1), 'AK-47 Test 79');
-		assert.ok(
-			pricedNames.every((name) => name?.startsWith('AK-47 Test ')),
-			'non-skin sticker items should not consume market price lookups'
-		);
-	});
+	);
 });
