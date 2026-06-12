@@ -5,6 +5,10 @@ import test from 'node:test';
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
 const cssSource = readFileSync(new URL('../css/owenminercs.css', import.meta.url), 'utf8');
 const indexSource = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const searchSource = readFileSync(new URL('../search.html', import.meta.url), 'utf8');
+const searchIndex = JSON.parse(
+	readFileSync(new URL('../data/site-search-index.json', import.meta.url), 'utf8')
+);
 
 function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
@@ -120,4 +124,31 @@ test('homepage keeps Impact affiliate verification meta tag in the head', () => 
 		indexSource,
 		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
 	);
+});
+
+test('shared header search link has a static page and committed index', () => {
+	assert.match(componentsSource, /href="\$\{getSearchPageUrl\(\)\}"/);
+	assert.match(searchSource, /id="site-search-page-input"/);
+	assert.match(searchSource, /id="site-search-page-results"/);
+	assert.match(searchSource, /<script src="\.\/scripts\/components\.js" defer><\/script>/);
+
+	assert.ok(Array.isArray(searchIndex.entries), 'search index should expose entries');
+	assert.ok(searchIndex.entries.length > 5, 'search index should include primary site routes');
+	assert.ok(
+		searchIndex.entries.some((entry) => entry.path === 'Keyboard/60he'),
+		'search index should include the keyboard guide hub'
+	);
+	assert.ok(
+		searchIndex.entries.every((entry) => entry.path === '/' || !String(entry.path).endsWith('.html')),
+		'search index paths should stay extensionless so local links do not become .html.html'
+	);
+});
+
+test('dedicated search page is wired to full-page results', () => {
+	const initSearch = extractFunction(componentsSource, 'initSiteSearch');
+	assert.match(initSearch, /site-search-page-input/);
+	assert.match(initSearch, /site-search-page-results/);
+	assert.match(initSearch, /new URLSearchParams\(window\.location\.search\)\.get\('q'\)/);
+	assert.match(initSearch, /wireInputToResults\(pageInput, pageResults, 'fullPage', Infinity\)/);
+	assert.match(initSearch, /fetch\(SITE_SEARCH_INDEX_URL\)/);
 });

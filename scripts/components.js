@@ -867,19 +867,25 @@ customElements.define('shared-footer', SharedFooter);
 function initSiteSearch() {
 	let entries = [];
 
-	function wireInputToResults(input, resultsEl) {
+	function wireInputToResults(input, resultsEl, variant = 'preview', maxResults = 40) {
 		function run() {
 			const q = input.value || '';
 			searchRenderResults(
 				resultsEl,
-				searchFilterEntries(entries, q, 40),
+				searchFilterEntries(entries, q, maxResults),
 				q,
-				'preview'
+				variant
 			);
 		}
 		input.addEventListener('input', run);
 		input.addEventListener('change', run);
 		run();
+	}
+
+	function rerunInput(input) {
+		if (!input) return;
+		const ev = new Event('input', { bubbles: true });
+		input.dispatchEvent(ev);
 	}
 
 	const homeInput = document.getElementById('home-site-search-input');
@@ -896,6 +902,27 @@ function initSiteSearch() {
 		}
 	}
 
+	const pageInput = document.getElementById('site-search-page-input');
+	const pageResults = document.getElementById('site-search-page-results');
+	if (pageInput && pageResults) {
+		const initialQuery = new URLSearchParams(window.location.search).get('q') || '';
+		pageInput.value = initialQuery;
+		wireInputToResults(pageInput, pageResults, 'fullPage', Infinity);
+		const pageForm = pageInput.closest('.site-search-form--page');
+		if (pageForm) {
+			pageForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const params = new URLSearchParams(window.location.search);
+				const q = (pageInput.value || '').trim();
+				if (q) params.set('q', q);
+				else params.delete('q');
+				const nextUrl = `${window.location.pathname}${params.toString() ? `?${params}` : ''}`;
+				window.history.replaceState(null, '', nextUrl);
+				rerunInput(pageInput);
+			});
+		}
+	}
+
 	fetch(SITE_SEARCH_INDEX_URL)
 		.then((r) => {
 			if (!r.ok) throw new Error('search index');
@@ -903,20 +930,19 @@ function initSiteSearch() {
 		})
 		.then((data) => {
 			if (data && Array.isArray(data.entries)) entries = data.entries;
-			if (homeInput) {
-				const ev = new Event('input', { bubbles: true });
-				homeInput.dispatchEvent(ev);
-			}
+			rerunInput(homeInput);
+			rerunInput(pageInput);
 		})
 		.catch(() => {
 			entries = [];
-			if (homeResults) {
-				homeResults.textContent = '';
+			[homeResults, pageResults].forEach((resultsEl) => {
+				if (!resultsEl) return;
+				resultsEl.textContent = '';
 				const p = document.createElement('p');
 				p.className = 'site-search-results__empty';
 				p.textContent = 'Could not load search index.';
-				homeResults.appendChild(p);
-			}
+				resultsEl.appendChild(p);
+			});
 		});
 }
 
