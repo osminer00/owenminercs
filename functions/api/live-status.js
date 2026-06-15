@@ -1,4 +1,4 @@
-const FOLLOW_UPDATES_URL = 'https://x.com/OwenMinerCS';
+const FOLLOW_UPDATES_URL = 'https://x.com/OwenMiner';
 
 function json(payload, status = 200, extraHeaders = {}) {
 	return new Response(JSON.stringify(payload), {

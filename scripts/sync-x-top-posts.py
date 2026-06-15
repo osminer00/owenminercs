@@ -17,7 +17,7 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 
-DEFAULT_USERNAME = "OwenMinerCS"
+DEFAULT_USERNAME = "OwenMiner"
 MAX_ITEMS = 20
 MIN_LIKES = 1
 

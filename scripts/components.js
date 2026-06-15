@@ -660,7 +660,7 @@ function socialNavMarkup(extraClass) {
         <div class="site-social-nav__chrome">
           <div class="site-social-nav__main">
             <div class="site-social-nav__links-level">
-            <a class="site-social-nav__link" data-social-brand="x" target="_blank" rel="noopener noreferrer" href="https://x.com/OwenMinerCS" aria-label="X (Twitter): @OwenMinerCS">${socialIconSvg(p.x)}${socialNavTipMarkup('X (Twitter)', '@OwenMinerCS')}</a>
+            <a class="site-social-nav__link" data-social-brand="x" target="_blank" rel="noopener noreferrer" href="https://x.com/OwenMiner" aria-label="X (Twitter): @OwenMiner">${socialIconSvg(p.x)}${socialNavTipMarkup('X (Twitter)', '@OwenMiner')}</a>
             <a class="site-social-nav__link" data-social-brand="reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/user/OwenMCS" aria-label="Reddit: u/OwenMCS">${socialIconSvg(p.reddit)}${socialNavTipMarkup('Reddit', 'u/OwenMCS')}</a>
             <a class="site-social-nav__link" data-social-brand="youtube" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@OwenMinerCS" aria-label="YouTube: Owen Miner">${socialIconSvg(p.youtube)}${socialNavTipMarkup('YouTube', 'Owen Miner')}</a>
             <a class="site-social-nav__link" data-social-brand="twitch" target="_blank" rel="noopener noreferrer" href="https://www.twitch.tv/owenminercs" aria-label="Twitch: owenminercs">${socialIconSvg(p.twitch)}${socialNavTipMarkup('Twitch', 'owenminercs')}</a>
