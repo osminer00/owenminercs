@@ -24,7 +24,7 @@
 	}
 
 	function socials() {
-		line('https://x.com/OwenMinerCS');
+		line('https://x.com/OwenMiner');
 		line('https://www.youtube.com/@OwenMinerCS');
 		line('https://www.instagram.com/owenminercs/');
 		line('https://www.reddit.com/user/OwenMCS');

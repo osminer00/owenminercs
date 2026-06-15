@@ -8,7 +8,7 @@ Use this for brand outreach (Wooting, monitor makers, desk brands). Replace brac
 - **Site:** https://www.owenminercs.com/
 - **Primary niches:** CS2, Wooting 60HE / keyboard builds, PC build, desk setup
 - **YouTube:** https://www.youtube.com/@OwenMinerCS
-- **X:** https://x.com/OwenMinerCS
+- **X:** https://x.com/OwenMiner
 
 ## Audience & reach (fill in)
 
@@ -93,7 +93,7 @@ Example Person JSON-LD shape:
   "@type": "Person",
   "name": "Owen Miner",
   "url": "https://www.owenminercs.com/",
-  "sameAs": ["https://x.com/OwenMinerCS", "https://www.youtube.com/@OwenMinerCS"],
+  "sameAs": ["https://x.com/OwenMiner", "https://www.youtube.com/@OwenMinerCS"],
   "jobTitle": "Content Creator & Software Developer"
 }
 ```

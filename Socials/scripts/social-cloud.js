@@ -210,7 +210,7 @@
 		discord: { label: 'Discord', accent: '#99b3ff', type: 'social' },
 	};
 	const socialProfileFallbacks = {
-		x: 'https://x.com/OwenMinerCS',
+		x: 'https://x.com/OwenMiner',
 		reddit: 'https://www.reddit.com/user/OwenMCS',
 		youtube: 'https://www.youtube.com/@OwenMinerCS',
 		twitch: 'https://www.twitch.tv/owenminercs',
