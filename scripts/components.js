@@ -751,7 +751,7 @@ class SharedHeader extends HTMLElement {
                 </a>
               </li>
               <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home — bio, intro, and what’s new">Home</a></li>
-              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Bigfoot's Jungle</a></li>
+              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Gaming Setups</a></li>
               <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
               <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators" title="Supporters, tips, and thank-yous">Donators</a></li>
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
@@ -811,7 +811,7 @@ class SharedFooter extends HTMLElement {
           <nav aria-label="Main navigation">
             <ul>
               <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home — bio, intro, and what’s new">Home</a></li>
-              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Bigfoot's Jungle</a></li>
+              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Gaming Setups</a></li>
               <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
               <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators" title="Supporters, tips, and thank-yous">Donators</a></li>
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
