@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
@@ -24,6 +24,26 @@ function extractFunction(source, functionName) {
 	}
 
 	assert.fail(`${functionName} body should close`);
+}
+
+function extractClass(source, className) {
+	const start = source.indexOf(`class ${className}`);
+	assert.notEqual(start, -1, `${className} should exist`);
+
+	const braceStart = source.indexOf('{', start);
+	assert.notEqual(braceStart, -1, `${className} should have a body`);
+
+	let depth = 0;
+	for (let i = braceStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '{') depth += 1;
+		if (char === '}') {
+			depth -= 1;
+			if (depth === 0) return source.slice(start, i + 1);
+		}
+	}
+
+	assert.fail(`${className} body should close`);
 }
 
 function extractCssRule(selector) {
@@ -120,4 +140,19 @@ test('homepage keeps Impact affiliate verification meta tag in the head', () => 
 		indexSource,
 		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
 	);
+});
+
+test('shared header search nav only ships with a public search route', () => {
+	const headerSource = extractClass(componentsSource, 'SharedHeader');
+	const headerLinksToSearch =
+		headerSource.includes('getSearchPageUrl()') ||
+		headerSource.includes('site-nav__item--search') ||
+		headerSource.includes('site-header-search-open');
+
+	if (headerLinksToSearch) {
+		assert.ok(
+			existsSync(new URL('../search.html', import.meta.url)),
+			'shared header must not link to /search until search.html is present'
+		);
+	}
 });
