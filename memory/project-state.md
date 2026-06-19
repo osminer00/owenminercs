@@ -35,6 +35,7 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 
 ## Focused Docs
 
+- `DEVELOPMENT.md` documents local setup and validation scripts from `package.json`, including what `npm test` and `npm run test:content` cover.
 - `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including social dock mount/persistence/drag behavior.
 
 ## Repo Hygiene
