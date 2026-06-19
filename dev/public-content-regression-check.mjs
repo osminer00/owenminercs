@@ -11,12 +11,13 @@ const EXCLUDED_DIRS = new Set([
 	'.cursor',
 	'.vscode',
 	'backup-pre-the-setup-2026-04-08',
-	'dev',
 	'memory',
 	'mockups',
 	'node_modules',
 	'package',
 ]);
+const EXCLUDED_PUBLIC_PATH_PREFIXES = ['dev/'];
+const PUBLIC_INCLUDE_FILES = new Set(['dev/dev-stack.html']);
 const EXCLUDED_FILES = new Set([
 	'package-lock.json',
 	'package.json',
@@ -68,11 +69,18 @@ function toRelative(abs) {
 	return path.relative(ROOT, abs).split(path.sep).join('/');
 }
 
+function isPublicFile(rel) {
+	if (PUBLIC_INCLUDE_FILES.has(rel)) return true;
+	return !EXCLUDED_PUBLIC_PATH_PREFIXES.some((prefix) => rel.startsWith(prefix));
+}
+
 async function collectViolations() {
 	const violations = [];
 
 	for await (const file of walk(ROOT)) {
 		const rel = toRelative(file);
+		if (!isPublicFile(rel)) continue;
+
 		const text = await fs.readFile(file, 'utf8');
 
 		for (const rule of FORBIDDEN_PUBLIC_CONTENT) {

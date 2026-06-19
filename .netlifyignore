@@ -1,5 +1,6 @@
-# Local / dev-only tooling - not served on production
-dev/
+# Local / dev-only tooling - not served on production, except the public Programs page.
+dev/*
+!dev/dev-stack.html
 mockups/
 backup-pre-*/
 memory/
