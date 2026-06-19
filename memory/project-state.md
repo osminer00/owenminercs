@@ -14,6 +14,7 @@ Last reviewed: 2026-05-06
 
 ```powershell
 node .\dev\media-accessibility-check.mjs
+npm run test:content
 npm run format:check
 npm run lint:css
 npm test
@@ -36,6 +37,10 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 ## Focused Docs
 
 - `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including social dock mount/persistence/drag behavior.
+- `SOCIAL_DOCK_RUNBOOK.md` is the QA/troubleshooting runbook for the movable social dock.
+- `TWITCH_DONATOR_HANDOFF.md` documents Twitch EventSub donor-page operations, secured registration, and Redis keys.
+- `CS2_INVENTORY_API_RUNBOOK.md` documents the public Steam CS2 inventory API, query params, response shape, and Steam request caps.
+- `MARKETING_MEDIA_KIT.md` documents public profile content scope and the `npm run test:content` regression guardrail.
 
 ## Repo Hygiene
 
