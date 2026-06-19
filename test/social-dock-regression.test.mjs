@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
@@ -119,5 +119,18 @@ test('homepage keeps Impact affiliate verification meta tag in the head', () => 
 	assert.match(
 		indexSource,
 		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
+	);
+});
+
+test('shared header does not link to an unshipped search route', () => {
+	const headerAdvertisesSearch =
+		componentsSource.includes('site-nav__item--search') &&
+		componentsSource.includes('getSearchPageUrl()');
+	if (!headerAdvertisesSearch) return;
+
+	assert.ok(existsSync(new URL('../search.html', import.meta.url)), 'search.html should exist');
+	assert.ok(
+		existsSync(new URL('../data/site-search-index.json', import.meta.url)),
+		'data/site-search-index.json should exist'
 	);
 });
