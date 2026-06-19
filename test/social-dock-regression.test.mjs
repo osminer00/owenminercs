@@ -69,7 +69,9 @@ test('social dock first drag keeps header geometry until the pointer is released
 	);
 	const lockIndex = dragFunction.indexOf('setHeaderDragLock(promotedFromHeader);');
 	const bodyPromotionIndex = dragFunction.indexOf('document.body.appendChild(wrap);', lockIndex);
-	const placedClassIndex = dragFunction.indexOf("wrap.classList.add('site-support-dock--placed');");
+	const placedClassIndex = dragFunction.indexOf(
+		"wrap.classList.add('site-support-dock--placed');"
+	);
 
 	assert.ok(promotedIndex >= 0, 'drag start should capture whether the dock began in the header');
 	assert.ok(lockIndex > promotedIndex, 'drag lock should use the pre-promotion placement state');
@@ -77,10 +79,17 @@ test('social dock first drag keeps header geometry until the pointer is released
 		bodyPromotionIndex > lockIndex,
 		'dock should be locked horizontal before it is moved into fixed body placement'
 	);
-	assert.ok(placedClassIndex > lockIndex, 'placed class should not be added before the drag lock');
+	assert.ok(
+		placedClassIndex > lockIndex,
+		'placed class should not be added before the drag lock'
+	);
 
 	const unlockCalls = dragFunction.match(/setHeaderDragLock\(false\);/g) || [];
-	assert.equal(unlockCalls.length, 2, 'pointer release and lost capture should both clear the lock');
+	assert.equal(
+		unlockCalls.length,
+		2,
+		'pointer release and lost capture should both clear the lock'
+	);
 });
 
 test('social dock drag-lock CSS mirrors header horizontal layout while fixed', () => {
@@ -116,8 +125,23 @@ test('social dock drag-lock CSS mirrors header horizontal layout while fixed', (
 });
 
 test('homepage keeps Impact affiliate verification meta tag in the head', () => {
-	assert.match(
-		indexSource,
-		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
+	assert.match(indexSource, /<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/);
+});
+
+test('shared header does not expose unfinished search route', () => {
+	assert.doesNotMatch(
+		componentsSource,
+		/href="\$\{getSearchPageUrl\(\)\}"/,
+		'Search nav link should stay hidden until search.html and data/site-search-index.json are shipped'
+	);
+
+	const initSiteSearch = extractFunction(componentsSource, 'initSiteSearch');
+	const guardIndex = initSiteSearch.indexOf('if (!homeInput || !homeResults) return;');
+	const fetchIndex = initSiteSearch.indexOf('fetch(SITE_SEARCH_INDEX_URL)');
+
+	assert.ok(guardIndex >= 0, 'site search should no-op when no search controls exist');
+	assert.ok(
+		fetchIndex > guardIndex,
+		'missing search controls should prevent fetching a missing index'
 	);
 });
