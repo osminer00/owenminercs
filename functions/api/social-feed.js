@@ -4,9 +4,7 @@ const CACHE_TTL_SECONDS = 15 * 60;
 const STALE_TTL_SECONDS = 24 * 60 * 60;
 
 const inMemoryCache = {
-	freshUntilMs: 0,
-	lastSuccessMs: 0,
-	payload: null,
+	entries: new Map(),
 };
 
 function json(payload, status = 200, extraHeaders = {}) {
@@ -301,16 +299,17 @@ async function getFeedPayload(env, limit) {
 	};
 }
 
-function getCachedPayload() {
-	if (!inMemoryCache.payload) return null;
-	return inMemoryCache.payload;
+function getCacheEntry(limit) {
+	return inMemoryCache.entries.get(limit) || null;
 }
 
-function updateCache(payload) {
+function updateCache(limit, payload) {
 	const nowMs = Date.now();
-	inMemoryCache.payload = payload;
-	inMemoryCache.lastSuccessMs = nowMs;
-	inMemoryCache.freshUntilMs = nowMs + CACHE_TTL_SECONDS * 1000;
+	inMemoryCache.entries.set(limit, {
+		payload,
+		lastSuccessMs: nowMs,
+		freshUntilMs: nowMs + CACHE_TTL_SECONDS * 1000,
+	});
 }
 
 export async function onRequestGet(context) {
@@ -323,21 +322,22 @@ export async function onRequestGet(context) {
 	);
 	const forceRefresh = url.searchParams.get('refresh') === '1';
 
-	const cached = getCachedPayload();
-	if (!forceRefresh && cached && nowMs < inMemoryCache.freshUntilMs) {
+	const cacheEntry = getCacheEntry(limit);
+	const cached = cacheEntry?.payload || null;
+	if (!forceRefresh && cacheEntry && cached && nowMs < cacheEntry.freshUntilMs) {
 		return json({
 			...cached,
 			cache: {
 				hit: true,
 				stale: false,
-				ageSeconds: Math.floor((nowMs - inMemoryCache.lastSuccessMs) / 1000),
+				ageSeconds: Math.floor((nowMs - cacheEntry.lastSuccessMs) / 1000),
 			},
 		});
 	}
 
 	try {
 		const payload = await getFeedPayload(env, limit);
-		updateCache(payload);
+		updateCache(limit, payload);
 		return json({
 			...payload,
 			cache: {
@@ -347,7 +347,9 @@ export async function onRequestGet(context) {
 			},
 		});
 	} catch (error) {
-		const staleAgeSeconds = Math.floor((nowMs - inMemoryCache.lastSuccessMs) / 1000);
+		const staleAgeSeconds = cacheEntry
+			? Math.floor((nowMs - cacheEntry.lastSuccessMs) / 1000)
+			: Number.POSITIVE_INFINITY;
 		if (cached && staleAgeSeconds <= STALE_TTL_SECONDS) {
 			return json({
 				...cached,

@@ -19,6 +19,10 @@ const TWITCH_MESSAGE_TIMESTAMP = 'twitch-eventsub-message-timestamp';
 const TWITCH_SIGNATURE = 'twitch-eventsub-message-signature';
 const MAX_EVENTS = 100;
 const MAX_AGE_MS = 10 * 60 * 1000;
+const PROCESSING_MARKER = 'processing';
+const PROCESSED_MARKER = 'processed';
+const PROCESSING_TTL_SECONDS = 60;
+const PROCESSED_TTL_SECONDS = 86400;
 
 function messageIsFresh(timestamp) {
 	const ts = Date.parse(timestamp);
@@ -37,6 +41,30 @@ function statCommandsForEvent(event) {
 	if (event.type === 'bits')
 		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'bits_total', String(event.bits || 0)]);
 	return commands;
+}
+
+async function reserveMessageForProcessing(env, idempotencyKey) {
+	const reserved = await upstashCommand(env, [
+		'SET',
+		idempotencyKey,
+		PROCESSING_MARKER,
+		'NX',
+		'EX',
+		String(PROCESSING_TTL_SECONDS),
+	]);
+	if (reserved === 'OK') return 'reserved';
+
+	const marker = await upstashCommand(env, ['GET', idempotencyKey]);
+	if (marker === PROCESSED_MARKER) return 'duplicate';
+	return 'processing';
+}
+
+async function clearProcessingReservation(env, idempotencyKey) {
+	try {
+		await upstashCommand(env, ['DEL', idempotencyKey]);
+	} catch (_error) {
+		// The short processing TTL still allows Twitch retries to persist the event.
+	}
 }
 
 export async function onRequestPost(context) {
@@ -91,15 +119,11 @@ export async function onRequestPost(context) {
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
 
 	try {
-		const idempotentResult = await upstashCommand(env, [
-			'SET',
-			idempotencyKey,
-			'1',
-			'NX',
-			'EX',
-			'86400',
-		]);
-		if (idempotentResult !== 'OK') return json({ ok: true, duplicate: true });
+		const reservation = await reserveMessageForProcessing(env, idempotencyKey);
+		if (reservation === 'duplicate') return json({ ok: true, duplicate: true });
+		if (reservation === 'processing') {
+			return json({ error: 'Twitch event is already being processed.' }, 500);
+		}
 
 		const pipeline = [
 			['LPUSH', EVENT_LIST_KEY, JSON.stringify(normalized)],
@@ -107,7 +131,20 @@ export async function onRequestPost(context) {
 			['SET', LAST_UPDATED_KEY, new Date().toISOString()],
 			...statCommandsForEvent(normalized),
 		];
-		await upstashPipeline(env, pipeline);
+		try {
+			await upstashPipeline(env, pipeline);
+		} catch (error) {
+			await clearProcessingReservation(env, idempotencyKey);
+			throw error;
+		}
+
+		await upstashCommand(env, [
+			'SET',
+			idempotencyKey,
+			PROCESSED_MARKER,
+			'EX',
+			String(PROCESSED_TTL_SECONDS),
+		]);
 	} catch (error) {
 		return json(
 			{ error: 'Failed to persist Twitch event.', detail: String(error.message || error) },
