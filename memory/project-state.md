@@ -35,7 +35,7 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 
 ## Focused Docs
 
-- `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including social dock mount/persistence/drag behavior.
+- `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including primary nav route aliases, the main-nav Back helper, Keyboard/60HE hub routing, and social dock mount/persistence/drag behavior.
 
 ## Repo Hygiene
 

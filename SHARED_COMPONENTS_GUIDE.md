@@ -3,6 +3,99 @@
 Concise notes for maintaining the global browser components in
 `scripts/components.js` and their shared styles in `css/owenminercs.css`.
 
+## Primary navigation and route helpers
+
+### Intent
+
+`shared-header` and `shared-footer` render the same main navigation so every
+page gets consistent top and bottom routes. The nav also drives active-link
+highlighting, the "Grand tour" achievement, and the floating Back helper that
+returns visitors to the nested page they came from.
+
+### Source of truth
+
+The navigation markup is duplicated in `SharedHeader` and `SharedFooter`; keep
+the two lists in the same order when editing:
+
+1. Search icon (`getSearchPageUrl()`)
+2. Home (`data-nav="index.html"`)
+3. Bigfoot's Jungle (`data-nav="The Setup"`)
+4. Gaming (`data-nav="Gaming"`)
+5. Donators (`data-nav="Donators"`)
+6. For sale (`data-nav="garage-sale"`)
+7. Help Wanted (`data-nav="Help Wanted"`)
+8. Q&A (`data-nav="QA"`)
+9. Programs (`data-nav="Dev"`)
+10. Achievements (`data-nav="Achievements"`)
+11. Content (`data-nav="Socials"`)
+
+Use `getLink('Folder/page')` for internal nav routes. It emits extensionless
+production paths and appends `.html` only for localhost, `127.0.0.1`, and
+`file://` testing. Pass encoded spaces in folder names (`The%20Setup`,
+`Garage%20Sale`, `Help%20Wanted`) and do not include the `.html` suffix in the
+argument.
+
+### Active section aliases
+
+`applyNavHighlight()` calls `resolveActiveNavLink(scope)`, which mostly matches
+the current URL against each link's `data-nav`. It also has legacy/section
+aliases that matter for old paths and deep pages:
+
+- `/Keyboard/*60he*`, `/PC/`, and `/Upgrades/` highlight Bigfoot's Jungle.
+- `/Counter-Strike/` and `nosmoking` highlight Gaming.
+- Home is matched only for `/` or `index.html`, not every trailing-slash URL.
+
+`getMainNavTourSlotFromLocation()` separately maps the current URL to the
+achievement slot. Keep that mapping aligned with `resolveActiveNavLink()` when
+adding routes so the highlighted tab and achievement progress do not disagree.
+As currently implemented, Programs (`data-nav="Dev"`) is a nav/return-helper
+route but is not listed in `MAIN_NAV_TOUR_SLOTS`; add a `Dev` slot and route
+mapping before treating Programs as part of the Grand tour achievement.
+
+When changing public route casing or moving a page, also check `_redirects`,
+`sitemap.xml`, `data/site-search-index.json`, and any page-local cross-links.
+Static hosting is case-sensitive.
+
+### Main-nav Back helper
+
+`initMainNavReturnHistory()` listens in capture phase for unmodified primary
+clicks on same-origin `a.site-nav-link` anchors. Before navigation it stores
+the source page, destination, title, and scroll offsets in:
+
+```json
+{
+	"fromUrl": "https://www.owenminercs.com/The%20Setup/the-setup",
+	"fromTitle": "Bigfoot's Jungle | Owen Miner",
+	"fromScrollX": 0,
+	"fromScrollY": 640,
+	"toUrl": "https://www.owenminercs.com/Gaming/gaming",
+	"createdAt": 1770000000000
+}
+```
+
+Storage keys:
+
+| Key                                | Purpose                                             |
+| ---------------------------------- | --------------------------------------------------- |
+| `owenminercs-nav-return-state-v1`  | Pending Back button state for the destination page  |
+| `owenminercs-nav-return-scroll-v1` | One-shot scroll restore payload after clicking Back |
+
+Records expire after 8 hours (`NAV_RETURN_MAX_AGE_MS`). The Back popup only
+appears when the current URL exactly matches the stored destination and is not
+the source URL. Clicking it writes the one-shot scroll restore payload, clears
+the pending state, and navigates to `fromUrl`.
+
+### Keyboard build guide routing
+
+`Keyboard/60he.html` is a hub page, not the full build guide. It links to:
+
+- `Keyboard/60he-2025.html` - current Kilowatt build.
+- `Keyboard/60he-2023.html` - Crosshair Alpha plus first-build archive notes.
+
+Both subpages still load `scripts/components.js` and should highlight Bigfoot's
+Jungle through the `/Keyboard/*60he*` alias. Keep inbound links aimed at the hub
+unless they intentionally need a specific year/build page.
+
 ## Shared header and social dock
 
 ### Intent
