@@ -81,3 +81,91 @@ capture so later floating gestures use the normal move/rotate/resize behavior.
 5. Double-click empty dock chrome or click **Reset Social Bar**; the dock should
    return to `.site-header-dock-cluster` and remove
    `owenminercs-social-dock-pos`.
+
+## Primary navigation contract
+
+### Intent
+
+The header and footer navigation are generated in `scripts/components.js` so
+global labels, routes, active-state styling, nav-return history, and achievement
+tracking stay centralized. Keep header and footer nav rows in sync; both use the
+same `site-nav-link` class and `data-nav` ids.
+
+### Current items
+
+`getLink(path)` adds `.html` only for local/file-server use. Production links use
+extensionless Cloudflare/GitHub-style paths.
+
+| Label | Source path | `data-nav` | Notes |
+| --- | --- | --- | --- |
+| Home | site root | `index.html` | Direct `siteRoot` link, not `getLink()`. |
+| Bigfoot's Jungle | `The%20Setup/the-setup` | `The Setup` | Owns setup, PC, upgrades, and Keyboard build routes. |
+| Gaming | `Gaming/gaming` | `Gaming` | Also covers `Counter-Strike/` and `nosmoking` fallback pages. |
+| Donators | `Donators/donators` | `Donators` | Supporters and tip history. |
+| For sale | `Garage%20Sale/garage-sale` | `garage-sale` | Uses a lowercase id because the path is lowercase after the space. |
+| Help Wanted | `Help%20Wanted/help-wanted` | `Help Wanted` | Collaborations and open requests. |
+| Q&A | `QA/qa` | `QA` | Short public FAQ only. |
+| Programs | `dev/dev-stack` | `Dev` | Public label for the dev/tools page. See caveat below. |
+| Achievements | `Achievements/achievements` | `Achievements` | Easter eggs and site milestones. |
+| Content | `Socials/socials` | `Socials` | Social feeds and featured posts. |
+
+### Active-state and achievements
+
+- `applyNavHighlight()` calls `resolveActiveNavLink()` for both header and
+  footer. The first pass checks whether the current `pathname` contains a nav
+  item's `data-nav` value. That check is case-sensitive.
+- Fallbacks then map related routes to a parent tab:
+    - `nosmoking` and `/Counter-Strike/` -> Gaming.
+    - `The%20Setup`, `The Setup`, `/Upgrades/`, `/PC/`, and `/Keyboard/` paths
+      containing `60he` -> Bigfoot's Jungle.
+- `getMainNavTourSlotFromLocation()` mirrors the parent-tab mapping for the
+  `main-nav-full-tour` achievement. Its `MAIN_NAV_TOUR_SLOTS` list currently
+  excludes `Dev`, so visiting Programs does not count toward that achievement.
+
+### Constraints and pitfalls
+
+- When adding a nav item, update the header and footer markup together.
+- If the route casing does not literally include the `data-nav` value, add an
+  explicit fallback in both `resolveActiveNavLink()` and
+  `getMainNavTourSlotFromLocation()` when active styling or achievement credit is
+  required. The Programs link currently points at lowercase `/dev/dev-stack`
+  while its id is `Dev`, so the source does not provide automatic
+  case-insensitive highlighting for that page.
+- `captureNavReturnState()` only records clicks on same-origin
+  `.site-nav-link` anchors without modifier keys. Do not add that class to
+  external links.
+
+## Keyboard build route map
+
+### Intent
+
+`Keyboard/60he.html` is the stable public entry point for Wooting 60HE content.
+It now works as a small hub that lets visitors choose between the current
+Kilowatt build and the older Crosshair/v1 page while preserving existing links
+from home, setup pages, affiliate data, feeds, and old social captions.
+
+### Pages
+
+| Page | Purpose | Notes |
+| --- | --- | --- |
+| `Keyboard/60he.html` | Landing hub | Two-card choice page; should remain the stable inbound URL. |
+| `Keyboard/60he-2025.html` | Current Kilowatt build | Parts list and current case/plate/switch notes. |
+| `Keyboard/60he-2023.html` | Crosshair Alpha and v1 archive | Older GH60 case, dampening, lubing, and Crosshair setup notes. |
+
+All three pages use `shared-header`, `shared-footer`, `site-card-ui`, and the
+sitewide `95%` body zoom pattern used by nearby setup pages. The build detail
+pages load `scripts/affiliate-links.js`; the hub only links to build pages and
+does not auto-render affiliate cards.
+
+### Maintenance checklist
+
+1. Keep links to `Keyboard/60he.html` as the public "keyboard build" URL unless a
+   task explicitly asks to deep-link a specific year/build.
+2. If moving product links from the hub to a build detail page, update related
+   data files such as `affiliate-links.json`, `data/site-feed.json`, and the
+   dev affiliate idea board so generated cards and audits point at the right
+   page.
+3. Keyboard `60he` pages should continue to highlight Bigfoot's Jungle in the
+   shared nav via the setup fallback described above.
+4. Preserve page-level Amazon disclosures on build pages that include tagged
+   Amazon links.
