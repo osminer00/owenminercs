@@ -337,6 +337,7 @@ const MAIN_NAV_TOUR_SLOTS = Object.freeze([
 	'garage-sale',
 	'Help Wanted',
 	'QA',
+	'Dev',
 	'Achievements',
 	'Socials',
 ]);
@@ -391,6 +392,9 @@ function getMainNavTourSlotFromLocation() {
 	}
 	if (lc.includes('/qa/') || lc.endsWith('/qa')) {
 		return 'QA';
+	}
+	if (lc.includes('/dev/') || lc.includes('dev-stack')) {
+		return 'Dev';
 	}
 	if (lc.includes('help') && lc.includes('wanted')) {
 		return 'Help Wanted';
@@ -677,6 +681,7 @@ function socialNavMarkup(extraClass) {
 
 function resolveActiveNavLink(scope) {
 	const currentPath = window.location.pathname;
+	const currentPathLower = currentPath.toLowerCase();
 	const links = scope.querySelectorAll('nav a[data-nav]');
 	let activeLink = null;
 	if (currentPath.endsWith('/') || currentPath.endsWith('index.html')) {
@@ -710,6 +715,9 @@ function resolveActiveNavLink(scope) {
 		}
 		if (!activeLink && currentPath.includes('/PC/')) {
 			activeLink = scope.querySelector('a[data-nav="The Setup"]');
+		}
+		if (!activeLink && (currentPathLower.includes('/dev/') || currentPathLower.includes('dev-stack'))) {
+			activeLink = scope.querySelector('a[data-nav="Dev"]');
 		}
 	}
 	return activeLink;
