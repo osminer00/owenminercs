@@ -3,6 +3,91 @@
 Concise notes for maintaining the global browser components in
 `scripts/components.js` and their shared styles in `css/owenminercs.css`.
 
+## Shared header navigation
+
+### Intent
+
+`shared-header` and `shared-footer` render the same primary site sections so
+navigation labels, active states, and return behavior stay consistent across
+hand-written pages.
+
+### Public surface
+
+Both shared elements emit `a.site-nav-link` anchors with stable `data-nav`
+values. `applyNavHighlight()` and `resolveActiveNavLink()` use those values to
+mark the active pill, while `initMainNavReturnHistory()` uses the class to store
+return state for same-origin nav clicks.
+
+| Label            | URL helper target           | `data-nav`     | Notes                                                               |
+| ---------------- | --------------------------- | -------------- | ------------------------------------------------------------------- |
+| Home             | `/`                         | `index.html`   | Active on `/` and `index.html`.                                     |
+| Bigfoot's Jungle | `The%20Setup/the-setup`     | `The Setup`    | Also active for `Keyboard/60he*`, `PC/`, and `Upgrades/` pages.     |
+| Gaming           | `Gaming/gaming`             | `Gaming`       | Also active for Counter-Strike and `nosmoking` pages.               |
+| Donators         | `Donators/donators`         | `Donators`     | Shared header/footer link.                                          |
+| For sale         | `Garage%20Sale/garage-sale` | `garage-sale`  | Lowercase slot id is intentional.                                   |
+| Help Wanted      | `Help%20Wanted/help-wanted` | `Help Wanted`  | Space-bearing slot id.                                              |
+| Q&A              | `QA/qa`                     | `QA`           | Shared header/footer link.                                          |
+| Programs         | `dev/dev-stack`             | `Dev`          | Rendered nav item; not currently included in `MAIN_NAV_TOUR_SLOTS`. |
+| Achievements     | `Achievements/achievements` | `Achievements` | Shared header/footer link.                                          |
+| Content          | `Socials/socials`           | `Socials`      | Active for paths containing `socials`.                              |
+
+When adding or renaming nav items, update both header and footer markup in
+`scripts/components.js`, then verify `resolveActiveNavLink()` and
+`getMainNavTourSlotFromLocation()` still route subpages to the intended section.
+If the item should count toward the full main-nav achievement, add its stable
+slot id to `MAIN_NAV_TOUR_SLOTS` too.
+
+### Return button lifecycle
+
+Same-origin primary-nav clicks store a short-lived record in
+`localStorage.owenminercs-nav-return-state-v1`:
+
+```json
+{
+	"fromUrl": "https://www.owenminercs.com/The%20Setup/the-setup.html",
+	"fromTitle": "Bigfoot's Jungle | Owen Miner",
+	"fromScrollX": 0,
+	"fromScrollY": 640,
+	"toUrl": "https://www.owenminercs.com/Gaming/gaming.html",
+	"createdAt": 1710000000000
+}
+```
+
+On the destination page, `maybeShowNavReturnButton()` displays a fixed
+`.site-nav-return-popup` button only when the current URL exactly matches
+`toUrl` after origin/path/search normalization. Clicking **Back** stores the
+previous scroll position in `owenminercs-nav-return-scroll-v1`, removes the
+return-state key, and navigates to `fromUrl`. `applyPendingNavReturnScrollRestore()`
+then restores scroll with `requestAnimationFrame` plus two delayed retries.
+
+Return records expire after eight hours (`NAV_RETURN_MAX_AGE_MS`). Modified
+clicks, external links, links with non-`_self` targets, and same-page links are
+ignored.
+
+### Keyboard 60HE routing
+
+`Keyboard/60he.html` is now a landing page for the Wooting 60HE build guides:
+
+- `Keyboard/60he-2025.html` - current Kilowatt build.
+- `Keyboard/60he-2023.html` - Crosshair Alpha plus v1 archive content.
+
+The landing page uses `.keyboard-parts-row` and `.keyboard-parts-card` from the
+global stylesheet for a two-card layout that stacks on narrow viewports. All
+`/Keyboard/` paths containing `60he` should highlight Bigfoot's Jungle via
+`resolveActiveNavLink()` and count as `The Setup` in
+`getMainNavTourSlotFromLocation()`.
+
+### Manual verification checklist
+
+1. Load `/Keyboard/60he.html`, `/Keyboard/60he-2025.html`, and
+   `/Keyboard/60he-2023.html`; Bigfoot's Jungle should be the active nav pill.
+2. Click a primary nav link such as Gaming from a scrolled setup page; the
+   destination should show the floating **Back** button.
+3. Click **Back**; the browser should return to the source URL and restore the
+   saved scroll position.
+4. Use Ctrl/Cmd-click or an external social/footer link; those should not create
+   a nav-return popup.
+
 ## Shared header and social dock
 
 ### Intent
