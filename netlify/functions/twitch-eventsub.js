@@ -17,6 +17,11 @@ const TOTALS_HASH_KEY = 'activity:twitch:totals';
 const SEEN_MESSAGE_PREFIX = 'activity:twitch:seen:';
 const MAX_EVENTS = 100;
 const MAX_AGE_MS = 10 * 60 * 1000;
+const PROCESSING_STATE = 'processing';
+const PERSISTED_STATE = 'persisted';
+const LEGACY_PERSISTED_STATE = '1';
+const PROCESSING_TTL_SECONDS = '60';
+const PERSISTED_TTL_SECONDS = '86400';
 
 function getHeader(headers, name) {
 	if (!headers) return '';
@@ -40,6 +45,22 @@ function statCommandsForEvent(event) {
 	if (event.type === 'bits')
 		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'bits_total', String(event.bits || 0)]);
 	return commands;
+}
+
+async function claimMessageForProcessing(idempotencyKey) {
+	const result = await upstashCommand([
+		'SET',
+		idempotencyKey,
+		PROCESSING_STATE,
+		'NX',
+		'EX',
+		PROCESSING_TTL_SECONDS,
+	]);
+	if (result === 'OK') return { claimed: true, duplicate: false };
+
+	const state = await upstashCommand(['GET', idempotencyKey]);
+	const persisted = state === PERSISTED_STATE || state === LEGACY_PERSISTED_STATE;
+	return { claimed: false, duplicate: persisted };
 }
 
 exports.handler = async function handler(event) {
@@ -114,16 +135,12 @@ exports.handler = async function handler(event) {
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
 
 	try {
-		const idempotentResult = await upstashCommand([
-			'SET',
-			idempotencyKey,
-			'1',
-			'NX',
-			'EX',
-			'86400',
-		]);
-		if (idempotentResult !== 'OK') {
+		const claim = await claimMessageForProcessing(idempotencyKey);
+		if (claim.duplicate) {
 			return json(200, { ok: true, duplicate: true });
+		}
+		if (!claim.claimed) {
+			return json(500, { error: 'Twitch event is already being persisted; retry later.' });
 		}
 
 		const pipeline = [
@@ -133,6 +150,7 @@ exports.handler = async function handler(event) {
 			...statCommandsForEvent(normalized),
 		];
 		await upstashPipeline(pipeline);
+		await upstashCommand(['SET', idempotencyKey, PERSISTED_STATE, 'EX', PERSISTED_TTL_SECONDS]);
 	} catch (error) {
 		return json(500, {
 			error: 'Failed to persist Twitch event.',

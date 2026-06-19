@@ -84,7 +84,7 @@ async function readSuggestions(env, limit) {
 }
 
 export async function onRequestOptions() {
-	return new Response('', {
+	return new Response(null, {
 		status: 204,
 		headers: {
 			'access-control-allow-methods': 'GET, POST, OPTIONS',
