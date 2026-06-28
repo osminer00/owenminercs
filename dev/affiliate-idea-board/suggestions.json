@@ -232,7 +232,7 @@
 		},
 		{
 			"id": "garage-marketplaces",
-			"title": "Resale hub: eBay / Depop / Mercari / Vinted",
+			"title": "Resale hub: eBay / Depop / Vinted",
 			"category": "programs",
 			"sourcePage": "Garage Sale/garage-sale.html",
 			"why": "eBay Partner Network applies to outbound listings; other marketplaces vary.",

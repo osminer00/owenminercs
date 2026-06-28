@@ -10,6 +10,8 @@ from __future__ import annotations
 
 import json
 import re
+import sys
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as et
 from datetime import datetime, timezone
@@ -180,9 +182,37 @@ def resolve_username_from_nav(repo_root: Path) -> str:
     return username or DEFAULT_USERNAME
 
 
-def build_top_posts(username: str) -> list[dict]:
+def load_existing_posts(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    return payload if isinstance(payload, list) else []
+
+
+def extract_status_id_from_url(url: str) -> str:
+    match = re.search(r"/status/(\d+)", str(url or ""))
+    return match.group(1) if match else ""
+
+
+def collect_status_ids_from_posts(posts: list[dict]) -> list[str]:
+    status_ids: list[str] = []
+    seen: set[str] = set()
+    for item in posts:
+        status_id = extract_status_id_from_url(str(item.get("url") or ""))
+        if not status_id or status_id in seen:
+            continue
+        seen.add(status_id)
+        status_ids.append(status_id)
+    return status_ids
+
+
+def fetch_rss_status_ids(username: str) -> tuple[list[str], list[str]]:
     status_ids: list[str] = []
     seen_ids: set[str] = set()
+    errors: list[str] = []
 
     rss_candidates = [
         RSS_SEARCH_URL_TEMPLATE.format(username=username, min_likes=100),
@@ -197,10 +227,17 @@ def build_top_posts(username: str) -> list[dict]:
                     continue
                 seen_ids.add(status_id)
                 status_ids.append(status_id)
-        except Exception:
-            # Keep going and try the next source.
+        except (urllib.error.URLError, TimeoutError, et.ParseError, ValueError) as exc:
+            errors.append(f"{rss_url}: {exc}")
+            continue
+        except Exception as exc:
+            errors.append(f"{rss_url}: {exc}")
             continue
 
+    return status_ids, errors
+
+
+def build_posts_from_status_ids(username: str, status_ids: list[str]) -> list[dict]:
     out: list[dict] = []
     for status_id in status_ids:
         payload = fetch_json(FX_STATUS_URL_TEMPLATE.format(username=username, status_id=status_id))
@@ -215,13 +252,50 @@ def build_top_posts(username: str) -> list[dict]:
     return out[:MAX_ITEMS]
 
 
+def build_top_posts(username: str, existing_posts: list[dict]) -> tuple[list[dict], bool, list[str]]:
+    status_ids, rss_errors = fetch_rss_status_ids(username)
+    used_existing_fallback = False
+
+    if not status_ids and existing_posts:
+        status_ids = collect_status_ids_from_posts(existing_posts)
+        used_existing_fallback = bool(status_ids)
+        if used_existing_fallback:
+            print(
+                f"Nitter RSS unavailable; refreshing {len(status_ids)} known status ID(s) via fxtwitter.",
+                file=sys.stderr,
+            )
+
+    posts = build_posts_from_status_ids(username, status_ids)
+    fetch_failed = bool(rss_errors) and not status_ids
+    if not posts and status_ids and not fetch_failed:
+        fetch_failed = True
+    return posts, fetch_failed, rss_errors
+
+
 def main() -> None:
     script_dir = Path(__file__).resolve().parent
     repo_root = script_dir.parent
     target_path = repo_root / "Socials" / "data" / "x-top-posts.json"
     username = resolve_username_from_nav(repo_root)
+    existing_posts = load_existing_posts(target_path)
 
-    posts = build_top_posts(username)
+    posts, fetch_failed, rss_errors = build_top_posts(username, existing_posts)
+
+    if not posts and existing_posts:
+        for error in rss_errors:
+            print(f"[x-top-posts] RSS error: {error}", file=sys.stderr)
+        print(
+            f"[x-top-posts] Sync returned 0 posts; preserving {len(existing_posts)} existing post(s).",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if fetch_failed and not posts:
+        for error in rss_errors:
+            print(f"[x-top-posts] RSS error: {error}", file=sys.stderr)
+        print("[x-top-posts] Fetch failed with no posts to write.", file=sys.stderr)
+        sys.exit(1)
+
     target_path.parent.mkdir(parents=True, exist_ok=True)
     target_path.write_text(json.dumps(posts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 

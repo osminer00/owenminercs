@@ -1055,6 +1055,58 @@
 		container.appendChild(frag);
 	}
 
+	function hasSaleListings() {
+		return (
+			dataEbay.length +
+				dataShopLive.length +
+				dataShopHold.length +
+				(rootDigital && dataDigital.length ? dataDigital.length : 0) >
+			0
+		);
+	}
+
+	function renderPlaceholderCard() {
+		var card = document.createElement('article');
+		card.className = 'garage-sale-card garage-sale-ebay-card garage-sale-card--placeholder';
+
+		var media = document.createElement('div');
+		media.className = 'garage-sale-placeholder-media';
+		var img = document.createElement('img');
+		img.className = 'garage-sale-placeholder-image';
+		img.src = '../images/coming-soon-card.svg';
+		img.alt = 'Nothing for sale placeholder graphic';
+		img.width = 800;
+		img.height = 450;
+		img.decoding = 'async';
+		img.loading = 'lazy';
+		media.appendChild(img);
+		card.appendChild(media);
+
+		var h = document.createElement('h3');
+		h.className = 'garage-sale-ebay-title';
+		h.textContent = 'Nothing listed here right now';
+		card.appendChild(h);
+
+		var note = document.createElement('p');
+		note.className = 'garage-sale-ebay-spread-note';
+		note.textContent =
+			'Active items are on eBay now — this page is just a placeholder until the next direct drop.';
+		card.appendChild(note);
+
+		var cta = document.createElement('div');
+		cta.className = 'garage-sale-ebay-ctas';
+		var ebay = document.createElement('a');
+		ebay.className = 'modeButton garage-sale-ebay-buy';
+		ebay.href = 'https://www.ebay.com/usr/owenm00';
+		ebay.target = '_blank';
+		ebay.rel = 'noopener noreferrer';
+		ebay.textContent = 'Browse eBay listings';
+		cta.appendChild(ebay);
+		card.appendChild(cta);
+
+		return card;
+	}
+
 	function applySortAndRender() {
 		if (sortSelect) {
 			currentSort = sortSelect.value || 'order';
@@ -1071,23 +1123,14 @@
 				frag.appendChild(renderEbayInstaCard(item));
 			});
 			if (!frag.childNodes.length) {
-				var empty = document.createElement('p');
-				empty.className = 'garage-sale-empty';
-				empty.innerHTML =
-					'No live shop drops or eBay listings. Add PayPal/Stripe links in <code>Garage Sale/shop-products.json</code> or sync <code>Garage Sale/ebay-listings.json</code>.';
-				rootEbay.appendChild(empty);
+				rootEbay.appendChild(renderPlaceholderCard());
 			} else {
 				rootEbay.appendChild(frag);
 			}
 		}
 		if (rootHold) {
 			while (rootHold.firstChild) rootHold.removeChild(rootHold.firstChild);
-			if (!dataShopHold.length) {
-				var e2 = document.createElement('p');
-				e2.className = 'garage-sale-empty';
-				e2.textContent = 'No upcoming direct-drop previews in shop-products.json.';
-				rootHold.appendChild(e2);
-			} else {
+			if (dataShopHold.length) {
 				var f2 = document.createDocumentFragment();
 				dataShopHold.forEach(function (item) {
 					f2.appendChild(renderHoldCard(item));
@@ -1096,6 +1139,12 @@
 			}
 		}
 		renderDigitalCards(rootDigital, sortEbayList(dataDigital));
+		if (cartFab) {
+			cartFab.hidden = !hasSaleListings();
+		}
+		if (noteEl && noteEl.textContent) {
+			noteEl.hidden = !hasSaleListings();
+		}
 	}
 
 	function onSortChange() {

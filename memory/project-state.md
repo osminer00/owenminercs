@@ -24,11 +24,11 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 
 ## Important Data
 
-- Public setup hub name: Bigfoot's Jungle. Keep existing `The Setup/the-setup.html` paths/routes unless the user asks to rename URLs.
+- Public setup hub name: **Gear** (nav label **Gear**). Keep existing `The Setup/the-setup.html` paths/routes unless the user asks to rename URLs.
 - Affiliate products: `affiliate-links.json`; partner network site-verification meta tags belong in `index.html` and are documented in `IMPLEMENTATION_GUIDE.md`.
 - Donation/support links: `donation-links.json`
 - Shop product drops: `Garage Sale/shop-products.json` (optional `checkoutBackend: "stripe"` → `POST /api/shop-checkout`, prices in `functions/api/_shop-catalog.js`, env `STRIPE_SECRET_KEY` on Cloudflare Pages)
-- Referrals page is temporarily removed; the Mercari referral lives near the top of `Garage Sale/garage-sale.html`.
+- Referrals page is temporarily removed; resale lives on `Garage Sale/garage-sale.html` (eBay store, direct Stripe checkout when configured, free photography).
 - Donator data: `Donators/donators.json`
 - Social cloud data: `Socials/data/` — card chrome layout (date + stats on one line) is a documented preference in `memory/preferences.md`.
 - Photos/posts data: `Photography/photos.json`, `Posts/posts.json`
@@ -37,7 +37,9 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 ## Computers archive (`The Setup`)
 
 - Hub: `The Setup/computers.html` — cards include **Razer Blade 2019** (specs line from college build page), **2020 desktop upgrade** (Ryzen 3800X / 2070 Super / B550-F / storage / NZXT Phantom), **2016 PC build** (year from PNG XMP `DateCreated` Aug 2016 on `images/archive/old-pcs/first-pc-build-instagram.png`).
-- Detail page: `The Setup/old-pc-laptop.html` — full laptop + desktop spec lists; links to `college-desk-setup-site/pc.html` for the archived assignment HTML. Section IDs **`#legacy-laptop`** and **`#first-pc-build`** kept for deep links.
+- Hub: `The Setup/computers.html` — cards link to separate archive detail pages.
+- Archive hub: `The Setup/old-pc-laptop.html` — card index + college desk-site artifact; hash deep links redirect client-side to split pages.
+- Detail pages: `legacy-laptop.html`, `upgrade-desktop-2020.html`, `first-pc-build.html` — each rig on its own page with `.setup-archive-detail` layout; links to `college-desk-setup-site/pc.html` where relevant.
 - **Privacy:** that Instagram screenshot should keep **profile pictures and usernames blurred** so handles are not readable; if re-exporting the asset, re-apply redaction before commit.
 
 ## Focused Docs

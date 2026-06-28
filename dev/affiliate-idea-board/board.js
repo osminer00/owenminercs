@@ -4,7 +4,7 @@
 	const ASSIGN_PAGE_OPTIONS = [
 		{ path: 'index.html', label: 'About (home)' },
 		{ path: 'PC/pc.html', label: 'PC build' },
-		{ path: 'Desk Setup/setup.html', label: "Bigfoot's Jungle" },
+		{ path: 'Desk Setup/setup.html', label: "Gear" },
 		{ path: 'Keyboard/60he.html', label: 'Wooting 60HE' },
 		{ path: 'Counter-Strike/CS.html', label: 'CS2' },
 		{ path: 'Counter-Strike/nosmoking.html', label: 'No Smoking wallpapers' },

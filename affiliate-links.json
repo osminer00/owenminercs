@@ -1,7 +1,10 @@
 {
 	"disclosure": {
-		"en": "This page may include paid links to Amazon, AliExpress, and other retailers. As an Amazon Associate I earn from qualifying purchases. Links marked (affiliate) may earn commission.",
-		"short": "As an Amazon Associate I earn from qualifying purchases. Links marked (affiliate) may earn commission."
+		"en": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media. As an Amazon Associate I earn from qualifying purchases.",
+		"short": "As an Amazon Associate I earn from qualifying purchases.",
+		"top": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media.",
+		"topAmazon": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media. As an Amazon Associate I earn from qualifying purchases.",
+		"topAliExpress": "Some links on this page are compensated AliExpress store links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media."
 	},
 	"products": {
 		"pc_components": {

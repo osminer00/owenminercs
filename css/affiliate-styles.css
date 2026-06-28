@@ -270,20 +270,7 @@ body.site-card-ui .affiliate-button:visited:focus-visible {
 	border-color: transparent;
 }
 
-/* Disclosure box */
-.affiliate-disclosure {
-	background-color: #fffacd;
-	border-left: 4px solid #ffd700;
-	padding: 12px 15px;
-	margin: 20px 0;
-	border-radius: 4px;
-	font-size: 0.95rem;
-	color: #333;
-}
-
-.affiliate-disclosure strong {
-	color: #000;
-}
+/* Disclosure panel — canonical styles live in owenminercs.css (dark theme) */
 
 /* For existing itemlink class enhancement */
 .itemlink.has-affiliate {
