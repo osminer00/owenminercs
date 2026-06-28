@@ -2,7 +2,7 @@
  * Regenerates Gaming/cs2-videos.html embed grid from Socials/data/youtube-videos.json
  * (long-form uploads only; Shorts stay on Socials).
  *
- * Layout: compact 4-column grid (responsive), with per-card "Larger" dialog player.
+ * Layout: compact 4-column grid (responsive), with per-card "Expand" dialog player.
  *
  *   node dev/sync-cs2-videos-page.mjs
  */
@@ -39,11 +39,11 @@ for (const v of vids) {
 	snippet += `\t\t\t\t\t\t\t<article class="cs2-yt-card" role="listitem">\n`;
 	snippet += `\t\t\t\t\t\t\t\t<div class="cs2-yt-card__head">\n`;
 	snippet += `\t\t\t\t\t\t\t\t\t<h2 class="cs2-yt-card__title">${title}</h2>\n`;
-	snippet += `\t\t\t\t\t\t\t\t\t<button type="button" class="cs2-yt-card__popout" aria-haspopup="dialog" aria-controls="cs2YtPlayerDialog" data-youtube-id="${id}" title="Open larger player">Larger</button>\n`;
+	snippet += `\t\t\t\t\t\t\t\t\t<button type="button" class="cs2-yt-card__popout" aria-haspopup="dialog" aria-controls="cs2YtPlayerDialog" data-youtube-id="${id}" title="Expand player">Expand</button>\n`;
 	snippet += `\t\t\t\t\t\t\t\t</div>\n`;
 	snippet += `\t\t\t\t\t\t\t\t<div class="video-responsive cs2-yt-card__embed">\n`;
 	snippet +=
-		`\t\t\t\t\t\t\t\t\t<iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/${id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>\n`;
+		`\t\t\t\t\t\t\t\t\t<iframe width="560" height="315" data-embed-src="https://www.youtube.com/embed/${id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>\n`;
 	snippet += `\t\t\t\t\t\t\t\t</div>\n`;
 	snippet += `\t\t\t\t\t\t\t</article>\n`;
 }

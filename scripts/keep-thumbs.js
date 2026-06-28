@@ -168,9 +168,8 @@
 	function applyVideoEmbedThumb(card, embed) {
 		var wrap = buildVideoThumbWrapper(embed.title);
 		var iframe = document.createElement('iframe');
-		iframe.src = embed.src;
+		iframe.setAttribute('data-embed-src', embed.src);
 		iframe.title = embed.title;
-		iframe.setAttribute('loading', 'lazy');
 		iframe.setAttribute('allowfullscreen', '');
 		iframe.setAttribute(
 			'allow',
@@ -184,9 +183,8 @@
 	function makeIframeLayer(src, title) {
 		var iframe = document.createElement('iframe');
 		iframe.className = 'keep-card__album-layer';
-		iframe.src = src;
+		iframe.setAttribute('data-embed-src', src);
 		iframe.title = title;
-		iframe.setAttribute('loading', 'lazy');
 		iframe.setAttribute('allowfullscreen', '');
 		iframe.setAttribute(
 			'allow',

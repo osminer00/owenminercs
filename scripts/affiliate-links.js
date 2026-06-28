@@ -32,9 +32,8 @@ class AffiliateLinksManager {
 
 			console.log('✓ Affiliate links loaded successfully', this.metadata);
 
-			// Render with static prices first, then overlay live prices
-			this.autoPopulate();
-			this.fetchLivePrices();
+			// Retailer shortcut buttons were removed site-wide; strip legacy placeholders only.
+			this.removeAffiliateButtonPlaceholders();
 		} catch (error) {
 			console.warn(
 				'⚠ Could not load affiliate links - serving without affiliate URLs:',
@@ -42,6 +41,20 @@ class AffiliateLinksManager {
 			);
 			this.loaded = false;
 		}
+	}
+
+	/**
+	 * Remove empty data-affiliate-product placeholders (legacy AI retailer buttons).
+	 */
+	removeAffiliateButtonPlaceholders() {
+		document.querySelectorAll('[data-affiliate-product]').forEach((container) => {
+			const hub = container.closest('.affiliate-keyboard-hub');
+			if (hub) {
+				hub.remove();
+				return;
+			}
+			container.remove();
+		});
 	}
 
 	/**
@@ -93,23 +106,7 @@ class AffiliateLinksManager {
 	 * Refresh all price displays on the page after live prices are fetched.
 	 */
 	refreshPriceDisplays() {
-		const containers = document.querySelectorAll('[data-affiliate-product]');
-		containers.forEach((container) => {
-			const productKey = container.getAttribute('data-affiliate-product');
-			if (!productKey) return;
-			const product = this.getProduct(productKey);
-			const compact = container.hasAttribute('data-affiliate-compact');
-			const hasAdjacentPrice = compact && !!this.findAdjacentPriceHost(container);
-			const html = this.generateLinkButtons(productKey, {
-				showLabel: !compact,
-				showPrice: !hasAdjacentPrice,
-			});
-			container.innerHTML = html;
-			this.wireTracking(container);
-			this.syncAdjacentPrimaryLink(container, product);
-			this.syncAdjacentPriceLabel(container, product);
-			this.alignCompactButtonsWithPrice(container);
-		});
+		this.removeAffiliateButtonPlaceholders();
 	}
 
 	/**
@@ -564,28 +561,11 @@ class AffiliateLinksManager {
 	}
 
 	/**
-	 * Auto-populate elements with data-affiliate-product attribute
+	 * Legacy hook — retailer shortcut buttons are no longer rendered.
 	 */
 	autoPopulate() {
 		if (!this.loaded) return;
-
-		const containers = document.querySelectorAll('[data-affiliate-product]');
-		containers.forEach((container) => {
-			const productKey = container.getAttribute('data-affiliate-product');
-			if (!productKey) return;
-			const compact = container.hasAttribute('data-affiliate-compact');
-			const product = this.getProduct(productKey);
-			const hasAdjacentPrice = compact && !!this.findAdjacentPriceHost(container);
-			const html = this.generateLinkButtons(productKey, {
-				showLabel: !compact,
-				showPrice: !hasAdjacentPrice,
-			});
-			container.innerHTML = html;
-			this.wireTracking(container);
-			this.syncAdjacentPrimaryLink(container, product);
-			this.syncAdjacentPriceLabel(container, product);
-			this.alignCompactButtonsWithPrice(container);
-		});
+		this.removeAffiliateButtonPlaceholders();
 	}
 
 	wireTracking(root) {
@@ -634,9 +614,9 @@ class AffiliateLinksManager {
 		if (!text) return '';
 
 		return `
-            <div class="affiliate-disclosure">
-                <strong>Disclosure:</strong> ${text}
-            </div>
+            <p class="affiliate-disclosure" role="note">
+                <span class="affiliate-disclosure__label">Disclosure</span> ${text}
+            </p>
         `;
 	}
 

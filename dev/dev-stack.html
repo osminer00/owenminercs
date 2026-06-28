@@ -5,11 +5,11 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
-		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -27,13 +27,16 @@
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
-		<meta name="theme-color" content="#0f0f0f" />
-		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+
+		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
+
+		<link rel="icon" href="/images/logo/favicon-16.png" type="image/png" sizes="16x16" />
 		<link rel="canonical" href="https://www.owenminercs.com/dev/dev-stack" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui" style="zoom: 95%">
+	<body id="top" class="site-card-ui dev-stack-page" style="zoom: 95%">
 		<shared-header></shared-header>
 
 		<div class="container">
@@ -45,20 +48,23 @@
 					<h1>Programs</h1>
 					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
 						Software I actually open — from shipping this static site to editing video and going live. Nothing
-						here is sponsored; it is the honest split of what sits on disk when work needs to get done.
+						here is paid sponsorship; it is the honest split of what sits on disk when work needs to get done
+						(one Cursor refer-a-friend link is in the Cursor card below).
 					</p>
 				</div>
 			</div>
 
-			<h2 id="coding" style="font-size: 1.15rem; margin: 1.75rem 0 0.75rem; text-align: center">Coding &amp; development</h2>
-			<p style="max-width: 42rem; margin: 0 auto 1rem; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
-				This site is HTML, CSS, and a little browser JavaScript. On <strong>Cursor Pro+</strong> ($60/mo as of
-				May&nbsp;2026) to finish it; <strong>ChatGPT</strong> for planning; <strong>Gemini</strong> for everyday
-				Q&amp;A. I tried OpenClaw on Ubuntu in a VM — interesting, but API spend added up fast; local-only was not
-				enough for the heavy lifting I need right now.
-			</p>
+			<div class="dev-stack-columns">
+				<div class="dev-stack-column">
+					<h2 id="coding" class="dev-stack-column__title">Coding &amp; development</h2>
+					<p class="dev-stack-column__intro">
+						This site is HTML, CSS, and a little browser JavaScript. On <strong>Cursor Pro+</strong> ($60/mo as of
+						May&nbsp;2026) to finish it; <strong>ChatGPT</strong> for planning; <strong>Gemini</strong> for everyday
+						Q&amp;A. I tried OpenClaw on Ubuntu in a VM — interesting, but API spend added up fast; local-only was not
+						enough for the heavy lifting I need right now.
+					</p>
 
-			<div class="keep-board" aria-label="Coding and development tools">
+					<div class="keep-board dev-stack-column__board" aria-label="Coding and development tools">
 				<article class="keep-card keep-card--static">
 					<span class="keep-card__inner">
 						<div class="keep-card__scalable">
@@ -73,7 +79,15 @@
 						<p>
 							Cursor is my main editor: multi-file edits, refactors, this repo, and the integrated agent on
 							real paths. I upgraded to <strong>Pro+</strong> so hosted models and agents have enough
-							headroom to finish the site without constantly bouncing to other tools.
+							headroom to finish the site without constantly bouncing to other tools. If you are signing up,
+							Cursor’s <a
+								href="https://cursor.com/referral?code=AXMCFHZ8A2DG"
+								target="_blank"
+								rel="noopener noreferrer"
+								>refer-a-friend link</a
+							>
+							(code <strong>AXMCFHZ8A2DG</strong>) may grant credits to both of us — eligibility and amounts
+							are set by Cursor on their site.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
@@ -167,21 +181,21 @@
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
 				</article>
-			</div>
+					</div>
+				</div>
 
-			<h2 id="creative-cloud" style="font-size: 1.15rem; margin: 2rem 0 0.75rem; text-align: center">
-				Adobe Creative Cloud &amp; design
-			</h2>
-			<p style="max-width: 42rem; margin: 0 auto 1rem; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
-				Most serious photo and video work lives in Creative Cloud. Video-wise, my first editor was the one bundled
-				with <strong>Windows</strong> (the simple built-in timeline app — cut my teeth there first). In my early
-				teens I bought <strong>Sony Vegas Movie Studio</strong> on Amazon and moved my edits there; I was deep into
-				<strong>YouTube</strong> and making videos at the time. Today <strong>Premiere Pro</strong> carries that
-				thread (exact purchase dates from back then TBD when I dig them up). On stills I leaned on
-				<strong>GIMP</strong> early when Photoshop was not in the budget.
-			</p>
+				<div class="dev-stack-column">
+					<h2 id="creative-cloud" class="dev-stack-column__title">Adobe Creative Cloud &amp; design</h2>
+					<p class="dev-stack-column__intro">
+						Most serious photo and video work lives in Creative Cloud. Video-wise, my first editor was the one bundled
+						with <strong>Windows</strong> (the simple built-in timeline app — cut my teeth there first). In my early
+						teens I bought <strong>Sony Vegas Movie Studio</strong> on Amazon and moved my edits there; I was deep into
+						<strong>YouTube</strong> and making videos at the time. Today <strong>Premiere Pro</strong> carries that
+						thread (exact purchase dates from back then TBD when I dig them up). On stills I leaned on
+						<strong>GIMP</strong> early when Photoshop was not in the budget.
+					</p>
 
-			<div class="keep-board" aria-label="Adobe Creative Cloud and design tools">
+					<div class="keep-board dev-stack-column__board" aria-label="Adobe Creative Cloud and design tools">
 				<article class="keep-card keep-card--static">
 					<span class="keep-card__inner">
 						<div class="keep-card__scalable">
@@ -264,6 +278,8 @@
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
 				</article>
+					</div>
+				</div>
 			</div>
 
 			<h2 id="streaming" style="font-size: 1.15rem; margin: 2rem 0 0.75rem; text-align: center">Streaming</h2>
@@ -321,7 +337,8 @@
 
 			<p style="max-width: 42rem; margin: 1.5rem auto 0; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
 				No API keys or account identifiers belong on a public page — store those in your own password manager and
-				environment, not in git.
+				environment, not in git. The Cursor refer-a-friend link may earn credits for you and me; rewards and
+				eligibility are controlled by Cursor.
 			</p>
 		</div>
 

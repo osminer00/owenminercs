@@ -5,11 +5,11 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
-		<link rel="apple-touch-icon" href="/images/owenminercs-logo.png" />
+		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -19,210 +19,125 @@
 			gtag('js', new Date());
 			gtag('config', 'G-GYG1QRQ8DY');
 		</script>
-		<title>My old PC and laptop | Bigfoot's Jungle | Owen Miner</title>
+		<title>Old PC and laptop archive | Gear | Owen Miner</title>
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Razer Blade 2019, 2020 desktop upgrade, 2016 first PC build photo, and college-era desk setup website—Bigfoot's Jungle."
+			content="Archive hub for Owen's Razer Blade 2019, 2020 desktop upgrade, 2016 first PC build, and college desk-setup website."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
-		<meta name="theme-color" content="#0f0f0f" />
-		<link rel="icon" href="/images/owenminercs-logo.png" type="image/png" />
+		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+
+		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
+
+		<link rel="icon" href="/images/logo/favicon-16.png" type="image/png" sizes="16x16" />
 		<link rel="canonical" href="https://www.owenminercs.com/The%20Setup/old-pc-laptop" />
-		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<link rel="stylesheet" href="../css/affiliate-styles.css" />
 		<script src="../scripts/components.js" defer></script>
 		<script src="../scripts/affiliate-links.js" defer></script>
+		<script>
+			(function () {
+				var map = {
+					'legacy-laptop': 'legacy-laptop.html',
+					'upgrade-desktop-2020': 'upgrade-desktop-2020.html',
+					'first-pc-build': 'first-pc-build.html'
+				};
+				var id = location.hash.slice(1);
+				if (map[id]) location.replace(map[id]);
+			})();
+		</script>
 	</head>
 	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
 		<shared-header></shared-header>
 		<div class="container">
-			<div class="intro" style="max-width: 42rem; margin: 0 auto 1rem; padding: 0 0.5rem; text-align: left">
+			<div class="intro">
 				<p class="setup-detail__back"><a href="computers.html">← Computers</a></p>
-				<h1>My old PC and laptop</h1>
-				<p style="margin: 0 0 1rem">
-					Photos pulled from old hard drives—desktops and portables from before the current
-					<a href="gaming-pc.html">2024 build</a>. Jump to a rig below or skim the college-era desk-site artifact at
-					the bottom.
-				</p>
+				<div class="gallery keep-board-intro">
+					<h1>Old PC and laptop archive</h1>
+					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
+						Photos pulled from old hard drives—desktops and portables from before the current
+						<a href="gaming-pc.html">2024 build</a>. Each rig has its own page now; the college-era desk-site
+						artifact is linked below.
+					</p>
+				</div>
+			</div>
+			<div class="keep-board" aria-label="Archived computers">
+				<div class="keep-card" role="link" tabindex="0" data-href="legacy-laptop.html">
+					<span class="keep-card__inner">
+						<img
+							class="keep-card__thumb"
+							src="../images/archive/old-pcs/legacy-laptop.jpg"
+							alt="Razer Blade 15 laptop on a desk"
+						/>
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Archive</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">Razer Blade 2019</p>
+								<div class="keep-card__affiliate">
+									<h4 style="margin: 0; font-size: 0.9rem; font-weight: 500">
+										i7-9750H · RTX 2070 Max-Q · 16GB DDR4 · 512GB SSD
+									</h4>
+								</div>
+								<span class="keep-card__cta">Open laptop page →</span>
+							</div>
+						</div>
+					</span>
+				</div>
+				<div class="keep-card" role="link" tabindex="0" data-href="upgrade-desktop-2020.html">
+					<span class="keep-card__inner">
+						<img
+							class="keep-card__thumb"
+							src="../images/archive/old-pcs/upgrade-desktop-2020.jpg"
+							alt="2020 desktop PC upgrade on a desk"
+						/>
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Archive</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">2020 desktop upgrade</p>
+								<div class="keep-card__affiliate">
+									<h4 style="margin: 0; font-size: 0.9rem; font-weight: 500">
+										Ryzen 7 3800X · RTX 2070 Super · full parts list
+									</h4>
+								</div>
+								<span class="keep-card__cta">Open desktop page →</span>
+							</div>
+						</div>
+					</span>
+				</div>
+				<div class="keep-card" role="link" tabindex="0" data-href="first-pc-build.html">
+					<span class="keep-card__inner">
+						<img
+							class="keep-card__thumb"
+							src="../images/archive/old-pcs/first-pc-build-instagram.png"
+							alt="2016 Instagram post screenshot of first custom PC build"
+						/>
+						<div class="keep-card__scalable">
+							<div class="keep-card__video-slot">Archive</div>
+							<div class="keep-card__body">
+								<p class="keep-card__label">2016 PC build</p>
+								<div class="keep-card__affiliate">
+									<h4 style="margin: 0; font-size: 0.9rem; font-weight: 500">
+										Instagram milestone · dated Aug 2016 in file metadata
+									</h4>
+								</div>
+								<span class="keep-card__cta">Open milestone page →</span>
+							</div>
+						</div>
+					</span>
+				</div>
+			</div>
 
-				<section id="legacy-laptop" style="scroll-margin-top: 6rem; margin-top: 2rem">
-					<h2 style="font-size: 1.25rem; margin-bottom: 0.5rem">Razer Blade 2019</h2>
-					<p style="margin: 0 0 0.75rem">
-						Specs from my archived college desk-setup site (
-						<a href="college-desk-setup-site/pc.html">“Owen Miner's Gaming Setup” / Computer Build page</a>
-						)—image preserved from backups dated 2021.
+			<div class="setup-archive-hub__aside">
+				<section class="setup-archive-hub__aside-card" aria-labelledby="college-desk-heading">
+					<h2 id="college-desk-heading">College assignment: first desk-setup website</h2>
+					<p>
+						In college I published my <strong>first website about my desk setup</strong>—a tiny multi-page build
+						with peripherals, parts lists, and JPEGs straight off my phone. It is rough around the edges (nested
+						tables energy, absolute-era CSS), but it is honest mid-2010s coursework—and the earliest place I put
+						my setup on the public web.
 					</p>
-					<ul style="margin: 0 0 0.75rem; padding-left: 1.25rem">
-						<li>Model: Razer Blade 15 (2019)</li>
-						<li>CPU: 9th Gen Intel Core i7-9750H (6-core)</li>
-						<li>GPU: NVIDIA GeForce RTX 2070 Max-Q</li>
-						<li>RAM: 16GB 2667MHz DDR4</li>
-						<li>SSD: 512GB M.2</li>
-						<li>OS: Windows 10 64-bit</li>
-					</ul>
-					<p style="margin: 0 0 0.75rem; font-size: 0.95rem">
-						At the time that page was written, the laptop was temporarily out of commission due to memory-corruption
-						issues (parts were on the way to fix it).
-					</p>
-					<img
-						src="../images/archive/old-pcs/legacy-laptop.jpg"
-						alt="Older laptop open on a wooden desk with peripherals"
-						style="width: 100%; border-radius: 7px; border: solid black; box-shadow: 5px 5px black"
-						loading="lazy"
-					/>
-				</section>
-
-				<section id="upgrade-desktop-2020" style="scroll-margin-top: 6rem; margin-top: 2rem">
-					<h2 style="font-size: 1.25rem; margin-bottom: 0.5rem">2020 desktop upgrade</h2>
-					<p style="margin: 0 0 0.75rem">
-						Tower-and-desk shot from the same archive folder—parts list from the same recovered
-						<a href="college-desk-setup-site/pc.html">Computer Build assignment</a>. Reference shopping
-						links below use my Amazon Associates tag on Amazon searches (older parts—verify before you buy).
-					</p>
-					<ul style="margin: 0 0 0.75rem; padding-left: 1.25rem">
-						<li>
-							Motherboard: Asus ROG Strix B550-F Gaming (Wi‑Fi) —
-							<a
-								href="https://www.amazon.com/s?k=ASUS+ROG+Strix+B550-F+Gaming+WiFi&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							CPU: AMD Ryzen 7 3800X —
-							<a
-								href="https://www.amazon.com/s?k=AMD+Ryzen+7+3800X&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							GPU: Gigabyte GeForce RTX 2070 Super Gaming OC 8G —
-							<a
-								href="https://www.amazon.com/s?k=Gigabyte+RTX+2070+Super+Gaming+OC+8G&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							PSU: EVGA 600W 80+ Bronze ATX —
-							<a
-								href="https://www.amazon.com/s?k=EVGA+600W+80+Bronze+power+supply&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							RAM: Corsair Vengeance RGB Pro 16GB (2×8) DDR4-3200, CMW16GX4M2C3200C16 —
-							<a
-								href="https://www.amazon.com/s?k=Corsair+Vengeance+RGB+Pro+16GB+DDR4+3200+CMW16GX4M2C3200C16&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							SSD (M.2 SATA): WD Blue 3D NAND 1TB, WDS100T2B0B —
-							<a
-								href="https://www.amazon.com/s?k=WD+Blue+1TB+M.2+WDS100T2B0B&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							SSD: Samsung 256GB (2.5&quot; SATA in this build) —
-							<a
-								href="https://www.amazon.com/s?k=Samsung+860+EVO+250GB+SSD&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							HDD: Western Digital Caviar Blue 1TB —
-							<a
-								href="https://www.amazon.com/s?k=Western+Digital+Caviar+Blue+1TB+HDD&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							HDD: Western Digital Caviar Blue 2TB —
-							<a
-								href="https://www.amazon.com/s?k=Western+Digital+Caviar+Blue+2TB+HDD&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							Case: NZXT Phantom PHAN-001WT (white full tower) —
-							<a
-								href="https://www.amazon.com/s?k=NZXT+Phantom+PHAN-001WT&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							Optical: LITE-ON iHAS124-04 DVD burner (SATA) —
-							<a
-								href="https://www.amazon.com/s?k=LITE-ON+iHAS124-04&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>
-							Display cable: Omni Gear DP-6-HDMI 6 ft DisplayPort to HDMI —
-							<a
-								href="https://www.amazon.com/s?k=Omni+Gear+DisplayPort+to+HDMI+6+ft&tag=owenminercs-20"
-								target="_blank"
-								rel="noopener noreferrer sponsored"
-								>Amazon ref</a
-							>
-						</li>
-						<li>OS: Windows 10 64-bit</li>
-					</ul>
-					<img
-						src="../images/archive/old-pcs/upgrade-desktop-2020.jpg"
-						alt="Mid-tower gaming PC on the floor beside a desk with dual monitors"
-						style="width: 100%; border-radius: 7px; border: solid black; box-shadow: 5px 5px black"
-						loading="lazy"
-					/>
-				</section>
-
-				<section id="first-pc-build" style="scroll-margin-top: 6rem; margin-top: 2rem">
-					<h2 style="font-size: 1.25rem; margin-bottom: 0.5rem">2016 PC build</h2>
-					<p style="margin: 0 0 0.75rem">
-						Screenshot of an Instagram post from the first custom build—kept here as a milestone snapshot. Embedded
-						metadata on this PNG lists <strong>August 25, 2016</strong> as the capture date (Instagram screenshot).
-					</p>
-					<img
-						src="../images/archive/old-pcs/first-pc-build-instagram.png"
-						alt="Instagram post celebrating Owen's first gaming PC build"
-						style="width: 100%; border-radius: 7px; border: solid black; box-shadow: 5px 5px black"
-						loading="lazy"
-					/>
-				</section>
-
-				<section id="college-desk-website" style="scroll-margin-top: 6rem; margin-top: 2.5rem">
-					<h2 style="font-size: 1.25rem; margin-bottom: 0.5rem">College assignment: first desk-setup website</h2>
-					<p style="margin: 0 0 0.75rem">
-						In college I published my <strong>first website about my desk setup</strong>—a tiny multi-page build with
-						peripherals, parts lists, and JPEGs straight off my phone. It is rough around the edges (nested tables
-						energy, absolute-era CSS), but it is honest mid-2010s coursework—and the earliest place I put my setup on
-						the public web.
-					</p>
-					<p style="margin: 0 0 1rem">
+					<p>
 						The recovered files now live here as a read-only artifact:
 						<a href="college-desk-setup-site/pc.html">Open the archived “Owen Miner's Gaming Setup” site</a>
 						(class project snapshot; opens the original HTML/CSS bundle).
@@ -230,8 +145,8 @@
 				</section>
 			</div>
 		</div>
-		<shared-footer
-			disclosure="<i>The 2020 build list includes Amazon shopping links tagged with my Amazon Associates ID. As an Amazon Associate I earn from qualifying purchases.</i>"
-		></shared-footer>
+		<shared-footer></shared-footer>
+		<script src="../scripts/setup-cards.js" defer></script>
+		<script src="../scripts/keep-thumbs.js" defer></script>
 	</body>
 </html>

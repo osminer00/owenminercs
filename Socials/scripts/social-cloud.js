@@ -113,19 +113,8 @@
 	const X_MIN_LIKES = MIN_SOCIAL_ENGAGEMENT;
 	const REDDIT_MIN_UPVOTES = MIN_SOCIAL_ENGAGEMENT;
 	const REDDIT_FETCH_LIMIT = 100;
-	const SOCIAL_CARD_FIDGET_REV_DEG = 5 * 360;
-	const SOCIAL_CARD_FIDGET_TOL_DEG = 20;
-	const SOCIAL_CARD_FIDGET_TURBO_MS = 1600;
-	const SOCIAL_CARD_FIDGET_TURBO_DEG_PER_SEC = 2200;
-	const SOCIAL_CARD_IDLE_SPIN_MS = 15 * 60 * 1000;
-	const SOCIAL_CARD_IDLE_SPIN_DEG_PER_SEC = 240;
-	const ACH_SOCIAL_DOCK_MOVE = 'social-dock-move';
 	const ACH_SOCIAL_CARD_PIN_AND_MOVE = 'social-card-pin-and-move';
 	const SOCIAL_CARD_PIN_MOVE_PROGRESS_KEY = 'smc-social-card-pin-move-progress-v1';
-	const SOCIAL_CARD_FIDGET_FX_VARIANTS = 6;
-	function pickSocialCardFidgetFxVariant() {
-		return Math.floor(Math.random() * SOCIAL_CARD_FIDGET_FX_VARIANTS);
-	}
 
 	function loadSocialCardPinMoveProgress() {
 		try {
@@ -1204,17 +1193,30 @@
 		return '';
 	}
 
-	function getTikTokEmbedUrl(rawUrl) {
+	function getTikTokVideoId(rawUrl) {
 		if (!rawUrl) return '';
-		const idMatch = rawUrl.match(/\/video\/(\d+)/);
-		if (idMatch && idMatch[1]) {
-			return `https://www.tiktok.com/player/v1/${idMatch[1]}`;
+		const idMatch = String(rawUrl).match(/\/video\/(\d+)/);
+		return idMatch && idMatch[1] ? idMatch[1] : '';
+	}
+
+	function getTikTokEmbedUrl(rawUrl) {
+		const videoId = getTikTokVideoId(rawUrl);
+		if (videoId) {
+			// Official player/v1 endpoint (TikTok for Developers). controls=1 keeps UI visible.
+			return `https://www.tiktok.com/player/v1/${videoId}?controls=1&progress_bar=1&play_button=1`;
 		}
-		const profileMatch = rawUrl.match(/tiktok\.com\/@([A-Za-z0-9._-]+)/i);
+		const profileMatch = String(rawUrl).match(/tiktok\.com\/@([A-Za-z0-9._-]+)/i);
 		if (profileMatch && profileMatch[1]) {
 			return `https://www.tiktok.com/embed/@${profileMatch[1]}`;
 		}
 		return '';
+	}
+
+	function shouldUseInlineTikTokPlayer(item, embed) {
+		if (String(embed?.className || '').toLowerCase() !== 'tiktok') return true;
+		// TikTok player/v1 rejects iframe loads when Referrer-Policy strips referrer on
+		// http://localhost (strict-origin-when-cross-origin). Show thumbnail until pin instead.
+		return false;
 	}
 
 	function getEmbedConfig(item) {
@@ -1353,12 +1355,6 @@
 		return Math.max(min, Math.min(max, value));
 	}
 
-	function normalizeAngleDelta(deg) {
-		let next = deg;
-		while (next > 180) next -= 360;
-		while (next < -180) next += 360;
-		return next;
-	}
 
 	function isBlockedSocialContentItem(item) {
 		const haystack = [
@@ -1585,9 +1581,14 @@
 		// Lazy iframes often never start until scroll; pinned autoplay must load immediately.
 		iframe.loading = autoplay ? 'eager' : 'lazy';
 		iframe.allowFullscreen = true;
-		iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+		const isTikTokEmbed = String(embed.className || '').toLowerCase() === 'tiktok';
+		// origin-when-cross-origin sends parent origin on http://localhost → https://tiktok.com;
+		// strict-origin-when-cross-origin sends no referrer on that path and TikTok returns Access Denied.
+		iframe.referrerPolicy = isTikTokEmbed ? 'origin-when-cross-origin' : 'strict-origin-when-cross-origin';
 		iframe.title = `${item?.platform || 'Social'} player: ${item?.title || 'Untitled content'}`;
-		iframe.allow = 'autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share';
+		iframe.allow = isTikTokEmbed
+			? 'fullscreen; encrypted-media; picture-in-picture'
+			: 'autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share';
 		if (autoplay) {
 			const host = (() => {
 				try {
@@ -1635,9 +1636,6 @@
 	let pinnedLayer = null;
 	let ambientIntervalId = 0;
 	let ambientTickRaf = 0;
-	const socialCardSpinControllers = [];
-	let idleSpinActive = false;
-	let idleSpinTimerId = 0;
 	let currentAmbientColors = [
 		[34, 78, 58],
 		[118, 76, 44],
@@ -1659,66 +1657,6 @@
 		pinnedLayer = document.createElement('div');
 		pinnedLayer.className = 'smc-pinned-layer';
 		document.body.appendChild(pinnedLayer);
-	}
-
-	function stopIdleSpinForAllCards() {
-		idleSpinActive = false;
-		for (let i = 0; i < socialCardSpinControllers.length; i += 1) {
-			const controls = socialCardSpinControllers[i];
-			if (!controls || typeof controls.stop !== 'function') continue;
-			controls.stop();
-		}
-	}
-
-	function startIdleSpinForAllCards() {
-		if (prefersReducedMotion || idleSpinActive) return;
-		idleSpinActive = true;
-		for (let i = 0; i < socialCardSpinControllers.length; i += 1) {
-			const controls = socialCardSpinControllers[i];
-			if (!controls || typeof controls.start !== 'function') continue;
-			controls.start();
-		}
-	}
-
-	function clearIdleSpinTimer() {
-		if (!idleSpinTimerId) return;
-		window.clearTimeout(idleSpinTimerId);
-		idleSpinTimerId = 0;
-	}
-
-	function scheduleIdleSpinTimer() {
-		clearIdleSpinTimer();
-		idleSpinTimerId = window.setTimeout(() => {
-			idleSpinTimerId = 0;
-			startIdleSpinForAllCards();
-		}, SOCIAL_CARD_IDLE_SPIN_MS);
-	}
-
-	function handleIdleSpinInterrupt() {
-		stopIdleSpinForAllCards();
-		scheduleIdleSpinTimer();
-	}
-
-	function bindIdleSpinInteractionWatchers() {
-		const options = { passive: true };
-		window.addEventListener('pointerdown', handleIdleSpinInterrupt, options);
-		window.addEventListener('pointermove', handleIdleSpinInterrupt, options);
-		window.addEventListener('keydown', handleIdleSpinInterrupt);
-		window.addEventListener('wheel', handleIdleSpinInterrupt, options);
-		window.addEventListener('touchstart', handleIdleSpinInterrupt, options);
-		window.addEventListener(
-			'visibilitychange',
-			() => {
-				if (document.visibilityState !== 'visible') {
-					clearIdleSpinTimer();
-					stopIdleSpinForAllCards();
-					return;
-				}
-				handleIdleSpinInterrupt();
-			},
-			options
-		);
-		scheduleIdleSpinTimer();
 	}
 
 	function parseCssColor(value) {
@@ -2020,8 +1958,28 @@
 		}, intervalMs);
 	}
 
-	function getLaneCount() {
-		return window.innerWidth < 780 ? 3 : 4;
+	const CLOUD_LAYOUT_SEED = 0x534d434c;
+
+	function mulberry32(seed) {
+		let state = seed | 0;
+		return function next() {
+			state = (state + 0x6d2b79f5) | 0;
+			let t = Math.imul(state ^ (state >>> 15), 1 | state);
+			t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+			return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+		};
+	}
+
+	function seededRng(index, salt = 0) {
+		return mulberry32(CLOUD_LAYOUT_SEED ^ Math.imul(index + 1, 0x9e3779b1) ^ salt);
+	}
+
+	function getCardLaneGap() {
+		return window.innerWidth < 780 ? 14 : 20;
+	}
+
+	function getOffscreenMinX(width) {
+		return -width - getCardLaneGap();
 	}
 
 	function updateCardCountForViewport() {
@@ -2030,31 +1988,57 @@
 		cardCount = Math.min(enabledCatalog.length || targetCount, targetCount);
 	}
 
-	function getCardWidth() {
-		return window.innerWidth < 780 ? 176 + Math.random() * 28 : 198 + Math.random() * 34;
+	function getCardWidth(index = 0) {
+		const rng = seededRng(index, 0x57);
+		return window.innerWidth < 780 ? 176 + rng() * 28 : 198 + rng() * 34;
 	}
 
-	function getLaneY(index, laneCount) {
-		const lane = index % laneCount;
-		const top = getVisibleTop();
-		const bottom = getVisibleBottom();
-		const laneHeight = Math.max(120, (bottom - top) / laneCount);
-		return clamp(
-			top + lane * laneHeight + Math.random() * Math.max(0, laneHeight - 120),
-			top,
-			Math.max(top, bottom - 140)
+	function getCloudMinY(cardHeight = 140) {
+		const headerBleed = Math.min(pageHeaderHeight * 0.62, cardHeight * 0.42);
+		return Math.max(-cardHeight * 0.18, -headerBleed);
+	}
+
+	function getCloudMaxY(cardHeight = 140) {
+		const footerBleed = Math.min(pageFooterHeight * 0.62, cardHeight * 0.42);
+		return Math.max(
+			getCloudMinY(cardHeight) + 96,
+			cloudHeight - cardHeight + footerBleed
 		);
 	}
 
-	function getInitialX(index, width) {
-		const maxX = Math.max(8, cloudWidth - width - 8);
-		const spread = (index + 0.3) / Math.max(1, cardCount);
-		return clamp(spread * maxX, 8, maxX);
+	function getScatterY(index, cardHeight = 140, salt = 0x59) {
+		const rng = seededRng(index, salt);
+		const minY = getCloudMinY(cardHeight);
+		const maxY = getCloudMaxY(cardHeight);
+		const span = Math.max(1, maxY - minY);
+		const bandRoll = rng();
+		if (bandRoll < 0.18) {
+			return minY + rng() * Math.min(span * 0.34, cardHeight * 1.1);
+		}
+		if (bandRoll > 0.82) {
+			return maxY - rng() * Math.min(span * 0.34, cardHeight * 1.1);
+		}
+		return minY + rng() * span;
+	}
+
+	function getScatterInitialX(index, width) {
+		const rng = seededRng(index, 0x58);
+		const minX = -width * 0.32;
+		const maxX = Math.max(minX + 1, cloudWidth - width * 0.58);
+		const span = Math.max(1, maxX - minX);
+		const edgeRoll = rng();
+		if (edgeRoll < 0.22) {
+			return minX + rng() * Math.min(span * 0.38, width * 1.35);
+		}
+		if (edgeRoll > 0.78) {
+			return maxX - rng() * Math.min(span * 0.38, width * 1.35);
+		}
+		return minX + rng() * span;
 	}
 
 	function getWaveRespawnX(width, excludedState = null) {
-		const laneGap = window.innerWidth < 780 ? 12 : 18;
-		const offscreenStartX = -width - laneGap;
+		const laneGap = getCardLaneGap();
+		const offscreenStartX = getOffscreenMinX(width);
 		let leftMost = Number.POSITIVE_INFINITY;
 		for (let i = 0; i < states.length; i += 1) {
 			const state = states[i];
@@ -2062,16 +2046,14 @@
 			leftMost = Math.min(leftMost, state.x);
 		}
 		if (Number.isFinite(leftMost)) {
-			// Prevent a new wave from spawning deep inside the viewport, which leaves
-			// a visible empty gap on the left side between waves.
+			// Queue behind the leftmost drifting card so waves stay continuous.
 			return Math.min(leftMost - width - laneGap, offscreenStartX);
 		}
 		return offscreenStartX;
 	}
 
 	function getRespawnX(width, excludedState = null) {
-		const safeWidth = Number(width) || getCardWidth();
-		return clamp(8, 8, Math.max(8, cloudWidth - safeWidth - 8));
+		return getWaveRespawnX(width, excludedState);
 	}
 
 	function isInteractiveCardTarget(target) {
@@ -2104,14 +2086,6 @@
 		document.body.style.setProperty('--smc-footer-h', `${footerHeight}px`);
 	}
 
-	function getVisibleTop() {
-		return Math.max(8, pageHeaderHeight + 8);
-	}
-
-	function getVisibleBottom() {
-		return Math.max(getVisibleTop() + 120, cloudHeight - pageFooterHeight - 8);
-	}
-
 	/** Pinned drag/resize: use full cloud height so fixed header/footer do not cap geometry. */
 	function getPinnedCardMinY() {
 		return 8;
@@ -2129,14 +2103,12 @@
 		return state?.el?.offsetHeight || 140;
 	}
 
-	function clampStateToVisibleArea(state) {
+	function clampStateToCloudArea(state) {
 		if (!state?.el || state.isPinned) return;
 		state.width = getStateWidth(state);
 		const cardHeight = getStateHeight(state);
-		const maxX = Math.max(8, cloudWidth - state.width - 8);
-		const minY = getVisibleTop();
-		const maxY = Math.max(minY, getVisibleBottom() - cardHeight);
-		state.x = clamp(state.x, 8, maxX);
+		const minY = getCloudMinY(cardHeight);
+		const maxY = getCloudMaxY(cardHeight);
 		state.y = clamp(state.y, minY, maxY);
 	}
 
@@ -2148,20 +2120,21 @@
 	}
 
 	function spawnState(element, index, isInitialPlacement = false) {
-		const laneCount = getLaneCount();
-		const width = getCardWidth();
-		const y = getLaneY(index, laneCount);
-		const speedScale = 0.82 + Math.random() * 0.45;
+		const width = getCardWidth(index);
+		const layoutRng = seededRng(index, 0x53);
+		const cardHeight = 140;
+		const y = getScatterY(index, cardHeight);
+		const speedScale = 0.82 + layoutRng() * 0.45;
 		return {
 			el: element,
-			x: isInitialPlacement ? getInitialX(index, width) : getRespawnX(width),
+			layoutIndex: index,
+			x: isInitialPlacement ? getScatterInitialX(index, width) : getRespawnX(width),
 			y,
 			width,
 			speed: config.baseSpeed * speedScale,
-			driftAmp: 4 + Math.random() * 9,
-			driftRate: 0.35 + Math.random() * 0.4,
-			phase: Math.random() * Math.PI * 2,
-			rotate: -5 + Math.random() * 10,
+			driftAmp: 4 + layoutRng() * 9,
+			driftRate: 0.35 + layoutRng() * 0.4,
+			phase: layoutRng() * Math.PI * 2,
 		};
 	}
 
@@ -2371,11 +2344,6 @@
 			topChrome.appendChild(detailsWrap);
 			card.appendChild(topChrome);
 			card.appendChild(mediaSlot);
-			const pinStripButton = document.createElement('button');
-			pinStripButton.type = 'button';
-			pinStripButton.className = 'smc-pin-strip';
-			pinStripButton.setAttribute('aria-label', 'Pin this card');
-			card.appendChild(pinStripButton);
 			card.appendChild(bottomChrome);
 
 			const openLink = document.createElement('span');
@@ -2396,15 +2364,10 @@
 				if (!pinned) {
 					card.classList.remove('smc-desc-visible');
 				}
-				pinStripButton.setAttribute(
-					'aria-label',
-					pinned ? 'Unpin this card' : 'Pin this card'
-				);
 			}
 
 			const setItemOnCard = (nextItem) => {
 				if (!nextItem) return;
-				stopCardFidgetSpin();
 				state.item = nextItem;
 				card.classList.remove('is-short');
 				card.classList.remove('smc-video-card');
@@ -2422,7 +2385,7 @@
 				);
 				card.setAttribute(
 					'aria-label',
-					`${nextItem.platform}: ${nextItem.title}${nextItem.contentType ? ` (${nextItem.contentType})` : ''}. Click to pause this card. Use X to resume movement.`
+					`${nextItem.platform}: ${nextItem.title}${nextItem.contentType ? ` (${nextItem.contentType})` : ''}. Click to pause this card. Click again to resume drift.`
 				);
 				card.style.setProperty('--smc-accent', nextItem.accent);
 				if (nextItem.platformKey === 'x') {
@@ -2512,7 +2475,10 @@
 				const nextEmbed = getEmbedConfig(nextItem);
 				state.embed = nextEmbed;
 				const shouldRenderInlinePlayer = Boolean(
-					nextEmbed && nextItem.type === 'video' && config.useInlineVideoByDefault
+					nextEmbed &&
+						nextItem.type === 'video' &&
+						config.useInlineVideoByDefault &&
+						shouldUseInlineTikTokPlayer(nextItem, nextEmbed)
 				);
 				if (shouldRenderInlinePlayer) {
 					const inlinePlayer = createPlayerElement(nextEmbed, nextItem, false);
@@ -2589,7 +2555,6 @@
 				}
 			};
 			state.setItem = setItemOnCard;
-			let fidgetSpinRaf = 0;
 			state.setItem(item);
 			elementStateMap.set(card, state);
 			let dragPointerId = null;
@@ -2598,8 +2563,6 @@
 			let dragStartX = 0;
 			let dragStartY = 0;
 			let isDragging = false;
-			let dragStartedOnPinStrip = false;
-			let suppressNextPinStripClick = false;
 			let pointerStartedOnCardBody = false;
 			let deferPointerCapture = false;
 			let resizePointerId = null;
@@ -2613,17 +2576,6 @@
 			let resizeStartRatio = 1;
 			/** Non-media chrome (meta, padding, copy) height; only used for video cards while resizing. */
 			let resizeChromeExtra = 0;
-			let rotatePointerId = null;
-			let rotateStartClientX = 0;
-			let rotateStartClientY = 0;
-			let rotateStartAngle = 0;
-			let rotateStartValue = 0;
-			let rotateLastAngle = 0;
-			let rotatePositiveDeg = 0;
-			let rotateNegativeDeg = 0;
-			let isRotateDragging = false;
-			let wasPinnedAtRotateStart = false;
-			let rotateStartedFromBorder = false;
 			let suppressNextCardClick = false;
 
 			const resizeHandles = ['nw', 'ne', 'sw', 'se'].map((corner) => {
@@ -2639,88 +2591,12 @@
 				return handle;
 			});
 
-			const rotateHandles = ['top', 'right', 'bottom', 'left'].map((edge) => {
-				const handle = document.createElement('button');
-				handle.type = 'button';
-				handle.className = `smc-rotate-edge smc-rotate-edge-${edge}`;
-				handle.setAttribute('aria-label', `Rotate card from ${edge} border`);
-				handle.setAttribute('data-edge', edge);
-				card.appendChild(handle);
-				return handle;
-			});
-
 			function applyStateTransform() {
-				state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px, 0) rotate(${state.rotate.toFixed(2)}deg)`;
+				state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px, 0)`;
 			}
 
-			function stopCardFidgetSpin() {
-				if (!fidgetSpinRaf) return;
-				window.cancelAnimationFrame(fidgetSpinRaf);
-				fidgetSpinRaf = 0;
-				card.classList.remove('is-fidget-spinning');
-				card.removeAttribute('data-fidget-fx');
-			}
-
-			function unlockSocialDockMoveAchievement() {
-				if (typeof window.owenminercsUnlockAchievement !== 'function') return;
-				try {
-					window.owenminercsUnlockAchievement(ACH_SOCIAL_DOCK_MOVE);
-				} catch (_err) {
-					// Achievement unlocks are best-effort and should never break card gestures.
-				}
-			}
-
-			function startCardFidgetSpin(sign) {
-				unlockSocialDockMoveAchievement();
-				stopCardFidgetSpin();
-				if (prefersReducedMotion) return;
-				const spinSign = sign === -1 ? -1 : 1;
-				if (idleSpinActive) {
-					let lastT = performance.now();
-					card.classList.add('is-fidget-spinning');
-					card.setAttribute('data-fidget-fx', String(pickSocialCardFidgetFxVariant()));
-					const step = (rafT) => {
-						if (!idleSpinActive) {
-							fidgetSpinRaf = 0;
-							card.classList.remove('is-fidget-spinning');
-							card.removeAttribute('data-fidget-fx');
-							return;
-						}
-						const t = typeof rafT === 'number' ? rafT : performance.now();
-						const dt = Math.max(0, Math.min(0.05, (t - lastT) / 1000));
-						lastT = t;
-						state.rotate += SOCIAL_CARD_IDLE_SPIN_DEG_PER_SEC * spinSign * dt;
-						applyStateTransform();
-						fidgetSpinRaf = window.requestAnimationFrame(step);
-					};
-					fidgetSpinRaf = window.requestAnimationFrame(step);
-					return;
-				}
-				const startedAt = performance.now();
-				let lastT = startedAt;
-				card.classList.add('is-fidget-spinning');
-				if (!prefersReducedMotion) {
-					card.setAttribute('data-fidget-fx', String(pickSocialCardFidgetFxVariant()));
-				}
-				const step = (rafT) => {
-					const t = typeof rafT === 'number' ? rafT : performance.now();
-					const dt = Math.max(0, Math.min(0.05, (t - lastT) / 1000));
-					const elapsed = t - startedAt;
-					lastT = t;
-					const progress = clamp(elapsed / SOCIAL_CARD_FIDGET_TURBO_MS, 0, 1);
-					const easeOut = 1 - progress * progress;
-					const rate = SOCIAL_CARD_FIDGET_TURBO_DEG_PER_SEC * (0.16 + easeOut * 0.84);
-					state.rotate += rate * spinSign * dt;
-					applyStateTransform();
-					if (progress >= 1) {
-						fidgetSpinRaf = 0;
-						card.classList.remove('is-fidget-spinning');
-						card.removeAttribute('data-fidget-fx');
-						return;
-					}
-					fidgetSpinRaf = window.requestAnimationFrame(step);
-				};
-				fidgetSpinRaf = window.requestAnimationFrame(step);
+			function levelCard() {
+				applyStateTransform();
 			}
 
 			function bringCardToFront() {
@@ -2731,6 +2607,7 @@
 			function setPinnedHint(text) {
 				openLink.textContent = text;
 				state.isPinned = true;
+				levelCard();
 				markSocialCardPinned();
 				if (pinnedLayer && card.parentElement !== pinnedLayer) {
 					pinnedLayer.appendChild(card);
@@ -2815,36 +2692,7 @@
 				});
 			}
 
-			function getPointerAngle(event) {
-				const cloudRect = cloud.getBoundingClientRect();
-				const pointerX = event.clientX - cloudRect.left;
-				const pointerY = event.clientY - cloudRect.top;
-				const centerX = state.x + card.offsetWidth / 2;
-				const centerY = state.y + card.offsetHeight / 2;
-				return Math.atan2(pointerY - centerY, pointerX - centerX) * (180 / Math.PI);
-			}
-
-			function startRotate(event, sourceLabel, startedFromBorder = false) {
-				stopCardFidgetSpin();
-				bringCardToFront();
-				rotatePointerId = event.pointerId;
-				rotateStartClientX = event.clientX;
-				rotateStartClientY = event.clientY;
-				rotateStartAngle = getPointerAngle(event);
-				rotateStartValue = state.rotate;
-				rotateLastAngle = rotateStartAngle;
-				rotatePositiveDeg = 0;
-				rotateNegativeDeg = 0;
-				isRotateDragging = false;
-				wasPinnedAtRotateStart = state.isPinned;
-				rotateStartedFromBorder = startedFromBorder;
-				if (!state.isPinned) {
-					setPinnedHint(`Pinned. Drag the ${sourceLabel} to rotate.`);
-				}
-			}
-
 			function unpinCard() {
-				stopCardFidgetSpin();
 				pauseActivePlayback();
 				if (card.parentElement !== cloud) {
 					cloud.appendChild(card);
@@ -2871,6 +2719,7 @@
 
 			function pinCard(embed) {
 				state.isPinned = true;
+				levelCard();
 				card.classList.add('is-active');
 				card.classList.toggle(
 					'has-active-player',
@@ -2914,39 +2763,11 @@
 				setPinnedHint('Pinned. Click the card background to resume drift');
 			}
 
-			pinStripButton.addEventListener('click', (event) => {
-				if (suppressNextPinStripClick) {
-					suppressNextPinStripClick = false;
-					event.preventDefault();
-					event.stopPropagation();
-					return;
-				}
-				event.preventDefault();
-				event.stopPropagation();
-				bringCardToFront();
-				if (state.isPinned) {
-					unpinCard();
-					return;
-				}
-				if (state.embed) {
-					pinCard(state.embed);
-					return;
-				}
-				setPinnedHint('Pinned. Click the card background to resume drift');
-			});
-
 			card.addEventListener('pointerdown', (event) => {
 				if (event.button !== 0) return;
 				bringCardToFront();
 				suppressNextCardClick = false;
-				const pointerPath =
-					typeof event.composedPath === 'function' ? event.composedPath() : [];
-				dragStartedOnPinStrip =
-					pointerPath.includes(pinStripButton) ||
-					(event.target instanceof Element &&
-						Boolean(event.target.closest('.smc-pin-strip')));
-				suppressNextPinStripClick = false;
-				if (isInteractiveCardTarget(event.target) && !dragStartedOnPinStrip) return;
+				if (isInteractiveCardTarget(event.target)) return;
 				const cardRect = card.getBoundingClientRect();
 				const startedOnPlayerSurface =
 					event.target instanceof Element && Boolean(event.target.closest('.smc-player'));
@@ -2964,25 +2785,6 @@
 			});
 
 			card.addEventListener('pointermove', (event) => {
-				if (rotatePointerId === event.pointerId) {
-					const moveDistance = Math.hypot(
-						event.clientX - rotateStartClientX,
-						event.clientY - rotateStartClientY
-					);
-					if (!isRotateDragging && moveDistance < 4) return;
-					isRotateDragging = true;
-					const currentAngle = getPointerAngle(event);
-					const rotateDelta = normalizeAngleDelta(currentAngle - rotateLastAngle);
-					rotateLastAngle = currentAngle;
-					if (rotateDelta >= 0) {
-						rotatePositiveDeg += rotateDelta;
-					} else {
-						rotateNegativeDeg += Math.abs(rotateDelta);
-					}
-					state.rotate += rotateDelta;
-					applyStateTransform();
-					return;
-				}
 				if (dragPointerId !== event.pointerId) return;
 				const moveDistance = Math.hypot(
 					event.clientX - dragStartX,
@@ -2993,8 +2795,13 @@
 				const cloudRect = cloud.getBoundingClientRect();
 				const cardWidth = card.offsetWidth;
 				const cardHeight = card.offsetHeight;
-				const minY = state.isPinned ? getPinnedCardMinY() : getVisibleTop();
-				const maxBottom = state.isPinned ? getPinnedCardMaxBottom() : getVisibleBottom();
+				const cardHeightForBounds = card.offsetHeight;
+				const minY = state.isPinned
+					? getPinnedCardMinY()
+					: getCloudMinY(cardHeightForBounds);
+				const maxBottom = state.isPinned
+					? getPinnedCardMaxBottom()
+					: getCloudMaxY(cardHeightForBounds);
 				const maxY = Math.max(minY, maxBottom - cardHeight);
 				const nextX = clamp(
 					event.clientX - cloudRect.left - dragOffsetX,
@@ -3006,15 +2813,11 @@
 				if (!isDragging) {
 					isDragging = true;
 					markSocialCardMoved();
-					if (dragStartedOnPinStrip) {
-						suppressNextPinStripClick = true;
-					}
 					if (deferPointerCapture && !card.hasPointerCapture(event.pointerId)) {
 						card.setPointerCapture(event.pointerId);
 					}
 					deferPointerCapture = false;
-					// Dragging from the pin strip should move the card without toggling pin/open state.
-					if (!dragStartedOnPinStrip) {
+					if (!state.isPinned) {
 						setPinnedHint('Pinned. Drag to place. Click the card background to resume drift');
 					}
 					card.classList.add('is-dragging');
@@ -3026,17 +2829,12 @@
 			});
 
 			card.addEventListener('pointerup', (event) => {
-				if (rotatePointerId === event.pointerId) {
-					endRotate(event);
-					return;
-				}
 				if (dragPointerId !== event.pointerId) return;
 				if (card.hasPointerCapture(event.pointerId)) {
 					card.releasePointerCapture(event.pointerId);
 				}
 				const shouldSuppressClick = pointerStartedOnCardBody && isDragging;
 				dragPointerId = null;
-				dragStartedOnPinStrip = false;
 				pointerStartedOnCardBody = false;
 				deferPointerCapture = false;
 				if (isDragging) {
@@ -3047,10 +2845,6 @@
 			});
 
 			card.addEventListener('pointercancel', (event) => {
-				if (rotatePointerId === event.pointerId) {
-					endRotate(event);
-					return;
-				}
 				if (dragPointerId !== event.pointerId) return;
 				if (card.hasPointerCapture(event.pointerId)) {
 					card.releasePointerCapture(event.pointerId);
@@ -3242,84 +3036,6 @@
 				handle.addEventListener('pointercancel', endResize);
 			});
 
-			const endRotate = (event) => {
-				if (rotatePointerId !== event.pointerId) return;
-				const positiveDeg = rotatePositiveDeg;
-				const negativeDeg = rotateNegativeDeg;
-				const netDeg = state.rotate - rotateStartValue;
-				rotateHandles.forEach((handle) => {
-					if (handle.hasPointerCapture(event.pointerId)) {
-						handle.releasePointerCapture(event.pointerId);
-					}
-				});
-				if (card.hasPointerCapture(event.pointerId)) {
-					card.releasePointerCapture(event.pointerId);
-				}
-				rotatePointerId = null;
-				if (!isRotateDragging) {
-					if (!rotateStartedFromBorder) {
-						bringCardToFront();
-						if (wasPinnedAtRotateStart) {
-							unpinCard();
-						} else {
-							activateCardPlayback();
-						}
-					}
-				} else {
-					const threshold = SOCIAL_CARD_FIDGET_REV_DEG - SOCIAL_CARD_FIDGET_TOL_DEG;
-					const maxOneWay = Math.max(positiveDeg, negativeDeg);
-					if (maxOneWay >= threshold || Math.abs(netDeg) >= threshold) {
-						const sign =
-							maxOneWay >= threshold
-								? positiveDeg >= negativeDeg
-									? 1
-									: -1
-								: netDeg >= 0
-									? 1
-									: -1;
-						setPinnedHint('Fidget spin unlocked. Click the card background to resume drift');
-						startCardFidgetSpin(sign);
-					} else {
-						setPinnedHint('Pinned. Click the card background to resume drift');
-					}
-				}
-				isRotateDragging = false;
-				rotateStartedFromBorder = false;
-			};
-
-			rotateHandles.forEach((handle) => {
-				handle.addEventListener('pointerdown', (event) => {
-					if (event.button !== 0) return;
-					event.preventDefault();
-					event.stopPropagation();
-					startRotate(event, 'card edge', true);
-					handle.setPointerCapture(event.pointerId);
-				});
-
-				handle.addEventListener('pointermove', (event) => {
-					if (rotatePointerId !== event.pointerId) return;
-					const moveDistance = Math.hypot(
-						event.clientX - rotateStartClientX,
-						event.clientY - rotateStartClientY
-					);
-					if (!isRotateDragging && moveDistance < 4) return;
-					isRotateDragging = true;
-					const currentAngle = getPointerAngle(event);
-					const rotateDelta = normalizeAngleDelta(currentAngle - rotateLastAngle);
-					rotateLastAngle = currentAngle;
-					if (rotateDelta >= 0) {
-						rotatePositiveDeg += rotateDelta;
-					} else {
-						rotateNegativeDeg += Math.abs(rotateDelta);
-					}
-					state.rotate += rotateDelta;
-					applyStateTransform();
-				});
-
-				handle.addEventListener('pointerup', endRotate);
-				handle.addEventListener('pointercancel', endRotate);
-			});
-
 			card.addEventListener('click', (event) => {
 				if (isInteractiveCardTarget(event.target)) return;
 				if (suppressNextCardClick) {
@@ -3347,11 +3063,7 @@
 
 			const initialBob =
 				Math.sin(lastFrame * 0.001 * state.driftRate + state.phase) * state.driftAmp;
-			state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${(state.y + initialBob).toFixed(2)}px, 0) rotate(${state.rotate.toFixed(2)}deg)`;
-			socialCardSpinControllers.push({
-				start: () => startCardFidgetSpin(Math.random() < 0.5 ? -1 : 1),
-				stop: stopCardFidgetSpin,
-			});
+			state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${(state.y + initialBob).toFixed(2)}px, 0)`;
 
 			states.push(state);
 		}
@@ -3360,8 +3072,8 @@
 			for (let i = 0; i < states.length; i += 1) {
 				const state = states[i];
 				if (!state?.el || state.isPinned) continue;
-				clampStateToVisibleArea(state);
-				state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px, 0) rotate(${state.rotate.toFixed(2)}deg)`;
+				clampStateToCloudArea(state);
+				state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px, 0)`;
 			}
 		});
 	}
@@ -3375,11 +3087,12 @@
 		state.width = getStateWidth(state);
 		state.x = getRespawnX(state.width, state);
 		const cardHeight = getStateHeight(state);
-		const minY = getVisibleTop();
-		const maxY = Math.max(minY, getVisibleBottom() - cardHeight);
-		state.y = clamp(state.y + (Math.random() * 80 - 40), minY, maxY);
-		state.speed = config.baseSpeed * (0.82 + Math.random() * 0.45);
-		state.phase = Math.random() * Math.PI * 2;
+		const layoutIndex =
+			typeof state.layoutIndex === 'number' ? state.layoutIndex : states.indexOf(state);
+		const respawnRng = seededRng(layoutIndex >= 0 ? layoutIndex : 0, 0x72);
+		state.y = getScatterY(layoutIndex >= 0 ? layoutIndex : 0, cardHeight, 0x72);
+		state.speed = config.baseSpeed * (0.82 + respawnRng() * 0.45);
+		state.phase = respawnRng() * Math.PI * 2;
 	}
 
 	function tick(now) {
@@ -3395,31 +3108,34 @@
 			if (state.x > resetThresholdX) {
 				resetState(state);
 			}
-			const minY = getVisibleTop();
-			const maxY = Math.max(minY, getVisibleBottom() - getStateHeight(state));
+			const cardHeight = getStateHeight(state);
+			const minY = getCloudMinY(cardHeight);
+			const maxY = getCloudMaxY(cardHeight);
 			state.y = clamp(state.y, minY, maxY);
-			state.x = Math.max(8, state.x);
 			const bob = Math.sin(now * 0.001 * state.driftRate + state.phase) * state.driftAmp;
-			state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${(state.y + bob).toFixed(2)}px, 0) rotate(${state.rotate.toFixed(2)}deg)`;
+			state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${(state.y + bob).toFixed(2)}px, 0)`;
 		}
 
 		rafId = window.requestAnimationFrame(tick);
 	}
 
 	function placeStaticCards() {
-		const columns = window.innerWidth < 780 ? 2 : 3;
-		const gutter = 14;
-		const cardWidth = Math.min(
-			230,
-			Math.max(156, (cloudWidth - (columns + 1) * gutter) / columns)
-		);
-		const top = getVisibleTop();
 		for (let i = 0; i < states.length; i += 1) {
-			const row = Math.floor(i / columns);
-			const col = i % columns;
-			const x = gutter + col * (cardWidth + gutter);
-			const y = top + gutter + row * 138;
-			states[i].el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+			const state = states[i];
+			if (!state?.el) continue;
+			const cardHeight = getStateHeight(state);
+			const width = getStateWidth(state);
+			const x = getScatterInitialX(
+				typeof state.layoutIndex === 'number' ? state.layoutIndex : i,
+				width
+			);
+			const y = getScatterY(
+				typeof state.layoutIndex === 'number' ? state.layoutIndex : i,
+				cardHeight
+			);
+			state.x = x;
+			state.y = y;
+			state.el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
 		}
 	}
 
@@ -3438,10 +3154,7 @@
 			window.cancelAnimationFrame(rafId);
 			rafId = 0;
 		}
-		clearIdleSpinTimer();
-		stopIdleSpinForAllCards();
 		states.length = 0;
-		socialCardSpinControllers.length = 0;
 		if (pinnedLayer) {
 			pinnedLayer.textContent = '';
 		}
@@ -3603,7 +3316,6 @@
 	async function initializeCloud() {
 		mountAmbientLayer();
 		mountPinnedLayer();
-		bindIdleSpinInteractionWatchers();
 		syncCloudBounds();
 		const [localItems, redditItems] = await Promise.all([
 			fetchLocalSocialContentItems(),
@@ -3634,11 +3346,12 @@
 				placeStaticCards();
 			} else {
 				for (let i = 0; i < states.length; i += 1) {
-					clampStateToVisibleArea(states[i]);
+					clampStateToCloudArea(states[i]);
 					states[i].width = getStateWidth(states[i]);
 					const maxX = Math.max(8, cloudWidth - states[i].width - 8);
-					if (states[i].x > maxX) resetState(states[i]);
-					states[i].x = clamp(states[i].x, 8, maxX);
+					if (states[i].x > maxX + states[i].width) {
+						resetState(states[i]);
+					}
 				}
 			}
 			if (!ambientTickRaf) {

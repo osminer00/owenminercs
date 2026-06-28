@@ -35,7 +35,7 @@
 		{
 			"title": "Shop",
 			"url": "/Garage%20Sale/garage-sale",
-			"summary": "For sale page: Mercari + eBay buttons at top; #for-sale: live shop rows use Stripe Checkout Session via POST /api/shop-checkout when checkoutBackend stripe + STRIPE_SECRET_KEY; legacy hosted URLs still work; cart reminder list with Stripe button or links. Catalog/prices server-side: functions/api/_shop-catalog.js. Data: Garage Sale/shop-products.json + ebay-listings.json via scripts/garage-sale.js."
+			"summary": "For sale page: eBay store link at top; #for-sale: live shop rows use Stripe Checkout Session via POST /api/shop-checkout when checkoutBackend stripe + STRIPE_SECRET_KEY; legacy hosted URLs still work; cart reminder list with Stripe button or links. Catalog/prices server-side: functions/api/_shop-catalog.js. Data: Garage Sale/shop-products.json + ebay-listings.json via scripts/garage-sale.js."
 		},
 		{
 			"title": "Socials",
