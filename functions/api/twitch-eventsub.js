@@ -19,6 +19,8 @@ const TWITCH_MESSAGE_TIMESTAMP = 'twitch-eventsub-message-timestamp';
 const TWITCH_SIGNATURE = 'twitch-eventsub-message-signature';
 const MAX_EVENTS = 100;
 const MAX_AGE_MS = 10 * 60 * 1000;
+const PROCESSING_TTL_SECONDS = 30;
+const PROCESSED_TTL_SECONDS = 86400;
 
 function messageIsFresh(timestamp) {
 	const ts = Date.parse(timestamp);
@@ -37,6 +39,23 @@ function statCommandsForEvent(event) {
 	if (event.type === 'bits')
 		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'bits_total', String(event.bits || 0)]);
 	return commands;
+}
+
+async function claimMessageForProcessing(env, idempotencyKey) {
+	const claimResult = await upstashCommand(env, [
+		'SET',
+		idempotencyKey,
+		'processing',
+		'NX',
+		'EX',
+		String(PROCESSING_TTL_SECONDS),
+	]);
+	if (claimResult === 'OK') return { claimed: true };
+
+	const currentState = await upstashCommand(env, ['GET', idempotencyKey]);
+	if (currentState === 'processed' || currentState === '1')
+		return { claimed: false, duplicate: true };
+	return { claimed: false, processing: true };
 }
 
 export async function onRequestPost(context) {
@@ -91,21 +110,20 @@ export async function onRequestPost(context) {
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
 
 	try {
-		const idempotentResult = await upstashCommand(env, [
-			'SET',
-			idempotencyKey,
-			'1',
-			'NX',
-			'EX',
-			'86400',
-		]);
-		if (idempotentResult !== 'OK') return json({ ok: true, duplicate: true });
+		const claim = await claimMessageForProcessing(env, idempotencyKey);
+		if (claim.duplicate) return json({ ok: true, duplicate: true });
+		if (claim.processing) {
+			return json({ error: 'Twitch EventSub message is already being processed.' }, 503, {
+				'Retry-After': '5',
+			});
+		}
 
 		const pipeline = [
 			['LPUSH', EVENT_LIST_KEY, JSON.stringify(normalized)],
 			['LTRIM', EVENT_LIST_KEY, '0', String(MAX_EVENTS - 1)],
 			['SET', LAST_UPDATED_KEY, new Date().toISOString()],
 			...statCommandsForEvent(normalized),
+			['SET', idempotencyKey, 'processed', 'EX', String(PROCESSED_TTL_SECONDS)],
 		];
 		await upstashPipeline(env, pipeline);
 	} catch (error) {
