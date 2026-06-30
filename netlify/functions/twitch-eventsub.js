@@ -17,6 +17,8 @@ const TOTALS_HASH_KEY = 'activity:twitch:totals';
 const SEEN_MESSAGE_PREFIX = 'activity:twitch:seen:';
 const MAX_EVENTS = 100;
 const MAX_AGE_MS = 10 * 60 * 1000;
+const PROCESSING_TTL_SECONDS = 30;
+const PROCESSED_TTL_SECONDS = 86400;
 
 function getHeader(headers, name) {
 	if (!headers) return '';
@@ -40,6 +42,24 @@ function statCommandsForEvent(event) {
 	if (event.type === 'bits')
 		commands.push(['HINCRBY', TOTALS_HASH_KEY, 'bits_total', String(event.bits || 0)]);
 	return commands;
+}
+
+async function claimMessageForProcessing(idempotencyKey) {
+	const claimResult = await upstashCommand([
+		'SET',
+		idempotencyKey,
+		'processing',
+		'NX',
+		'EX',
+		String(PROCESSING_TTL_SECONDS),
+	]);
+	if (claimResult === 'OK') return { claimed: true };
+
+	const currentState = await upstashCommand(['GET', idempotencyKey]);
+	if (currentState === 'processed' || currentState === '1') {
+		return { claimed: false, duplicate: true };
+	}
+	return { claimed: false, processing: true };
 }
 
 exports.handler = async function handler(event) {
@@ -114,16 +134,16 @@ exports.handler = async function handler(event) {
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
 
 	try {
-		const idempotentResult = await upstashCommand([
-			'SET',
-			idempotencyKey,
-			'1',
-			'NX',
-			'EX',
-			'86400',
-		]);
-		if (idempotentResult !== 'OK') {
+		const claim = await claimMessageForProcessing(idempotencyKey);
+		if (claim.duplicate) {
 			return json(200, { ok: true, duplicate: true });
+		}
+		if (claim.processing) {
+			return json(
+				503,
+				{ error: 'Twitch EventSub message is already being processed.' },
+				{ 'Retry-After': '5' }
+			);
 		}
 
 		const pipeline = [
@@ -131,6 +151,7 @@ exports.handler = async function handler(event) {
 			['LTRIM', EVENT_LIST_KEY, '0', String(MAX_EVENTS - 1)],
 			['SET', 'activity:twitch:last_updated', new Date().toISOString()],
 			...statCommandsForEvent(normalized),
+			['SET', idempotencyKey, 'processed', 'EX', String(PROCESSED_TTL_SECONDS)],
 		];
 		await upstashPipeline(pipeline);
 	} catch (error) {
