@@ -6,7 +6,9 @@ const componentsSource = readFileSync(new URL('../scripts/components.js', import
 
 function extractSiteSearchSource() {
 	const start = componentsSource.indexOf('/** Resolve a canonical site path');
-	const end = componentsSource.indexOf("const DISCORD_INVITE_URL = 'https://discord.gg/fA9GbxmAge';");
+	const end = componentsSource.indexOf(
+		"const DISCORD_INVITE_URL = 'https://discord.gg/fA9GbxmAge';"
+	);
 	assert.notEqual(start, -1, 'site search helper block should start at resolveSiteSearchHref');
 	assert.notEqual(end, -1, 'site search helper block should end before unrelated constants');
 	return componentsSource.slice(start, end);
@@ -146,7 +148,10 @@ test('site search falls back to raw paths when malformed URI decoding fails', ()
 });
 
 test('site search href resolution mirrors production and local extension rules', () => {
-	const production = loadSiteSearchApi({ siteRoot: 'https://owenminercs.com/', isLocal: false }).api;
+	const production = loadSiteSearchApi({
+		siteRoot: 'https://owenminercs.com/',
+		isLocal: false,
+	}).api;
 	const local = loadSiteSearchApi({ siteRoot: 'http://localhost:5500/', isLocal: true }).api;
 
 	assert.equal(production.resolveHref(''), 'https://owenminercs.com/');

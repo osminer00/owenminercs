@@ -20,11 +20,15 @@ function extractAuthHelpers(source) {
 }
 
 function loadWorkersAuthHelpers() {
-	return new Function(`${extractAuthHelpers(workersSource)}\nreturn { timingSafeEqual, isAuthorizedRequest };`)();
+	return new Function(
+		`${extractAuthHelpers(workersSource)}\nreturn { timingSafeEqual, isAuthorizedRequest };`
+	)();
 }
 
 function loadNetlifyAuthHelpers() {
-	return new Function(`${extractAuthHelpers(netlifySource)}\nreturn { timingSafeEqual, isAuthorizedRequest };`)();
+	return new Function(
+		`${extractAuthHelpers(netlifySource)}\nreturn { timingSafeEqual, isAuthorizedRequest };`
+	)();
 }
 
 function workersRequest(headers = {}) {
@@ -53,7 +57,10 @@ test('Twitch register auth accepts bearer secrets only when header secret is abs
 	const { isAuthorizedRequest } = loadWorkersAuthHelpers();
 
 	assert.equal(
-		isAuthorizedRequest(workersRequest({ authorization: 'Bearer correct-secret' }), 'correct-secret'),
+		isAuthorizedRequest(
+			workersRequest({ authorization: 'Bearer correct-secret' }),
+			'correct-secret'
+		),
 		true
 	);
 	assert.equal(
