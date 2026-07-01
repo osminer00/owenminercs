@@ -4,7 +4,10 @@ import test from 'node:test';
 import vm from 'node:vm';
 
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
-const searchPageSource = readFileSync(new URL('../scripts/search-page.js', import.meta.url), 'utf8');
+const searchPageSource = readFileSync(
+	new URL('../scripts/search-page.js', import.meta.url),
+	'utf8'
+);
 
 function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
