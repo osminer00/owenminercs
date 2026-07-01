@@ -183,7 +183,11 @@ test('site search filters multi-token queries, honors curated ranking, and caps 
 		},
 	];
 
-	assert.deepEqual(searchFilterEntries(entries, 'x', 10), [], 'one-character queries stay inert');
+	assert.equal(
+		searchFilterEntries(entries, 'x', 10).length,
+		0,
+		'one-character queries stay inert'
+	);
 
 	const curated = searchFilterEntries(entries, 'budget pc', 10);
 	assert.equal(curated[0].path, 'Garage%20Sale/garage-sale');
