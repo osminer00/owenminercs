@@ -4,8 +4,11 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 
-const checkerPath = new URL('../dev/public-content-regression-check.mjs', import.meta.url);
+const checkerPath = fileURLToPath(
+	new URL('../dev/public-content-regression-check.mjs', import.meta.url)
+);
 
 async function writeFixture(root, relativePath, content) {
 	const absolutePath = path.join(root, relativePath);

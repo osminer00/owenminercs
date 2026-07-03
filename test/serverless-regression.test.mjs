@@ -18,7 +18,22 @@ function extractFunction(source, functionName) {
 	const match = pattern.exec(source);
 	assert.ok(match, `${functionName} should exist`);
 
-	const braceStart = source.indexOf('{', match.index);
+	let parenDepth = 0;
+	let paramsEnd = -1;
+	for (let i = source.indexOf('(', match.index); i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '(') parenDepth += 1;
+		if (char === ')') {
+			parenDepth -= 1;
+			if (parenDepth === 0) {
+				paramsEnd = i;
+				break;
+			}
+		}
+	}
+	assert.notEqual(paramsEnd, -1, `${functionName} parameters should close`);
+
+	const braceStart = source.indexOf('{', paramsEnd);
 	assert.notEqual(braceStart, -1, `${functionName} should have a body`);
 
 	let depth = 0;
