@@ -35,15 +35,9 @@ test('X sync preserves existing data when upstream sources return no posts', () 
 		copyFileSync(new URL('../scripts/sync-x-top-posts.py', import.meta.url), scriptPath);
 		writeFileSync(dataPath, `${JSON.stringify(existingPosts, null, 2)}\n`);
 
-		const result = spawnSync(
-			'python3',
-			[
-				'-',
-				scriptPath,
-			],
-			{
-				encoding: 'utf8',
-				input: `
+		const result = spawnSync('python3', ['-', scriptPath], {
+			encoding: 'utf8',
+			input: `
 import importlib.util
 import sys
 from pathlib import Path
@@ -64,8 +58,7 @@ except RuntimeError as exc:
 else:
     raise AssertionError("Expected sync to refuse an empty overwrite")
 `,
-			}
-		);
+		});
 
 		assert.equal(result.status, 0, result.stderr || result.stdout);
 		assert.deepEqual(JSON.parse(readFileSync(dataPath, 'utf8')), existingPosts);
