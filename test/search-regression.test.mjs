@@ -4,7 +4,10 @@ import test from 'node:test';
 import { setImmediate as flushMicrotasks } from 'node:timers/promises';
 
 const componentsSource = readFileSync(new URL('../scripts/components.js', import.meta.url), 'utf8');
-const searchPageSource = readFileSync(new URL('../scripts/search-page.js', import.meta.url), 'utf8');
+const searchPageSource = readFileSync(
+	new URL('../scripts/search-page.js', import.meta.url),
+	'utf8'
+);
 
 class FakeTextNode {
 	constructor(text) {

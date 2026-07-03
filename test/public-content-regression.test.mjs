@@ -41,7 +41,8 @@ test('public content checker ignores generated search index artifacts by basenam
 	await withFixture(
 		{
 			'index.html': '<!doctype html><title>Public page</title><p>Safe content.</p>',
-			'data/site-search-index.json': '{"entries":[{"text":"DMACC appears in generated local snippets"}]}',
+			'data/site-search-index.json':
+				'{"entries":[{"text":"DMACC appears in generated local snippets"}]}',
 			'nested/search-manual-keywords.json': '{"legacy":["DMACC"]}',
 		},
 		(root) => {
@@ -56,8 +57,10 @@ test('public content checker ignores generated search index artifacts by basenam
 test('public content checker still fails forbidden text in public html', async () => {
 	await withFixture(
 		{
-			'index.html': '<!doctype html><title>Public page</title><p>DMACC should not publish.</p>',
-			'data/site-search-index.json': '{"entries":[{"text":"generated snippets are ignored"}]}',
+			'index.html':
+				'<!doctype html><title>Public page</title><p>DMACC should not publish.</p>',
+			'data/site-search-index.json':
+				'{"entries":[{"text":"generated snippets are ignored"}]}',
 		},
 		(root) => {
 			const result = runChecker(root);

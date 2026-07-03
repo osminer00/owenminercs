@@ -123,7 +123,10 @@ test('Twitch registration auth compares non-string secrets safely in both runtim
 		),
 		false
 	);
-	assert.equal(netlifyAuth.isAuthorizedRequest({ 'x-twitch-register-secret': 'wrong' }, 1234), false);
+	assert.equal(
+		netlifyAuth.isAuthorizedRequest({ 'x-twitch-register-secret': 'wrong' }, 1234),
+		false
+	);
 });
 
 test('Netlify Steam inventory handler caps market price lookups at 80 unique names', async () => {
@@ -167,7 +170,11 @@ test('Netlify Steam inventory handler caps market price lookups at 80 unique nam
 
 		assert.equal(response.statusCode, 200);
 		assert.equal(priceUrls.length, 80);
-		assert.equal(new Set(priceUrls).size, 80, 'price lookups should be deduplicated by market hash');
+		assert.equal(
+			new Set(priceUrls).size,
+			80,
+			'price lookups should be deduplicated by market hash'
+		);
 		assert.equal(payload.totalItems, 90);
 		assert.equal(payload.items.length, 90);
 		assert.equal(payload.items.filter((item) => item.pricing).length, 80);
