@@ -215,6 +215,16 @@ def build_top_posts(username: str) -> list[dict]:
     return out[:MAX_ITEMS]
 
 
+def has_existing_posts(target_path: Path) -> bool:
+    if not target_path.exists():
+        return False
+    try:
+        existing = json.loads(target_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    return isinstance(existing, list) and len(existing) > 0
+
+
 def main() -> None:
     script_dir = Path(__file__).resolve().parent
     repo_root = script_dir.parent
@@ -222,6 +232,12 @@ def main() -> None:
     username = resolve_username_from_nav(repo_root)
 
     posts = build_top_posts(username)
+    if not posts and has_existing_posts(target_path):
+        raise RuntimeError(
+            f"Refusing to overwrite existing X post data with 0 posts for @{username}. "
+            "Check the RSS/fxTwitter sources and retry."
+        )
+
     target_path.parent.mkdir(parents=True, exist_ok=True)
     target_path.write_text(json.dumps(posts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
