@@ -3,7 +3,10 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
 
-const searchPageSource = readFileSync(new URL('../scripts/search-page.js', import.meta.url), 'utf8');
+const searchPageSource = readFileSync(
+	new URL('../scripts/search-page.js', import.meta.url),
+	'utf8'
+);
 
 class FakeTextNode {
 	constructor(text) {
