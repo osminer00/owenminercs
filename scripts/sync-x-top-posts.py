@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import urllib.request
 import xml.etree.ElementTree as et
 from datetime import datetime, timezone
@@ -180,6 +181,26 @@ def resolve_username_from_nav(repo_root: Path) -> str:
     return username or DEFAULT_USERNAME
 
 
+def has_existing_posts(target_path: Path) -> bool:
+    if not target_path.exists():
+        return False
+    try:
+        existing = json.loads(target_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    return isinstance(existing, list) and len(existing) > 0
+
+
+def write_posts(target_path: Path, posts: list[dict], username: str) -> None:
+    if not posts and has_existing_posts(target_path):
+        raise RuntimeError(
+            f"Refusing to overwrite existing X top-post data with 0 posts for @{username}."
+        )
+
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.write_text(json.dumps(posts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
 def build_top_posts(username: str) -> list[dict]:
     status_ids: list[str] = []
     seen_ids: set[str] = set()
@@ -222,8 +243,11 @@ def main() -> None:
     username = resolve_username_from_nav(repo_root)
 
     posts = build_top_posts(username)
-    target_path.parent.mkdir(parents=True, exist_ok=True)
-    target_path.write_text(json.dumps(posts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    try:
+        write_posts(target_path, posts, username)
+    except RuntimeError as error:
+        print(str(error), file=sys.stderr)
+        raise SystemExit(1) from error
 
     print(f"Wrote {len(posts)} post(s) for @{username} to {target_path}")
 
