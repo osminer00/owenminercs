@@ -57,7 +57,10 @@ else:
 		{ TARGET_PATH: targetPath }
 	);
 
-	assert.match(output, /Refusing to overwrite existing X top-post data with 0 posts for @OwenMiner\./);
+	assert.match(
+		output,
+		/Refusing to overwrite existing X top-post data with 0 posts for @OwenMiner\./
+	);
 	assert.deepEqual(JSON.parse(readFileSync(targetPath, 'utf8')), existingPosts);
 });
 
