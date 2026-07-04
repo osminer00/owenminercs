@@ -22,6 +22,8 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Local machine config file `.claude/settings.local.json` was once tracked; keep it gitignored and untracked to avoid leaking local command permissions or environment-related references.
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.
+- `/search/` is served by a 200 rewrite to `search.html`; use root-relative assets there or CSS/shared JS fails under the trailing-slash URL.
+- `scripts/sync-x-top-posts.py` must not overwrite non-empty `Socials/data/x-top-posts.json` with `[]` when upstream RSS/fxTwitter returns no usable posts; fail closed to avoid silent data loss.
 
 ## Issue Template
 
