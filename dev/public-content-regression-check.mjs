@@ -44,6 +44,20 @@ const FORBIDDEN_PUBLIC_CONTENT = [
 	},
 ];
 
+const REQUIRED_PUBLIC_CONTENT = [
+	{
+		file: 'Keyboard/60he.html',
+		label: 'Wooting 60HE detailed guide content',
+		patterns: [
+			/Wooting 60HE build guide: parts, switches, keycaps &amp; mods/i,
+			/Kilowatt Keyboard Photo Gallery \(2025\)/i,
+			/2023 Build Breakdown: Crosshair Alpha/i,
+			/Wootility keyboard profile code/i,
+			/Ultimate Wooting 60HE Mod Guide/i,
+		],
+	},
+];
+
 async function* walk(dir) {
 	const entries = await fs.readdir(dir, { withFileTypes: true });
 
@@ -87,12 +101,35 @@ async function collectViolations() {
 	return violations;
 }
 
+async function collectMissingRequiredContent() {
+	const missing = [];
+
+	for (const rule of REQUIRED_PUBLIC_CONTENT) {
+		const abs = path.join(ROOT, ...rule.file.split('/'));
+		const text = await fs.readFile(abs, 'utf8');
+
+		for (const pattern of rule.patterns) {
+			if (pattern.test(text)) continue;
+			missing.push(`${rule.file} is missing ${rule.label}: ${pattern}`);
+		}
+	}
+
+	return missing;
+}
+
 const violations = await collectViolations();
+const missingRequiredContent = await collectMissingRequiredContent();
 
 assert.equal(
 	violations.length,
 	0,
 	`Forbidden public content found:\n${violations.map((v) => `- ${v}`).join('\n')}`
+);
+
+assert.equal(
+	missingRequiredContent.length,
+	0,
+	`Required public content missing:\n${missingRequiredContent.map((v) => `- ${v}`).join('\n')}`
 );
 
 console.log('Public content regression check passed.');
