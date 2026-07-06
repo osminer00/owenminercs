@@ -4756,6 +4756,65 @@ body.site-card-ui h4 {
 	color: var(--text);
 }
 
+.site-search-page-form {
+	display: grid;
+	gap: 0.55rem;
+	width: min(100%, 42rem);
+	margin: 0 auto 1rem;
+	text-align: left;
+}
+
+.site-search-page-label {
+	color: var(--text-muted);
+	font-size: 0.92rem;
+	font-weight: 600;
+}
+
+.site-search-page-form__row {
+	display: flex;
+	gap: 0.55rem;
+	align-items: stretch;
+}
+
+.site-search-page-input {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0.72rem 0.85rem;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-sm);
+	background: rgba(5, 7, 10, 0.72);
+	color: var(--text);
+	font: inherit;
+}
+
+.site-search-page-input::placeholder {
+	color: var(--text-dim);
+}
+
+.site-search-page-input:focus-visible {
+	outline: 2px solid var(--button-accent-ring);
+	outline-offset: 2px;
+	box-shadow: var(--button-accent-glow);
+}
+
+.site-search-page-submit {
+	flex: 0 0 auto;
+	padding: 0.72rem 1rem;
+	border: 1px solid var(--button-accent-ring);
+	border-radius: var(--radius-sm);
+	background: var(--button-accent-fill);
+	color: var(--text);
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+@media (max-width: 560px) {
+	.site-search-page-form__row {
+		flex-direction: column;
+	}
+}
+
 /* ----- Google Keep–style card board (Bigfoot's Jungle / Gaming hubs) ----- */
 .keep-board {
 	display: grid;
