@@ -3,7 +3,10 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const searchHtml = readFileSync(new URL('../search.html', import.meta.url), 'utf8');
-const searchPageScript = readFileSync(new URL('../scripts/search-page.js', import.meta.url), 'utf8');
+const searchPageScript = readFileSync(
+	new URL('../scripts/search-page.js', import.meta.url),
+	'utf8'
+);
 
 test('search page uses root-relative local assets for the trailing-slash route', () => {
 	assert.match(searchHtml, /href="\/css\/owenminercs\.css"/);
@@ -18,12 +21,18 @@ test('search page exposes an enabled GET search form', () => {
 		searchHtml,
 		/<form class="site-search-page-form" action="\/search" method="get" role="search" data-owen-site-search>/
 	);
-	assert.match(searchHtml, /<input\s+[^>]*id="site-search-page-input"[^>]*\sname="q"[^>]*\stype="search"/);
+	assert.match(
+		searchHtml,
+		/<input\s+[^>]*id="site-search-page-input"[^>]*\sname="q"[^>]*\stype="search"/
+	);
 });
 
 test('search page script keeps direct links and form submissions in sync', () => {
 	assert.match(searchPageScript, /if \(inputEl\) inputEl\.value = q;/);
 	assert.match(searchPageScript, /formEl\.addEventListener\('submit',/);
-	assert.match(searchPageScript, /api\.getSearchPageUrl\(\)\}\?q=\$\{encodeURIComponent\(nextQuery\)\}/);
+	assert.match(
+		searchPageScript,
+		/api\.getSearchPageUrl\(\)\}\?q=\$\{encodeURIComponent\(nextQuery\)\}/
+	);
 	assert.doesNotMatch(searchPageScript, /search section on the home page/);
 });
