@@ -8,8 +8,7 @@
 		const q = (queryRaw || '').trim();
 		summaryEl.textContent = '';
 		if (!q) {
-			summaryEl.textContent =
-				'Enter a search using the Search link in the navigation bar or the search section on the home page.';
+			summaryEl.textContent = 'Enter a search term to search pages across OwenMinerCS.com.';
 			return;
 		}
 		summaryEl.appendChild(document.createTextNode('Results for '));
@@ -24,10 +23,26 @@
 		const api = window.owenminercsSiteSearchApi;
 		const resultsEl = document.getElementById('site-search-page-results');
 		const summaryEl = document.getElementById('site-search-page-summary');
+		const formEl = document.querySelector('.site-search-page-form');
+		const inputEl = document.getElementById('site-search-page-input');
 		if (!api || !resultsEl) return;
 
 		const params = new URLSearchParams(window.location.search);
 		const q = params.get('q') || '';
+		if (inputEl) inputEl.value = q;
+		if (formEl && inputEl) {
+			formEl.addEventListener('submit', (event) => {
+				event.preventDefault();
+				const nextQuery = inputEl.value.trim();
+				if (!nextQuery) {
+					setSummary(summaryEl, '');
+					resultsEl.textContent = '';
+					inputEl.focus();
+					return;
+				}
+				window.location.href = `${api.getSearchPageUrl()}?q=${encodeURIComponent(nextQuery)}`;
+			});
+		}
 
 		setSummary(summaryEl, q);
 
