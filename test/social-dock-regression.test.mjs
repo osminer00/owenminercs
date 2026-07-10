@@ -26,6 +26,46 @@ function extractFunction(source, functionName) {
 	assert.fail(`${functionName} body should close`);
 }
 
+function extractClass(source, className) {
+	const start = source.indexOf(`class ${className}`);
+	assert.notEqual(start, -1, `${className} should exist`);
+
+	const braceStart = source.indexOf('{', start);
+	assert.notEqual(braceStart, -1, `${className} should have a body`);
+
+	let depth = 0;
+	for (let i = braceStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '{') depth += 1;
+		if (char === '}') {
+			depth -= 1;
+			if (depth === 0) return source.slice(start, i + 1);
+		}
+	}
+
+	assert.fail(`${className} body should close`);
+}
+
+function extractMethod(source, methodName) {
+	const start = source.indexOf(`${methodName}()`);
+	assert.notEqual(start, -1, `${methodName} should exist`);
+
+	const braceStart = source.indexOf('{', start);
+	assert.notEqual(braceStart, -1, `${methodName} should have a body`);
+
+	let depth = 0;
+	for (let i = braceStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '{') depth += 1;
+		if (char === '}') {
+			depth -= 1;
+			if (depth === 0) return source.slice(start, i + 1);
+		}
+	}
+
+	assert.fail(`${methodName} body should close`);
+}
+
 function extractCssRule(selector) {
 	const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 	const rulePattern = new RegExp(`${escaped}\\s*\\{(?<body>[\\s\\S]*?)\\}`, 'm');
@@ -48,6 +88,10 @@ function extractCssRuleContaining(selector, bodyPattern) {
 		if (bodyPattern.test(match.groups.body)) return match.groups.body;
 	}
 	assert.fail(`${selector} rule containing ${bodyPattern} should exist`);
+}
+
+function countMatches(source, pattern) {
+	return [...source.matchAll(pattern)].length;
 }
 
 test('social dock first drag keeps header geometry until the pointer is released', () => {
@@ -113,6 +157,26 @@ test('social dock drag-lock CSS mirrors header horizontal layout while fixed', (
 	);
 	assert.match(iconRule, /width:\s*19px;/);
 	assert.match(iconRule, /height:\s*19px;/);
+});
+
+test('shared header and footer label the setup hub without changing its stable route', () => {
+	const headerCallback = extractMethod(
+		extractClass(componentsSource, 'SharedHeader'),
+		'connectedCallback'
+	);
+	const footerCallback = extractMethod(
+		extractClass(componentsSource, 'SharedFooter'),
+		'connectedCallback'
+	);
+	const setupLinkPattern =
+		/<a href="\$\{getLink\('The%20Setup\/the-setup'\)\}" class="site-nav-link" data-nav="The Setup" title="Desk, camping gear, PC, keyboard, and upgrades">Gaming Setups<\/a>/g;
+
+	assert.equal(countMatches(headerCallback, setupLinkPattern), 1);
+	assert.equal(countMatches(footerCallback, setupLinkPattern), 1);
+	assert.doesNotMatch(
+		`${headerCallback}\n${footerCallback}`,
+		/<a[^>]+data-nav="The Setup"[^>]*>Bigfoot's Jungle<\/a>/
+	);
 });
 
 test('homepage keeps Impact affiliate verification meta tag in the head', () => {
