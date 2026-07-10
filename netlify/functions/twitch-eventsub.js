@@ -42,6 +42,12 @@ function statCommandsForEvent(event) {
 	return commands;
 }
 
+async function releaseIdempotencyClaim(key) {
+	try {
+		await upstashCommand(['DEL', key]);
+	} catch (_) {}
+}
+
 exports.handler = async function handler(event) {
 	if (event.httpMethod === 'OPTIONS') {
 		return {
@@ -112,6 +118,7 @@ exports.handler = async function handler(event) {
 	const eventData = payload.event || {};
 	const normalized = normalizeTwitchEvent(subType, eventData);
 	const idempotencyKey = `${SEEN_MESSAGE_PREFIX}${messageId}`;
+	let idempotencyClaimed = false;
 
 	try {
 		const idempotentResult = await upstashCommand([
@@ -125,6 +132,7 @@ exports.handler = async function handler(event) {
 		if (idempotentResult !== 'OK') {
 			return json(200, { ok: true, duplicate: true });
 		}
+		idempotencyClaimed = true;
 
 		const pipeline = [
 			['LPUSH', EVENT_LIST_KEY, JSON.stringify(normalized)],
@@ -134,6 +142,7 @@ exports.handler = async function handler(event) {
 		];
 		await upstashPipeline(pipeline);
 	} catch (error) {
+		if (idempotencyClaimed) await releaseIdempotencyClaim(idempotencyKey);
 		return json(500, {
 			error: 'Failed to persist Twitch event.',
 			detail: String(error.message || error),
