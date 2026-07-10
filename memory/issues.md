@@ -22,6 +22,8 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Local machine config file `.claude/settings.local.json` was once tracked; keep it gitignored and untracked to avoid leaking local command permissions or environment-related references.
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.
+- Search page rewrites (`/search` and `/search/`) need root-relative local assets and an on-page GET form; otherwise `/search/` loses CSS/JS and the nav Search link becomes a results page with no query entry.
+- Twitch EventSub idempotency (`activity:twitch:seen:*`) must not outlive failed event persistence. If Redis feed/totals writes fail after claiming `SET NX`, clear the seen key so Twitch retries can persist the event.
 
 ## Issue Template
 

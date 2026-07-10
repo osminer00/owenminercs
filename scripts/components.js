@@ -160,7 +160,7 @@ function searchRenderResults(container, list, query, variant) {
 		p.className = 'site-search-results__hint';
 		p.textContent =
 			variant === 'fullPage'
-				? 'No search terms were in the link. Use Search in the navigation bar or the search section on the home page.'
+				? 'No search terms were in the link. Enter a search on this page to find site content.'
 				: 'Type at least 2 characters to search page copy, titles, image captions, and paths.';
 		container.appendChild(p);
 		return;
