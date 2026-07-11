@@ -120,8 +120,9 @@ async function runSearchPage({ query = '', fetchImpl, api }) {
 	};
 
 	vm.runInNewContext(searchPageSource, context, { filename: 'scripts/search-page.js' });
-	await Promise.resolve();
-	await Promise.resolve();
+	for (let i = 0; i < 5; i += 1) {
+		await Promise.resolve();
+	}
 
 	return {
 		document,
