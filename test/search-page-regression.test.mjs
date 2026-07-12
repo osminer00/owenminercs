@@ -3,7 +3,10 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
 
-const searchPageSource = readFileSync(new URL('../scripts/search-page.js', import.meta.url), 'utf8');
+const searchPageSource = readFileSync(
+	new URL('../scripts/search-page.js', import.meta.url),
+	'utf8'
+);
 const redirectsSource = readFileSync(new URL('../_redirects', import.meta.url), 'utf8');
 const searchHtmlSource = readFileSync(new URL('../search.html', import.meta.url), 'utf8');
 
@@ -85,7 +88,8 @@ function createSearchPageHarness({ query = '', fetchImpl, apiOverrides = {} } = 
 			calls.fetch.push(url);
 			return Promise.resolve({
 				ok: true,
-				json: () => Promise.resolve({ entries: [{ title: 'Keyboard', path: 'Keyboard/60he' }] }),
+				json: () =>
+					Promise.resolve({ entries: [{ title: 'Keyboard', path: 'Keyboard/60he' }] }),
 			});
 		});
 
@@ -119,7 +123,9 @@ async function flushPromises() {
 }
 
 test('dedicated search page leaves empty query links in a safe guidance state', async () => {
-	const { calls, document, resultsEl, summaryEl } = createSearchPageHarness({ query: '?q=%20%20' });
+	const { calls, document, resultsEl, summaryEl } = createSearchPageHarness({
+		query: '?q=%20%20',
+	});
 
 	await flushPromises();
 
@@ -152,7 +158,9 @@ test('dedicated search page fetches the index and delegates full-page rendering 
 	assert.equal(calls.filterEntries.length, 1);
 	assert.equal(calls.filterEntries[0].q, 'keyboard build');
 	assert.equal(calls.filterEntries[0].maxResults, Infinity);
-	assert.deepEqual(calls.filterEntries[0].entries, [{ title: 'Keyboard', path: 'Keyboard/60he' }]);
+	assert.deepEqual(calls.filterEntries[0].entries, [
+		{ title: 'Keyboard', path: 'Keyboard/60he' },
+	]);
 
 	assert.equal(calls.renderResults.length, 1);
 	assert.equal(calls.renderResults[0].container, resultsEl);
@@ -162,10 +170,11 @@ test('dedicated search page fetches the index and delegates full-page rendering 
 });
 
 test('dedicated search page replaces failed index loads with a deterministic error message', async () => {
+	const fetchCalls = [];
 	const { calls, resultsEl } = createSearchPageHarness({
 		query: '?q=counter-strike',
 		fetchImpl(url) {
-			calls.fetch.push(url);
+			fetchCalls.push(url);
 			return Promise.resolve({
 				ok: false,
 				json: () => Promise.resolve({ entries: [{ title: 'Should not render' }] }),
@@ -175,7 +184,7 @@ test('dedicated search page replaces failed index loads with a deterministic err
 
 	await flushPromises();
 
-	assert.deepEqual(calls.fetch, ['/data/site-search-index.json']);
+	assert.deepEqual(fetchCalls, ['/data/site-search-index.json']);
 	assert.deepEqual(calls.filterEntries, [], 'failed index loads should not rank partial data');
 	assert.deepEqual(calls.renderResults, [], 'failed index loads should not render stale results');
 	assert.equal(resultsEl.children.length, 1);
@@ -186,7 +195,10 @@ test('dedicated search page replaces failed index loads with a deterministic err
 test('dedicated search route is wired as a static pretty URL with required scripts', () => {
 	assert.match(redirectsSource, /^\/search\s+\/search\.html\s+200$/m);
 	assert.match(redirectsSource, /^\/search\/\s+\/search\.html\s+200$/m);
-	assert.match(searchHtmlSource, /<link rel="canonical" href="https:\/\/www\.owenminercs\.com\/search" \/>/);
+	assert.match(
+		searchHtmlSource,
+		/<link rel="canonical" href="https:\/\/www\.owenminercs\.com\/search" \/>/
+	);
 	assert.match(searchHtmlSource, /<script src="\.\/scripts\/components\.js" defer><\/script>/);
 	assert.match(searchHtmlSource, /<script src="\.\/scripts\/search-page\.js" defer><\/script>/);
 	assert.match(searchHtmlSource, /id="site-search-page-results"[\s\S]*aria-live="polite"/);
