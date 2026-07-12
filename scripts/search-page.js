@@ -28,6 +28,8 @@
 
 		const params = new URLSearchParams(window.location.search);
 		const q = params.get('q') || '';
+		const input = document.getElementById('site-search-page-input');
+		if (input) input.value = q;
 
 		setSummary(summaryEl, q);
 
