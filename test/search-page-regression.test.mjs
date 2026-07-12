@@ -23,8 +23,14 @@ test('search trailing-slash route loads root site assets', () => {
 	const urls = localAssetUrls();
 	assert.ok(urls.includes('/css/owenminercs.css'), 'search page should load shared CSS');
 	assert.ok(urls.includes('/scripts/components.js'), 'search page should load shared components');
-	assert.ok(urls.includes('/scripts/search-page.js'), 'search page should load search page script');
-	assert.ok(urls.includes('/scripts/support-links.js'), 'search page should load support link script');
+	assert.ok(
+		urls.includes('/scripts/search-page.js'),
+		'search page should load search page script'
+	);
+	assert.ok(
+		urls.includes('/scripts/support-links.js'),
+		'search page should load support link script'
+	);
 
 	for (const raw of urls) {
 		const resolved = new URL(raw, searchTrailingSlashUrl);
@@ -40,8 +46,14 @@ test('search trailing-slash route loads root site assets', () => {
 });
 
 test('search page has an enabled GET query form and preserves linked queries', () => {
-	assert.match(searchHtml, /<form[^>]+action="\/search"[^>]+method="get"[^>]+data-owen-site-search/i);
-	assert.match(searchHtml, /<input[^>]+id="site-search-page-input"[^>]+type="search"[^>]+name="q"/i);
+	assert.match(
+		searchHtml,
+		/<form[^>]+action="\/search"[^>]+method="get"[^>]+data-owen-site-search/i
+	);
+	assert.match(
+		searchHtml,
+		/<input[^>]+id="site-search-page-input"[^>]+type="search"[^>]+name="q"/i
+	);
 	assert.match(searchPageJs, /document\.getElementById\('site-search-page-input'\)/);
 	assert.match(searchPageJs, /input\.value = q;/);
 });
