@@ -1,6 +1,6 @@
 # Project State
 
-Last reviewed: 2026-05-06
+Last reviewed: 2026-07-13
 
 ## Stack
 
@@ -9,6 +9,7 @@ Last reviewed: 2026-05-06
 - Serverless helpers also exist in `functions/api/`; check both paths before changing APIs.
 - Shared components live in `scripts/components.js`.
 - Shared CSS lives in `css/owenminercs.css`.
+- Site search is static/client-side: `/search` -> `search.html`, `scripts/search-page.js`, and `data/site-search-index.json`.
 
 ## Common Commands
 
@@ -24,7 +25,7 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 
 ## Important Data
 
-- Public setup hub name: Bigfoot's Jungle. Keep existing `The Setup/the-setup.html` paths/routes unless the user asks to rename URLs.
+- Public shared-nav label for the setup hub is **Gaming Setups**; the page/brand copy still uses Bigfoot's Jungle. Keep existing `The Setup/the-setup.html` paths/routes unless the user asks to rename URLs.
 - Affiliate products: `affiliate-links.json`; partner network site-verification meta tags belong in `index.html` and are documented in `IMPLEMENTATION_GUIDE.md`.
 - Donation/support links: `donation-links.json`
 - Shop product drops: `Garage Sale/shop-products.json`
@@ -35,7 +36,8 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 
 ## Focused Docs
 
-- `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including social dock mount/persistence/drag behavior.
+- `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including nav labels/keys, static search, and social dock mount/persistence/drag behavior.
+- `SOCIAL_DOCK_RUNBOOK.md` documents current social profile URLs, dock storage keys, and manual QA for link/drag/rotate/reset behavior.
 
 ## Repo Hygiene
 

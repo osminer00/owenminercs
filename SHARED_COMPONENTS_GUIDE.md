@@ -3,17 +3,98 @@
 Concise notes for maintaining the global browser components in
 `scripts/components.js` and their shared styles in `css/owenminercs.css`.
 
-## Shared header and social dock
+## Shared header, footer, and site search
 
 ### Intent
 
-`shared-header` provides the site-wide header, main navigation, and the default
-home for the floating social dock. The dock starts as a compact horizontal pill
-inside `.site-header-dock-cluster` so it behaves like header chrome until a
-visitor intentionally customizes it.
+`shared-header` and `shared-footer` provide the site-wide brand chrome,
+navigation, support links, and the default home for the floating social dock.
+Keep this file aligned with `scripts/components.js`; most production pages use
+the custom elements instead of hard-coded header/footer markup.
+
+### Navigation contract
+
+The shared navigation is generated in `SharedHeader` and `SharedFooter`.
+Both locations should stay in the same order, with the same visible labels,
+`href` targets, titles, and stable `data-nav` ids.
+
+Current public labels and targets:
+
+| Label         | Target                      | Stable `data-nav` |
+| ------------- | --------------------------- | ----------------- |
+| Home          | `/`                         | `index.html`      |
+| Gaming Setups | `The%20Setup/the-setup`     | `The Setup`       |
+| Gaming        | `Gaming/gaming`             | `Gaming`          |
+| Donators      | `Donators/donators`         | `Donators`        |
+| For sale      | `Garage%20Sale/garage-sale` | `garage-sale`     |
+| Help Wanted   | `Help%20Wanted/help-wanted` | `Help Wanted`     |
+| Q&A           | `QA/qa`                     | `QA`              |
+| Programs      | `dev/dev-stack`             | `Dev`             |
+| Achievements  | `Achievements/achievements` | `Achievements`    |
+| Content       | `Socials/socials`           | `Socials`         |
+
+Constraints:
+
+- `data-nav` ids are behavioral keys. They drive active-link highlighting,
+  section matching for subpages, and related nav behaviors; do not rename them
+  just because a public label changes. If a link should count toward the
+  main-nav tour achievement, also update `MAIN_NAV_TOUR_SLOTS`.
+- The public setup hub label is **Gaming Setups**, but the target page and
+  historical page copy still use `The Setup/the-setup` and Bigfoot's Jungle.
+- Search is the icon-only first item in the header nav. It is not duplicated in
+  the footer nav.
+- `getLink()` and `getSearchPageUrl()` add `.html` only for local/file-style
+  browsing. Production links should remain pretty extensionless paths.
+
+### Site search
+
+The search UI is a static, client-side search over `data/site-search-index.json`.
+It does not call a hosted API.
+
+Runtime pieces:
+
+- `search.html` is the dedicated results page and reads `?q=`.
+- `_redirects` maps `/search` and `/search/` to `/search.html` for static hosts
+  that need an explicit page rewrite.
+- `scripts/search-page.js` loads the shared search API from `components.js`,
+  fetches the JSON index, and renders full-page results.
+- `components.js` exposes `window.owenminercsSiteSearchApi` with:
+    - `indexUrl`;
+    - `resolveHref(pagePath)`;
+    - `getSearchPageUrl()`;
+    - `filterEntries(entries, query, maxResults)`;
+    - `renderResults(container, list, query, variant)`.
+
+Search behavior:
+
+- Queries shorter than 2 characters show a hint and return no matches.
+- Matching checks title, snippet, full indexed text, and decoded path.
+- Multi-word queries match when every token appears somewhere in the combined
+  searchable blob, even if the exact phrase is absent.
+- Results are ranked higher for title/text/snippet/path hits; embedded
+  `manualTerms` in the generated index add an extra boost.
+- Results are rendered with DOM APIs (`textContent`, created elements), not by
+  injecting raw HTML.
+
+Operational notes:
+
+- Keep `data/site-search-index.json` in sync when public page copy, titles, or
+  paths change. The checked-in index is the source used by production search.
+- If manual keyword boosts are regenerated, keep them embedded as
+  `manualTerms` arrays on index entries; `components.js` reads those arrays but
+  this repo currently does not include a separate manual-keyword source file.
+- Search result links expect canonical page paths such as
+  `The%20Setup/the-setup` or `Gaming/gaming`, without a leading slash.
+- When changing search CSS or markup, verify both `/search?q=keyboard` and a
+  local `search.html?q=keyboard` style URL.
+
+## Social dock
 
 ### Runtime structure
 
+- The dock starts as a compact horizontal pill inside
+  `.site-header-dock-cluster` so it behaves like header chrome until a visitor
+  intentionally customizes it.
 - `socialNavMarkup('site-social-nav--dock')` builds the dock link markup.
 - `injectSiteSupportDock()` creates `#site-support-dock` once per page.
 - `appendDockToDefaultSlot()` mounts the dock after the reset button in
