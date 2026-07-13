@@ -337,6 +337,7 @@ const MAIN_NAV_TOUR_SLOTS = Object.freeze([
 	'garage-sale',
 	'Help Wanted',
 	'QA',
+	'dev',
 	'Achievements',
 	'Socials',
 ]);
@@ -391,6 +392,9 @@ function getMainNavTourSlotFromLocation() {
 	}
 	if (lc.includes('/qa/') || lc.endsWith('/qa')) {
 		return 'QA';
+	}
+	if (lc.includes('/dev/') || lc.endsWith('/dev')) {
+		return 'dev';
 	}
 	if (lc.includes('help') && lc.includes('wanted')) {
 		return 'Help Wanted';
@@ -757,7 +761,7 @@ class SharedHeader extends HTMLElement {
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
               <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
-              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
+              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
               <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
@@ -817,7 +821,7 @@ class SharedFooter extends HTMLElement {
               <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
               <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
               <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
-              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
+              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
               <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
             </ul>
