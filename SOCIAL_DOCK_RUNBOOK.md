@@ -1,6 +1,6 @@
 # Social Dock Runbook
 
-Last verified: 2026-05-04
+Last verified: 2026-07-13
 
 ## Purpose
 
@@ -25,14 +25,16 @@ Keep this document in sync with:
 
 The social link list is generated in this order and also feeds the "grand tour" achievement:
 
-1. X/Twitter
-2. Reddit
-3. YouTube
-4. Twitch
-5. Instagram
-6. Facebook
-7. TikTok
-8. Discord
+| Order | Slot        | Current href                                              | Public label             |
+| ----- | ----------- | --------------------------------------------------------- | ------------------------ |
+| 1     | `x`         | `https://x.com/OwenMiner`                                 | X (Twitter) `@OwenMiner` |
+| 2     | `reddit`    | `https://www.reddit.com/user/OwenMCS`                     | Reddit `u/OwenMCS`       |
+| 3     | `youtube`   | `https://www.youtube.com/@OwenMinerCS`                    | YouTube `Owen Miner`     |
+| 4     | `twitch`    | `https://www.twitch.tv/owenminercs`                       | Twitch `owenminercs`     |
+| 5     | `instagram` | `https://www.instagram.com/owenminercs/`                  | Instagram `@owenminercs` |
+| 6     | `facebook`  | `https://www.facebook.com/profile.php?id=100095719715453` | Facebook `Owen Miner`    |
+| 7     | `tiktok`    | `https://www.tiktok.com/@owenminercs`                     | TikTok `@owenminercs`    |
+| 8     | `discord`   | `https://discord.gg/fA9GbxmAge`                           | Discord                  |
 
 When changing a profile URL, verify `socialDockTourSlotFromHref()` still maps that host to the expected achievement slot. New platforms need both a link entry and a stable slot id if they should count toward the achievement.
 
@@ -40,11 +42,11 @@ When changing a profile URL, verify `socialDockTourSlotFromHref()` still maps th
 
 The dock stores only client-side UI state:
 
-| Key | Shape | Owner |
-| --- | --- | --- |
-| `owenminercs-social-dock-pos` | JSON object with optional `left`, `top`, `scale`, `tilt`, `customized` | Floating dock placement/transform |
-| `owenminercs-social-dock-tour-v1` | JSON array of visited slot ids | Social dock grand tour achievement |
-| `owenminercs-achievements-v1` | JSON array of unlocked achievement ids | Shared achievement system |
+| Key                               | Shape                                                                  | Owner                              |
+| --------------------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
+| `owenminercs-social-dock-pos`     | JSON object with optional `left`, `top`, `scale`, `tilt`, `customized` | Floating dock placement/transform  |
+| `owenminercs-social-dock-tour-v1` | JSON array of visited slot ids                                         | Social dock grand tour achievement |
+| `owenminercs-achievements-v1`     | JSON array of unlocked achievement ids                                 | Shared achievement system          |
 
 To reset only the dock during manual QA:
 
@@ -121,21 +123,21 @@ Run these checks on at least one desktop browser and one narrow/mobile viewport 
 1. Load a normal page with `<shared-header>` and confirm the dock is in the header row.
 2. Click each social link and verify it opens in a new tab with `rel="noopener noreferrer"`.
 3. Drag the dock from the header by its interior:
-   - It should stay horizontal while dragging out of the header.
-   - It should become fixed/floating only after crossing the drag threshold.
-   - It should persist after reload and navigation.
+    - It should stay horizontal while dragging out of the header.
+    - It should become fixed/floating only after crossing the drag threshold.
+    - It should persist after reload and navigation.
 4. Drag near the rim after customization:
-   - Rotation and scale should update smoothly.
-   - Icons should remain upright.
-   - Reload should restore the same rough transform.
+    - Rotation and scale should update smoothly.
+    - Icons should remain upright.
+    - Reload should restore the same rough transform.
 5. Use the reset button and double-click reset:
-   - The dock should return to the header cluster.
-   - `Reset Social Bar` should hide when no customization remains.
+    - The dock should return to the header cluster.
+    - `Reset Social Bar` should hide when no customization remains.
 6. Resize the viewport after customization:
-   - The dock should keep its saved placement without snapping to the header.
+    - The dock should keep its saved placement without snapping to the header.
 7. Enable `prefers-reduced-motion: reduce`:
-   - Core move/reset should still work.
-   - Decorative idle/fidget effects should not run.
+    - Core move/reset should still work.
+    - Decorative idle/fidget effects should not run.
 
 ## Troubleshooting
 
