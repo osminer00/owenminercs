@@ -9,6 +9,10 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/affiliate-styles.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/dev.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -27,7 +31,8 @@
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
-		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#0f0f0f" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -35,9 +40,27 @@
 		<link rel="canonical" href="https://www.owenminercs.com/dev/dev-stack" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui dev-stack-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui dev-stack-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 
 		<div class="container">
 			<div class="intro">
@@ -46,21 +69,25 @@
 					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
 				>
 					<h1>Programs</h1>
-					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
-						Software I actually open — from shipping this static site to editing video and going live. Nothing
-						here is paid sponsorship; it is the honest split of what sits on disk when work needs to get done
-						(one Cursor refer-a-friend link is in the Cursor card below).
+					<p class="dev-hub__tagline">
+						Software I actually open: coding, creative work, and streaming.
 					</p>
 				</div>
+				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure:</span> This page includes a Cursor referral link (50% off the first month for new users) that may also grant credits to both of us. Eligibility and amounts are set by Cursor on their site. Thanks for supporting the channel.</p>
 			</div>
 
+			<section class="hub-content-panel" aria-label="Programs and tools">
+			<p class="dev-stack-hub__lede">
+				Nothing here is paid sponsorship; it is the honest split of what sits on disk when work needs to get
+				done (one Cursor refer-a-friend link is in the Cursor card below).
+			</p>
 			<div class="dev-stack-columns">
 				<div class="dev-stack-column">
 					<h2 id="coding" class="dev-stack-column__title">Coding &amp; development</h2>
 					<p class="dev-stack-column__intro">
 						This site is HTML, CSS, and a little browser JavaScript. On <strong>Cursor Pro+</strong> ($60/mo as of
 						May&nbsp;2026) to finish it; <strong>ChatGPT</strong> for planning; <strong>Gemini</strong> for everyday
-						Q&amp;A. I tried OpenClaw on Ubuntu in a VM — interesting, but API spend added up fast; local-only was not
+						Q&amp;A. I tried OpenClaw on Ubuntu in a VM. Interesting, but API spend added up fast; local-only was not
 						enough for the heavy lifting I need right now.
 					</p>
 
@@ -72,6 +99,16 @@
 							<div class="keep-card__body">
 								<p class="keep-card__label">Cursor</p>
 								<span class="keep-card__cta">Primary IDE + agent workspace</span>
+								<div class="keep-card__affiliate dev-stack-cursor-referral">
+									<a
+										class="affiliate-button dev-stack-cursor-referral__link"
+										href="https://cursor.com/referral?code=AXMCFHZ8A2DG"
+										target="_blank"
+										rel="noopener noreferrer"
+										>50% off first month: Cursor referral</a
+									>
+									<p class="dev-stack-cursor-referral__code">New users · code <strong>AXMCFHZ8A2DG</strong></p>
+								</div>
 							</div>
 						</div></span
 					>
@@ -79,15 +116,7 @@
 						<p>
 							Cursor is my main editor: multi-file edits, refactors, this repo, and the integrated agent on
 							real paths. I upgraded to <strong>Pro+</strong> so hosted models and agents have enough
-							headroom to finish the site without constantly bouncing to other tools. If you are signing up,
-							Cursor’s <a
-								href="https://cursor.com/referral?code=AXMCFHZ8A2DG"
-								target="_blank"
-								rel="noopener noreferrer"
-								>refer-a-friend link</a
-							>
-							(code <strong>AXMCFHZ8A2DG</strong>) may grant credits to both of us — eligibility and amounts
-							are set by Cursor on their site.
+							headroom to finish the site without constantly bouncing to other tools.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
@@ -107,9 +136,9 @@
 						<p>
 							When I hit Cursor usage limits, Codex-style workflows are the first fallback. I use
 							<strong>Visual Studio Code</strong> for that lane. For Codex together with cloud-oriented
-							integrations, I reach for full <strong>Visual Studio</strong> instead — same family of tools,
+							integrations, I reach for full <strong>Visual Studio</strong> instead (same family of tools,
 							different shell depending on whether I am in a light editor session or a heavier VS + cloud
-							setup.
+							setup).
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 					</div>
@@ -121,7 +150,7 @@
 							<div class="keep-card__video-slot">Assistant</div>
 							<div class="keep-card__body">
 								<p class="keep-card__label">Claude</p>
-								<span class="keep-card__cta">Paused — may come back</span>
+								<span class="keep-card__cta">Paused, may come back</span>
 							</div>
 						</div></span
 					>
@@ -129,7 +158,7 @@
 						<p>
 							I gave the Claude app and the Visual Studio integrations a real try. The experience was solid,
 							but the lower paid tier ran out of usage too quickly for what I was doing, so I canceled for
-							now. I might resubscribe later — especially after seeing <strong>Premiere Pro</strong>
+							now. I might resubscribe later, especially after seeing <strong>Premiere Pro</strong>
 							integrations show up (the Adobe video tool is covered below), which looked genuinely useful.
 							For Claude-shaped help today I lean on Antigravity via the Gemini stack instead of a standalone
 							Claude subscription.
@@ -151,10 +180,10 @@
 					<div class="keep-card__peek">
 						<p>
 							<strong>Antigravity</strong> is my third lane after Cursor and Codex when I want another angle
-							or a more exploratory pass — including mockups and “what if” UI that might not ship. The
+							or a more exploratory pass, including mockups and “what if” UI that might not ship. The
 							Gemini subscription also opens <strong>Claude</strong> there, which covers some of what I
 							used to route to a standalone Claude plan. Separately, I use <strong>Gemini</strong> all the
-							time for quick general Q&amp;A outside project files — not a replacement for Cursor, but a
+							time for quick general Q&amp;A outside project files, not a replacement for Cursor, but a
 							natural first stop for questions.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
@@ -173,8 +202,8 @@
 					>
 					<div class="keep-card__peek">
 						<p>
-							<strong>Ollama</strong> on the RTX box handles the local grunt work — first drafts, repetitive
-							transforms, and summaries — so hosted quotas last longer. Cloud models still win when the task
+							<strong>Ollama</strong> on the RTX box handles the local grunt work: first drafts, repetitive
+							transforms, and summaries, so hosted quotas last longer. Cloud models still win when the task
 							needs stronger reasoning; local is deliberately “good enough to verify,” not a substitute for
 							everything.
 						</p>
@@ -188,7 +217,7 @@
 					<h2 id="creative-cloud" class="dev-stack-column__title">Adobe Creative Cloud &amp; design</h2>
 					<p class="dev-stack-column__intro">
 						Most serious photo and video work lives in Creative Cloud. Video-wise, my first editor was the one bundled
-						with <strong>Windows</strong> (the simple built-in timeline app — cut my teeth there first). In my early
+						with <strong>Windows</strong> (the simple built-in timeline app, where I cut my teeth first). In my early
 						teens I bought <strong>Sony Vegas Movie Studio</strong> on Amazon and moved my edits there; I was deep into
 						<strong>YouTube</strong> and making videos at the time. Today <strong>Premiere Pro</strong> carries that
 						thread (exact purchase dates from back then TBD when I dig them up). On stills I leaned on
@@ -208,8 +237,8 @@
 					>
 					<div class="keep-card__peek">
 						<p>
-							<strong>Premiere Pro</strong> is where most of my video editing happens now — timelines, color
-							passes, exports for social and long-form — after years that started with Windows’ bundled editor
+							<strong>Premiere Pro</strong> is where most of my video editing happens now (timelines, color
+							passes, exports for social and long-form) after years that started with Windows’ bundled editor
 							and <strong>Vegas Movie Studio</strong>. It pairs with the rest of the stack when a project needs
 							to leave the NLE and land on the site or a stream.
 						</p>
@@ -229,7 +258,7 @@
 					>
 					<div class="keep-card__peek">
 						<p>
-							I use <strong>Photoshop</strong> constantly — assets for the site, thumbnails, cleanup, and
+							I use <strong>Photoshop</strong> constantly: assets for the site, thumbnails, cleanup, and
 							layers-on-layers work I have been doing since I was young. It is the default when pixels need
 							to be precise.
 						</p>
@@ -243,13 +272,13 @@
 							<div class="keep-card__video-slot">Motion</div>
 							<div class="keep-card__body">
 								<p class="keep-card__label">After Effects</p>
-								<span class="keep-card__cta">Learning — projection &amp; motion</span>
+								<span class="keep-card__cta">Learning: projection &amp; motion</span>
 							</div>
 						</div></span
 					>
 					<div class="keep-card__peek">
 						<p>
-							I want to go deeper on <strong>After Effects</strong> — especially for motion pieces that feed
+							I want to go deeper on <strong>After Effects</strong>, especially for motion pieces that feed
 							<strong>projection mapping</strong> and immersive visuals. That future setup is sketched on my
 							<a href="../Upgrades/upgrades.html#projection-mapping">Upgrades</a> page (full-apartment
 							ideas). AE is the logical tool for map-aligned content and animated plates before they hit the
@@ -272,7 +301,7 @@
 					<div class="keep-card__peek">
 						<p>
 							Before I could justify Creative Cloud, <strong>GIMP</strong> carried most of my raster work. I
-							still respect it — it taught me a lot of the same habits I use in Photoshop today. If budget
+							still respect it. It taught me a lot of the same habits I use in Photoshop today. If budget
 							is tight, GIMP remains a capable option.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
@@ -282,8 +311,8 @@
 				</div>
 			</div>
 
-			<h2 id="streaming" style="font-size: 1.15rem; margin: 2rem 0 0.75rem; text-align: center">Streaming</h2>
-			<p style="max-width: 42rem; margin: 0 auto 1rem; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
+			<h2 id="streaming" class="dev-stack-streaming__title">Streaming</h2>
+			<p class="dev-stack-streaming__intro">
 				Live video goes through <strong>OBS Studio</strong>, with an open-source multi-destination helper from
 				GitHub so I am not locked to a single RTMP endpoint.
 			</p>
@@ -327,7 +356,7 @@
 								target="_blank"
 								rel="noopener noreferrer"
 								>sorayuki / obs-multi-rtmp on GitHub</a
-							>). It adds multiple RTMP outputs from one OBS session — handy when you want redundancy or
+							>). It adds multiple RTMP outputs from one OBS session, handy when you want redundancy or
 							simultaneous destinations.
 						</p>
 						<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
@@ -335,11 +364,12 @@
 				</article>
 			</div>
 
-			<p style="max-width: 42rem; margin: 1.5rem auto 0; text-align: left; color: var(--text-dim, rgba(255, 255, 255, 0.75)); font-size: 0.92rem">
-				No API keys or account identifiers belong on a public page — store those in your own password manager and
-				environment, not in git. The Cursor refer-a-friend link may earn credits for you and me; rewards and
-				eligibility are controlled by Cursor.
+			<p class="dev-stack-footnote">
+				No API keys or account identifiers belong on a public page. Store those in your own password manager and
+				environment, not in git. The Cursor referral link offers new users 50% off the first month and may earn
+				credits for you and me; rewards and eligibility are controlled by Cursor.
 			</p>
+			</section>
 		</div>
 
 		<shared-footer></shared-footer>

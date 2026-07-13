@@ -615,7 +615,7 @@ class AffiliateLinksManager {
 
 		return `
             <p class="affiliate-disclosure" role="note">
-                <span class="affiliate-disclosure__label">Disclosure</span> ${text}
+                <span class="affiliate-disclosure__label">Disclosure:</span> ${text}
             </p>
         `;
 	}

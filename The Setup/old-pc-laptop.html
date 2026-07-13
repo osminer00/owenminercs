@@ -9,6 +9,8 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -23,11 +25,12 @@
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Archive hub for Owen's Razer Blade 2019, 2020 desktop upgrade, 2016 first PC build, and college desk-setup website."
+			content="Archive hub for Owen's Razer Blade 2019, 2020 desktop upgrade, 2014 first PC build, and college desk-setup website."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
-		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#0f0f0f" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -35,6 +38,7 @@
 		<link rel="canonical" href="https://www.owenminercs.com/The%20Setup/old-pc-laptop" />
 		<link rel="stylesheet" href="../css/affiliate-styles.css" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 		<script src="../scripts/affiliate-links.js" defer></script>
 		<script>
 			(function () {
@@ -48,21 +52,39 @@
 			})();
 		</script>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro">
 				<p class="setup-detail__back"><a href="computers.html">← Computers</a></p>
 				<div class="gallery keep-board-intro">
 					<h1>Old PC and laptop archive</h1>
 					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
-						Photos pulled from old hard drives—desktops and portables from before the current
+						Photos pulled from old hard drives, desktops and portables from before the current
 						<a href="gaming-pc.html">2024 build</a>. Each rig has its own page now; the college-era desk-site
 						artifact is linked below.
 					</p>
 				</div>
 			</div>
-			<div class="keep-board" aria-label="Archived computers">
+						<section class="hub-content-panel">
+<div class="keep-board" aria-label="Archived computers">
 				<div class="keep-card" role="link" tabindex="0" data-href="legacy-laptop.html">
 					<span class="keep-card__inner">
 						<img
@@ -110,15 +132,15 @@
 						<img
 							class="keep-card__thumb"
 							src="../images/archive/old-pcs/first-pc-build-instagram.png"
-							alt="2016 Instagram post screenshot of first custom PC build"
+							alt="2014 first custom PC build, Instagram post from March 14, 2015"
 						/>
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Archive</div>
 							<div class="keep-card__body">
-								<p class="keep-card__label">2016 PC build</p>
+								<p class="keep-card__label">2014 PC build</p>
 								<div class="keep-card__affiliate">
 									<h4 style="margin: 0; font-size: 0.9rem; font-weight: 500">
-										Instagram milestone · dated Aug 2016 in file metadata
+										Instagram milestone · posted March 14, 2015 · age 13
 									</h4>
 								</div>
 								<span class="keep-card__cta">Open milestone page →</span>
@@ -127,14 +149,15 @@
 					</span>
 				</div>
 			</div>
+			</section>
 
 			<div class="setup-archive-hub__aside">
 				<section class="setup-archive-hub__aside-card" aria-labelledby="college-desk-heading">
 					<h2 id="college-desk-heading">College assignment: first desk-setup website</h2>
 					<p>
-						In college I published my <strong>first website about my desk setup</strong>—a tiny multi-page build
+						In college I published my <strong>first website about my desk setup</strong>, a tiny multi-page build
 						with peripherals, parts lists, and JPEGs straight off my phone. It is rough around the edges (nested
-						tables energy, absolute-era CSS), but it is honest mid-2010s coursework—and the earliest place I put
+						tables energy, absolute-era CSS), but it is honest mid-2010s coursework, and the earliest place I put
 						my setup on the public web.
 					</p>
 					<p>

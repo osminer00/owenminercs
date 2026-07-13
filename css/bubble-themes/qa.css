@@ -1,0 +1,67 @@
+/** Q&A — electric blue clip ~3:36–4:00, poster 3:39 */
+
+body.site-card-ui.bubble-theme.bubble-theme--qa {
+
+	--bubble-accent: #3b82f6;
+
+	--bubble-accent-soft: rgba(59, 130, 246, 0.72);
+
+	--bubble-accent-fill: rgba(37, 99, 235, 0.14);
+
+	--bubble-accent-edge: rgba(96, 165, 250, 0.42);
+
+	--bubble-accent-specular: rgba(147, 197, 253, 0.28);
+
+	--bubble-accent-bg-hover: rgba(37, 99, 235, 0.12);
+
+	--bubble-glow-warm: rgba(12, 24, 68, 0.52);
+
+	--bubble-glow-mid: rgba(37, 99, 235, 0.5);
+
+	--bubble-glow-cool: rgba(96, 165, 250, 0.32);
+
+	--bubble-bg-fallback: #020610;
+
+	--bubble-poster: url('/images/bubble-themes/qa/poster.jpg');
+
+	--bubble-media-brightness: 0.44;
+
+	--bubble-blue-block-filter: saturate(1.35) hue-rotate(-18deg) contrast(1.1);
+
+	--bubble-veil:
+
+		radial-gradient(ellipse 90% 70% at 50% 40%, rgba(0, 12, 8, 0.06), rgba(0, 0, 0, 0.34) 78%),
+
+		linear-gradient(180deg, rgba(0, 10, 6, 0.18) 0%, rgba(0, 0, 0, 0.3) 100%);
+
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--qa .qa-intro {
+	width: 100%;
+	margin: 0;
+	text-align: left;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--qa .intro > .gallery.keep-board-intro {
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 0.1rem;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--qa .qa-section {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	width: 100%;
+	padding: clamp(0.85rem, 2vw, 1.25rem);
+	box-sizing: border-box;
+	text-align: left;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--qa .qa-section .qa-discord-cta,
+body.site-card-ui.bubble-theme.bubble-theme--qa .qa-section .qa-testing-block,
+body.site-card-ui.bubble-theme.bubble-theme--qa .qa-section .qa-faq-block,
+body.site-card-ui.bubble-theme.bubble-theme--qa .qa-section .qa-feed-section {
+	max-width: none;
+	margin: 0;
+}

@@ -4,6 +4,7 @@
 	"description": "Static site tooling (formatting). Pages remain plain HTML/CSS/JS.",
 	"scripts": {
 		"build:search-index": "node dev/build-deep-search-index.mjs",
+		"build:site-map-order": "node dev/build-site-map-order.mjs",
 		"format": "prettier --write \"**/*.{html,css,js,json,md}\"",
 		"format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
 		"test": "node --test test/*.test.mjs",

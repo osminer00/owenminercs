@@ -24,6 +24,13 @@
 		}
 	}
 
+	function filterCarouselSlides(slides) {
+		var api = window.owenminercsCarouselFilter;
+		return api && typeof api.filterCarouselSlides === 'function'
+			? api.filterCarouselSlides(slides)
+			: slides;
+	}
+
 	function extractGallerySlides(doc, baseHref) {
 		var nodes = doc.querySelectorAll('.photogallery-img[src]');
 		var slides = [];
@@ -35,7 +42,7 @@
 				alt: nodes[i].getAttribute('alt') || 'Gallery image',
 			});
 		}
-		return slides;
+		return filterCarouselSlides(slides);
 	}
 
 	function extractVideoEmbeds(doc, baseHref) {
@@ -169,38 +176,6 @@
 			}, CYCLE_MS);
 		}
 
-		var pauseHit = document.createElement('button');
-		pauseHit.type = 'button';
-		pauseHit.className = 'keep-card__album-pause-hit';
-		pauseHit.setAttribute('aria-label', 'Pause slideshow');
-		pauseHit.setAttribute('aria-pressed', 'false');
-		function setPaused(next) {
-			paused = next;
-			if (paused) {
-				if (timer) {
-					window.clearTimeout(timer);
-					timer = null;
-				}
-				root.classList.add('keep-card__album--paused');
-				pauseHit.setAttribute('aria-pressed', 'true');
-				pauseHit.setAttribute('aria-label', 'Resume slideshow');
-			} else {
-				root.classList.remove('keep-card__album--paused');
-				pauseHit.setAttribute('aria-pressed', 'false');
-				pauseHit.setAttribute('aria-label', 'Pause slideshow');
-				schedule();
-			}
-		}
-		pauseHit.addEventListener('click', function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-			setPaused(!paused);
-		});
-		pauseHit.addEventListener('keydown', function (e) {
-			e.stopPropagation();
-		});
-		root.appendChild(pauseHit);
-
 		function resetLayerOffRight(layer) {
 			layer.classList.add('keep-card__album-layer--instant');
 			layer.classList.remove(
@@ -303,38 +278,6 @@
 				timer = window.setTimeout(loop, CYCLE_MS);
 			}, CYCLE_MS);
 		}
-
-		var pauseHit = document.createElement('button');
-		pauseHit.type = 'button';
-		pauseHit.className = 'keep-card__album-pause-hit';
-		pauseHit.setAttribute('aria-label', 'Pause slideshow');
-		pauseHit.setAttribute('aria-pressed', 'false');
-		function setIframePaused(next) {
-			paused = next;
-			if (paused) {
-				if (timer) {
-					window.clearTimeout(timer);
-					timer = null;
-				}
-				root.classList.add('keep-card__album--paused');
-				pauseHit.setAttribute('aria-pressed', 'true');
-				pauseHit.setAttribute('aria-label', 'Resume slideshow');
-			} else {
-				root.classList.remove('keep-card__album--paused');
-				pauseHit.setAttribute('aria-pressed', 'false');
-				pauseHit.setAttribute('aria-label', 'Pause slideshow');
-				schedule();
-			}
-		}
-		pauseHit.addEventListener('click', function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-			setIframePaused(!paused);
-		});
-		pauseHit.addEventListener('keydown', function (e) {
-			e.stopPropagation();
-		});
-		root.appendChild(pauseHit);
 
 		function resetLayerOffRight(layer) {
 			layer.classList.add('keep-card__album-layer--instant');
@@ -470,6 +413,10 @@
 			var slides = extractGallerySlides(doc, payload.absUrl);
 			var embeds = extractVideoEmbeds(doc, payload.absUrl);
 			upgradeThumb(cardTargets[i], slides, embeds);
+		}
+		var sortApi = window.owenminercsCarouselFilter;
+		if (sortApi && typeof sortApi.sortAllCardGrids === 'function') {
+			sortApi.sortAllCardGrids(document);
 		}
 	});
 })();

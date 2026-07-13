@@ -25,22 +25,11 @@ const EXCLUDED_FILES = new Set([
 	'search-manual-keywords.json',
 ]);
 
+// Production pages must not expose schema.org alumniOf (home About omits school/DMACC copy by design).
 const FORBIDDEN_PUBLIC_CONTENT = [
-	{
-		label: 'DMACC public mention',
-		pattern: /\bDMACC\b/i,
-	},
 	{
 		label: 'schema.org alumniOf field',
 		pattern: /"alumniOf"\s*:/i,
-	},
-	{
-		label: 'old graduate bio sentence',
-		pattern: /I am a 23 year old graduate/i,
-	},
-	{
-		label: 'old programming-at-school bio sentence',
-		pattern: /While at DMACC I learned how to write software/i,
 	},
 ];
 

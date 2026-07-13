@@ -7,6 +7,24 @@
 	const KO_FI_TIP_URL = 'https://ko-fi.com/owenminer';
 	const STREAMELEMENTS_TIP_URL = 'https://streamelements.com/owenminercs/tip';
 
+	function isInternalPath(path) {
+		const p = String(path || '').trim();
+		return p.length > 0 && !/^https?:\/\//i.test(p);
+	}
+
+	function inferTag(path) {
+		const p = String(path || '')
+			.replace(/^\//, '')
+			.toLowerCase();
+		if (p.startsWith('gaming/')) return 'Gaming';
+		if (p.startsWith('counter-strike/')) return 'Gaming';
+		if (p.startsWith('the setup/') || p.startsWith('keyboard/') || p.startsWith('pc/') || p.startsWith('upgrades/')) {
+			return 'Gear';
+		}
+		if (p.startsWith('socials/')) return 'Socials';
+		return 'Site';
+	}
+
 	function escapeHtml(str) {
 		return String(str)
 			.replace(/&/g, '&amp;')
@@ -15,7 +33,6 @@
 			.replace(/"/g, '&quot;');
 	}
 
-	/** Turn visible "Ko-fi" / "StreamElements" in feed summaries into donate/tip links (matches donation-links.json defaults). */
 	function linkifyKoFiAndStreamElements(text) {
 		if (!text || typeof text !== 'string') return '';
 		let t = escapeHtml(text);
@@ -62,20 +79,102 @@
 		return p.startsWith('/') ? p : `/${p}`;
 	}
 
+	function applyFeedLinkAttrs(link, href) {
+		link.href = href;
+		link.removeAttribute('target');
+		link.removeAttribute('rel');
+	}
+
+	function previewLabel(tag) {
+		return tag ? `${tag} page` : 'Site page';
+	}
+
+	function previewDest(href) {
+		if (/^https?:\/\//i.test(href)) {
+			try {
+				const u = new URL(href);
+				return `${u.host.replace(/^www\./, '')}${u.pathname}${u.search}`.replace(/\/$/, '') || u.host;
+			} catch (_) {
+				return href;
+			}
+		}
+		return String(href || '').replace(/^\//, '');
+	}
+
+	const pageThumbCache = new Map();
+
+	function resolveFirstImageFromPage(href) {
+		const key = String(href || '');
+		if (pageThumbCache.has(key)) return pageThumbCache.get(key);
+
+		const task = (async () => {
+			try {
+				const res = await fetch(key, { credentials: 'same-origin' });
+				if (!res.ok) return null;
+				const html = await res.text();
+				const doc = new DOMParser().parseFromString(html, 'text/html');
+				const img = doc.querySelector('img[src]');
+				if (!img) return null;
+				const raw = img.getAttribute('src')?.trim();
+				if (!raw || raw.startsWith('data:')) return null;
+				return new URL(raw, new URL(key, window.location.origin)).href;
+			} catch (_) {
+				return null;
+			}
+		})();
+
+		pageThumbCache.set(key, task);
+		return task;
+	}
+
+	function insertFeedThumb(aside, tagEl, href) {
+		void resolveFirstImageFromPage(href).then((src) => {
+			if (!src || !aside.isConnected) return;
+
+			const thumb = document.createElement('span');
+			thumb.className = 'site-feed-item__thumb';
+			thumb.setAttribute('aria-hidden', 'true');
+
+			const img = document.createElement('img');
+			img.src = src;
+			img.alt = '';
+			img.loading = 'lazy';
+			img.decoding = 'async';
+			thumb.appendChild(img);
+
+			aside.insertBefore(thumb, tagEl);
+
+			if (typeof window.__owenSiteFeedQueueInit === 'function') {
+				window.__owenSiteFeedQueueInit();
+			}
+		});
+	}
+
 	function renderFeed(entries) {
 		const list = document.getElementById('site-feed-list');
 		if (!list || !Array.isArray(entries)) return;
 
 		list.innerHTML = '';
 		list.setAttribute('aria-busy', 'false');
-		entries.forEach((entry) => {
+		const internalEntries = entries.filter((entry) => isInternalPath(entry.path || entry.url || ''));
+
+		internalEntries.forEach((entry) => {
+			const href = resolveHref(entry.path || entry.url || '/');
+			const tag = entry.tag || inferTag(entry.path || entry.url || href);
+
 			const li = document.createElement('li');
 			li.className = 'site-feed-item';
 
-			const href = resolveHref(entry.path || entry.url || '/');
-			const link = document.createElement('a');
-			link.className = 'site-feed-item__link';
-			link.href = href;
+			const card = document.createElement('a');
+			card.className = 'site-feed-item__link site-feed-item__card';
+			applyFeedLinkAttrs(card, href);
+			card.setAttribute('aria-describedby', 'site-feed-preview');
+
+			const layout = document.createElement('span');
+			layout.className = 'site-feed-item__layout';
+
+			const content = document.createElement('span');
+			content.className = 'site-feed-item__content';
 
 			const timeEl = document.createElement('time');
 			timeEl.className = 'site-feed-item__date';
@@ -86,22 +185,53 @@
 			titleEl.className = 'site-feed-item__title';
 			titleEl.textContent = entry.title || 'Update';
 
-			const row = document.createElement('div');
+			const row = document.createElement('span');
 			row.className = 'site-feed-item__row';
 			row.append(timeEl, titleEl);
-
-			link.appendChild(row);
+			content.appendChild(row);
 
 			if (entry.summary) {
 				const sum = document.createElement('p');
 				sum.className = 'site-feed-item__summary';
 				sum.innerHTML = linkifyKoFiAndStreamElements(entry.summary);
-				link.appendChild(sum);
+				content.appendChild(sum);
 			}
 
-			li.appendChild(link);
+			layout.appendChild(content);
+
+			if (tag) {
+				const aside = document.createElement('span');
+				aside.className = 'site-feed-item__aside';
+
+				const tagEl = document.createElement('span');
+				tagEl.className = 'site-feed-item__tag';
+				tagEl.textContent = tag;
+				aside.appendChild(tagEl);
+
+				layout.appendChild(aside);
+				insertFeedThumb(aside, tagEl, href);
+			}
+
+			card.appendChild(layout);
+
+			const preview = document.createElement('template');
+			preview.className = 'site-feed-item__preview';
+			preview.innerHTML = `<span class="site-feed-cursor-preview__kind">${escapeHtml(
+				previewLabel(tag)
+			)}</span><span class="site-feed-cursor-preview__dest">${escapeHtml(previewDest(href))}</span>`;
+			card.appendChild(preview);
+
+			li.appendChild(card);
 			list.appendChild(li);
 		});
+
+		if (typeof window.__owenSiteFeedHoverBind === 'function') {
+			window.__owenSiteFeedHoverBind(list);
+		}
+
+		if (typeof window.__owenSiteFeedQueueInit === 'function') {
+			window.__owenSiteFeedQueueInit();
+		}
 	}
 
 	async function run() {

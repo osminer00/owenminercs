@@ -9,6 +9,8 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -19,15 +21,16 @@
 			gtag('js', new Date());
 			gtag('config', 'G-GYG1QRQ8DY');
 		</script>
-		<title>Phones archive — iPhone 4S &amp; 8 Plus | Gear | Owen Miner</title>
+		<title>Phones archive, iPhone 4S &amp; 8 Plus | Gear | Owen Miner</title>
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Archive photo of Owen's first keyboard alongside older iPhones—Gear."
+			content="Archive photo of Owen's first keyboard alongside older iPhones. Gear."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
-		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#0f0f0f" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -35,30 +38,55 @@
 		<link rel="canonical" href="https://www.owenminercs.com/The%20Setup/phones-archive" />
 		<link rel="stylesheet" href="../css/affiliate-styles.css" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
-			<div class="intro" style="max-width: 42rem; margin: 0 auto 1rem; padding: 0 0.5rem; text-align: left">
+			<div class="intro setup-page-compact">
 				<p class="setup-detail__back"><a href="the-setup.html">← Gear</a></p>
-				<h1>Phones archive</h1>
-				<p style="margin: 0 0 1rem">
-					A throwback shot with my <strong>first keyboard</strong> next to the phones I carried back then—an
-					<strong>iPhone 4S</strong> and an <strong>iPhone 8 Plus</strong>. Current phone-as-camera workflow (Pro Max,
-					NDI, OBS) lives with the
-					<a href="cameras.html">Cameras</a> category; this page is just the nostalgia lane for handsets.
-				</p>
-				<figure style="margin: 1rem 0">
-					<img
-						src="../images/archive/old-pcs/first-keyboard-and-phones.jpg"
-						alt="First mechanical-style keyboard on a desk beside an iPhone 4S and iPhone 8 Plus"
-						style="width: 100%; max-width: 40rem; border-radius: 7px; border: solid black; box-shadow: 5px 5px black"
-						loading="lazy"
-					/>
-					<figcaption style="margin-top: 0.5rem; font-size: 0.9rem; color: inherit; opacity: 0.9">
-						Rescued from an old hard drive—keyboard plus iPhone 4S and iPhone 8 Plus in frame.
-					</figcaption>
-				</figure>
+				<div class="gallery keep-board-intro">
+					<h1>Phones archive</h1>
+					<div class="column2 setup-detail-lede-wrap setup-detail-lede-wrap--prose-first">
+						<div class="setup-detail-lede-wrap__prose">
+							<p>
+								A throwback shot with my <strong>first keyboard</strong> next to the phones I carried back then, an
+								<strong>iPhone 4S</strong> and an <strong>iPhone 8 Plus</strong>. Current iPhone setup (Pro Max, NDI,
+								OBS) lives with the
+								<a href="cameras.html">Cameras</a> category; this page is just the nostalgia lane for handsets.
+							</p>
+						</div>
+						<figure class="setup-detail-lede-wrap__media">
+							<img
+								src="../images/archive/old-pcs/first-keyboard-and-phones.jpg"
+								alt="First mechanical-style keyboard on a desk beside an iPhone 4S and iPhone 8 Plus"
+								loading="lazy"
+								decoding="async"
+								onclick="window.open(this.src)"
+							/>
+							<figcaption>
+								Rescued from an old hard drive, keyboard plus iPhone 4S and iPhone 8 Plus in frame.
+							</figcaption>
+						</figure>
+					</div>
+				</div>
 			</div>
 		</div>
 		<shared-footer disclosure="<i>This page has no paid shopping links.</i>"></shared-footer>

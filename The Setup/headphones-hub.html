@@ -9,6 +9,8 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -23,7 +25,7 @@
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Desk headphones now live on the Audio category page—Beyerdynamic DT 990 Pro and the rest of the chain."
+			content="Desk headphones now live on the Audio category page. Beyerdynamic DT 990 Pro and the rest of the chain."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
@@ -35,20 +37,37 @@
 		<link rel="canonical" href="https://www.owenminercs.com/The%20Setup/audio" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro">
 				<p class="setup-detail__back"><a href="the-setup.html">← Gear</a></p>
 				<div
 					class="gallery keep-board-intro"
-					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
 				>
 					<h1>Headphones</h1>
 					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
 						The Beyerdynamic DT 990 Pro card and the rest of the desk audio chain now live on the
-						<a href="audio.html">Audio</a> page—jump straight to
+						<a href="audio.html">Audio</a> page, jump straight to
 						<a href="audio.html#headphones">headphones</a>.
 					</p>
 				</div>

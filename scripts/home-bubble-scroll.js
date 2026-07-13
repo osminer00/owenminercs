@@ -7,14 +7,14 @@
 	if (!body.classList.contains('home-liquid-glass-test')) return;
 
 	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-	if (reducedMotion.matches) return;
+	if (reducedMotion.matches || document.documentElement.hasAttribute('data-low-effects')) return;
 
 	const video = document.getElementById('home-bubble-video');
 	if (!video) return;
 
-	const BASE_RATE = 1;
-	const MIN_RATE = 0.5;
-	const MAX_RATE = 1.5;
+	const BASE_RATE = 0.5;
+	const MIN_RATE = 0.25;
+	const MAX_RATE = 0.75;
 	const VELOCITY_FACTOR = 0.00075;
 	const VELOCITY_DECAY = 0.82;
 	const RATE_SMOOTHING = 0.14;

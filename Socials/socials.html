@@ -9,6 +9,8 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="stylesheet" href="./social-cloud.css" />
 		<link rel="stylesheet" href="./view-all-content.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
@@ -21,7 +23,7 @@
 			gtag('js', new Date());
 			gtag('config', 'G-GYG1QRQ8DY');
 		</script>
-		<title>Content | Owen Miner — OwenMinerCS</title>
+		<title>Content | Owen Miner, OwenMinerCS</title>
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
@@ -32,7 +34,8 @@
 		<meta name="robots" content="index, follow" />
 		<meta name="twitter:site" content="@OwenMiner" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="theme-color" content="#050505" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#050505" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -50,7 +53,7 @@
 		<meta name="twitter:title" content="Content | Owen Miner" />
 		<meta
 			name="twitter:description"
-			content="X, YouTube, Instagram, Facebook, TikTok, Reddit, Ko-fi, and more — plus links to guides on this site."
+			content="X, YouTube, Instagram, Facebook, TikTok, Reddit, Ko-fi, and more, plus links to guides on this site."
 		/>
 		<meta name="twitter:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp" />
 		<link rel="canonical" href="https://www.owenminercs.com/Socials/socials" />
@@ -62,7 +65,7 @@
 						"@type": "WebPage",
 						"@id": "https://www.owenminercs.com/Socials/socials#webpage",
 						"url": "https://www.owenminercs.com/Socials/socials",
-						"name": "Content — Owen Miner",
+						"name": "Content, Owen Miner",
 						"description": "Official social media links, tipping options, and navigation to Owen Miner's keyboard, CS2, PC, and Gear content.",
 						"isPartOf": {
 							"@type": "WebSite",
@@ -94,13 +97,31 @@
 		</script>
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui socials-cloud-bg">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui socials-cloud-bg bubble-theme bubble-theme--socials">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<main class="socials-main">
 			<section class="smc-cloud-page" aria-label="Social media cloud">
 				<div class="smc-cloud-shell">
-					<p class="smc-view-all-cta">
+					<p class="smc-view-all-cta" data-no-word-glow>
 						<a href="view-all-content.html">View all content →</a>
 					</p>
 					<div
@@ -179,10 +200,9 @@
 			</section>
 		</main>
 		<shared-footer
-			disclosure='<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Gear, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>'
+			disclosure='<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>'
 		></shared-footer>
 		<script src="../scripts/support-links.js"></script>
-		<script src="./scripts/stars.js" defer></script>
 		<script src="./scripts/social-cloud.js" defer></script>
 	</body>
 </html>

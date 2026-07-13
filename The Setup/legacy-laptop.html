@@ -9,6 +9,8 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -23,11 +25,12 @@
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Archived Razer Blade 15 (2019) laptop specs and desk photo—i7-9750H, RTX 2070 Max-Q, 16GB RAM."
+			content="Archived Razer Blade 15 (2019) laptop specs and desk photo, i7-9750H, RTX 2070 Max-Q, 16GB RAM."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
-		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#0f0f0f" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -35,10 +38,28 @@
 		<link rel="canonical" href="https://www.owenminercs.com/The%20Setup/legacy-laptop" />
 		<link rel="stylesheet" href="../css/affiliate-styles.css" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 		<script src="../scripts/affiliate-links.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro setup-detail__content">
 				<p class="setup-detail__back"><a href="computers.html">← Computers</a></p>
@@ -50,7 +71,7 @@
 						<p class="setup-archive-detail__lede">
 							Specs recovered from my archived college desk-setup site (
 							<a href="college-desk-setup-site/pc.html">“Owen Miner's Gaming Setup” / Computer Build page</a>
-							). Photo preserved from backups dated 2021—before the current
+							). Photo preserved from backups dated 2021, before the current
 							<a href="gaming-pc.html">2024 gaming PC</a>.
 						</p>
 					</header>
@@ -98,9 +119,25 @@
 						</section>
 					</div>
 
+					<section class="setup-archive-detail__section" aria-labelledby="razer-faulty-ram">
+						<h2 id="razer-faulty-ram">Faulty RAM stick</h2>
+						<figure class="setup-archive-detail__photo" style="max-width: 28rem">
+							<img
+								src="../images/archive/old-pcs/razer-blade-2019/img-5185.webp"
+								alt="Faulty RAM stick removed from Razer Blade 2019 laptop"
+								loading="lazy"
+								decoding="async"
+								onclick="window.open(this.src)"
+							/>
+							<figcaption>The stick that failed, diagnosing it took longer than it should have.</figcaption>
+						</figure>
+					</section>
+
 					<aside class="setup-archive-detail__note">
-						At the time that college page was written, the laptop was temporarily out of commission due to
-						memory-corruption issues—replacement parts were on the way.
+						Within six months of buying the Blade I hit memory-corruption crashes. Replacing RAM with a
+						higher-megahertz kit did not fix it, turns out this chassis is picky about exceeding factory RAM
+						speed even when spec sheets suggest otherwise. An eBay seller finally tipped me off to match the
+						original MHz; one bad stick cost me months of trust in Razer.
 					</aside>
 
 					<nav class="setup-archive-detail__nav" aria-label="More archived computers">

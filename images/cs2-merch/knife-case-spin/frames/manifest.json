@@ -1,0 +1,52 @@
+{
+	"frameCount": 154,
+	"frameRate": 29.97,
+	"pattern": "frame-{index}.webp",
+	"source": "C0186.MP4",
+	"mode": "frame-sequence-360",
+	"targetFrames": 150,
+	"wrapBridgeCount": 5,
+	"selection": "single_run_sharp_wrap_bridges",
+	"webpQuality": 92,
+	"sourceFrames": {
+		"first": 909,
+		"last": 1120
+	},
+	"trimSec": {
+		"first": 30.33,
+		"last": 37.371
+	},
+	"rotationSpan": 95.45,
+	"boundarySsim": 0.6911,
+	"boundaryMse": 1904.73,
+	"sharpness": {
+		"min": 21.5,
+		"max": 919.0,
+		"mean": 253.1,
+		"median": 126.8
+	},
+	"luminanceBefore": {
+		"min": 77.13,
+		"max": 117.06,
+		"mean": 100.72,
+		"median": 104.89,
+		"std": 13.52,
+		"maxAdjDelta": 3.57
+	},
+	"luminanceAfter": {
+		"min": 101.33,
+		"max": 104.91,
+		"mean": 103.82,
+		"median": 104.41,
+		"std": 1.0,
+		"maxAdjDelta": 0.51
+	},
+	"luminanceFinal": {
+		"min": 101.33,
+		"max": 104.91,
+		"mean": 103.85,
+		"median": 104.41,
+		"std": 0.99,
+		"maxAdjDelta": 0.51
+	}
+}

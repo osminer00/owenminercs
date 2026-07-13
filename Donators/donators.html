@@ -2,16 +2,9 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link
-			rel="preload"
-			href="../css/owenminercs.css"
-			as="style"
-			onload="
-				this.onload = null;
-				this.rel = 'stylesheet';
-			"
-		/>
-		<noscript><link rel="stylesheet" href="../css/owenminercs.css" /></noscript>
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -36,7 +29,8 @@
 		<link
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
-		/><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		/>
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -69,85 +63,105 @@
 		</script>
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 
 		<div class="container donators-page">
 			<div class="intro">
 				<div
-					class="gallery donators-intro"
+					class="gallery keep-board-intro"
 					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
 				>
 					<h1>Donators and supporters</h1>
-					<nav class="donators-support-icons" aria-label="Support and tips">
-						<a
-							class="donators-support-hero donators-support-hero--kofi"
-							href="https://ko-fi.com/owenminer"
-							data-hero-cursor-tooltip="Donate here to support future projects"
-							data-kofi-link
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<img
-								class="donators-support-hero__art"
-								src="images/rainbow-mug-kofi.gif"
-								width="120"
-								height="120"
-								alt=""
-								decoding="async"
-							/>
-							<span class="donators-support-hero__label">Ko-fi</span>
-						</a>
-						<a
-							class="donators-support-hero"
-							href="https://streamelements.com/owenminercs/tip"
-							data-hero-cursor-tooltip="Donate here to have a message on YouTube and Twitch livestreams"
-							data-streamelements-tip-link
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<img
-								class="donators-support-hero__art donators-support-hero__art--motion"
-								src="images/live-stream-tip.svg"
-								width="120"
-								height="120"
-								alt=""
-								decoding="async"
-							/>
-							<span class="donators-support-hero__label">StreamElements</span>
-						</a>
-						<a
-							class="donators-support-hero"
-							href="https://steamcommunity.com/tradeoffer/new/?partner=169362392&amp;token=P_48mib_"
-							data-hero-cursor-tooltip="Send Graphiti's So I Can Draw Pretty Pictures Please"
-							data-steam-trade-link
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<img
-								class="donators-support-hero__art donators-support-hero__art--motion donators-support-hero__art--steam"
-								src="images/steam.svg"
-								width="120"
-								height="120"
-								alt=""
-								decoding="async"
-							/>
-							<span class="donators-support-hero__label">Steam trade</span>
-						</a>
-					</nav>
-					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 44rem; margin: 0 auto">
-						Huge thanks to everyone who has supported the content.
-					</p>
+					<p class="donators-hub__tagline">Huge thanks to everyone who has supported the content.</p>
 				</div>
+				<nav class="donators-support-icons" aria-label="Support and tips">
+					<a
+						class="donators-support-hero donators-support-hero--kofi"
+						href="https://ko-fi.com/owenminer"
+						data-hero-cursor-tooltip="Donate here to support future projects"
+						data-kofi-link
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<img
+							class="donators-support-hero__art"
+							src="images/rainbow-mug-kofi.gif"
+							width="120"
+							height="120"
+							alt=""
+							decoding="async"
+						/>
+						<span class="donators-support-hero__label">Ko-fi</span>
+					</a>
+					<a
+						class="donators-support-hero"
+						href="https://streamelements.com/owenminercs/tip"
+						data-hero-cursor-tooltip="Donate here to have a message on YouTube and Twitch livestreams"
+						data-streamelements-tip-link
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<img
+							class="donators-support-hero__art donators-support-hero__art--motion"
+							src="images/live-stream-tip.svg"
+							width="120"
+							height="120"
+							alt=""
+							decoding="async"
+						/>
+						<span class="donators-support-hero__label">StreamElements</span>
+					</a>
+					<a
+						class="donators-support-hero"
+						href="https://steamcommunity.com/tradeoffer/new/?partner=169362392&amp;token=P_48mib_"
+						data-hero-cursor-tooltip="Send Graphiti's So I Can Draw Pretty Pictures Please"
+						data-steam-trade-link
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<img
+							class="donators-support-hero__art donators-support-hero__art--motion donators-support-hero__art--steam"
+							src="images/steam.svg"
+							width="120"
+							height="120"
+							alt=""
+							decoding="async"
+						/>
+						<span class="donators-support-hero__label">Steam trade</span>
+					</a>
+				</nav>
 			</div>
 
-			<p id="donators-error" class="donators-error" hidden>
-				Could not load supporter data. Check that <code>Donators/donators.json</code> is present.
-			</p>
+			<section class="hub-content-panel" aria-label="Supporter wall">
+				<div class="donators-body">
+					<p id="donators-error" class="donators-error" hidden>
+						Could not load supporter data. Check that <code>Donators/donators.json</code> is present.
+					</p>
 
-			<div id="donators-summary" class="donators-summary" aria-live="polite"></div>
-			<div id="donators-list" class="donators-grid" aria-live="polite"></div>
+					<div id="donators-summary" class="donators-summary" aria-live="polite"></div>
+					<div id="donators-list" class="donators-grid" aria-live="polite"></div>
+				</div>
+			</section>
 		</div>
 
 		<shared-footer

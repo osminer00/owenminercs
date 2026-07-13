@@ -8,7 +8,9 @@
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="../css/owenminercs.css" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -27,11 +29,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta
 			name="description"
-			content="CS2 bug found and fixed: Dust II pixel gap—June 2024 video, Reddit, NartOutHere credit, Valve patch."
+			content="CS2 bug found and fixed: Dust II pixel gap. June 2024 video, Reddit, NartOutHere credit, Valve patch."
 		/>
 		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href="https://www.owenminercs.com/Gaming/cs2-dust2-gap-bug" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 		<style>
 			.dust2-gap-embed-stats {
 				color: #aaa;
@@ -41,7 +44,7 @@
 			.dust2-gap-embed-stats strong {
 				color: #e8e8e8;
 			}
-			/* YouTube Short (9:16) + Reddit, side by side — shared embed height */
+			/* YouTube Short (9:16) + Reddit, side by side, shared embed height */
 			.dust2-gap-embed-row {
 				--dust2-embed-h: 560px;
 				display: grid;
@@ -202,8 +205,25 @@
 			}
 		</style>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 
 		<div class="container">
 			<div class="intro" style="text-align: left">
@@ -218,7 +238,7 @@
 					<div class="dust2-gap-embed-row">
 						<div class="dust2-gap-embed-col dust2-gap-embed-col--yt">
 							<p class="dust2-gap-embed-stats">
-								<strong>YouTube</strong> (Short, 9:16) — 7,802 views · 176 likes
+								<strong>YouTube</strong> (Short, 9:16), 7,802 views · 176 likes
 							</p>
 							<div class="dust2-gap-yt-short">
 								<iframe
@@ -243,7 +263,7 @@
 						</div>
 						<div class="dust2-gap-embed-col dust2-gap-embed-col--reddit">
 							<p class="dust2-gap-embed-stats">
-								<strong>Reddit</strong> (r/GlobalOffensive) — 172 upvotes · 14 comments
+								<strong>Reddit</strong> (r/GlobalOffensive), 172 upvotes · 14 comments
 							</p>
 							<div class="dust2-gap-reddit-slot">
 								<blockquote class="reddit-embed-bq" data-embed-theme="dark" data-embed-height="560">
@@ -262,8 +282,8 @@
 					<script async src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
 
 					<p>
-						I recorded this tiny geometry gap on <strong>Dust II</strong>—the kind of spot you only notice
-						when you’re lining up angles—and posted it on YouTube and Reddit (embedded above), and a few
+						I recorded this tiny geometry gap on <strong>Dust II</strong>, the kind of spot you only notice
+						when you’re lining up angles, and posted it on YouTube and Reddit (embedded above), and a few
 						other places. At the time I meant to forward it through the same channel Valve uses for
 						Counter-Strike bug reports; I’m not 100% certain that email ever went out, but the intent was
 						there.
@@ -294,7 +314,7 @@
 						</a>
 						<div class="dust2-gap-nart-aside">
 							<p class="dust2-gap-nart-aside-text">
-								Open the video on YouTube or use the screenshot below—the still shows the “Credit
+								Open the video on YouTube or use the screenshot below, the still shows the “Credit
 								OwenMCS” callout on the gap.
 							</p>
 							<a
@@ -308,7 +328,7 @@
 						</div>
 					</div>
 					<p class="dust2-gap-nart-meta">
-						<strong>NartOutHere</strong> (YouTube) — 21,789 views · 578 likes · uploaded Jun 29, 2024
+						<strong>NartOutHere</strong> (YouTube), 21,789 views · 578 likes · uploaded Jun 29, 2024
 						<span class="dust2-gap-nart-meta__watch-row">
 							<a
 								href="https://www.youtube.com/watch?v=emsFcrfFG-g&amp;t=392s"
@@ -326,17 +346,17 @@
 							href="https://store.steampowered.com/news/app/730/view/4257672198498686343"
 							target="_blank"
 							rel="noopener noreferrer"
-							title="Counter-Strike 2 — Release Notes for 7/2/2024 (Steam News)"
+							title="Counter-Strike 2, Release Notes for 7/2/2024 (Steam News)"
 						>
 							July 2, 2024 update
 						</a>, whose map notes included
-						<strong>“Fixed hole in brick stack on bombsite B”</strong> on Dust II—that closed this gap.
+						<strong>“Fixed hole in brick stack on bombsite B”</strong> on Dust II, that closed this gap.
 					</p>
 					<p>
 						I’ve sent Valve quite a few reports over the years without seeing a clear match in patch notes.
 						This was the first time I could point at an update and feel pretty confident that
-						<strong>this</strong> little map fix was connected to the work I put out publicly—including that
-						first video—so it’s a personal milestone even if the change was small on paper.
+						<strong>this</strong> little map fix was connected to the work I put out publicly, including that
+						first video, so it’s a personal milestone even if the change was small on paper.
 					</p>
 					<p style="margin-bottom: 0">
 						<a href="https://www.youtube.com/watch?v=iDQz5wtm9MI" target="_blank" rel="noopener noreferrer"
@@ -362,7 +382,7 @@
 		</div>
 
 		<shared-footer
-			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>"
 		></shared-footer>
 		<script>
 			(function () {

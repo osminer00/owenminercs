@@ -14,6 +14,7 @@
 		'social-dock-grand-tour': 'Grand tour',
 		'main-nav-full-tour': 'Mega nerd',
 		'bug-eater': 'Bug Eater',
+		'catch-shooting-star': 'Catch a shooting star',
 	};
 
 	const PALETTE = ['#00ff9a', '#4dffbd', '#ffd24a', '#ff6bb5', '#6ecbff', '#fff8e6', '#b388ff'];

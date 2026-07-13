@@ -9,39 +9,57 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="stylesheet" href="../css/affiliate-styles.css" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 		<script src="../scripts/affiliate-links.js" defer></script>
 		<title>Plants | Gear | Owen Miner</title>
 		<meta
 			name="description"
-			content="Desk plants, fake plants, pots, and grow lights from Gear—category hub for product cards."
+			content="Desk plants, fake plants, pots, and grow lights from Gear, category hub for product cards."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="canonical" href="https://www.owenminercs.com/The%20Setup/plants" />
 	</head>
-	<body id="top" class="site-card-ui" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro">
 				<p class="setup-detail__back"><a href="the-setup.html">← Gear</a></p>
 				<div
 					class="gallery keep-board-intro"
-					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
 				>
 					<h1>Plants</h1>
 					<p style="text-align: left; padding: 0 0.75rem 0.5rem; max-width: 42rem; margin: 0 auto">
-						Real desk and shelf plants, plus a dedicated page for fake greenery—grass walls, vines, and assorted
+						Real desk and shelf plants, plus a dedicated page for fake greenery, grass walls, vines, and assorted
 						faux picks.
 					</p>
 				</div>
 			</div>
-			<div class="keep-board" aria-label="Desk plants and accessories">
+						<section class="hub-content-panel">
+<div class="keep-board" aria-label="Desk plants and accessories">
 				<div class="keep-card" role="link" tabindex="0" data-href="plants-fake.html">
 					<span class="keep-card__inner">
-						<div class="keep-card__thumb keep-card__thumb--empty" role="img" aria-label="Fake plants placeholder">
-							Photo (add later)
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-purple-dark.jpg" alt="OwenMinerCS logo with dark purple globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Category</div>
 							<div class="keep-card__body">
@@ -56,25 +74,31 @@
 						</div>
 					</span>
 				</div>
-				<div class="keep-card">
+				<div class="keep-card" role="link" tabindex="0" data-href="plants-real.html">
 					<span class="keep-card__inner">
-						<div class="keep-card__thumb keep-card__thumb--empty" role="img" aria-label="Plant product placeholder">
-							Photo (add later)
-						</div>
+						<img
+							class="keep-card__thumb"
+							src="../images/plants/real/areca-palms-when-they-arrived-one-of-them-did-not-survive-the-repot-very-well-which-is-a-known-issue-and-makes-me-really-sad.webp"
+							alt="Areca palms after arrival and repot"
+							loading="lazy"
+							decoding="async"
+						/>
 						<div class="keep-card__scalable">
-							<div class="keep-card__video-slot">Placeholder</div>
+							<div class="keep-card__video-slot">Live plants</div>
 							<div class="keep-card__body">
-								<p class="keep-card__label">Plant product slot</p>
+								<p class="keep-card__label">Real plants</p>
 								<div class="keep-card__affiliate">
 									<h4 style="margin: 0; font-size: 0.9rem; font-weight: 500">
-										Ready for named plant, pot, or grow-light card and links
+										Areca palms, pothos, snake plants, rolling plant cart
 									</h4>
 								</div>
+								<span class="keep-card__cta">More →</span>
 							</div>
 						</div>
 					</span>
 				</div>
 			</div>
+			</section>
 		</div>
 		<shared-footer></shared-footer>
 		<script src="../scripts/setup-cards.js" defer></script>

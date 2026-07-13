@@ -4,6 +4,8 @@
 # Site search (pretty URL → static page; avoids SPA-style fallback to index when unset)
 /search /search.html 200
 /search/ /search.html 200
+/site-map /site-map.html 200
+/site-map/ /site-map.html 200
 
 # About → home (same content lives at `/`)
 /about    /   301
@@ -44,13 +46,30 @@ http://www.owenminercs.com/*  https://www.owenminercs.com/:splat  301!
 
 /Desk%20Setup/setup    /The%20Setup/the-setup   301!
 /Desk%20Setup/setup.html    /The%20Setup/the-setup   301!
+/Desk%20Setup/fit-check    /The%20Setup/clothing   301
+/Desk%20Setup/fit-check.html    /The%20Setup/clothing.html   301
 /PC/pc    /The%20Setup/the-setup   301!
 /PC/pc.html    /The%20Setup/the-setup   301!
 /Counter-Strike/CS    /Gaming/gaming   301!
 /Counter-Strike/CS.html    /Gaming/gaming   301!
 
+/Gaming/gaming-quick-links    /Gaming/gaming   301
+/Gaming/gaming-quick-links.html    /Gaming/gaming   301
 /Gaming/cs2-wallpapers    /Counter-Strike/nosmoking   301
 /Gaming/cs2-wallpapers.html    /Counter-Strike/nosmoking   301
+/Gaming/austin-major    /Gaming/austin-major   301
+/Gaming/austin-major.html    /Gaming/austin-major   301
+/Gaming/gaming-memorabilia.html    /Gaming/gaming-memorabilia   301
+/Gaming/stickers    /Gaming/stickers   301
+/Gaming/stickers.html    /Gaming/stickers   301
+/Gaming/cs2-arts-and-crafts    /Gaming/cs2-arts-and-crafts   301
+/Gaming/cs2-arts-and-crafts.html    /Gaming/cs2-arts-and-crafts   301
+/Gaming/cs2-arts-crafts    /Gaming/cs2-arts-and-crafts   301
+/Gaming/cs2-arts-crafts.html    /Gaming/cs2-arts-and-crafts   301
+/The%20Setup/2022-2023-setup    /The%20Setup/2022-2023-setup   301
+/The%20Setup/2022-2023-setup.html    /The%20Setup/2022-2023-setup   301
+/The%20Setup/november-2021-setup    /The%20Setup/early-2019-setup   301
+/The%20Setup/november-2021-setup.html    /The%20Setup/early-2019-setup   301
 
 # Merged setup detail pages → combined destinations
 /The%20Setup/camera-cage    /The%20Setup/camera#camera-cage-zve10   301
@@ -62,6 +81,26 @@ http://www.owenminercs.com/*  https://www.owenminercs.com/:splat  301!
 
 /The%20Setup/desks    /The%20Setup/furniture   301
 /The%20Setup/desks.html    /The%20Setup/furniture   301
+/The%20Setup/monitors    /The%20Setup/displays   301
+/The%20Setup/monitors.html    /The%20Setup/displays   301
 
 /Keyboard/wooting-60he-v1    /Keyboard/60he-2023    301
 /Keyboard/wooting-60he-v1.html    /Keyboard/60he-2023    301
+/Keyboard/60he    /The%20Setup/keyboards   301
+/Keyboard/60he.html    /The%20Setup/keyboards   301
+
+/The%20Setup/gaming-monitor-tuf-280hz    /The%20Setup/gaming-monitor-tuf-280hz   301
+/The%20Setup/gaming-monitor-tuf-280hz.html    /The%20Setup/gaming-monitor-tuf-280hz   301
+/The%20Setup/govee-edison-bulbs    /The%20Setup/govee-edison-bulbs   301
+/The%20Setup/govee-edison-bulbs.html    /The%20Setup/govee-edison-bulbs   301
+/Gaming/cs2-dust2-gap-bug.html    /Gaming/cs2-dust2-gap-bug   301
+/Gaming/cs2-skins    /Gaming/cs2-skins   301
+/Gaming/cs2-skins.html    /Gaming/cs2-skins   301
+/Gaming/complexity-disband-meme    /Gaming/complexity-disband-meme   301
+/Gaming/complexity-disband-meme.html    /Gaming/complexity-disband-meme   301
+/The%20Setup/clothing    /The%20Setup/clothing   301
+/The%20Setup/clothing.html    /The%20Setup/clothing   301
+/The%20Setup/plants-real    /The%20Setup/plants-real   301
+/The%20Setup/plants-real.html    /The%20Setup/plants-real   301
+/The%20Setup/summer-2025-agent-k-setup    /The%20Setup/summer-2025-agent-k-setup   301
+/The%20Setup/summer-2025-agent-k-setup.html    /The%20Setup/summer-2025-agent-k-setup   301

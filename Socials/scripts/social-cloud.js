@@ -95,8 +95,8 @@
 	// - Animation pace is controlled with `baseSpeed`.
 	// - Enable/disable content kinds in `enabledNoteTypes`.
 	const config = {
-		cardCountDesktop: 20,
-		cardCountMobile: 12,
+		cardCountDesktop: 30,
+		cardCountMobile: 18,
 		baseSpeed: 28,
 		enabledNoteTypes: ['video', 'social'],
 		preferredYouTubeContentTypes: [],
@@ -107,11 +107,11 @@
 	const LOCAL_X_TOP_POSTS_PATH = '/Socials/data/x-top-posts.json';
 	const LOCAL_INSTAGRAM_POSTS_PATH = '/Socials/data/instagram-posts.json';
 	const LOCAL_TIKTOK_POSTS_PATH = '/Socials/data/tiktok-posts.json';
+	const LOCAL_REDDIT_POSTS_PATH = '/Socials/data/reddit-posts.json';
 	const LOCAL_FACEBOOK_POSTS_PATH = '/Socials/data/facebook-posts.json';
 	const LOCAL_TWITCH_POSTS_PATH = '/Socials/data/twitch-posts.json';
-	const MIN_SOCIAL_ENGAGEMENT = 101;
-	const X_MIN_LIKES = MIN_SOCIAL_ENGAGEMENT;
-	const REDDIT_MIN_UPVOTES = MIN_SOCIAL_ENGAGEMENT;
+	const MIN_YOUTUBE_ENGAGEMENT = 101;
+	const REDDIT_MIN_UPVOTES = 101;
 	const REDDIT_FETCH_LIMIT = 100;
 	const ACH_SOCIAL_CARD_PIN_AND_MOVE = 'social-card-pin-and-move';
 	const SOCIAL_CARD_PIN_MOVE_PROGRESS_KEY = 'smc-social-card-pin-move-progress-v1';
@@ -158,7 +158,116 @@
 		}
 	}
 
+	const DRAG_HINT_STORAGE_KEY = 'owenminercs-content-drag-hint-dismissed';
+	let dragHintEl = null;
+	let dragHintTargetState = null;
+	let dragHintDismissed = false;
+
+	function loadDragHintDismissed() {
+		try {
+			return localStorage.getItem(DRAG_HINT_STORAGE_KEY) === '1';
+		} catch (_err) {
+			return false;
+		}
+	}
+
+	function persistDragHintDismissed() {
+		try {
+			localStorage.setItem(DRAG_HINT_STORAGE_KEY, '1');
+		} catch (_err) {
+			// Ignore storage errors.
+		}
+	}
+
+	function removeDragHint() {
+		if (dragHintEl) {
+			dragHintEl.remove();
+			dragHintEl = null;
+		}
+		dragHintTargetState = null;
+	}
+
+	function dismissDragHint() {
+		if (dragHintDismissed) return;
+		dragHintDismissed = true;
+		persistDragHintDismissed();
+		removeDragHint();
+	}
+
+	function pickDragHintTarget() {
+		if (!states.length) return null;
+		const cloudRect = cloud.getBoundingClientRect();
+		const centerX = cloudRect.left + cloudRect.width / 2;
+		const centerY = cloudRect.top + cloudRect.height / 2;
+		const initialBatch = states.slice(0, Math.min(cardCount, states.length));
+		let bestState = null;
+		let bestDistance = Number.POSITIVE_INFINITY;
+		for (let i = 0; i < initialBatch.length; i += 1) {
+			const state = initialBatch[i];
+			if (!state?.el || state.isPinned) continue;
+			const rect = state.el.getBoundingClientRect();
+			if (rect.right < 8 || rect.left > window.innerWidth - 8) continue;
+			if (rect.bottom < 8 || rect.top > window.innerHeight - 8) continue;
+			const cardCenterX = rect.left + rect.width / 2;
+			const cardCenterY = rect.top + rect.height / 2;
+			const distance = Math.hypot(cardCenterX - centerX, cardCenterY - centerY);
+			if (distance < bestDistance) {
+				bestDistance = distance;
+				bestState = state;
+			}
+		}
+		if (bestState) return bestState;
+		const middleIndex = Math.floor(initialBatch.length / 2);
+		return initialBatch[middleIndex] || states[0] || null;
+	}
+
+	function positionDragHint() {
+		if (!dragHintEl) return;
+		if (!dragHintTargetState?.el || dragHintTargetState.isPinned) {
+			dragHintTargetState = pickDragHintTarget();
+			if (!dragHintTargetState?.el) {
+				removeDragHint();
+				return;
+			}
+		}
+		const cardRect = dragHintTargetState.el.getBoundingClientRect();
+		const hintWidth = dragHintEl.offsetWidth || 0;
+		const hintHeight = dragHintEl.offsetHeight || 0;
+		const offsetY = 12;
+		let left = cardRect.left + cardRect.width / 2 - hintWidth / 2;
+		let top = cardRect.top - hintHeight - offsetY;
+		if (top < 8) {
+			top = cardRect.bottom + offsetY;
+		}
+		left = clamp(left, 8, Math.max(8, window.innerWidth - hintWidth - 8));
+		top = clamp(top, 8, Math.max(8, window.innerHeight - hintHeight - 8));
+		dragHintEl.style.left = `${left.toFixed(1)}px`;
+		dragHintEl.style.top = `${top.toFixed(1)}px`;
+	}
+
+	function mountDragHint() {
+		if (dragHintDismissed || !states.length) {
+			return;
+		}
+		removeDragHint();
+		dragHintTargetState = pickDragHintTarget();
+		if (!dragHintTargetState?.el) return;
+		dragHintEl = document.createElement('div');
+		dragHintEl.className = 'smc-drag-hint';
+		dragHintEl.setAttribute('role', 'status');
+		dragHintEl.setAttribute('aria-live', 'polite');
+		const hintText = document.createElement('span');
+		hintText.className = 'smc-drag-hint__text';
+		hintText.textContent = 'Click and drag to move';
+		dragHintEl.appendChild(hintText);
+		document.body.appendChild(dragHintEl);
+		positionDragHint();
+	}
+
+	dragHintDismissed = loadDragHintDismissed();
+
 	function markSocialCardMoved() {
+		dismissDragHint();
 		if (socialCardPinMoveProgress.moved) {
 			maybeUnlockSocialCardPinMoveAchievement();
 			return;
@@ -179,8 +288,8 @@
 	}
 
 	function applyModeConfig() {
-		config.cardCountDesktop = useLightMode ? 8 : 16;
-		config.cardCountMobile = useLightMode ? 6 : 10;
+		config.cardCountDesktop = useLightMode ? 28 : 80;
+		config.cardCountMobile = useLightMode ? 16 : 48;
 		config.baseSpeed = useLightMode ? 20 : 28;
 		// Thumbnails only in lightweight mode; full mode uses inline iframes/video players.
 		config.useInlineVideoByDefault = !useLightMode;
@@ -738,7 +847,16 @@
 		};
 	}
 
-	async function fetchRedditTopContentItems() {
+	function shouldAttemptLiveRedditFetch() {
+		const host = String(window.location.hostname || '').toLowerCase();
+		if (!host || host === 'localhost' || host === '127.0.0.1' || host === '[::1]') {
+			return false;
+		}
+		return window.location.protocol === 'https:' || host.endsWith('owenminercs.com');
+	}
+
+	async function fetchRedditLiveContentItems() {
+		if (!shouldAttemptLiveRedditFetch()) return [];
 		try {
 			const redditProfileUrl = getRedditProfileUrlFromPage();
 			const username = parseRedditUsernameFromUrl(redditProfileUrl);
@@ -813,6 +931,7 @@
 			localXTopPosts,
 			localInstagramPosts,
 			localTikTokPosts,
+			localRedditPosts,
 			localFacebookPosts,
 			localTwitchPosts,
 		] = await Promise.all([
@@ -821,6 +940,7 @@
 			fetchJsonArray(LOCAL_X_TOP_POSTS_PATH),
 			fetchJsonArray(LOCAL_INSTAGRAM_POSTS_PATH),
 			fetchJsonArray(LOCAL_TIKTOK_POSTS_PATH),
+			fetchJsonArray(LOCAL_REDDIT_POSTS_PATH),
 			fetchJsonArray(LOCAL_FACEBOOK_POSTS_PATH),
 			fetchJsonArray(LOCAL_TWITCH_POSTS_PATH),
 		]);
@@ -831,6 +951,7 @@
 				...localXTopPosts,
 				...localInstagramPosts,
 				...localTikTokPosts,
+				...localRedditPosts,
 				...localFacebookPosts,
 				...localTwitchPosts,
 			].map(normalizeLocalSocialSourceItem)
@@ -851,11 +972,15 @@
 
 	function hasMinimumSocialEngagement(item) {
 		const platform = normalizePlatformKey(item?.platform);
-		const engagementCount =
-			platform === 'reddit'
-				? toSafeNumber(item?.upvoteCount || item?.likeCount)
-				: toSafeNumber(item?.likeCount || item?.upvoteCount);
-		return engagementCount >= MIN_SOCIAL_ENGAGEMENT;
+		if (platform === 'reddit') {
+			return toSafeNumber(item?.upvoteCount || item?.likeCount) >= REDDIT_MIN_UPVOTES;
+		}
+		if (platform === 'youtube') {
+			const likes = toSafeNumber(item?.likeCount);
+			const views = toSafeNumber(item?.viewCount);
+			return likes >= MIN_YOUTUBE_ENGAGEMENT || views >= 5000;
+		}
+		return Boolean(String(item?.url || item?.title || '').trim());
 	}
 
 	function formatDate(dateInput) {
@@ -1128,12 +1253,9 @@
 				.map(toContentCard);
 		}
 
-		const xCards = toPlatformCards('x', { minLikes: X_MIN_LIKES });
+		const xCards = toPlatformCards('x');
 
-		const redditCards = toPlatformCards('reddit', {
-			minUpvotes: REDDIT_MIN_UPVOTES,
-			sortByUpvotes: true,
-		});
+		const redditCards = toPlatformCards('reddit', { sortByUpvotes: true });
 
 		const instagramCards = toPlatformCards('instagram');
 		const tiktokCards = toPlatformCards('tiktok');
@@ -1199,6 +1321,41 @@
 		return idMatch && idMatch[1] ? idMatch[1] : '';
 	}
 
+	function getLocalTikTokThumbPath(videoId) {
+		if (!videoId) return '';
+		return `/Socials/images/content-thumbs/tiktok/${videoId}.jpg`;
+	}
+
+	function isTikTokCdnUrl(url) {
+		return /tiktokcdn/i.test(String(url || ''));
+	}
+
+	function resolveCardThumbnail(item) {
+		const platform = normalizePlatformKey(item?.platformKey || item?.platform);
+		if (platform === 'youtube') {
+			const videoId = getYouTubeVideoId(item?.url || item?.embedUrl || item?.thumbnail || '');
+			if (videoId) {
+				return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+			}
+		}
+		if (platform === 'tiktok') {
+			const videoId = getTikTokVideoId(item?.url || '');
+			if (videoId) {
+				return getLocalTikTokThumbPath(videoId);
+			}
+		}
+		const raw = String(item?.thumbnail || item?.imageSrc || '').trim();
+		if (platform === 'tiktok' && isTikTokCdnUrl(raw)) {
+			return '';
+		}
+		return raw;
+	}
+
+	function shouldUseInlineVideoPlayer(_item, _embed) {
+		// Thumbnails only while cards drift; embeds load on pin (avoids WebGL/403 spam).
+		return false;
+	}
+
 	function getTikTokEmbedUrl(rawUrl) {
 		const videoId = getTikTokVideoId(rawUrl);
 		if (videoId) {
@@ -1213,10 +1370,7 @@
 	}
 
 	function shouldUseInlineTikTokPlayer(item, embed) {
-		if (String(embed?.className || '').toLowerCase() !== 'tiktok') return true;
-		// TikTok player/v1 rejects iframe loads when Referrer-Policy strips referrer on
-		// http://localhost (strict-origin-when-cross-origin). Show thumbnail until pin instead.
-		return false;
+		return shouldUseInlineVideoPlayer(item, embed);
 	}
 
 	function getEmbedConfig(item) {
@@ -1234,15 +1388,22 @@
 		}
 		if (platform === 'reddit') {
 			const contentType = getResolvedContentType(item);
-			if (contentType !== 'video') return null;
-			let src = String(item.embedUrl || '').trim();
-			if (!src) return null;
-			if (isRedditNonNativeVideoStreamUrl(src)) {
-				return null;
+			const postUrl = String(item?.url || '').trim();
+			if (contentType === 'video') {
+				const src = String(item.embedUrl || '').trim();
+				if (
+					src &&
+					!isRedditNonNativeVideoStreamUrl(src) &&
+					isRedditProgressiveMp4Url(src)
+				) {
+					return { kind: 'video', src, className: 'reddit' };
+				}
 			}
-			const isDirectVideo = isRedditProgressiveMp4Url(src);
-			if (!isDirectVideo) return null;
-			return { kind: 'video', src, className: 'reddit' };
+			const iframeSrc = redditPostUrlToMediaEmbed(postUrl);
+			if (iframeSrc) {
+				return { kind: 'iframe', src: iframeSrc, className: 'reddit' };
+			}
+			return null;
 		}
 		if (platform === 'x') {
 			const src = String(item.embedUrl || '').trim();
@@ -1975,7 +2136,7 @@
 	}
 
 	function getCardLaneGap() {
-		return window.innerWidth < 780 ? 14 : 20;
+		return window.innerWidth < 780 ? 7 : 10;
 	}
 
 	function getOffscreenMinX(width) {
@@ -1983,9 +2144,23 @@
 	}
 
 	function updateCardCountForViewport() {
-		const targetCount =
-			window.innerWidth < 780 ? config.cardCountMobile : config.cardCountDesktop;
-		cardCount = Math.min(enabledCatalog.length || targetCount, targetCount);
+		const isMobile = window.innerWidth < 780;
+		const avgCardW = isMobile ? 170 : 240;
+		const avgCardH = avgCardW * 0.92;
+		const area = Math.max(cloudWidth, 320) * Math.max(cloudHeight, 520);
+		const densityMultiplier = useLightMode
+			? isMobile
+				? 1.1
+				: 1.2
+			: isMobile
+				? 2.0
+				: 2.6;
+		const densityTarget = Math.ceil((area / Math.max(1, avgCardW * avgCardH)) * densityMultiplier);
+		const floor = useLightMode ? (isMobile ? 10 : 16) : isMobile ? 28 : 44;
+		const catalogCap = enabledCatalog.length || densityTarget;
+		const hardCap = useLightMode ? (isMobile ? 20 : 34) : isMobile ? 72 : 120;
+		const targetCount = clamp(densityTarget, floor, Math.min(catalogCap, hardCap));
+		cardCount = Math.min(catalogCap, targetCount);
 	}
 
 	function getCardWidth(index = 0) {
@@ -2034,6 +2209,92 @@
 			return maxX - rng() * Math.min(span * 0.38, width * 1.35);
 		}
 		return minX + rng() * span;
+	}
+
+	function rectsOverlapWithGap(x1, y1, w1, h1, x2, y2, w2, h2, gapX, gapY) {
+		return (
+			x1 < x2 + w2 + gapX &&
+			x1 + w1 + gapX > x2 &&
+			y1 < y2 + h2 + gapY &&
+			y1 + h1 + gapY > y2
+		);
+	}
+
+	function layoutCloudScatter(cardStates, options = {}) {
+		const drifting = cardStates.filter((state) => state?.el && !state.isPinned);
+		if (!drifting.length) return;
+		const gapX = useLightMode
+			? window.innerWidth < 780
+				? 30
+				: 38
+			: window.innerWidth < 780
+				? 18
+				: 24;
+		const gapY = useLightMode
+			? window.innerWidth < 780
+				? 34
+				: 42
+			: window.innerWidth < 780
+				? 22
+				: 28;
+		const placed = [];
+
+		for (let i = 0; i < drifting.length; i += 1) {
+			const state = drifting[i];
+			const layoutIndex = typeof state.layoutIndex === 'number' ? state.layoutIndex : i;
+			const width = getStateWidth(state);
+			const height = getStateHeight(state);
+			let x = options.assignX ? getScatterInitialX(layoutIndex, width) : state.x;
+			let y = getScatterY(layoutIndex, height);
+
+			for (let attempt = 0; attempt < 14; attempt += 1) {
+				let blocked = false;
+				for (let j = 0; j < placed.length; j += 1) {
+					const other = placed[j];
+					const otherW = getStateWidth(other);
+					const otherH = getStateHeight(other);
+					if (
+						rectsOverlapWithGap(
+							x,
+							y,
+							width,
+							height,
+							other.x,
+							other.y,
+							otherW,
+							otherH,
+							gapX,
+							gapY
+						)
+					) {
+						blocked = true;
+						const nudgeRng = seededRng(layoutIndex, 0x60 + attempt);
+						y = clamp(
+							y + gapY * (0.75 + nudgeRng() * 0.35),
+							getCloudMinY(height),
+							getCloudMaxY(height)
+						);
+						if (y >= getCloudMaxY(height) - 4) {
+							y =
+								getCloudMinY(height) +
+								nudgeRng() * Math.max(1, getCloudMaxY(height) - getCloudMinY(height) - height);
+							x = clamp(
+								x + gapX * (0.45 + nudgeRng() * 0.35),
+								-width * 0.32,
+								Math.max(-width * 0.32, cloudWidth - width * 0.58)
+							);
+						}
+						break;
+					}
+				}
+				if (!blocked) break;
+			}
+
+			state.x = x;
+			state.y = y;
+			clampStateToCloudArea(state);
+			placed.push(state);
+		}
 	}
 
 	function getWaveRespawnX(width, excludedState = null) {
@@ -2086,6 +2347,15 @@
 		document.body.style.setProperty('--smc-footer-h', `${footerHeight}px`);
 	}
 
+	function observePageChromeResize() {
+		if (typeof ResizeObserver === 'undefined') return;
+		const ro = new ResizeObserver(() => updatePageHeightBudget());
+		const header = document.querySelector('shared-header');
+		const footer = document.querySelector('shared-footer');
+		if (header) ro.observe(header);
+		if (footer) ro.observe(footer);
+	}
+
 	/** Pinned drag/resize: use full cloud height so fixed header/footer do not cap geometry. */
 	function getPinnedCardMinY() {
 		return 8;
@@ -2131,8 +2401,9 @@
 			x: isInitialPlacement ? getScatterInitialX(index, width) : getRespawnX(width),
 			y,
 			width,
+			baseZIndex: 1 + (index % 7),
 			speed: config.baseSpeed * speedScale,
-			driftAmp: 4 + layoutRng() * 9,
+			driftAmp: 2 + layoutRng() * 5,
 			driftRate: 0.35 + layoutRng() * 0.4,
 			phase: layoutRng() * Math.PI * 2,
 		};
@@ -2478,7 +2749,7 @@
 					nextEmbed &&
 						nextItem.type === 'video' &&
 						config.useInlineVideoByDefault &&
-						shouldUseInlineTikTokPlayer(nextItem, nextEmbed)
+						shouldUseInlineVideoPlayer(nextItem, nextEmbed)
 				);
 				if (shouldRenderInlinePlayer) {
 					const inlinePlayer = createPlayerElement(nextEmbed, nextItem, false);
@@ -2487,7 +2758,7 @@
 						state.inlinePlayerWrap = inlinePlayer;
 					}
 				} else {
-					const thumbSrc = nextItem.thumbnail || nextItem.imageSrc;
+					const thumbSrc = resolveCardThumbnail(nextItem);
 					if (thumbSrc) {
 						const isImagePost =
 							String(nextItem.mediaKind || '').toLowerCase() === 'image' ||
@@ -2522,13 +2793,33 @@
 						img.loading = 'lazy';
 						img.decoding = 'async';
 						img.draggable = false;
+						if (normalizePlatformKey(nextItem.platformKey) === 'tiktok') {
+							img.referrerPolicy = 'origin-when-cross-origin';
+						}
 						img.addEventListener('dragstart', (dragEvent) => {
 							dragEvent.preventDefault();
 						});
 						img.addEventListener(
 							'error',
 							() => {
-								mediaWrap.remove();
+								const platform = normalizePlatformKey(nextItem.platformKey);
+								if (platform === 'youtube' && !img.dataset.ytRetry) {
+									const videoId = getYouTubeVideoId(
+										nextItem?.url || nextItem?.embedUrl || ''
+									);
+									if (videoId) {
+										img.dataset.ytRetry = '1';
+										img.src = `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+										return;
+									}
+								}
+								img.remove();
+								if (!mediaWrap.querySelector('.smc-thumb-fallback')) {
+									const fallback = document.createElement('span');
+									fallback.className = 'smc-thumb-fallback';
+									fallback.textContent = nextItem.platform || 'Post';
+									mediaWrap.appendChild(fallback);
+								}
 							},
 							{ once: true }
 						);
@@ -2602,6 +2893,27 @@
 			function bringCardToFront() {
 				topCardLayer += 1;
 				card.style.zIndex = String(topCardLayer);
+			}
+
+			function liftCardOnHover() {
+				if (state.isPinned) return;
+				bringCardToFront();
+				card.classList.add('is-hover-lift');
+			}
+
+			function releaseCardHover() {
+				if (state.isPinned) return;
+				card.classList.remove('is-hover-lift');
+				card.style.zIndex = String(state.baseZIndex || 1);
+			}
+
+			function syncHoverLiftAfterUnpin() {
+				if (state.isPinned) return;
+				if (card.matches(':hover')) {
+					liftCardOnHover();
+				} else {
+					releaseCardHover();
+				}
 			}
 
 			function setPinnedHint(text) {
@@ -2715,6 +3027,7 @@
 					? 'Video keeps playing while drifting. Click card to pause movement'
 					: 'Click card to pause movement';
 				syncPinnedChrome();
+				syncHoverLiftAfterUnpin();
 			}
 
 			function pinCard(embed) {
@@ -2767,10 +3080,10 @@
 				if (event.button !== 0) return;
 				bringCardToFront();
 				suppressNextCardClick = false;
-				if (isInteractiveCardTarget(event.target)) return;
-				const cardRect = card.getBoundingClientRect();
 				const startedOnPlayerSurface =
 					event.target instanceof Element && Boolean(event.target.closest('.smc-player'));
+				if (!startedOnPlayerSurface && isInteractiveCardTarget(event.target)) return;
+				const cardRect = card.getBoundingClientRect();
 				dragPointerId = event.pointerId;
 				dragStartX = event.clientX;
 				dragStartY = event.clientY;
@@ -2882,14 +3195,7 @@
 				const statsMinWidth = 82;
 				const dateDrivenMin = dateWidth + statsMinWidth + bylineGap + cardPaddingX + 12;
 
-				const bottomStyles = window.getComputedStyle(bottomChrome);
-				const bottomGap = toSafeNumber(bottomStyles.columnGap || bottomStyles.gap);
-				const openPostWidth = Math.ceil(openPostLink.offsetWidth || 0);
-				const openChannelWidth = Math.ceil(openChannelLink.offsetWidth || 0);
-				const buttonDrivenMin =
-					openPostWidth + openChannelWidth + bottomGap + cardPaddingX + 12;
-
-				return Math.max(180, dateDrivenMin, buttonDrivenMin);
+				return Math.max(180, dateDrivenMin);
 			}
 
 			function getResizeDimensions(event, corner) {
@@ -3036,6 +3342,25 @@
 				handle.addEventListener('pointercancel', endResize);
 			});
 
+			card.addEventListener('pointerenter', () => {
+				liftCardOnHover();
+			});
+
+			card.addEventListener('pointerleave', () => {
+				releaseCardHover();
+			});
+
+			card.addEventListener('focusin', () => {
+				liftCardOnHover();
+			});
+
+			card.addEventListener('focusout', (event) => {
+				if (card.contains(event.relatedTarget)) return;
+				releaseCardHover();
+			});
+
+			card.style.zIndex = String(state.baseZIndex || 1);
+
 			card.addEventListener('click', (event) => {
 				if (isInteractiveCardTarget(event.target)) return;
 				if (suppressNextCardClick) {
@@ -3069,12 +3394,13 @@
 		}
 		cloud.appendChild(fragment);
 		window.requestAnimationFrame(() => {
+			layoutCloudScatter(states, { assignX: true });
 			for (let i = 0; i < states.length; i += 1) {
 				const state = states[i];
 				if (!state?.el || state.isPinned) continue;
-				clampStateToCloudArea(state);
 				state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px, 0)`;
 			}
+			mountDragHint();
 		});
 	}
 
@@ -3116,27 +3442,21 @@
 			state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${(state.y + bob).toFixed(2)}px, 0)`;
 		}
 
+		if (dragHintEl) {
+			positionDragHint();
+		}
+
 		rafId = window.requestAnimationFrame(tick);
 	}
 
 	function placeStaticCards() {
+		layoutCloudScatter(states, { assignX: true });
 		for (let i = 0; i < states.length; i += 1) {
 			const state = states[i];
 			if (!state?.el) continue;
-			const cardHeight = getStateHeight(state);
-			const width = getStateWidth(state);
-			const x = getScatterInitialX(
-				typeof state.layoutIndex === 'number' ? state.layoutIndex : i,
-				width
-			);
-			const y = getScatterY(
-				typeof state.layoutIndex === 'number' ? state.layoutIndex : i,
-				cardHeight
-			);
-			state.x = x;
-			state.y = y;
-			state.el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+			state.el.style.transform = `translate3d(${state.x.toFixed(2)}px, ${state.y.toFixed(2)}px, 0)`;
 		}
+		mountDragHint();
 	}
 
 	function startCloudAnimation() {
@@ -3150,6 +3470,7 @@
 	function rebuildCloud(contentItems = manualSocialContentItems) {
 		activeContentItems = contentItems;
 		catalogCursor = 0;
+		removeDragHint();
 		if (rafId) {
 			window.cancelAnimationFrame(rafId);
 			rafId = 0;
@@ -3317,12 +3638,16 @@
 		mountAmbientLayer();
 		mountPinnedLayer();
 		syncCloudBounds();
-		const [localItems, redditItems] = await Promise.all([
+		const [localItems, redditLiveItems] = await Promise.all([
 			fetchLocalSocialContentItems(),
-			fetchRedditTopContentItems(),
+			fetchRedditLiveContentItems(),
 		]);
-		const youtubeItems = localItems.length ? localItems : manualSocialContentItems;
-		const contentItems = [...redditItems, ...youtubeItems];
+		const hasLocalReddit = localItems.some(
+			(item) => normalizePlatformKey(item?.platform) === 'reddit'
+		);
+		const redditItems = hasLocalReddit ? [] : redditLiveItems;
+		const baseItems = localItems.length ? localItems : manualSocialContentItems;
+		const contentItems = [...redditItems, ...baseItems];
 		activeContentItems = contentItems;
 		renderHashtagFilterBar(contentItems);
 		enabledCatalog = getEnabledCatalog(contentItems);
@@ -3337,6 +3662,7 @@
 	}
 
 	initializeCloud();
+	observePageChromeResize();
 
 	window.addEventListener(
 		'resize',
@@ -3345,6 +3671,7 @@
 			if (prefersReducedMotion) {
 				placeStaticCards();
 			} else {
+				layoutCloudScatter(states, { assignX: false });
 				for (let i = 0; i < states.length; i += 1) {
 					clampStateToCloudArea(states[i]);
 					states[i].width = getStateWidth(states[i]);
@@ -3369,17 +3696,27 @@
 						refreshTitleMarquee(titleRoot);
 					}
 				}
+				if (dragHintEl) {
+					positionDragHint();
+				}
 			});
 		},
 		{ passive: true }
 	);
 
-	window.setTimeout(syncCloudBounds, 140);
-	window.setTimeout(syncCloudBounds, 520);
+	window.setTimeout(() => {
+		syncCloudBounds();
+		mountDragHint();
+	}, 140);
+	window.setTimeout(() => {
+		syncCloudBounds();
+		mountDragHint();
+	}, 520);
 
 	window.addEventListener('pagehide', () => {
 		clearIdleSpinTimer();
 		stopIdleSpinForAllCards();
+		removeDragHint();
 		if (rafId) {
 			window.cancelAnimationFrame(rafId);
 			rafId = 0;

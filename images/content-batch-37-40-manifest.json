@@ -1,0 +1,307 @@
+{
+  "generated": "2026-06-30T16:11:49.581Z",
+  "skippedFolders": [
+    "cs2 merch/inferno bannana bookend (batch 7–16 → images/cs2-merch/inferno-bookend)",
+    "cs2 merch/pins (batch 7–16 → images/cs2-merch/pins)",
+    "cs2 merch/cs joyer display (batch → images/cs2-arts-crafts/cs-joyer)"
+  ],
+  "sets": {
+    "coolest-shoes": {
+      "images": [
+        {
+          "file": "img-6030.webp",
+          "source": "IMG_6030.HEIC"
+        },
+        {
+          "file": "img-6031.webp",
+          "source": "IMG_6031.HEIC"
+        },
+        {
+          "file": "img-6032.webp",
+          "source": "IMG_6032.HEIC"
+        },
+        {
+          "file": "img-6033.webp",
+          "source": "IMG_6033.HEIC"
+        },
+        {
+          "file": "img-6034.webp",
+          "source": "IMG_6034.HEIC"
+        },
+        {
+          "file": "img-6035.webp",
+          "source": "IMG_6035.HEIC"
+        },
+        {
+          "file": "img-6036.webp",
+          "source": "IMG_6036.HEIC"
+        },
+        {
+          "file": "img-6037.webp",
+          "source": "IMG_6037.HEIC"
+        },
+        {
+          "file": "img-6038.webp",
+          "source": "IMG_6038.HEIC"
+        },
+        {
+          "file": "img-6039.webp",
+          "source": "IMG_6039.HEIC"
+        },
+        {
+          "file": "img-6040.webp",
+          "source": "IMG_6040.HEIC"
+        },
+        {
+          "file": "img-6041.webp",
+          "source": "IMG_6041.HEIC"
+        },
+        {
+          "file": "img-6042.webp",
+          "source": "IMG_6042.HEIC"
+        },
+        {
+          "file": "img-6043.webp",
+          "source": "IMG_6043.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/setup/clothing/coolest-shoes",
+      "skippedDuplicates": []
+    },
+    "complexity-disband-meme": {
+      "images": [],
+      "videos": [
+        {
+          "file": "practice-summer-2025-setup.mp4",
+          "source": "practicing for complexity disband meme video, has my original gaming setup from summer of 2025.MOV"
+        }
+      ],
+      "outDir": "images/gaming/complexity-disband-meme",
+      "skippedDuplicates": []
+    },
+    "complexity-disband-extras": {
+      "images": [
+        {
+          "file": "somebody-called-me-fps-russia-on-the-complexity-disband-video-and-i-thought-it-was-hilarous.webp",
+          "source": "somebody called me fps russia on the complexity disband video and I thought it was hilarous.PNG"
+        }
+      ],
+      "videos": [
+        {
+          "file": "old-pfp-from-complexity-disband-video.mp4",
+          "source": "old pfp from complexity disband video.mp4"
+        }
+      ],
+      "outDir": "images/gaming/complexity-disband-meme",
+      "skippedDuplicates": []
+    },
+    "cs2-skins-photoshop": {
+      "images": [
+        {
+          "file": "m9-slaughter-and-slightot-gloves-with-train-background-photoshop-both-sides-of-the-knife.webp",
+          "source": "m9 slaughter and slightot gloves with train background photoshop both sides of the knife.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/gaming/cs2-skins",
+      "skippedDuplicates": []
+    },
+    "kilowatt-keyboard-photos": {
+      "images": [
+        {
+          "file": "img-5687.webp",
+          "source": "IMG_5687.HEIC"
+        },
+        {
+          "file": "img-5688.webp",
+          "source": "IMG_5688.HEIC"
+        },
+        {
+          "file": "img-5689.webp",
+          "source": "IMG_5689.HEIC"
+        },
+        {
+          "file": "img-5690.webp",
+          "source": "IMG_5690.HEIC"
+        },
+        {
+          "file": "img-5691.webp",
+          "source": "IMG_5691.HEIC"
+        },
+        {
+          "file": "img-5692.webp",
+          "source": "IMG_5692.HEIC"
+        },
+        {
+          "file": "img-5695.webp",
+          "source": "IMG_5695.HEIC"
+        },
+        {
+          "file": "img-5696.webp",
+          "source": "IMG_5696.HEIC"
+        },
+        {
+          "file": "img-5697.webp",
+          "source": "IMG_5697.HEIC"
+        },
+        {
+          "file": "img-5698.webp",
+          "source": "IMG_5698.HEIC"
+        },
+        {
+          "file": "img-5699.webp",
+          "source": "IMG_5699.HEIC"
+        },
+        {
+          "file": "img-5700.webp",
+          "source": "IMG_5700.HEIC"
+        },
+        {
+          "file": "img-5701.webp",
+          "source": "IMG_5701.HEIC"
+        },
+        {
+          "file": "img-5702.webp",
+          "source": "IMG_5702.HEIC"
+        },
+        {
+          "file": "img-5703.webp",
+          "source": "IMG_5703.HEIC"
+        },
+        {
+          "file": "img-5704.webp",
+          "source": "IMG_5704.HEIC"
+        },
+        {
+          "file": "img-5705.webp",
+          "source": "IMG_5705.HEIC"
+        },
+        {
+          "file": "img-5706.webp",
+          "source": "IMG_5706.HEIC"
+        },
+        {
+          "file": "img-5707.webp",
+          "source": "IMG_5707.HEIC"
+        },
+        {
+          "file": "img-5708.webp",
+          "source": "IMG_5708.HEIC"
+        },
+        {
+          "file": "img-5709.webp",
+          "source": "IMG_5709.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "Keyboard/images/kilowatt-2025-extra",
+      "skippedDuplicates": []
+    },
+    "cs2-merch-shelves-summer-2025": {
+      "images": [
+        {
+          "file": "img-5680.webp",
+          "source": "IMG_5680.HEIC"
+        },
+        {
+          "file": "img-5681.webp",
+          "source": "IMG_5681.HEIC"
+        },
+        {
+          "file": "img-5682.webp",
+          "source": "IMG_5682.HEIC"
+        },
+        {
+          "file": "img-5683.webp",
+          "source": "IMG_5683.HEIC"
+        },
+        {
+          "file": "img-5684.webp",
+          "source": "IMG_5684.HEIC"
+        },
+        {
+          "file": "img-5685.webp",
+          "source": "IMG_5685.HEIC"
+        },
+        {
+          "file": "img-5686.webp",
+          "source": "IMG_5686.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cs2-merch/shelf-summer-2025",
+      "skippedDuplicates": []
+    },
+    "kilowatt-cases-merch-bag": {
+      "images": [
+        {
+          "file": "img-6049.webp",
+          "source": "IMG_6049.HEIC"
+        },
+        {
+          "file": "img-6050.webp",
+          "source": "IMG_6050.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cs2-merch/kilowatt-cases-merch-bag",
+      "skippedDuplicates": []
+    },
+    "agent-k-box": {
+      "images": [
+        {
+          "file": "agent-k-box-front.webp",
+          "source": "agent k box front.HEIC"
+        },
+        {
+          "file": "agent-k-box.webp",
+          "source": "agent k box.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cs2-merch/agent-k-box",
+      "skippedDuplicates": []
+    },
+    "cs2-merch-loose": {
+      "images": [
+        {
+          "file": "counter-strike-2-plushie-stress-ball-miami-daryl-with-the-rest-of-the-perfect-world-plushies-behind-in-a-display-austin-cs2-major-poster-and-ikea-white-shelves.webp",
+          "source": "counter strike 2 plushie stress ball miami daryl with the rest of the perfect world plushies behind in a display. Austin cs2 major poster and ikea white shelves.jpg"
+        },
+        {
+          "file": "cs2-merch-shelves-summer-2025.webp",
+          "source": "cs2 merch shelves summer 2025.PNG"
+        },
+        {
+          "file": "took-this-photo-when-rearanging-my-merch-shelves-to-where-it-is-at-now-but-shows-tha-majority-of-my-merch.webp",
+          "source": "took this photo when rearanging my merch shelves to where it is at now but shows tha majority of my merch.HEIC"
+        }
+      ],
+      "videos": [
+        {
+          "file": "2024-cs2-merch-close-up-kilowatt-keyboard-close-up.mp4",
+          "source": "2024 cs2 merch close up and kilowatt keyboard close up.MOV"
+        },
+        {
+          "file": "2024-cs2-merch-close-up-kilowatt-keyboard.mp4",
+          "source": "2024 cs2 merch close up and kilowatt keyboard.MOV"
+        },
+        {
+          "file": "2024-merch-setup-tour.mp4",
+          "source": "2024 merch setup tour.MOV"
+        },
+        {
+          "file": "kilowatt-keyboard-video.mp4",
+          "source": "kilowat keyboard video.MOV"
+        },
+        {
+          "file": "kilowatt-keyboard-close-up-agent-k-inferno-bookend-chicken-case.mp4",
+          "source": "kilowatt keyboard close up and agent k inferno bookend chicken case and cs2 mini fig merch.MOV"
+        }
+      ],
+      "outDir": "images/cs2-merch/leftovers",
+      "skippedDuplicates": []
+    }
+  }
+}

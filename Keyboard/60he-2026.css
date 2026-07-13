@@ -1,0 +1,199 @@
+body.site-card-ui.keyboard-60he-2026-page {
+	--kb-border: rgba(255, 255, 255, 0.1);
+	--kb-card-bg: rgba(255, 255, 255, 0.035);
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-2026-build-panel {
+	padding: clamp(0.55rem, 1.2vw, 0.8rem);
+}
+
+body.pc-build-page.keyboard-60he-2026-page .keyboard-build-hero-grid {
+	align-items: start;
+	display: grid;
+	gap: clamp(0.7rem, 1.3vw, 1.05rem);
+	grid-template-columns: minmax(14rem, 0.42fr) minmax(0, 1fr);
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-short-embed {
+	aspect-ratio: 9 / 16;
+	background: #000;
+	border-radius: var(--lg-glass-radius-card, 6px);
+	margin: 0 auto;
+	max-height: min(68vh, 40rem);
+	max-width: 24rem;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-short-embed iframe,
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-short-embed .embed-facade {
+	border: 0;
+	height: 100%;
+	inset: 0;
+	position: absolute;
+	width: 100%;
+}
+
+/* .gallery2 img { height: auto } must not shrink the facade poster in this 9:16 slot */
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-short-embed .embed-facade__poster {
+	width: 100%;
+	height: 100%;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	object-fit: cover;
+	object-position: center;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column > h2 {
+	color: var(--card-title-accent);
+	font-size: 0.78rem;
+	letter-spacing: 0.08em;
+	margin: 0 0 0.35rem;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+body.pc-build-page.keyboard-build-page.keyboard-60he-2026-page
+	.gallery2.pc-build-gallery
+	.keyboard-build-parts-column
+	.pc-build-parts-list {
+	gap: 0.32rem;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-build-part {
+	align-items: center;
+	background: var(--kb-card-bg);
+	border: 1px solid var(--kb-border);
+	border-left: 2px solid rgba(103, 232, 249, 0.4);
+	border-radius: 6px;
+	cursor: pointer;
+	display: grid;
+	gap: 0.38rem;
+	grid-template-columns: 3.25rem minmax(0, 1fr);
+	padding: 0.32rem 0.38rem;
+	position: relative;
+	transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-build-part__primary {
+	background: transparent;
+	border-radius: inherit;
+	color: inherit;
+	display: block;
+	inset: 0;
+	position: absolute;
+	text-decoration: none !important;
+	z-index: 0;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-build-part > :not(.pc-build-part__primary) {
+	pointer-events: none;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .keyboard-affiliate-thumb {
+	background: rgba(0, 0, 0, 0.25);
+	border-radius: 5px;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+	display: block;
+	height: 3.25rem;
+	object-fit: cover;
+	width: 3.25rem;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-build-part:hover {
+	background: rgba(103, 232, 249, 0.09);
+	border-color: rgba(103, 232, 249, 0.4);
+	border-left-color: rgba(103, 232, 249, 0.9);
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-part-name-host {
+	align-items: baseline;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 0.7rem;
+	gap: 0.08rem 0.35rem;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-part-name-link {
+	-webkit-box-orient: horizontal;
+	-webkit-line-clamp: none;
+	display: inline;
+	overflow: visible;
+	pointer-events: auto;
+	position: relative;
+	width: auto;
+	z-index: 2;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-part-name-link .item-desc {
+	color: var(--inline-link-unvisited, #4ade80);
+	font-size: 0.7rem;
+	font-weight: 600;
+	line-height: 1.22;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+body.site-card-ui.keyboard-60he-2026-page
+	.keyboard-build-parts-column
+	a.pc-part-name-link:visited
+	.item-desc {
+	color: var(--inline-link-visited, #d946ef);
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-part-name-link:hover .item-desc {
+	color: #86efac;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-part-name-host .b_w_link {
+	color: #9be7b4;
+	font-size: 0.66rem;
+	font-weight: 700;
+	margin-top: 0.05rem;
+	width: 100%;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-parts-column .pc-build-part[id] {
+	scroll-margin-top: 5rem;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-photo {
+	margin: clamp(0.55rem, 1.1vw, 0.85rem) 0 0;
+}
+
+body.site-card-ui.keyboard-60he-2026-page .keyboard-build-photo-img {
+	border: 1px solid var(--kb-border);
+	border-radius: 6px;
+	display: block;
+	height: auto;
+	max-width: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+@media (max-width: 1100px) {
+	body.pc-build-page.keyboard-60he-2026-page .keyboard-build-hero-grid {
+		grid-template-columns: 1fr;
+	}
+
+	body.pc-build-page.keyboard-build-page.keyboard-60he-2026-page
+		.gallery2.pc-build-gallery
+		.keyboard-build-parts-column
+		.pc-build-parts-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 760px) {
+	body.pc-build-page.keyboard-build-page.keyboard-60he-2026-page
+		.gallery2.pc-build-gallery
+		.keyboard-build-parts-column
+		.pc-build-parts-list {
+		grid-template-columns: 1fr;
+	}
+}

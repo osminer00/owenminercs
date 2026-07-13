@@ -8,7 +8,10 @@
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="../css/owenminercs.css" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -34,7 +37,7 @@
 						"@type": "CollectionPage",
 						"@id": "https://www.owenminercs.com/Gaming/cs2-videos#webpage",
 						"url": "https://www.owenminercs.com/Gaming/cs2-videos",
-						"name": "Counter-Strike 2 Videos — Owen Miner",
+						"name": "Counter-Strike 2 Videos, Owen Miner",
 						"description": "Long-form Counter-Strike 2 YouTube uploads from OwenMinerCS, newest first.",
 						"inLanguage": "en",
 						"isPartOf": { "@id": "https://www.owenminercs.com/#website" },
@@ -72,9 +75,27 @@
 			}
 		</script>
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro">
 				<p class="setup-detail__back"><a href="gaming.html">← Gaming</a></p>
@@ -82,12 +103,12 @@
 				<div class="ultrawide">
 					<button class="minimize5" title="Ultrawide">-</button>
 
-					<h1>Long-form YouTube videos — OwenMinerCS</h1>
+					<h1>Long-form YouTube videos, OwenMinerCS</h1>
 					<p style="margin-top: 8px; margin-bottom: 0; opacity: 0.92">
 						<a href="https://www.youtube.com/@OwenMinerCS" target="_blank" rel="noopener noreferrer"
 							>Channel @OwenMinerCS</a
 						>
-						— newest first. Vertical Shorts are on the
+						,  newest first. Vertical Shorts are on the
 						<a href="../Socials/socials.html">Socials hub</a>.
 					</p>
 
@@ -560,7 +581,7 @@
 			</div>
 		</dialog>
 		<shared-footer
-			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>"
 		></shared-footer>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<script>

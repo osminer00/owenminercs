@@ -1,0 +1,127 @@
+{
+	"excludePathPrefixes": ["mockups/", "temp-ebay-profile/"],
+	"excludePaths": ["search", "site-map", "Counter-Strike/CS", "nosmoking", "dev/ebay-seller-temp", "temp-ebay-profile", "Garage%20Sale/ebay-seller-scratch", "dev/affiliate-idea-board/index", "Keyboard/60he"],
+	"thumbOverrides": {
+		"help wanted/help-wanted": "/images/bubble-themes/help-wanted/poster.jpg",
+		"qa/qa": "/images/bubble-themes/qa/poster.jpg",
+		"dev/dev-stack": "/images/bubble-themes/dev/poster.jpg",
+		"achievements/achievements": "/images/bubble-themes/achievements/poster.jpg",
+		"gaming/cs2-videos": "/Counter-Strike/Images/cs2-banner.webp",
+		"services/services": "/About/Images/owenProfile.webp",
+		"music/music": "/About/Images/owenProfile.webp",
+		"photography/photography": "/About/Images/owenProfile.webp",
+		"posts/post-builder": "/About/Images/owenProfile.webp",
+		"upgrades/upgrades": "/images/gamingSetup.webp",
+		"the setup/cameras": "/images/cameras/zve10-desk-mount.webp",
+		"the setup/cable-management": "/images/logo/globes/globe-dark-blue.jpg"
+	},
+	"thumbAltOverrides": {
+		"the setup/cameras": "Sony ZV-E10 mirrorless camera on desk mount arm with collectibles shelf in background",
+		"the setup/cable-management": "OwenMinerCS logo with dark blue globe and orange text ring"
+	},
+	"titleOverrides": {
+		"the setup/gear-quick-links": "Gear Links"
+	},
+	"sections": [
+		{
+			"id": "home",
+			"label": "Home",
+			"hubPath": "index",
+			"pathPrefixes": ["index"],
+			"pinnedFirst": ["index"]
+		},
+		{
+			"id": "gear",
+			"label": "Gear",
+			"hubPath": "The%20Setup/the-setup",
+			"hubFiles": [
+				"The Setup/the-setup.html",
+				"The Setup/keyboards.html",
+				"The Setup/computers.html",
+				"The Setup/consoles.html",
+				"The Setup/tools.html",
+				"The Setup/displays.html",
+				"The Setup/lighting-hub.html",
+				"The Setup/mice.html",
+				"The Setup/furniture.html",
+				"The Setup/cable-management.html",
+				"The Setup/cameras.html",
+				"The Setup/audio.html",
+				"The Setup/phones-archive.html",
+				"The Setup/mounts-arms.html",
+				"The Setup/plants.html",
+				"The Setup/clothing.html",
+				"The Setup/workout-equipment.html",
+				"The Setup/gadgets.html",
+				"The Setup/power.html",
+				"The Setup/networking.html",
+				"The Setup/magnets.html",
+				"The Setup/old-pc-laptop.html",
+				"The Setup/previous-setups.html"
+			],
+			"pathPrefixes": ["The%20Setup/", "Keyboard/", "PC/", "Upgrades/", "Desk%20Setup/"]
+		},
+		{
+			"id": "gaming",
+			"label": "Gaming",
+			"hubPath": "Gaming/gaming",
+			"hubFiles": ["Gaming/gaming.html"],
+			"pathPrefixes": ["Gaming/", "Counter-Strike/"]
+		},
+		{
+			"id": "content",
+			"label": "Content",
+			"hubPath": "Socials/socials",
+			"hubFiles": ["Socials/socials.html"],
+			"pathPrefixes": ["Socials/", "Photography/", "Posts/", "Music/"]
+		},
+		{
+			"id": "donators",
+			"label": "Donators",
+			"hubPath": "Donators/donators",
+			"hubFiles": ["Donators/donators.html"],
+			"pathPrefixes": ["Donators/"]
+		},
+		{
+			"id": "for-sale",
+			"label": "For sale",
+			"hubPath": "Garage%20Sale/garage-sale",
+			"hubFiles": ["Garage Sale/garage-sale.html"],
+			"pathPrefixes": ["Garage%20Sale/"]
+		},
+		{
+			"id": "help-wanted",
+			"label": "Help Wanted",
+			"hubPath": "Help%20Wanted/help-wanted",
+			"hubFiles": ["Help Wanted/help-wanted.html"],
+			"pathPrefixes": ["Help%20Wanted/"]
+		},
+		{
+			"id": "qa",
+			"label": "Q&A",
+			"hubPath": "QA/qa",
+			"hubFiles": ["QA/qa.html"],
+			"pathPrefixes": ["QA/"]
+		},
+		{
+			"id": "programs",
+			"label": "Programs",
+			"hubPath": "dev/dev-stack",
+			"hubFiles": ["dev/dev-stack.html"],
+			"pathPrefixes": ["dev/"]
+		},
+		{
+			"id": "achievements",
+			"label": "Achievements",
+			"hubPath": "Achievements/achievements",
+			"hubFiles": ["Achievements/achievements.html"],
+			"pathPrefixes": ["Achievements/"]
+		},
+		{
+			"id": "other",
+			"label": "Other",
+			"hubPath": null,
+			"pathPrefixes": ["Services/"]
+		}
+	]
+}

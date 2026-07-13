@@ -1,0 +1,99 @@
+/** Donators — violet / magenta clip ~3:00–3:24, poster 3:03 */
+
+body.site-card-ui.bubble-theme.bubble-theme--donators {
+	--bubble-accent: #a855f7;
+	--bubble-accent-soft: rgba(168, 85, 247, 0.72);
+	--bubble-accent-fill: rgba(126, 34, 206, 0.14);
+	--bubble-accent-edge: rgba(192, 132, 252, 0.38);
+	--bubble-accent-specular: rgba(216, 180, 254, 0.26);
+	--bubble-accent-bg-hover: rgba(126, 34, 206, 0.12);
+	--bubble-glow-warm: rgba(46, 16, 72, 0.52);
+	--bubble-glow-mid: rgba(147, 51, 234, 0.5);
+	--bubble-glow-cool: rgba(192, 132, 252, 0.28);
+	--bubble-bg-fallback: #08040e;
+	--bubble-poster: url('/images/bubble-themes/donators/poster.jpg');
+	--bubble-media-brightness: 0.46;
+	--bubble-blue-block-filter: saturate(1.18) hue-rotate(8deg) contrast(1.05);
+	--bubble-veil:
+		radial-gradient(ellipse 90% 70% at 50% 40%, rgba(24, 6, 40, 0.08), rgba(0, 0, 0, 0.36) 78%),
+		linear-gradient(180deg, rgba(18, 4, 32, 0.18) 0%, rgba(0, 0, 0, 0.32) 100%);
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .intro .donators-support-icons {
+	margin-top: 0.35rem;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.65rem;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-summary {
+	width: 100%;
+	max-width: 980px;
+	margin: 0 auto;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-summary-card {
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+	padding: 0;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-summary-card h2 {
+	text-align: center;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-summary-stats {
+	justify-content: center;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-updated {
+	text-align: center;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-grid {
+	width: 100%;
+	max-width: 980px;
+	margin: 0 auto;
+	justify-content: center;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-card {
+	text-align: left;
+	border-color: rgba(255, 255, 255, 0.18);
+	background: rgba(0, 0, 0, 0.22);
+	backdrop-filter: blur(10px) saturate(1.2);
+	-webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-card:hover,
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body .donators-card:focus-within {
+	border-color: rgba(192, 132, 252, 0.45);
+	background: rgba(24, 8, 40, 0.42);
+	box-shadow:
+		0 0 0 1px rgba(192, 132, 252, 0.24),
+		0 0 16px rgba(126, 34, 206, 0.2),
+		0 0 30px rgba(46, 16, 72, 0.12),
+		var(--shadow-card);
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body button.donators-pill--action:hover {
+	border-color: rgba(192, 132, 252, 0.45);
+	background: rgba(126, 34, 206, 0.14);
+	box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.22);
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--donators .hub-content-panel .donators-body button.donators-pill--action:focus-visible {
+	outline-color: rgba(216, 180, 254, 0.75);
+}

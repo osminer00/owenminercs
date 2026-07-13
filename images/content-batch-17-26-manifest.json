@@ -1,0 +1,435 @@
+{
+  "generated": "2026-06-30T13:22:10.140Z",
+  "sets": {
+    "asus-tuf-280hz": {
+      "images": [
+        {
+          "file": "img-5074.webp",
+          "source": "IMG_5074.JPG"
+        },
+        {
+          "file": "img-5075.webp",
+          "source": "IMG_5075.JPG"
+        },
+        {
+          "file": "img-5076.webp",
+          "source": "IMG_5076.JPG"
+        },
+        {
+          "file": "img-5078.webp",
+          "source": "IMG_5078.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/archive/monitors/asus-tuf-280hz"
+    },
+    "zve10-unboxing": {
+      "images": [
+        {
+          "file": "img-4445.webp",
+          "source": "IMG_4445.HEIC"
+        },
+        {
+          "file": "img-4446.webp",
+          "source": "IMG_4446.HEIC"
+        },
+        {
+          "file": "img-4447.webp",
+          "source": "IMG_4447.HEIC"
+        },
+        {
+          "file": "img-4448.webp",
+          "source": "IMG_4448.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cameras/zve10-unboxing"
+    },
+    "cam-link-4k": {
+      "images": [
+        {
+          "file": "img-5115.webp",
+          "source": "IMG_5115.JPG"
+        },
+        {
+          "file": "img-5116.webp",
+          "source": "IMG_5116.JPG"
+        },
+        {
+          "file": "img-5117.webp",
+          "source": "IMG_5117.JPG"
+        },
+        {
+          "file": "img-5118.webp",
+          "source": "IMG_5118.JPG"
+        },
+        {
+          "file": "img-5119.webp",
+          "source": "IMG_5119.JPG"
+        },
+        {
+          "file": "img-5120.webp",
+          "source": "IMG_5120.JPG"
+        },
+        {
+          "file": "img-5121.webp",
+          "source": "IMG_5121.JPG"
+        },
+        {
+          "file": "img-5122.webp",
+          "source": "IMG_5122.JPG"
+        },
+        {
+          "file": "img-5123.webp",
+          "source": "IMG_5123.JPG"
+        },
+        {
+          "file": "img-5124.webp",
+          "source": "IMG_5124.JPG"
+        },
+        {
+          "file": "img-5125.webp",
+          "source": "IMG_5125.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/audio/cam-link-4k"
+    },
+    "razer-blade-2019": {
+      "images": [
+        {
+          "file": "img-5185.webp",
+          "source": "IMG_5185.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/archive/old-pcs/razer-blade-2019"
+    },
+    "nzxt-phantom": {
+      "images": [
+        {
+          "file": "img-4859.webp",
+          "source": "IMG_4859.JPG"
+        },
+        {
+          "file": "img-4860.webp",
+          "source": "IMG_4860.JPG"
+        },
+        {
+          "file": "img-4861.webp",
+          "source": "IMG_4861.JPG"
+        },
+        {
+          "file": "img-4862.webp",
+          "source": "IMG_4862.JPG"
+        },
+        {
+          "file": "img-4863.webp",
+          "source": "IMG_4863.JPG"
+        },
+        {
+          "file": "img-4864.webp",
+          "source": "IMG_4864.JPG"
+        },
+        {
+          "file": "img-4865.webp",
+          "source": "IMG_4865.JPG"
+        },
+        {
+          "file": "img-4866.webp",
+          "source": "IMG_4866.JPG"
+        },
+        {
+          "file": "img-4867.webp",
+          "source": "IMG_4867.JPG"
+        },
+        {
+          "file": "img-4868.webp",
+          "source": "IMG_4868.JPG"
+        },
+        {
+          "file": "img-4869.webp",
+          "source": "IMG_4869.JPG"
+        },
+        {
+          "file": "img-4870.webp",
+          "source": "IMG_4870.JPG"
+        },
+        {
+          "file": "img-4871.webp",
+          "source": "IMG_4871.JPG"
+        },
+        {
+          "file": "img-4872.webp",
+          "source": "IMG_4872.JPG"
+        },
+        {
+          "file": "img-4873.webp",
+          "source": "IMG_4873.JPG"
+        },
+        {
+          "file": "img-4874.webp",
+          "source": "IMG_4874.JPG"
+        },
+        {
+          "file": "img-4875.webp",
+          "source": "IMG_4875.JPG"
+        },
+        {
+          "file": "img-4876.webp",
+          "source": "IMG_4876.JPG"
+        },
+        {
+          "file": "img-4877.webp",
+          "source": "IMG_4877.JPG"
+        },
+        {
+          "file": "img-4878.webp",
+          "source": "IMG_4878.JPG"
+        },
+        {
+          "file": "img-4879.webp",
+          "source": "IMG_4879.JPG"
+        },
+        {
+          "file": "img-4880.webp",
+          "source": "IMG_4880.JPG"
+        },
+        {
+          "file": "img-4881.webp",
+          "source": "IMG_4881.JPG"
+        },
+        {
+          "file": "img-4882.webp",
+          "source": "IMG_4882.JPG"
+        },
+        {
+          "file": "img-4883.webp",
+          "source": "IMG_4883.JPG"
+        },
+        {
+          "file": "img-4884.webp",
+          "source": "IMG_4884.JPG"
+        },
+        {
+          "file": "img-4885.webp",
+          "source": "IMG_4885.JPG"
+        },
+        {
+          "file": "img-4886.webp",
+          "source": "IMG_4886.JPG"
+        },
+        {
+          "file": "img-4887.webp",
+          "source": "IMG_4887.JPG"
+        },
+        {
+          "file": "img-4888.webp",
+          "source": "IMG_4888.JPG"
+        },
+        {
+          "file": "img-4889.webp",
+          "source": "IMG_4889.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/archive/old-pcs/nzxt-phantom"
+    },
+    "sound-blaster-z": {
+      "images": [
+        {
+          "file": "img-5194.webp",
+          "source": "IMG_5194.HEIC"
+        },
+        {
+          "file": "img-5195.webp",
+          "source": "IMG_5195.HEIC"
+        },
+        {
+          "file": "img-5196.webp",
+          "source": "IMG_5196.HEIC"
+        },
+        {
+          "file": "img-5197.webp",
+          "source": "IMG_5197.HEIC"
+        },
+        {
+          "file": "img-5198.webp",
+          "source": "IMG_5198.HEIC"
+        },
+        {
+          "file": "img-5199.webp",
+          "source": "IMG_5199.HEIC"
+        },
+        {
+          "file": "img-5200.webp",
+          "source": "IMG_5200.HEIC"
+        },
+        {
+          "file": "old ssd/img-5201.webp",
+          "source": "IMG_5201.HEIC"
+        },
+        {
+          "file": "old ssd/img-5202.webp",
+          "source": "IMG_5202.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5203.webp",
+          "source": "IMG_5203.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5204.webp",
+          "source": "IMG_5204.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5205.webp",
+          "source": "IMG_5205.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5206.webp",
+          "source": "IMG_5206.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5207.webp",
+          "source": "IMG_5207.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5208.webp",
+          "source": "IMG_5208.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5209.webp",
+          "source": "IMG_5209.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5210.webp",
+          "source": "IMG_5210.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5211.webp",
+          "source": "IMG_5211.HEIC"
+        },
+        {
+          "file": "old ssd/riser cable/img-5212.webp",
+          "source": "IMG_5212.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/archive/audio/sound-blaster-z"
+    },
+    "deerrun-internals": {
+      "images": [
+        {
+          "file": "img-7058.webp",
+          "source": "IMG_7058.HEIC"
+        },
+        {
+          "file": "img-7059.webp",
+          "source": "IMG_7059.HEIC"
+        },
+        {
+          "file": "img-7060.webp",
+          "source": "IMG_7060.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/workout/deerrun-internals"
+    },
+    "hyperx-duocast": {
+      "images": [
+        {
+          "file": "img-5108.webp",
+          "source": "IMG_5108.JPG"
+        },
+        {
+          "file": "img-5109.webp",
+          "source": "IMG_5109.JPG"
+        },
+        {
+          "file": "img-5110.webp",
+          "source": "IMG_5110.JPG"
+        },
+        {
+          "file": "img-5111.webp",
+          "source": "IMG_5111.JPG"
+        },
+        {
+          "file": "img-5112.webp",
+          "source": "IMG_5112.JPG"
+        },
+        {
+          "file": "img-5113.webp",
+          "source": "IMG_5113.JPG"
+        },
+        {
+          "file": "img-5114.webp",
+          "source": "IMG_5114.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/audio/hyperx-duocast"
+    },
+    "setup-2024-tour": {
+      "images": [],
+      "videos": [
+        {
+          "file": "setup-tour-main.mp4",
+          "source": "2024 setup tour video.MOV"
+        },
+        {
+          "file": "setup-tour-cs2-merch-closeup.mp4",
+          "source": "2024 setup tour with cs2 merch closeup no audio.MOV"
+        },
+        {
+          "file": "setup-tour-standing-desk-sit-mode.mp4",
+          "source": "2024 setup tour with standing desk moving to sit mode and charging station next to bed.MOV"
+        }
+      ],
+      "outDir": "images/archive/setup-2024/tour"
+    },
+    "4090-unboxing": {
+      "images": [
+        {
+          "file": "img-4434.webp",
+          "source": "IMG_4434.HEIC"
+        },
+        {
+          "file": "img-4435.webp",
+          "source": "IMG_4435.HEIC"
+        },
+        {
+          "file": "img-4436.webp",
+          "source": "IMG_4436.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "PC/images/4090-unboxing"
+    },
+    "4090-vertical": {
+      "images": [
+        {
+          "file": "attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult-ima-2.webp",
+          "source": "attempt at mounting 4090 vertically in the lianli o11 dynamic evo. I gave up after the riser cable was a dud and had to be rma'd. also plugging in display cables and the strimmer was way too difficult. ima (2).jpg"
+        },
+        {
+          "file": "attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult-ima.webp",
+          "source": "attempt at mounting 4090 vertically in the lianli o11 dynamic evo. I gave up after the riser cable was a dud and had to be rma'd. also plugging in display cables and the strimmer was way too difficult. ima.jpg"
+        },
+        {
+          "file": "attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult.webp",
+          "source": "attempt at mounting 4090 vertically in the lianli o11 dynamic evo. I gave up after the riser cable was a dud and had to be rma'd. also plugging in display cables and the strimmer was way too difficult..jpg"
+        },
+        {
+          "file": "img-4468.webp",
+          "source": "IMG_4468.HEIC"
+        },
+        {
+          "file": "vertical-fe-4090-attempt.webp",
+          "source": "vertical fe 4090 attempt.jpg"
+        }
+      ],
+      "videos": [],
+      "outDir": "PC/images/4090-vertical"
+    }
+  }
+}

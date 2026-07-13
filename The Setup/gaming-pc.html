@@ -8,7 +8,10 @@
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="../css/owenminercs.css" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -55,64 +58,81 @@
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<link rel="stylesheet" href="../css/affiliate-styles.css" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 		<script src="../scripts/affiliate-links.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
-			<div class="intro" style="max-width: 42rem; margin: 0 auto 1rem; padding: 0 0.5rem; text-align: left">
+			<div class="intro">
 				<p class="setup-detail__back"><a href="the-setup.html">← Gear</a></p>
+				<h1>2024 gaming PC</h1>
 				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure</span> Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media. As an Amazon Associate I earn from qualifying purchases.</p>
-				<p style="margin: 0 0 0.75rem">
-					Part-by-part list for Owen’s 2024 main gaming rig (AMD Ryzen, RTX 4090, Lian Li case, and more) with
-					links. Also on this site: <a href="../Keyboard/60he.html">Wooting 60HE keyboard build</a>,
-					<a href="../Desk%20Setup/setup.html">Gear</a>,
-					<a href="../Counter-Strike/CS.html">CS2 &amp; Counter-Strike</a>,
-					<a href="../Socials/socials.html">socials &amp; support</a>.
-				</p>
-				<section
-					aria-labelledby="pc-faq-heading"
-					style="
-						padding: 0.75rem 1rem;
-						background: rgb(25, 25, 25);
-						border-radius: 6px;
-						border: 1px solid rgb(45, 45, 45);
-					"
-				>
-					<h2 id="pc-faq-heading" style="margin: 0 0 0.5rem; font-size: 1.1rem">Quick FAQ</h2>
-					<p style="margin: 0 0 0.5rem">
-						<strong>What is on this page?</strong> Retailer-linked specs for each major component of the
-						build.
-					</p>
-					<p style="margin: 0">
-						<strong>Related guides?</strong> Keyboard, desk, and CS2 pages are linked above for peripherals
-						and game content.
-					</p>
-				</section>
-				<section
-					aria-labelledby="pc-headphones-heading"
-					style="
-						padding: 0.75rem 1rem;
-						margin: 0.75rem 0 0;
-						background: rgb(25, 25, 25);
-						border-radius: 6px;
-						border: 1px solid rgb(45, 45, 45);
-					"
-				>
-					<h2 id="pc-headphones-heading" style="margin: 0 0 0.5rem; font-size: 1.1rem">Headphones</h2>
-					<p style="margin: 0">
-						What Owen uses on his ears at this desk: see the
-						<a href="audio.html#headphones">Audio page (headphones)</a>—Beyerdynamic DT 990 Pro notes and links.
-					</p>
-				</section>
 			</div>
 			<div class="gallery2">
 				<img
 					src="../PC/images/pc.webp"
-					alt="Nvidia 4090 Unboxing"
+					alt="2024 gaming PC build with Lian Li O11 Dynamic Evo case"
 					onclick="window.open(this.src)"
 					target="”_blank”"
 				/>
+
+				<section style="max-width: 42rem; margin: 1.5rem auto 0; text-align: left; padding: 0 0.5rem">
+					<h2 style="font-size: 1.2rem; margin: 0 0 0.5rem">RTX 4090 Founders Edition, unboxing</h2>
+					<p style="margin: 0 0 0.75rem; font-size: 0.95rem">
+						First time seeing the FE 4090 in person, absolute unit compared to everything I had run before.
+					</p>
+					<div class="photogallery subpage-gallery--dense" style="width: 100%; margin-top: 0">
+						<div class="photogallery-row">
+							<div class="photogallery-col">
+								<img class="photogallery-img" src="../PC/images/4090-unboxing/img-4434.webp" alt="NVIDIA RTX 4090 Founders Edition box" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+								<img class="photogallery-img" src="../PC/images/4090-unboxing/img-4436.webp" alt="RTX 4090 FE unboxed on desk" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							</div>
+							<div class="photogallery-col">
+								<img class="photogallery-img" src="../PC/images/4090-unboxing/img-4435.webp" alt="RTX 4090 Founders Edition first look" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section style="max-width: 42rem; margin: 1.75rem auto 0; text-align: left; padding: 0 0.5rem">
+					<h2 style="font-size: 1.2rem; margin: 0 0 0.5rem">Vertical mount attempt (abandoned)</h2>
+					<p style="margin: 0 0 0.75rem; font-size: 0.95rem">
+						Tried mounting the 4090 vertically in the O11 Dynamic Evo, gave up after the riser cable was a dud
+						(RMA’d) and routing display cables plus the Strimer was way more painful than horizontal. Landed
+						on a standard horizontal install instead.
+					</p>
+					<div class="photogallery subpage-gallery--dense" style="width: 100%; margin-top: 0">
+						<div class="photogallery-row">
+							<div class="photogallery-col">
+								<img class="photogallery-img" src="../PC/images/4090-vertical/img-4468.webp" alt="RTX 4090 vertical mount test fit in O11 Dynamic Evo" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+								<img class="photogallery-img" src="../PC/images/4090-vertical/vertical-fe-4090-attempt.webp" alt="Founders Edition 4090 vertical orientation attempt" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+								<img class="photogallery-img" src="../PC/images/4090-vertical/attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult.webp" alt="Vertical 4090 install with cable clearance issues" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							</div>
+							<div class="photogallery-col">
+								<img class="photogallery-img" src="../PC/images/4090-vertical/attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult-ima.webp" alt="Vertical GPU attempt, Strimer cable routing" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+								<img class="photogallery-img" src="../PC/images/4090-vertical/attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult-ima-2.webp" alt="Abandoned vertical 4090 mount in Lian Li case" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							</div>
+						</div>
+					</div>
+				</section>
 
 				<div class="case2">
 					<a

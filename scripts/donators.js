@@ -74,7 +74,7 @@
 			'</div>' +
 			'<div class="donators-donate-dialog__embed" hidden>' +
 			'<p id="donators-donate-embed-kofi-title" class="donators-donate-dialog__embed-title">Donate on Ko-fi</p>' +
-			'<iframe class="donators-donate-dialog__embed-frame" title="Ko-fi — support Owen Miner" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' +
+			'<iframe class="donators-donate-dialog__embed-frame" title="Ko-fi: support Owen Miner" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' +
 			'</div>' +
 			'</div>' +
 			'</div>';

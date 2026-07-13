@@ -9,6 +9,8 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -30,7 +32,8 @@
 		<meta name="robots" content="index, follow" />
 		<meta name="twitter:site" content="@OwenMiner" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#0f0f0f" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -48,11 +51,11 @@
 		<link rel="canonical" href="https://www.owenminercs.com/QA/qa" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 		<script src="scripts/qa-feed.js" defer></script>
 		<style>
 			.qa-intro {
-				max-width: 46rem;
-				margin: 0 auto 1.25rem;
+				margin: 0;
 				text-align: left;
 			}
 			.qa-discord-cta {
@@ -78,6 +81,29 @@
 				flex-wrap: wrap;
 				gap: 0.65rem;
 				align-items: center;
+			}
+			.qa-discord-link {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+				color: #aab8ff;
+				text-decoration: none;
+				border-radius: var(--radius-sm);
+				transition:
+					color 0.15s ease,
+					transform 0.15s ease;
+			}
+			.qa-discord-link:hover,
+			.qa-discord-link:focus-visible {
+				color: #c5ceff;
+				transform: scale(1.05);
+				outline: none;
+			}
+			.qa-discord-link__icon {
+				display: block;
+				width: 2.5rem;
+				height: 2.5rem;
 			}
 			.qa-testing-block {
 				max-width: 46rem;
@@ -105,22 +131,11 @@
 			.qa-faq-block h2 {
 				margin: 0 0 0.75rem;
 			}
-			.qa-details {
-				margin: 0 0 0.5rem;
-				border-radius: var(--radius);
-				border: 1px solid var(--border-subtle);
-				background: rgba(0, 0, 0, 0.22);
-				padding: 0.35rem 0.65rem;
+			.qa-faq-block .qa-feed__item {
+				margin-bottom: 0.75rem;
 			}
-			.qa-details summary {
-				cursor: pointer;
-				font-weight: 600;
-				padding: 0.35rem 0;
-			}
-			.qa-details p {
-				margin: 0.5rem 0 0.35rem;
-				color: var(--text-dim);
-				font-size: 0.95rem;
+			.qa-faq-block .qa-feed__item:last-child {
+				margin-bottom: 0;
 			}
 			.qa-feed-section h2 {
 				margin: 0 0 0.65rem;
@@ -166,19 +181,42 @@
 			}
 		</style>
 	</head>
-	<body id="top" class="site-card-ui" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 
 		<div class="container">
 			<div class="intro">
-				<h1>Q&amp;A</h1>
-				<p class="qa-intro">
-					Quick answers to common questions. For anything else, post in the Discord text channel
-					<strong>#questions-and-answers</strong> so the community (and I) can help. When a question is
-					answered there in the format the site mirrors, it can show up below as well.
-				</p>
+				<div
+					class="gallery keep-board-intro"
+					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
+				>
+					<h1>Q&amp;A</h1>
+					<p class="qa-intro">
+						Quick answers to common questions. For anything else, post in the Discord text channel
+						<strong>#questions-and-answers</strong> so the community (and I) can help. When a question is
+						answered there in the format the site mirrors, it can show up below as well.
+					</p>
+				</div>
 			</div>
 
+			<section class="qa-section" aria-label="Questions and answers">
 			<section class="qa-discord-cta" aria-label="Ask on Discord">
 				<h2>Ask in Discord</h2>
 				<p>
@@ -188,12 +226,21 @@
 				<div class="qa-btn-row">
 					<a
 						href="https://discord.gg/fA9GbxmAge"
-						class="keep-card__cta"
+						class="qa-discord-link"
 						target="_blank"
 						rel="noopener noreferrer"
-						style="display: inline-block; text-decoration: none"
-						>Open Discord invite</a
-					>
+						aria-label="Open Discord invite"
+						><svg
+							class="qa-discord-link__icon"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+							focusable="false"
+							><path
+								fill="currentColor"
+								d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"
+						/></svg
+					></a>
 					<span style="color: var(--text-muted); font-size: 0.9rem"
 						>After joining, open the <strong>#questions-and-answers</strong> channel from the channel
 						list.</span
@@ -218,23 +265,23 @@
 					Height questions and how to report a site bug.
 				</p>
 
-				<details class="qa-details">
-					<summary>How tall are you?</summary>
-					<p>67</p>
-				</details>
+				<article class="qa-feed__item">
+					<h3 class="qa-feed__q">How tall are you?</h3>
+					<p class="qa-feed__a">67</p>
+				</article>
 
-				<details class="qa-details">
-					<summary>How did you get so tall?</summary>
-					<p>Chocolate milk and carrots.</p>
-				</details>
+				<article class="qa-feed__item">
+					<h3 class="qa-feed__q">How did you get so tall?</h3>
+					<p class="qa-feed__a">Chocolate milk and carrots.</p>
+				</article>
 
-				<details class="qa-details">
-					<summary>I found a bug on this website. How do I report it?</summary>
-					<p>
+				<article class="qa-feed__item">
+					<h3 class="qa-feed__q">I found a bug on this website. How do I report it?</h3>
+					<p class="qa-feed__a">
 						The site footer points to Discord for bug reports and site suggestions, or you can message me
 						through the Socials page.
 					</p>
-				</details>
+				</article>
 			</section>
 
 			<section class="qa-feed-section" aria-label="Answered questions from Discord">
@@ -245,6 +292,7 @@
 					<strong>Q</strong> / <strong>A</strong> layout in one message.
 				</p>
 				<div id="discord-qa-feed"></div>
+			</section>
 			</section>
 		</div>
 

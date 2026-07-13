@@ -1,0 +1,44 @@
+---
+description: Prevent agents from playing YouTube/music via Cursor browser previews during work.
+alwaysApply: true
+---
+
+# No Autoplay Media In Cursor Previews
+
+Agents must **never** cause audible YouTube, music, or other media playback from Cursor during routine work.
+
+## Hard Rules
+
+- **NEVER** open site previews with autoplaying YouTube or music in the Cursor browser, Simple Browser, or Glass browser panel.
+- **NEVER** start local dev servers (`python -m http.server`, `npx serve`, Live Server, etc.) and leave `index.html`, `Gaming/gaming.html`, or other YouTube-heavy pages open in a preview tab.
+- **NEVER** click embed facades, carousel video layers, or YouTube tiles in browser automation unless the user explicitly asked to test playback.
+- When testing pages with YouTube embeds, **mute first** (`about:blank` cleanup when done, or navigate away immediately after the test).
+- **Close browser tabs** when finished testing — do not leave previews running in the background.
+- Do **not** play music, YouTube videos, or any site audio during agent work unless the user explicitly requests it.
+
+## Safe Testing Pattern
+
+1. Prefer **read-only inspection** (grep, read files, static analysis) over live browser previews.
+2. If a live preview is required, use a page **without YouTube embeds** when possible.
+3. Before opening a YouTube-heavy page, plan how you will **stop audio** when done (navigate to `about:blank`, close tab, kill dev server).
+4. After any browser test involving embeds, run cleanup:
+   - Navigate all MCP browser tabs to `about:blank`
+   - CDP mute: pause/mute all `video`, `audio`, and blank all `iframe` src
+   - Kill any dev server you started (`8765`, `3456`, `5500`, `5501`, etc.)
+
+## Known Site Hotspots
+
+These pages have many YouTube embeds or click-to-play facades — **extra caution**:
+
+- `index.html` — home page YouTube tile rows
+- `Gaming/gaming.html`, `Gaming/cs2-videos.html`, `Gaming/ohnepixel-labubu.html`
+- `Gaming/cs2-dust2-gap-bug.html` — has a direct YouTube iframe `src`
+- `Keyboard/60he-2023.html` — direct YouTube iframe `src`
+
+Background bubble videos (`bubble-bg.mp4`) are **muted** — they are not the YouTube audio problem.
+
+## When User Reports Unwanted Audio
+
+1. Kill local dev servers immediately (`netstat -ano | findstr LISTENING`, then `taskkill`).
+2. Navigate Cursor browser tabs to `about:blank` and mute via CDP.
+3. Do **not** restart dev servers or re-open previews until the user asks.

@@ -9,6 +9,8 @@ Read `AGENTS.md` first, then load only the relevant files in `memory/`.
 
 Update `memory/preferences.md` when the user gives a durable preference, ratio, layout rule, or site fact.
 
+**Copy:** Do not add visible page text the user did not write unless they approved it in chat first. Propose copy in the response; wait for yes before editing HTML. No em dashes (`—`) or ` -- ` in agent-written visible copy unless the user typed that exact dash. See `memory/preferences.md` → **Copy approval**.
+
 Update `memory/issues.md` when you hit or fix a recurring bug.
 
 Keep memory notes concise so future chats spend fewer tokens.

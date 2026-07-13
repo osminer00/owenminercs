@@ -1,24 +1,42 @@
 /**
  * Home page — Explore the site carousel: renders hub cards and auto-cycles with hover nav.
+ * Card media crossfades through images fetched from each destination page (photogallery + keep thumbs).
  */
 (function () {
-	const PLACEHOLDER = 'images/coming-soon-card.svg';
+	const GLOBE = {
+		red: '/images/logo/globes/globe-red.jpg',
+		redText: '/images/logo/globes/globe-red-text.jpg',
+		blue: '/images/logo/globes/globe-blue.jpg',
+		darkBlue: '/images/logo/globes/globe-dark-blue.jpg',
+		purple: '/images/logo/globes/globe-purple.jpg',
+		purpleDark: '/images/logo/globes/globe-purple-dark.jpg',
+		purpleRed: '/images/logo/globes/globe-purple-red.jpg',
+		silver: '/images/logo/globes/globe-silver.jpg',
+	};
 	const SETUP = 'The%20Setup/';
+	const SLIDE_HOLD_MS = 2000;
+	const SLIDE_FADE_MS = 480;
+	const MAX_SLIDES_PER_CARD = 12;
+	const FETCH_CONCURRENCY = 8;
 
 	const EXPLORE_CARDS = [
 		{
-			href: 'Keyboard/60he.html',
+			href: 'The%20Setup/keyboards.html',
 			img: 'Keyboard/images/killowattKeyboard.webp',
 			alt: 'Wooting 60HE Kilowatt keyboard build',
 			title: 'Wooting 60HE keyboard build',
 			desc: 'Cases, switches, keycaps, silicone dampening, galleries, and build eras.',
-			tags: ['Parts', 'Switches', 'Keycaps'],
+			links: [
+				{ href: 'Keyboard/60he-2026.html', label: '2026 Kilowatt build' },
+				{ href: 'Keyboard/60he-2025.html', label: '2025 Kilowatt build' },
+				{ href: 'Keyboard/60he-2023.html', label: '2023 Crosshair Alpha & v1' },
+			],
 		},
 		{
 			href: 'Gaming/gaming.html',
 			img: 'images/csShelves.webp',
 			alt: 'CS2 Major merchandise on shelves',
-			title: 'Gaming — Counter-Strike',
+			title: 'Gaming: Counter-Strike',
 			desc: 'FACEIT-level play, merch shelves, wallpapers, skins, and CS2 pages.',
 			links: [
 				{ href: 'Gaming/counter-strike-background.html', label: 'FACEIT & background' },
@@ -32,15 +50,23 @@
 			alt: '2024 gaming PC build',
 			title: '2024 PC build',
 			desc: 'Ryzen, RTX 4090, case, and parts list with retailer links.',
-			tags: ['Specs', 'Parts list', 'Gallery'],
+			links: [
+				{ href: 'PC/pc.html', label: 'PC build page' },
+				{ href: `${SETUP}computers.html`, label: 'Computers' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}the-setup.html`,
 			img: 'images/gamingSetup.webp',
 			alt: 'Gear desk setup with monitors',
 			title: 'Gear',
-			desc: 'Desk, monitors, audio, lighting, peripherals, plants, and priced gear cards.',
-			tags: ['Desk', 'Monitors', 'Peripherals'],
+			desc: 'Desk, displays, audio, lighting, peripherals, plants, and priced gear cards.',
+			links: [
+				{ href: `${SETUP}keyboards.html`, label: 'Keyboards' },
+				{ href: `${SETUP}displays.html`, label: 'Displays' },
+				{ href: `${SETUP}audio.html`, label: 'Audio' },
+			],
 		},
 		{
 			href: 'Counter-Strike/nosmoking.html',
@@ -48,7 +74,11 @@
 			alt: 'Agent Number K CS2 wallpaper preview',
 			title: 'Agent Number K Wallpapers',
 			desc: 'Free Agent Number K CS2 wallpapers (No Smoking theme).',
-			tags: ['Wallpapers', 'CS2', 'Free'],
+			links: [
+				{ href: 'Gaming/counter-strike-background.html', label: 'FACEIT & background' },
+				{ href: 'Gaming/cs2-merch.html', label: 'Merch' },
+				{ href: 'Gaming/gaming.html', label: 'Gaming' },
+			],
 		},
 		{
 			href: 'Gaming/counter-strike-background.html',
@@ -56,15 +86,23 @@
 			alt: 'Gaming setup with multiple displays',
 			title: 'Counter-Strike background',
 			desc: 'From 2015 community servers to FACEIT level 10 and Premier leaderboard runs.',
-			tags: ['FACEIT', 'Story', 'CS2'],
+			links: [
+				{ href: 'Counter-Strike/nosmoking.html', label: 'Wallpapers' },
+				{ href: 'Gaming/cs2-merch.html', label: 'Merch' },
+				{ href: 'Gaming/cs2-videos.html', label: 'CS2 videos' },
+			],
 		},
 		{
 			href: 'Gaming/cs2-merch.html',
 			img: 'images/csShelves.webp',
 			alt: 'PGL Shanghai Major merch shelves',
 			title: 'CS2 Major merch',
-			desc: 'PGL Shanghai Major shelves—collectibles and display pieces.',
-			tags: ['Merch', 'Shanghai Major', 'Collectibles'],
+			desc: 'PGL Shanghai Major shelves, collectibles and display pieces.',
+			links: [
+				{ href: 'Counter-Strike/nosmoking.html', label: 'Wallpapers' },
+				{ href: 'Gaming/counter-strike-background.html', label: 'FACEIT & background' },
+				{ href: 'Gaming/cs2-videos.html', label: 'CS2 videos' },
+			],
 		},
 		{
 			href: 'Gaming/cs2-videos.html',
@@ -72,7 +110,11 @@
 			alt: 'Multi-monitor gaming setup',
 			title: 'CS2 videos',
 			desc: 'Long-form, Shorts, and clips from YouTube and TikTok.',
-			tags: ['YouTube', 'TikTok', 'Clips'],
+			links: [
+				{ href: 'Gaming/cs2-merch.html', label: 'Merch' },
+				{ href: 'Counter-Strike/nosmoking.html', label: 'Wallpapers' },
+				{ href: 'Gaming/counter-strike-background.html', label: 'FACEIT & background' },
+			],
 		},
 		{
 			href: 'Gaming/ohnepixel-labubu.html',
@@ -80,15 +122,23 @@
 			alt: 'Ohnepixel holding the 24K Gold Labubu plush',
 			title: 'Ohnepixel Gold³ Labubu',
 			desc: '24K Gold³ Labubu unboxing and Shorts with Ohnepixel.',
-			tags: ['Video', 'Ohnepixel', 'Unboxing'],
+			links: [
+				{ href: 'Gaming/cs2-videos.html', label: 'CS2 videos' },
+				{ href: 'Gaming/gaming-memorabilia.html', label: 'Gaming memorabilia' },
+				{ href: 'Gaming/gaming.html', label: 'Gaming' },
+			],
 		},
 		{
 			href: 'Gaming/cs2-dust2-gap-bug.html',
-			img: 'images/roomSetupDark.webp',
-			alt: 'Dust II wall crack gameplay tip',
+			img: 'Gaming/images/dust2-wall-crack-short.webp',
+			alt: 'Dust II wall crack pixel gap in CS2 gameplay',
 			title: 'Dust II wall crack bug',
-			desc: 'Tiny geometry gap that can reveal your position—map tweak notes included.',
-			tags: ['CS2', 'Dust II', 'Tip'],
+			desc: 'Tiny geometry gap that can reveal your position. Map tweak notes included.',
+			links: [
+				{ href: 'Gaming/cs2-videos.html', label: 'CS2 videos' },
+				{ href: 'Gaming/counter-strike-background.html', label: 'FACEIT & background' },
+				{ href: 'Gaming/gaming.html', label: 'Gaming' },
+			],
 		},
 		{
 			href: `${SETUP}previous-setups.html`,
@@ -96,7 +146,11 @@
 			alt: 'Past desk and gaming setup photos',
 			title: 'Setup archive',
 			desc: 'Year-by-year setup archive cards with wide desk shots.',
-			tags: ['Archive', 'Desk', 'History'],
+			links: [
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: `${SETUP}gaming-pc.html`, label: '2024 PC build' },
+				{ href: `${SETUP}keyboards.html`, label: 'Keyboards' },
+			],
 		},
 		{
 			href: `${SETUP}keyboards.html`,
@@ -104,7 +158,11 @@
 			alt: 'Wooting 60HE keyboard category',
 			title: 'Keyboards',
 			desc: 'Wooting build and future keyboard slots grouped in one category.',
-			tags: ['Wooting', 'Category', 'Peripherals'],
+			links: [
+				{ href: 'Keyboard/60he-2026.html', label: '2026 Kilowatt build' },
+				{ href: 'Keyboard/60he-2025.html', label: '2025 Kilowatt build' },
+				{ href: 'Keyboard/60he-2023.html', label: '2023 Crosshair Alpha & v1' },
+			],
 		},
 		{
 			href: 'Keyboard/60he-2025.html',
@@ -112,7 +170,11 @@
 			alt: '2025 Kilowatt Wooting 60HE build',
 			title: '2025 Kilowatt build',
 			desc: 'Latest Wooting 60HE era with Kilowatt-style case and galleries.',
-			tags: ['2025', 'Kilowatt', 'Build'],
+			links: [
+				{ href: 'Keyboard/60he-2026.html', label: '2026 Kilowatt build' },
+				{ href: 'Keyboard/60he-2023.html', label: '2023 Crosshair Alpha & v1' },
+				{ href: `${SETUP}keyboards.html`, label: 'Keyboards' },
+			],
 		},
 		{
 			href: 'Keyboard/60he-2023.html',
@@ -120,7 +182,11 @@
 			alt: 'Wooting 60HE Crosshair Alpha build',
 			title: '2023 Crosshair Alpha & v1',
 			desc: 'Earlier Wooting 60HE eras, switches, and build photos.',
-			tags: ['2023', 'Archive', 'Wooting'],
+			links: [
+				{ href: 'Keyboard/60he-2025.html', label: '2025 Kilowatt build' },
+				{ href: 'Keyboard/60he-2026.html', label: '2026 Kilowatt build' },
+				{ href: `${SETUP}keyboards.html`, label: 'Keyboards' },
+			],
 		},
 		{
 			href: `${SETUP}computers.html`,
@@ -128,7 +194,11 @@
 			alt: 'Gaming PC category',
 			title: 'Computers',
 			desc: 'Current gaming PC and older systems grouped in one category.',
-			tags: ['PC', '4090', 'Category'],
+			links: [
+				{ href: `${SETUP}gaming-pc.html`, label: '2024 PC build' },
+				{ href: 'PC/pc.html', label: 'PC build page' },
+				{ href: `${SETUP}legacy-laptop.html`, label: 'Razer Blade 2019' },
+			],
 		},
 		{
 			href: 'PC/pc.html',
@@ -136,7 +206,11 @@
 			alt: '2024 custom gaming PC',
 			title: 'PC build page',
 			desc: 'Full 2024 build write-up with parts, photos, and retailer links.',
-			tags: ['Ryzen', 'RTX 4090', 'Gallery'],
+			links: [
+				{ href: `${SETUP}gaming-pc.html`, label: '2024 PC build' },
+				{ href: `${SETUP}computers.html`, label: 'Computers' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}consoles.html`,
@@ -144,15 +218,23 @@
 			alt: 'TV and gaming area with consoles',
 			title: 'Consoles',
 			desc: 'Xbox, PlayStation, Nintendo, handhelds, and legacy systems.',
-			tags: ['Xbox', 'PlayStation', 'Nintendo'],
+			links: [
+				{ href: `${SETUP}console-nintendo-ds.html`, label: 'Nintendo DS Lite' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: `${SETUP}computers.html`, label: 'Computers' },
+			],
 		},
 		{
-			href: `${SETUP}monitors.html`,
+			href: `${SETUP}displays.html`,
 			img: 'images/gamingSetup.webp',
 			alt: 'Gaming setup with multiple monitors',
-			title: 'Monitors',
+			title: 'Displays',
 			desc: 'Main gaming panel, ultrawide, and utility displays.',
-			tags: ['Ultrawide', 'Displays', 'Desk'],
+			links: [
+				{ href: `${SETUP}gaming-monitor.html`, label: 'Gaming monitor' },
+				{ href: `${SETUP}ultrawide-monitor.html`, label: 'Ultrawide monitor' },
+				{ href: `${SETUP}other-displays.html`, label: 'Asus 24" monitor' },
+			],
 		},
 		{
 			href: `${SETUP}lighting-hub.html`,
@@ -160,7 +242,11 @@
 			alt: 'Desk key light controller',
 			title: 'Lighting',
 			desc: 'Key light, ambient Govee strips, and lamp cards.',
-			tags: ['Key light', 'Govee', 'Ambient'],
+			links: [
+				{ href: `${SETUP}key-light.html`, label: 'Key light' },
+				{ href: `${SETUP}lighting.html`, label: 'Ambient lights' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}mice.html`,
@@ -168,7 +254,11 @@
 			alt: 'Logitech Superlight gaming mouse',
 			title: 'Mice',
 			desc: 'Main mouse and mouse pad cards with links.',
-			tags: ['Mouse', 'Superlight', 'Pad'],
+			links: [
+				{ href: `${SETUP}mouse.html`, label: 'Mouse' },
+				{ href: `${SETUP}mouse-pad.html`, label: 'Mouse pad' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}furniture.html`,
@@ -176,7 +266,11 @@
 			alt: 'Standing desk setup with lighting',
 			title: 'Furniture',
 			desc: 'Flexispot E6 desk and room for more furniture picks.',
-			tags: ['Desk', 'Flexispot', 'Standing'],
+			links: [
+				{ href: `${SETUP}desk.html`, label: 'Desk' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: `${SETUP}displays.html`, label: 'Displays' },
+			],
 		},
 		{
 			href: `${SETUP}audio.html`,
@@ -184,15 +278,23 @@
 			alt: 'Rode Streamer X audio interface',
 			title: 'Audio',
 			desc: 'Microphone, interface, mic arm, and Beyerdynamic headphones.',
-			tags: ['Mic', 'Interface', 'Headphones'],
+			links: [
+				{ href: `${SETUP}microphone.html`, label: 'Microphone' },
+				{ href: `${SETUP}audio-interface.html`, label: 'Audio interface' },
+				{ href: `${SETUP}headphones.html`, label: 'Headphones' },
+			],
 		},
 		{
 			href: `${SETUP}cameras.html`,
-			img: PLACEHOLDER,
-			alt: 'Streaming and content cameras',
+			img: GLOBE.blue,
+			alt: 'OwenMinerCS logo with blue globe, cameras hub preview',
 			title: 'Cameras',
 			desc: 'iPhone Pro Max, ZV-E10, Insta360 X5, C920, cage, and tripods.',
-			tags: ['Sony', 'Insta360', 'Webcam'],
+			links: [
+				{ href: `${SETUP}camera.html`, label: 'Sony ZV-E10' },
+				{ href: `${SETUP}insta360-x5.html`, label: 'Insta360 X5' },
+				{ href: `${SETUP}webcam.html`, label: 'Logitech C920' },
+			],
 		},
 		{
 			href: `${SETUP}cable-management.html`,
@@ -200,7 +302,11 @@
 			alt: 'Desk with routed cables',
 			title: 'Cable management',
 			desc: 'Trays, raceways, wall channels, and reusable straps.',
-			tags: ['Cables', 'Routing', 'Desk'],
+			links: [
+				{ href: `${SETUP}magnets.html`, label: 'Magnetic cable clips' },
+				{ href: `${SETUP}networking.html`, label: 'Networking' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}networking.html`,
@@ -208,23 +314,35 @@
 			alt: 'Desk area with networking runs',
 			title: 'Networking',
 			desc: 'Router, long Ethernet runs, and white stick-on wall channels.',
-			tags: ['Ethernet', 'Router', 'Channels'],
+			links: [
+				{ href: `${SETUP}cable-management.html`, label: 'Cable management' },
+				{ href: `${SETUP}power.html`, label: 'Power' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}power.html`,
-			img: PLACEHOLDER,
-			alt: 'Power strips and rechargeable batteries',
+			img: GLOBE.purple,
+			alt: 'OwenMinerCS logo with purple globe, power hub preview',
 			title: 'Power',
 			desc: 'Rechargeable AAs, D cells, and under-desk surge protection.',
-			tags: ['Batteries', 'Surge', 'Desk'],
+			links: [
+				{ href: `${SETUP}cable-management.html`, label: 'Cable management' },
+				{ href: `${SETUP}networking.html`, label: 'Networking' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}mounts-arms.html`,
-			img: PLACEHOLDER,
-			alt: 'Monitor and mic arms',
+			img: GLOBE.redText,
+			alt: 'OwenMinerCS logo with red globe, mounts and arms preview',
 			title: 'Mounts & arms',
 			desc: 'Monitor arms, mic arms, webcam arms, and camera mounts.',
-			tags: ['Arms', 'Mounts', 'Desk'],
+			links: [
+				{ href: `${SETUP}monitor-arms.html`, label: 'Monitor arms' },
+				{ href: `${SETUP}microphone-arm.html`, label: 'Mic arm' },
+				{ href: `${SETUP}webcam-arm.html`, label: 'Webcam arm' },
+			],
 		},
 		{
 			href: `${SETUP}phones-archive.html`,
@@ -232,71 +350,95 @@
 			alt: 'First keyboard with iPhone 4S and 8 Plus',
 			title: 'Phones archive',
 			desc: 'Older iPhones plus first keyboard in frame.',
-			tags: ['Archive', 'iPhone', 'History'],
+			links: [
+				{ href: `${SETUP}previous-setups.html`, label: 'Setup archive' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: `${SETUP}computers.html`, label: 'Computers' },
+			],
 		},
 		{
 			href: `${SETUP}plants.html`,
-			img: PLACEHOLDER,
-			alt: 'Desk plants category',
+			img: GLOBE.silver,
+			alt: 'OwenMinerCS logo with silver globe, plants hub preview',
 			title: 'Plants',
 			desc: 'Desk plants, pots, grow lights, and fake plant picks.',
-			tags: ['Plants', 'Desk', 'Greenery'],
+			links: [
+				{ href: `${SETUP}plants-fake.html`, label: 'Fake plants' },
+				{ href: `${SETUP}plants-real.html`, label: 'Real plants' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}clothing.html`,
-			img: PLACEHOLDER,
-			alt: 'Outfits and fit checks',
+			img: GLOBE.purpleDark,
+			alt: 'OwenMinerCS logo with dark purple globe, outfits preview',
 			title: 'Outfits',
-			desc: 'Fit checks, stream looks, apparel links, and OBS multi-camera routing.',
-			tags: ['Fit check', 'Stream', 'OBS'],
-		},
-		{
-			href: 'Desk%20Setup/fit-check.html',
-			img: PLACEHOLDER,
-			alt: 'OBS multi-camera fit check',
-			title: 'Multi-camera fit check',
-			desc: 'Route cameras to each monitor and TV for on-stream outfit checks.',
-			tags: ['OBS', 'Cameras', 'Monitors'],
+			desc: 'Fit checks, stream looks, and apparel links.',
+			links: [
+				{ href: `${SETUP}coolest-shoes.html`, label: 'Coolest shoes' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: 'Socials/socials.html', label: 'Content & socials' },
+			],
 		},
 		{
 			href: `${SETUP}workout-equipment.html`,
-			img: PLACEHOLDER,
-			alt: 'Walking pad and workout gear',
+			img: GLOBE.purpleRed,
+			alt: 'OwenMinerCS logo with purple and red globe, workout gear preview',
 			title: 'Workout equipment',
 			desc: 'Walking pad notes and future gym gear links.',
-			tags: ['Walking pad', 'Fitness', 'Desk'],
+			links: [
+				{ href: `${SETUP}walking-pad.html`, label: 'Walking pad' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: `${SETUP}furniture.html`, label: 'Furniture' },
+			],
 		},
 		{
 			href: `${SETUP}gadgets.html`,
-			img: PLACEHOLDER,
-			alt: 'Desk gadgets and hand warmers',
+			img: GLOBE.red,
+			alt: 'OwenMinerCS logo with red globe, gadgets preview',
 			title: 'Gadgets',
 			desc: 'CS2 hand warmers, Ocoopa pocket warmers, and electric air duster.',
-			tags: ['Warmers', 'LAN', 'Desk'],
+			links: [
+				{ href: `${SETUP}ocoopa-hand-warmers.html`, label: 'Ocoopa hand warmers' },
+				{ href: 'Gaming/cs2-merch.html#cs2-hand-warmers', label: 'CS2 hand warmers' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}tools.html`,
-			img: PLACEHOLDER,
-			alt: 'Physical tools for desk setup',
+			img: GLOBE.blue,
+			alt: 'OwenMinerCS logo with blue globe, tools preview',
 			title: 'Tools',
-			desc: 'Cordless drill page and iFixit write-up—physical tools only.',
-			tags: ['Drill', 'iFixit', 'Build'],
+			desc: 'Cordless drill page and iFixit write-up, physical tools only.',
+			links: [
+				{ href: `${SETUP}drill.html`, label: 'Drill' },
+				{ href: `${SETUP}ifixit-tools.html`, label: 'iFixit tool set' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}drill.html`,
-			img: PLACEHOLDER,
-			alt: 'Cordless drill and bits',
+			img: GLOBE.purple,
+			alt: 'OwenMinerCS logo with purple globe, drill preview',
 			title: 'Drill',
 			desc: 'Cordless drill, impact bits, and HSS twist bits with Amazon listings.',
-			tags: ['Drill', 'Bits', 'Amazon'],
+			links: [
+				{ href: `${SETUP}tools.html`, label: 'Tools' },
+				{ href: `${SETUP}ifixit-tools.html`, label: 'iFixit tool set' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: `${SETUP}magnets.html`,
-			img: PLACEHOLDER,
-			alt: 'Desk magnets and cable clips',
+			img: GLOBE.silver,
+			alt: 'OwenMinerCS logo with silver globe, magnets preview',
 			title: 'Magnets',
 			desc: 'Neodymium discs, cable clips, and magnetic charging bits.',
-			tags: ['Magnets', 'Cable clips', 'Desk'],
+			links: [
+				{ href: `${SETUP}cable-management.html`, label: 'Cable management' },
+				{ href: `${SETUP}mouse.html`, label: 'Magnetic USB charging' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: 'Socials/socials.html',
@@ -304,33 +446,393 @@
 			alt: 'Owen Miner CS logo',
 			title: 'Content & socials',
 			desc: 'Official profiles, social cloud, and top posts across platforms.',
-			tags: ['YouTube', 'X', 'TikTok'],
+			links: [
+				{ href: 'Socials/view-all-content.html', label: 'View all content' },
+				{ href: 'Gaming/gaming.html', label: 'Gaming' },
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+			],
 		},
 		{
 			href: 'dev/dev-stack.html',
-			img: PLACEHOLDER,
-			alt: 'Programs and coding stack',
+			img: GLOBE.darkBlue,
+			alt: 'OwenMinerCS logo with dark blue globe, programs preview',
 			title: 'Programs',
 			desc: 'Cursor, Codex, Adobe, OBS, and the local Ollama stack.',
-			tags: ['Cursor', 'OBS', 'Dev'],
+			links: [
+				{ href: 'dev/dev-stack.html#coding', label: 'Cursor' },
+				{ href: 'dev/dev-stack.html#streaming', label: 'OBS Studio' },
+				{ href: 'dev/dev-stack.html#creative-cloud', label: 'Premiere Pro' },
+			],
 		},
 		{
 			href: 'Achievements/achievements.html',
 			img: 'images/owenminercs-logo.png',
 			alt: 'OwenMinerCS logo',
 			title: 'Achievements',
-			desc: 'Hunt easter eggs across the site—progress saved in your browser.',
-			tags: ['Easter eggs', 'Fun', 'Progress'],
+			desc: 'Hunt easter eggs across the site. Progress saved in your browser.',
+			links: [
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: 'Gaming/gaming.html', label: 'Gaming' },
+				{ href: 'Socials/socials.html', label: 'Content & socials' },
+			],
 		},
 		{
 			href: 'Garage%20Sale/garage-sale.html',
-			img: PLACEHOLDER,
-			alt: 'Garage sale listings',
+			img: GLOBE.red,
+			alt: 'OwenMinerCS logo with red globe, garage sale preview',
 			title: 'Garage sale',
-			desc: 'Resale listings when available—direct checkout when linked.',
-			tags: ['Shop', 'Resale', 'Listings'],
+			desc: 'Resale listings when available, direct checkout when linked.',
+			links: [
+				{ href: `${SETUP}the-setup.html`, label: 'Gear' },
+				{ href: 'Gaming/gaming.html', label: 'Gaming' },
+				{ href: 'Socials/socials.html', label: 'Content & socials' },
+			],
 		},
 	];
+
+	let visibleExploreCards = [];
+
+	function exploreCardHasRealMedia(card, fetchedSlides) {
+		const slides = collectCardSlides(card, fetchedSlides);
+		const api = window.owenminercsCarouselFilter;
+		if (api && typeof api.slidesHaveRealMedia === 'function') {
+			return api.slidesHaveRealMedia(slides);
+		}
+		return slides.some((slide) => !shouldSkipGallerySrc(slide.src));
+	}
+
+	function resolveVisibleExploreCards(slidesByHref) {
+		const map = slidesByHref || new Map();
+		return EXPLORE_CARDS.filter((card) => {
+			const abs = resolveUrl(card.href, window.location.href);
+			const fetched = map.get(abs) || [];
+			return exploreCardHasRealMedia(card, fetched);
+		});
+	}
+
+	function visibleCardsChanged(nextCards) {
+		if (nextCards.length !== visibleExploreCards.length) return true;
+		for (let i = 0; i < nextCards.length; i++) {
+			if (nextCards[i] !== visibleExploreCards[i]) return true;
+		}
+		return false;
+	}
+
+	const galleryCache = new Map();
+	let slideshowControllers = [];
+
+	function resolveUrl(src, baseHref) {
+		try {
+			return new URL(src, baseHref).href;
+		} catch (e) {
+			return src;
+		}
+	}
+
+	function hash32(str) {
+		let h = 2166136261 >>> 0;
+		for (let i = 0; i < str.length; i++) {
+			h ^= str.charCodeAt(i);
+			h = Math.imul(h, 16777619) >>> 0;
+		}
+		return h >>> 0;
+	}
+
+	function shouldSkipGallerySrc(src) {
+		const api = window.owenminercsCarouselFilter;
+		if (api && typeof api.isCarouselPlaceholderSrc === 'function') {
+			return api.isCarouselPlaceholderSrc(src);
+		}
+		if (!src || /^data:/i.test(src)) return true;
+		const lower = src.toLowerCase();
+		return (
+			lower.includes('coming-soon-card') ||
+			lower.includes('owenminercs-logo') ||
+			lower.includes('/images/logo/globes/') ||
+			lower.includes('logo/globes/globe-') ||
+			lower.endsWith('.svg')
+		);
+	}
+
+	function filterCarouselSlides(slides) {
+		const api = window.owenminercsCarouselFilter;
+		return api && typeof api.filterCarouselSlides === 'function'
+			? api.filterCarouselSlides(slides)
+			: slides;
+	}
+
+	function extractGallerySlides(doc, baseHref) {
+		const seen = Object.create(null);
+		const slides = [];
+
+		function pushNodes(nodes) {
+			for (let i = 0; i < nodes.length; i++) {
+				const node = nodes[i];
+				if (node.classList && node.classList.contains('keep-card__thumb--empty')) continue;
+				const src = node.getAttribute('src');
+				if (!src || shouldSkipGallerySrc(src)) continue;
+				const abs = resolveUrl(src, baseHref);
+				if (seen[abs]) continue;
+				seen[abs] = true;
+				slides.push({
+					src: abs,
+					alt: node.getAttribute('alt') || 'Gallery image',
+				});
+			}
+		}
+
+		pushNodes(doc.querySelectorAll('.photogallery-img[src]'));
+		pushNodes(doc.querySelectorAll('.photogallery img[src]'));
+		pushNodes(doc.querySelectorAll('.keep-board img.keep-card__thumb[src]'));
+		pushNodes(doc.querySelectorAll('.keep-card__thumb-row img[src], .keep-card__thumb-shot img[src]'));
+		pushNodes(doc.querySelectorAll('.gallery2 img[src], .pc-build-gallery img[src]'));
+		return slides;
+	}
+
+	function fetchGallery(href) {
+		const absUrl = resolveUrl(href, window.location.href);
+		if (galleryCache.has(absUrl)) return galleryCache.get(absUrl);
+
+		const promise = fetch(absUrl, { credentials: 'same-origin' })
+			.then((r) => (r.ok ? r.text() : ''))
+			.then((html) => {
+				if (!html) return [];
+				const doc = new DOMParser().parseFromString(html, 'text/html');
+				return extractGallerySlides(doc, absUrl);
+			})
+			.catch(() => []);
+
+		galleryCache.set(absUrl, promise);
+		return promise;
+	}
+
+	function fetchGalleryBatch(hrefs) {
+		const unique = [...new Set(hrefs.map((href) => resolveUrl(href, window.location.href)))];
+		let index = 0;
+
+		function worker() {
+			if (index >= unique.length) return Promise.resolve();
+			const href = unique[index++];
+			return fetchGallery(href).then(worker);
+		}
+
+		const workers = [];
+		for (let i = 0; i < Math.min(FETCH_CONCURRENCY, unique.length); i++) {
+			workers.push(worker());
+		}
+		return Promise.all(workers);
+	}
+
+	function collectCardSlides(card, fetchedSlides) {
+		const seen = new Set();
+		const out = [];
+
+		function push(src, alt) {
+			if (!src || shouldSkipGallerySrc(src)) return;
+			const abs = resolveUrl(src, window.location.href);
+			if (seen.has(abs)) return;
+			seen.add(abs);
+			out.push({ src: abs, alt: alt || card.alt || 'Preview image' });
+		}
+
+		push(card.img, card.alt);
+		if (Array.isArray(card.gallery)) {
+			card.gallery.forEach((src) => push(src, card.alt));
+		}
+		fetchedSlides.forEach((slide) => push(slide.src, slide.alt));
+		return out.slice(0, MAX_SLIDES_PER_CARD);
+	}
+
+	function mergeSlidesForCard(card, fetchedSlides) {
+		return filterCarouselSlides(collectCardSlides(card, fetchedSlides));
+	}
+
+	function destroyAllSlideshows() {
+		slideshowControllers.forEach((controller) => controller.destroy());
+		slideshowControllers = [];
+	}
+
+	function startCardSlideshow(media, slides, staggerKey, viewport) {
+		const reducedMotion =
+			window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (reducedMotion || slides.length < 2) return null;
+
+		const card = media.closest('.home-explore-card');
+		if (!card) return null;
+
+		media.classList.add('home-explore-card__media--slideshow');
+
+		const imgA = media.querySelector('img');
+		if (!imgA) return null;
+
+		const imgB = document.createElement('img');
+		imgB.className = 'home-explore-card__slide';
+		imgB.width = 640;
+		imgB.height = 360;
+		imgB.decoding = 'async';
+		imgB.loading = 'lazy';
+		imgB.draggable = false;
+		imgA.classList.add('home-explore-card__slide', 'home-explore-card__slide--visible');
+		imgA.draggable = false;
+		media.appendChild(imgB);
+
+		let idx = 0;
+		let active = imgA;
+		let idle = imgB;
+		let timer = null;
+		let paused = false;
+		let visible = true;
+		let destroyed = false;
+
+		imgA.src = slides[0].src;
+		imgA.alt = slides[0].alt;
+		imgB.src = slides[1].src;
+		imgB.alt = slides[1].alt;
+
+		function clearTimer() {
+			if (timer !== null) {
+				window.clearTimeout(timer);
+				timer = null;
+			}
+		}
+
+		function scheduleNext(delayMs) {
+			clearTimer();
+			if (destroyed || paused || !visible || slides.length < 2) return;
+			timer = window.setTimeout(tick, delayMs);
+		}
+
+		function tick() {
+			const nextIdx = (idx + 1) % slides.length;
+			const preloadIdx = (nextIdx + 1) % slides.length;
+
+			idle.src = slides[nextIdx].src;
+			idle.alt = slides[nextIdx].alt;
+
+			window.requestAnimationFrame(() => {
+				active.classList.remove('home-explore-card__slide--visible');
+				idle.classList.add('home-explore-card__slide--visible');
+			});
+
+			window.setTimeout(() => {
+				if (destroyed) return;
+				idx = nextIdx;
+				const oldActive = active;
+				active = idle;
+				idle = oldActive;
+				idle.src = slides[preloadIdx].src;
+				idle.alt = slides[preloadIdx].alt;
+				idle.classList.remove('home-explore-card__slide--visible');
+				scheduleNext(SLIDE_HOLD_MS);
+			}, SLIDE_FADE_MS);
+		}
+
+		function pause() {
+			paused = true;
+			clearTimer();
+		}
+
+		function resume() {
+			if (destroyed || !paused) return;
+			paused = false;
+			if (visible) scheduleNext(SLIDE_HOLD_MS);
+		}
+
+		function onCardEnter() {
+			pause();
+		}
+
+		function onCardLeave(event) {
+			if (event.type === 'focusout' && card.contains(event.relatedTarget)) return;
+			resume();
+		}
+
+		function onVisibilityChange() {
+			if (document.visibilityState === 'hidden') pause();
+			else if (!card.matches(':hover') && !card.contains(document.activeElement)) resume();
+		}
+
+		card.addEventListener('mouseenter', onCardEnter);
+		card.addEventListener('mouseleave', onCardLeave);
+		card.addEventListener('focusin', onCardEnter);
+		card.addEventListener('focusout', onCardLeave);
+		document.addEventListener('visibilitychange', onVisibilityChange);
+
+		let observer = null;
+		if (viewport && 'IntersectionObserver' in window) {
+			observer = new IntersectionObserver(
+				(entries) => {
+					visible = entries[0]?.isIntersecting !== false;
+					if (visible && !paused) scheduleNext(SLIDE_HOLD_MS);
+					else clearTimer();
+				},
+				{ root: viewport, threshold: 0.12 }
+			);
+			observer.observe(card);
+		}
+
+		const initialDelay = hash32(staggerKey || '') % 900;
+		scheduleNext(SLIDE_HOLD_MS + initialDelay);
+
+		const controller = {
+			destroy() {
+				destroyed = true;
+				clearTimer();
+				card.removeEventListener('mouseenter', onCardEnter);
+				card.removeEventListener('mouseleave', onCardLeave);
+				card.removeEventListener('focusin', onCardEnter);
+				card.removeEventListener('focusout', onCardLeave);
+				document.removeEventListener('visibilitychange', onVisibilityChange);
+				if (observer) observer.disconnect();
+			},
+		};
+		slideshowControllers.push(controller);
+		return controller;
+	}
+
+	function initExploreSlideshows(track, viewport, onVisibilityResolved) {
+		const cards = track.querySelectorAll('.home-explore-card[data-explore-href]');
+		if (!cards.length) return;
+
+		const hrefToConfig = new Map();
+		EXPLORE_CARDS.forEach((card) => {
+			const abs = resolveUrl(card.href, window.location.href);
+			if (!hrefToConfig.has(abs)) hrefToConfig.set(abs, card);
+		});
+
+		const hrefs = [...hrefToConfig.keys()];
+		fetchGalleryBatch(hrefs).then(() =>
+			Promise.all(hrefs.map((absHref) => fetchGallery(hrefToConfig.get(absHref).href))).then(
+				(results) => {
+					const fetchedByHref = new Map();
+					const slidesByHref = new Map();
+					hrefs.forEach((absHref, i) => {
+						const fetched = results[i] || [];
+						fetchedByHref.set(absHref, fetched);
+						slidesByHref.set(
+							absHref,
+							mergeSlidesForCard(hrefToConfig.get(absHref), fetched)
+						);
+					});
+
+					if (typeof onVisibilityResolved === 'function') {
+						onVisibilityResolved(fetchedByHref);
+					}
+
+					cards.forEach((cardEl) => {
+						const href = resolveUrl(
+							cardEl.getAttribute('data-explore-href'),
+							window.location.href
+						);
+						const slides = slidesByHref.get(href) || [];
+						const media = cardEl.querySelector('.home-explore-card__media');
+						if (!media || slides.length < 2) return;
+						startCardSlideshow(media, slides, href, viewport);
+					});
+				}
+			)
+		);
+	}
 
 	function escapeHtml(str) {
 		return String(str)
@@ -351,6 +853,54 @@
 			.join('');
 	}
 
+	function getCardTheme(card) {
+		const img = (card.img || '').toLowerCase();
+		const href = (card.href || '').toLowerCase();
+		const title = (card.title || '').toLowerCase();
+
+		if (img.includes('labubu') || title.includes('labubu')) return 'gold-amber';
+		if (
+			img.includes('kilowatt') ||
+			img.includes('wooting') ||
+			href.includes('keyboard/') ||
+			href.includes('keyboards')
+		) {
+			return 'kilowatt-orange';
+		}
+		if (img.includes('csshelves') || title.includes('merch')) return 'warm-amber';
+		if (
+			img.includes('pc.webp') ||
+			href.includes('pc/') ||
+			href.includes('computers') ||
+			title.includes('pc build')
+		) {
+			return 'cyan-teal';
+		}
+		if (img.includes('owenminercs-logo') || href.includes('achievements') || href.includes('socials')) {
+			return 'brand-green';
+		}
+		if (href.includes('dev-stack') || href.includes('garage-sale')) return 'brand-green';
+		if (
+			img.includes('roomsetuplightstanding') ||
+			img.includes('lightcontroller') ||
+			img.includes('first-keyboard') ||
+			img.includes('superlight') ||
+			img.includes('streamerx')
+		) {
+			return 'warm-amber';
+		}
+		if (img.includes('coming-soon')) return 'neutral-slate';
+		if (
+			img.includes('roomsetup') ||
+			img.includes('gamingsetup') ||
+			img.includes('desktop_background') ||
+			img.includes('smoke')
+		) {
+			return 'cool-blue-purple';
+		}
+		return 'cool-blue-purple';
+	}
+
 	function renderLinks(links) {
 		if (!links || !links.length) return '';
 		const items = links
@@ -363,32 +913,55 @@
 	}
 
 	function renderCard(card) {
-		const tagsHtml = card.tags
-			? `<p class="home-explore-card__tags">${renderTags(card.tags)}</p>`
-			: renderLinks(card.links);
-		return `<article class="home-explore-card">
-			<a class="home-explore-card__primary" href="${escapeHtml(card.href)}">
-				<span class="home-explore-card__media">
-					<img src="${escapeHtml(card.img)}" width="640" height="360" loading="lazy" decoding="async" alt="${escapeHtml(card.alt)}" />
-				</span>
-			</a>
+		const tagsHtml = card.links?.length
+			? renderLinks(card.links)
+			: card.tags
+				? `<p class="home-explore-card__tags">${renderTags(card.tags)}</p>`
+				: '';
+		const theme = getCardTheme(card);
+		return `<article class="home-explore-card" data-card-theme="${escapeHtml(theme)}" data-explore-href="${escapeHtml(card.href)}">
+			<a class="home-explore-card__primary" href="${escapeHtml(card.href)}" aria-label="${escapeHtml(card.title)}"></a>
+			<span class="home-explore-card__media">
+				<img class="home-explore-card__slide" src="${escapeHtml(card.img)}" width="640" height="360" loading="lazy" decoding="async" draggable="false" alt="${escapeHtml(card.alt)}" />
+			</span>
 			<div class="home-explore-card__body">
-				<p class="home-explore-card__title"><a href="${escapeHtml(card.href)}">${escapeHtml(card.title)}</a></p>
+				<p class="home-explore-card__title">${escapeHtml(card.title)}</p>
 				<p class="home-explore-card__desc">${escapeHtml(card.desc)}</p>
 				${tagsHtml}
 			</div>
 		</article>`;
 	}
 
+	function wireExploreCardClicks(track) {
+		track.querySelectorAll('.home-explore-card[data-explore-href]:not([data-explore-clone])').forEach((card) => {
+			const href = card.getAttribute('data-explore-href');
+			if (!href || card.dataset.exploreClickBound === '1') return;
+			card.dataset.exploreClickBound = '1';
+			card.addEventListener('click', (e) => {
+				if (e.defaultPrevented) return;
+				if (e.target.closest('.home-explore-card__links a[href]')) return;
+				window.location.href = href;
+			});
+		});
+	}
+
 	function getVisibleCount(viewportWidth) {
 		if (viewportWidth <= 560) return 1;
-		if (viewportWidth <= 900) return 2;
-		if (viewportWidth <= 1200) return 3;
-		return 4;
+		if (viewportWidth <= 720) return 2;
+		if (viewportWidth <= 1000) return 3;
+		if (viewportWidth <= 1280) return 4;
+		return 5;
 	}
 
 	function mod(n, m) {
 		return ((n % m) + m) % m;
+	}
+
+	function disableNativeImageDrag(container) {
+		if (!container) return;
+		container.querySelectorAll('img').forEach((img) => {
+			img.draggable = false;
+		});
 	}
 
 	function initCarousel(root) {
@@ -405,15 +978,19 @@
 		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 		let cloneCount = 4;
-		let originalCount = EXPLORE_CARDS.length;
+		let originalCount = visibleExploreCards.length;
 		let slideIndex = 0;
 		let autoTimer = null;
 		let holdTimer = null;
+		let pointerActive = false;
 		let dragging = false;
 		let didDrag = false;
 		let dragStartX = 0;
 		let dragOriginIndex = 0;
 		let activePointerId = null;
+		let hoverPaused = false;
+		let focusPaused = false;
+		let interactionPaused = false;
 
 		function readGap() {
 			const styles = getComputedStyle(track);
@@ -456,10 +1033,17 @@
 		}
 
 		function buildTrack() {
+			destroyAllSlideshows();
+
 			const tmp = document.createElement('div');
-			tmp.innerHTML = EXPLORE_CARDS.map(renderCard).join('');
+			tmp.innerHTML = visibleExploreCards.map(renderCard).join('');
 			const cards = [...tmp.children];
 			originalCount = cards.length;
+			if (!originalCount) {
+				track.innerHTML = '';
+				stopAuto();
+				return;
+			}
 			cloneCount = Math.min(getVisibleCount(viewport.clientWidth), originalCount);
 
 			track.innerHTML = '';
@@ -482,6 +1066,21 @@
 
 			slideIndex = cloneCount;
 			setSlideIndex(slideIndex, false);
+			disableNativeImageDrag(track);
+			wireExploreCardClicks(track);
+			initExploreSlideshows(track, viewport, onGalleryVisibilityResolved);
+		}
+
+		function onGalleryVisibilityResolved(fetchedByHref) {
+			const nextVisible = resolveVisibleExploreCards(fetchedByHref);
+			if (!visibleCardsChanged(nextVisible)) return;
+
+			const pxBefore = originalCount ? mod(slideIndex - cloneCount, originalCount) : 0;
+			visibleExploreCards = nextVisible;
+			buildTrack();
+			if (!visibleExploreCards.length) return;
+			setSlideIndex(cloneCount + mod(pxBefore, visibleExploreCards.length), false);
+			startAuto();
 		}
 
 		function normalizeSlideIndex(index) {
@@ -508,9 +1107,25 @@
 			}
 		}
 
+		function canAutoPlay() {
+			return (
+				!reducedMotion &&
+				!dragging &&
+				!holdTimer &&
+				!pointerActive &&
+				!interactionPaused &&
+				!hoverPaused &&
+				!focusPaused
+			);
+		}
+
+		function tryResumeAuto() {
+			if (canAutoPlay()) startAuto();
+		}
+
 		function startAuto() {
 			stopAuto();
-			if (reducedMotion || dragging || holdTimer) return;
+			if (!canAutoPlay()) return;
 			autoTimer = window.setTimeout(function firstAutoStep() {
 				go(1);
 				autoTimer = window.setInterval(() => go(1), AUTO_MS);
@@ -534,7 +1149,7 @@
 			};
 			const stopHoldSafe = () => {
 				stopHold();
-				if (!dragging) startAuto();
+				if (!dragging) tryResumeAuto();
 			};
 
 			btn.addEventListener('pointerdown', startHold);
@@ -544,55 +1159,72 @@
 			btn.addEventListener('click', (event) => event.preventDefault());
 		}
 
+		function clearPointerListeners() {
+			document.removeEventListener('pointermove', onPointerMove);
+			document.removeEventListener('pointerup', onPointerEnd);
+			document.removeEventListener('pointercancel', onPointerEnd);
+		}
+
 		function endDrag(event) {
-			if (!dragging) return;
-			dragging = false;
-			activePointerId = null;
-			root.classList.remove('home-explore-carousel--dragging');
-
-			if (track.hasPointerCapture(event.pointerId)) {
-				track.releasePointerCapture(event.pointerId);
-			}
-
 			const step = stepPx();
 			const dx = event.clientX - dragStartX;
 			const currentPx = dragOriginIndex * step - dx;
 			const rawIndex = step > 0 ? Math.round(currentPx / step) : slideIndex;
 			const nextIndex = normalizeLoopIndex(rawIndex);
 			setSlideIndex(nextIndex, !reducedMotion);
-			startAuto();
+		}
+
+		function onPointerMove(event) {
+			if (!pointerActive || event.pointerId !== activePointerId) return;
+			const dx = event.clientX - dragStartX;
+			if (!dragging && Math.abs(dx) > DRAG_THRESHOLD) {
+				dragging = true;
+				didDrag = true;
+				root.classList.add('home-explore-carousel--dragging');
+				viewport.setPointerCapture(event.pointerId);
+				track.style.transition = 'none';
+			}
+			if (!dragging) return;
+			event.preventDefault();
+			const px = dragOriginIndex * stepPx() - dx;
+			setTranslatePx(px, false);
+		}
+
+		function onPointerEnd(event) {
+			if (!pointerActive || event.pointerId !== activePointerId) return;
+			clearPointerListeners();
+			if (viewport.hasPointerCapture(event.pointerId)) {
+				viewport.releasePointerCapture(event.pointerId);
+			}
+			if (dragging) endDrag(event);
+			pointerActive = false;
+			dragging = false;
+			interactionPaused = false;
+			activePointerId = null;
+			root.classList.remove('home-explore-carousel--dragging');
+			tryResumeAuto();
 		}
 
 		bindHoldButton(prevBtn, -1);
 		bindHoldButton(nextBtn, 1);
 
+		viewport.addEventListener('dragstart', (event) => event.preventDefault(), true);
+
 		viewport.addEventListener('pointerdown', (event) => {
 			if (event.button !== 0 || event.target.closest('.home-explore-carousel__nav')) return;
-			dragging = true;
+			pointerActive = true;
+			dragging = false;
 			didDrag = false;
+			interactionPaused = true;
 			activePointerId = event.pointerId;
 			dragStartX = event.clientX;
 			dragOriginIndex = slideIndex;
-			root.classList.add('home-explore-carousel--dragging');
-			track.setPointerCapture(event.pointerId);
-			track.style.transition = 'none';
 			stopAuto();
 			stopHold();
+			document.addEventListener('pointermove', onPointerMove);
+			document.addEventListener('pointerup', onPointerEnd);
+			document.addEventListener('pointercancel', onPointerEnd);
 		});
-
-		track.addEventListener('pointermove', (event) => {
-			if (!dragging || event.pointerId !== activePointerId) return;
-			const dx = event.clientX - dragStartX;
-			if (Math.abs(dx) > DRAG_THRESHOLD) {
-				didDrag = true;
-				event.preventDefault();
-			}
-			const px = dragOriginIndex * stepPx() - dx;
-			setTranslatePx(px, false);
-		});
-
-		track.addEventListener('pointerup', endDrag);
-		track.addEventListener('pointercancel', endDrag);
 
 		viewport.addEventListener(
 			'click',
@@ -607,14 +1239,24 @@
 
 		track.addEventListener('transitionend', onTransitionEnd);
 
-		root.addEventListener('mouseenter', stopAuto);
-		root.addEventListener('mouseleave', () => {
-			stopHold();
-			if (!dragging) startAuto();
+		root.addEventListener('mouseenter', () => {
+			hoverPaused = true;
+			stopAuto();
 		});
-		root.addEventListener('focusin', stopAuto);
+		root.addEventListener('mouseleave', () => {
+			hoverPaused = false;
+			stopHold();
+			if (!dragging) tryResumeAuto();
+		});
+		root.addEventListener('focusin', () => {
+			focusPaused = true;
+			stopAuto();
+		});
 		root.addEventListener('focusout', (event) => {
-			if (!root.contains(event.relatedTarget)) startAuto();
+			if (!root.contains(event.relatedTarget)) {
+				focusPaused = false;
+				tryResumeAuto();
+			}
 		});
 
 		let resizeTimer = null;
@@ -627,6 +1269,7 @@
 			}, 120);
 		});
 
+		visibleExploreCards = resolveVisibleExploreCards(new Map());
 		buildTrack();
 		startAuto();
 	}

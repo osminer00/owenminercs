@@ -1,0 +1,158 @@
+/** Help Wanted — deep purple clip ~2:36–3:00, poster 2:39 */
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted {
+
+	--bubble-accent: #c084fc;
+
+	--bubble-accent-soft: rgba(192, 132, 252, 0.72);
+
+	--bubble-accent-fill: rgba(147, 51, 234, 0.14);
+
+	--bubble-accent-edge: rgba(192, 132, 252, 0.48);
+
+	--bubble-accent-specular: rgba(216, 180, 254, 0.3);
+
+	--bubble-accent-bg-hover: rgba(147, 51, 234, 0.12);
+
+	--bubble-glow-warm: rgba(46, 16, 72, 0.5);
+
+	--bubble-glow-mid: rgba(168, 85, 247, 0.52);
+
+	--bubble-glow-cool: rgba(216, 180, 254, 0.28);
+
+	--bubble-bg-fallback: #06040c;
+
+	--bubble-poster: url('/images/bubble-themes/help-wanted/poster.jpg');
+
+	--bubble-media-brightness: 0.46;
+
+	--bubble-blue-block-filter: saturate(1.16) hue-rotate(6deg) contrast(1.05);
+
+	--bubble-veil:
+
+		radial-gradient(ellipse 90% 70% at 50% 40%, rgba(6, 8, 20, 0.08), rgba(0, 0, 0, 0.34) 78%),
+
+		linear-gradient(180deg, rgba(6, 6, 18, 0.18) 0%, rgba(0, 0, 0, 0.3) 100%);
+
+	/* Help Wanted card grid — uniform body + clamped description */
+	--help-wanted-label-fs: 0.95rem;
+	--help-wanted-label-lh: 1.32;
+	--help-wanted-label-lines: 4;
+	--help-wanted-desc-fs: 0.9rem;
+	--help-wanted-desc-lh: 1.5;
+	--help-wanted-desc-lines: 3;
+	--help-wanted-body-gap: 0.5rem;
+	--help-wanted-body-pad-top: 0.8rem;
+	--help-wanted-body-pad-x: 1rem;
+	--help-wanted-body-pad-bottom: 1.05rem;
+	--help-wanted-label-block-h: calc(
+		var(--help-wanted-label-fs) * var(--help-wanted-label-lh) * var(--help-wanted-label-lines)
+	);
+	--help-wanted-desc-block-h: calc(
+		var(--help-wanted-desc-fs) * var(--help-wanted-desc-lh) * var(--help-wanted-desc-lines)
+	);
+	--help-wanted-body-min-h: calc(
+		var(--help-wanted-body-pad-top) + var(--help-wanted-label-block-h) + var(--help-wanted-body-gap) +
+			var(--help-wanted-desc-block-h) + var(--help-wanted-body-gap) + 1.35rem +
+			var(--help-wanted-body-pad-bottom)
+	);
+}
+
+/* Equal-height rows; overlay must not change grid track size */
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub {
+	align-items: stretch;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card {
+	align-self: stretch;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__inner {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__scalable {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__body {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-height: var(--help-wanted-body-min-h);
+	gap: var(--help-wanted-body-gap);
+	padding: var(--help-wanted-body-pad-top) var(--help-wanted-body-pad-x)
+		var(--help-wanted-body-pad-bottom);
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__body > .keep-card__label {
+	font-size: var(--help-wanted-label-fs);
+	font-weight: 600;
+	line-height: var(--help-wanted-label-lh);
+	margin: 0;
+	padding-top: 0;
+	letter-spacing: normal;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__label {
+	flex: 0 0 auto;
+	margin: 0;
+	min-height: var(--help-wanted-label-block-h);
+	max-height: var(--help-wanted-label-block-h);
+	display: -webkit-box;
+	-webkit-line-clamp: var(--help-wanted-label-lines);
+	line-clamp: var(--help-wanted-label-lines);
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	overflow-wrap: break-word;
+	word-break: normal;
+	hyphens: none;
+	-webkit-hyphens: none;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__affiliate {
+	flex: 0 0 auto;
+	height: var(--help-wanted-desc-block-h);
+	min-height: var(--help-wanted-desc-block-h);
+	max-height: var(--help-wanted-desc-block-h);
+	overflow: hidden;
+	margin: 0;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__affiliate p {
+	display: -webkit-box;
+	-webkit-line-clamp: var(--help-wanted-desc-lines);
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	margin: 0;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card__cta {
+	flex: 0 0 auto;
+	margin-top: auto;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .keep-board--hub .keep-card:focus-visible {
+	outline: 2px solid var(--bubble-accent, #818cf8);
+	outline-offset: 3px;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .help-wanted-intro__lead,
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .help-wanted-intro__note {
+	width: 100%;
+	margin: 0;
+	text-align: left;
+}
+
+body.site-card-ui.bubble-theme.bubble-theme--help-wanted .intro > .gallery.keep-board-intro {
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 0.1rem;
+}
+

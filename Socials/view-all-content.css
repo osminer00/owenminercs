@@ -2,6 +2,14 @@
 .vac-all-page {
 	background: #0f0f0f;
 	min-height: 100vh;
+	--card-grid-col-min: min(10.25rem, 100%);
+	--card-grid-col-gap: clamp(0.3rem, 0.85vw, 0.5rem);
+	--card-grid-row-gap: clamp(0.55rem, 1.4vw, 0.9rem);
+	--card-grid-board-padding: 0.22rem clamp(0.35rem, 1vw, 0.5rem) 0.55rem;
+	--card-body-padding-block: 0.26rem;
+	--card-body-padding-inline: 0.4rem;
+	--card-body-padding-end: 0.34rem;
+	--hub-card-thumb-aspect: 3 / 2;
 }
 
 .vac-all-page .container {
@@ -10,12 +18,12 @@
 }
 
 .vac-intro {
-	padding: 0.5rem 0 0.25rem;
+	padding: 0.28rem 0 0.12rem;
 }
 
 .vac-back {
-	margin: 0 0 0.5rem;
-	font-size: 0.95rem;
+	margin: 0 0 0.32rem;
+	font-size: 0.88rem;
 }
 
 .vac-back a {
@@ -23,16 +31,115 @@
 }
 
 #viewAllContentStatus {
-	margin: 0.35rem 0 0.75rem;
-	font-size: 0.88rem;
+	margin: 0.22rem 0 0.42rem;
+	font-size: 0.82rem;
 	color: var(--text-muted, #8a8a8a);
+}
+
+.vac-sortbar {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+	margin: 0 0 0.55rem;
+	padding: 0;
+}
+
+.vac-sortbar__label {
+	margin: 0;
+	font-size: 0.85rem;
+	color: rgba(240, 240, 240, 0.88);
+}
+
+.vac-sortbar__select {
+	font-size: 0.88rem;
+	padding: 0.32rem 0.5rem;
+	border-radius: 6px;
+	color-scheme: dark;
+	background-color: #141414;
+	color: #f0f0f0;
+	border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.vac-sortbar__select:hover {
+	border-color: rgba(180, 210, 255, 0.55);
+	background-color: #1a1a1a;
+}
+
+.vac-sortbar__select:focus-visible {
+	outline: 2px solid rgba(140, 190, 255, 0.65);
+	outline-offset: 2px;
+	border-color: rgba(180, 210, 255, 0.65);
+}
+
+.vac-sortbar__select option {
+	background-color: #141414;
+	color: #f0f0f0;
+}
+
+.vac-all-page .intro .gallery.keep-board-intro h1 {
+	margin-bottom: 0.35rem;
+}
+
+.vac-all-page .intro .gallery.keep-board-intro > p {
+	padding: 0 0.55rem 0.5rem !important;
+	font-size: 0.82rem;
+	line-height: 1.32;
+}
+
+.vac-all-page #viewAllContentBoard.keep-board {
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 1100px) {
+	.vac-all-page #viewAllContentBoard.keep-board {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 820px) {
+	.vac-all-page #viewAllContentBoard.keep-board {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 700px) {
+	.vac-all-page {
+		--card-grid-col-gap: clamp(0.125rem, 0.75vw, 0.22rem);
+		--card-grid-row-gap: clamp(0.4rem, 1.4vw, 0.65rem);
+		--card-grid-board-padding: 0.12rem 0.08rem 0.42rem;
+		--card-body-padding-block: 0.18rem;
+		--card-body-padding-inline: 0.24rem;
+		--card-body-padding-end: 0.22rem;
+		--hub-card-thumb-aspect: 1 / 1;
+	}
+
+	.vac-all-page #viewAllContentBoard.keep-board {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.vac-all-page .keep-card__video-slot,
+	.vac-all-page .keep-card__affiliate p {
+		display: none;
+	}
+}
+
+.vac-all-page .keep-card__video-slot {
+	font-size: 0.66rem;
+	line-height: 1.2;
+	padding: 0.12rem 0.32rem;
+}
+
+.vac-all-page .keep-card__body > .keep-card__label {
+	font-size: 0.82rem;
+	line-height: 1.28;
 }
 
 .vac-platform-actions {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.4rem;
-	margin-top: 0.55rem;
+	gap: 0.26rem;
+	margin-top: 0.32rem;
 }
 
 a.vac-platform-btn {
@@ -40,9 +147,9 @@ a.vac-platform-btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0.38rem 0.65rem;
-	border-radius: 8px;
-	font-size: 0.8rem;
+	padding: 0.26rem 0.48rem;
+	border-radius: 6px;
+	font-size: 0.72rem;
 	font-weight: 600;
 	text-decoration: none;
 	color: #f0f0f0;
@@ -75,7 +182,7 @@ a.vac-thumb-link {
 .smc-view-all-cta {
 	display: flex;
 	justify-content: center;
-	padding: 0.75rem 1rem 0.25rem;
+	padding: 0.35rem 0.65rem 0.1rem;
 }
 
 .smc-view-all-cta a {
@@ -91,16 +198,26 @@ a.vac-thumb-link {
 	background: rgba(38, 72, 140, 0.55);
 	border: 1px solid rgba(140, 190, 255, 0.55);
 	box-shadow: 0 0 18px rgba(80, 140, 255, 0.22);
+	cursor: pointer;
 	transition:
 		background 0.18s ease,
 		box-shadow 0.18s ease,
-		border-color 0.18s ease;
+		border-color 0.18s ease,
+		transform 0.18s ease;
 }
 
-.smc-view-all-cta a:hover,
-.smc-view-all-cta a:focus-visible {
-	background: rgba(52, 92, 175, 0.72);
+/* Whole-button hover: beat site-card-ui link text glow + underline rules */
+html:not([data-theme='light']) body.site-card-ui .smc-view-all-cta a:is(:hover, :focus-visible),
+html:not([data-theme='light']) body.site-card-ui .smc-view-all-cta a:visited:is(:hover, :focus-visible),
+[data-theme='light'] body.site-card-ui .smc-view-all-cta a:is(:hover, :focus-visible),
+[data-theme='light'] body.site-card-ui .smc-view-all-cta a:visited:is(:hover, :focus-visible) {
+	color: #f5f5f5 !important;
+	text-decoration: none !important;
+	text-shadow: none !important;
+	background: rgba(52, 92, 175, 0.72) !important;
+	background-color: rgba(52, 92, 175, 0.72) !important;
 	border-color: rgba(190, 220, 255, 0.85);
 	box-shadow: 0 0 26px rgba(100, 160, 255, 0.38);
+	transform: translateY(-1px);
 	outline: none;
 }

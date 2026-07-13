@@ -29,7 +29,7 @@
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Owen Miner: CS2 content creator and Iowa developer. Wooting 60HE keyboard build guide, custom PC specs, Gear setup, and CS2 Faceit-level gameplay—all on one site."
+			content="Owen Miner: CS2 content creator and Iowa developer. Wooting 60HE keyboard build guide, custom PC specs, Gear setup, and CS2 Faceit-level gameplay, all on one site."
 		/>
 		<meta
 			name="keywords"
@@ -75,7 +75,7 @@
 						"@id": "https://www.owenminercs.com/#website",
 						"url": "https://www.owenminercs.com/",
 						"name": "Owen Miner CS",
-						"description": "Owen Miner — CS2 content creator and developer. Guides for Wooting 60HE, PC build, Gear setup, and Counter-Strike.",
+						"description": "Owen Miner, CS2 content creator and developer. Guides for Wooting 60HE, PC build, Gear setup, and Counter-Strike.",
 						"inLanguage": "en",
 						"publisher": { "@id": "https://www.owenminercs.com/#person" },
 						"potentialAction": {
@@ -110,7 +110,11 @@
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="./scripts/components.js" defer></script>
 		<script src="./scripts/home-explore-carousel.js" defer></script>
-		<script src="./scripts/home-bubble-scroll.js" defer></script>
+		<script src="./scripts/home-yt-row-carousel.js" defer></script>
+
+		<script src="./scripts/bubble-scroll.js" defer></script>
+		<script src="./scripts/site-feed-queue.js" defer></script>
+		<script src="./scripts/site-feed-hover.js" defer></script>
 	</head>
 
 	<body id="top" class="site-card-ui home-page home-liquid-glass-test">
@@ -124,44 +128,45 @@
 					loop
 					playsinline
 					preload="metadata"
-					poster="/images/home/bubble-bg-poster.jpg"
+					poster="/images/bubble-themes/socials/poster.jpg"
 				>
-					<source src="/images/home/bubble-bg.mp4" type="video/mp4" />
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
 				</video>
 			</div>
 			<div class="home-bubble-bg__veil"></div>
 		</div>
 		<shared-header></shared-header>
 		<div class="container">
-			<nav class="home-pillars" aria-label="Quick links to main site sections">
-				<a href="Gaming/gaming.html" class="home-pillars__link">CS2</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="Gaming/cs2-videos.html" class="home-pillars__link">Videos</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="Gaming/cs2-merch.html" class="home-pillars__link">Merch</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="The%20Setup/the-setup.html" class="home-pillars__link">Gear</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="The%20Setup/2024-setup.html" class="home-pillars__link">Setup tour</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="The%20Setup/previous-setups.html" class="home-pillars__link">Archive</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="Keyboard/60he.html" class="home-pillars__link">Keyboard</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="PC/pc.html" class="home-pillars__link">PC</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="Socials/socials.html" class="home-pillars__link">Content</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="#whats-new" class="home-pillars__link">What’s new</a>
-				<span class="home-pillars__sep" aria-hidden="true">·</span>
-				<a href="Garage%20Sale/garage-sale.html" class="home-pillars__link">Shop</a>
-			</nav>
-
 			<section class="intro home-explore" id="explore" aria-labelledby="home-explore-heading">
-				<h2 id="home-explore-heading">Explore the site</h2>
-				<p class="home-explore-lede">
-					A visual map of the main hubs—each card pulls from the same photo galleries as the destination pages.
-				</p>
+				<div class="home-explore__head">
+					<h2 id="home-explore-heading">Explore the site</h2>
+					<ul class="home-quick-strip" aria-label="Featured site sections">
+						<li class="home-quick-strip__item">
+							<a class="home-quick-strip__link" href="Gaming/cs2-merch.html">
+								<span class="home-quick-strip__label">CS2 Major merch</span>
+								<span class="home-quick-strip__hint">Shanghai shelves &amp; collectibles</span>
+							</a>
+						</li>
+						<li class="home-quick-strip__item">
+							<a class="home-quick-strip__link" href="The%20Setup/keyboards.html">
+								<span class="home-quick-strip__label">Keyboards</span>
+								<span class="home-quick-strip__hint">Wooting 60HE V2 &amp; V1 builds</span>
+							</a>
+						</li>
+						<li class="home-quick-strip__item">
+							<a class="home-quick-strip__link" href="The%20Setup/previous-setups.html">
+								<span class="home-quick-strip__label">Gaming Setup Archive</span>
+								<span class="home-quick-strip__hint">Year-by-year setup archive cards</span>
+							</a>
+						</li>
+						<li class="home-quick-strip__item">
+							<a class="home-quick-strip__link" href="Socials/view-all-content.html">
+								<span class="home-quick-strip__label">View all content</span>
+								<span class="home-quick-strip__hint">YouTube, TikTok, X, and more</span>
+							</a>
+						</li>
+					</ul>
+				</div>
 				<div class="home-explore-carousel" data-home-explore-carousel>
 					<button
 						type="button"
@@ -184,190 +189,32 @@
 			</section>
 
 			<section class="intro home-yt-section" aria-labelledby="home-yt-heading">
-				<h2 id="home-yt-heading">Latest videos &amp; clips</h2>
-				<p class="home-yt-lede">
-					<a href="https://www.youtube.com/@OwenMinerCS" target="_blank" rel="noopener noreferrer"
-						>YouTube @OwenMinerCS</a
-					>,
-					<a href="https://www.tiktok.com/@owenminercs" target="_blank" rel="noopener noreferrer">TikTok</a>
-					— long-form, Shorts, and clips. More on the
-					<a href="Gaming/cs2-videos.html">CS2 videos page</a>.
-				</p>
-				<div class="home-yt-mosaic">
-					<div class="home-yt-row home-yt-row--portrait" role="list">
-						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/isXjGDcmuP0"
-									title="NA CS players soul leaves his body after witnessing basic Mirage movement tech — YouTube Shorts"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">Mirage movement tech breaks an NA CS player’s soul</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/DQ-05ya7Ftc"
-									title="CS2 Knife Pin Display Build — YouTube Shorts"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">CS2 knife pin display build (Perfect World merch)</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/RzkWbLgK_oo"
-									title="CS2 Knife Pin set unboxing — YouTube Shorts"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">CS2 knife pin set unboxing</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/9WJKdoKxfmo"
-									title="#csgo vs #cs2 — YouTube Shorts"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">#csgo vs #cs2</h3>
-						</article>
-					</div>
-					<div class="home-yt-row home-yt-row--landscape" role="list">
-						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/dT9SIFc5q9g"
-									title="24k GOLD GOLD GOLD Labubu Unboxing — YouTube"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">24k GOLD³ Labubu Unboxing with Ohnepixel</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/JNMGA4uPaM0"
-									title="1 vs 15,000 — apEX flipped me off at Austin Major — YouTube Shorts"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">1 vs 15,000 — apEX at the Austin Major (anniversary)</h3>
-						</article>
-					</div>
-					<div class="home-yt-row home-yt-row--portrait" role="list">
-						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.tiktok.com/player/v1/7654342162502470926?controls=1&progress_bar=1&play_button=1"
-									data-embed-poster="https://p19-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/0ce90506e4c5460c841e1e927fad4d56~tplv-photomode-image.jpeg?dr=9616&x-expires=1782770400&x-signature=PU0nnHxAPpymkecTaGuLUBaoMAw%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=9b759fb9&idc=useast8&ftpl=1"
-									title="Top Mid Mirage Carhartt Jacket — TikTok"
-									allow="fullscreen; encrypted-media; picture-in-picture"
-									referrerpolicy="origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">Top Mid Mirage Carhartt Jacket</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/dWl0mVrCHCk"
-									title="Unboxing 24k Gold Gold Gold Labubu — YouTube Shorts"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">Unboxing 24k Gold Gold Gold Labubu</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.tiktok.com/player/v1/7653937359519534350?controls=1&progress_bar=1&play_button=1"
-									data-embed-poster="https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAIk4qqEsBDyxgRa4LIA8FED9PDLeOA5RfdY4S~tplv-tiktokx-origin.image?dr=9636&x-expires=1782770400&x-signature=DUfwinvvq9tQj4YYbrghJUiDVtg%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast8"
-									title="Niko won a major — TikTok"
-									allow="fullscreen; encrypted-media; picture-in-picture"
-									referrerpolicy="origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">Niko won a Major — I’m so proud of my goat</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.tiktok.com/player/v1/7653955939543895310?controls=1&progress_bar=1&play_button=1"
-									data-embed-poster="https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMGgvBpB1AUxvcwiidGCBAIECBg4fHow2IIHc4~tplv-tiktokx-origin.image?dr=9636&x-expires=1782770400&x-signature=LuvM9ztc3idFPluCPsg%2FWKIqetg%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast8"
-									title="IEM Cologne Major outfit fit check — TikTok"
-									allow="fullscreen; encrypted-media; picture-in-picture"
-									referrerpolicy="origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">What I wore for IEM Cologne (I didn’t go)</h3>
-						</article>
-					</div>
-					<div class="home-yt-row home-yt-row--landscape" role="list">
-						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/8VqF5ywtigI"
-									title="Green's on A by Himself with a Five Seven — YouTube"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">Green's on A by Himself with a Five Seven</h3>
-						</article>
-						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.youtube.com/embed/OSoAx-cHaiQ"
-									title="ohnePixel responds to my CS2 name tag tweet — YouTube"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">ohnePixel responds to my CS2 name tag tweet</h3>
-						</article>
-					</div>
-					<div class="home-yt-row home-yt-row--portrait" role="list">
-						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
-							<div class="home-yt-tile__media">
-								<iframe
-									data-embed-src="https://www.tiktok.com/player/v1/7265692692661767454?controls=1&progress_bar=1&play_button=1"
-									data-embed-poster="https://p19-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/bd36ef30dbfb4f7ab3cc763b09773a63_1691676018~tplv-tiktokx-origin.image?dr=9636&x-expires=1782770400&x-signature=oWTP4bvl9qob%2FwpWeBOripw0Kp0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast8"
-									title="Don't Look at Me Like That — TikTok"
-									allow="fullscreen; encrypted-media; picture-in-picture"
-									referrerpolicy="origin-when-cross-origin"
-									allowfullscreen
-								></iframe>
-							</div>
-							<h3 class="home-yt-tile__title">Don't Look at Me Like That 👀</h3>
-						</article>
+				<div class="intro-section__head">
+					<h2 id="home-yt-heading">Top performing clips</h2>
+					<p class="home-yt-lede">
+						<a href="https://www.youtube.com/@OwenMinerCS" target="_blank" rel="noopener noreferrer"
+							>YouTube @OwenMinerCS</a
+						>
+						Shorts and 16:9,
+						<a href="https://www.tiktok.com/@owenminercs" target="_blank" rel="noopener noreferrer">TikTok</a>,
+						<a href="https://x.com/OwenMiner" target="_blank" rel="noopener noreferrer">X</a>,
+						<a href="https://www.reddit.com/user/OwenMCS" target="_blank" rel="noopener noreferrer">Reddit</a>, and
+						<a href="https://www.instagram.com/owenminercs/" target="_blank" rel="noopener noreferrer"
+							>Instagram</a
+						>
+						reels with the highest views and engagement. More on the
+						<a href="Gaming/cs2-videos.html">CS2 videos page</a>.
+					</p>
+				</div>
+																																<div class="home-yt-mosaic">
+					<div class="home-yt-row-group">
+						<h3 class="home-yt-row-label" id="home-yt-row-shorts">YouTube Shorts</h3>
+						<div class="home-yt-row home-yt-row--portrait" role="list" aria-labelledby="home-yt-row-shorts">
 						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
 							<div class="home-yt-tile__media">
 								<iframe
 									data-embed-src="https://www.youtube.com/embed/ibGgdhWVHW8"
-									title="Learn this Mechanic to Stay Hidden in CS2! — YouTube"
+									title="Learn this Mechanic to Stay Hidden in CS2!, YouTube Shorts"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen
@@ -379,7 +226,7 @@
 							<div class="home-yt-tile__media">
 								<iframe
 									data-embed-src="https://www.youtube.com/embed/i_HFH02O8Zk"
-									title="You Need to Know This Movement Mechanic In CS2 — YouTube"
+									title="You Need to Know This Movement Mechanic In CS2, YouTube Shorts"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen
@@ -390,250 +237,604 @@
 						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
 							<div class="home-yt-tile__media">
 								<iframe
-									data-embed-src="https://www.youtube.com/embed/eooSv-praC8"
-									title="ohnepixel can't believe Faceit shop added baby strollers — YouTube"
+									data-embed-src="https://www.youtube.com/embed/aKm8c7LjUkA"
+									title="Happy Meal or CS2 Glove/Knife Combo?, YouTube Shorts"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen
 								></iframe>
 							</div>
-							<h3 class="home-yt-tile__title">ohnepixel can't believe Faceit shop added baby strollers</h3>
+							<h3 class="home-yt-tile__title">Happy Meal or CS2 Glove/Knife Combo?</h3>
 						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/GlpqQU3UP7c"
+									title="The Hardest Shot To Take in CS2, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">The Hardest Shot To Take in CS2</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/--mPKg1bh70"
+									title="One of My Crispiest Pistol Rounds on Faceit, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">One of My Crispiest Pistol Rounds on Faceit</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/h4cS67d5bKg"
+									title="Which Sounds Better? Wooting 60 HE Magnetic Jade vs Lekker Switches, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Which Sounds Better? Wooting 60 HE Magnetic Jade vs Lekker Switches</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/pl74fp_OIoI"
+									title="How to Silent Drop In CS2, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">How to Silent Drop In CS2</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/kZcLbCVOs_c"
+									title="Is Reduced XP Worth it in CS2?, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Is Reduced XP Worth it in CS2?</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/eooSv-praC8"
+									title="ohnepixel can't believe Faceit shop added baby strollers  #cs2 #csgo, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">ohnepixel can't believe Faceit shop added baby strollers #cs2 #csgo</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/fhfVRfto9KA"
+									title="New Charm has Liquid Physics in CS2  #csgo #cs2 #counterstrike  #gaming, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">New Charm has Liquid Physics in CS2 #csgo #cs2 #counterstrike #gaming</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/omeI7vpDAgg"
+									title="Elite Footwork...  #counterstrike2 #cs2 #gaming, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Elite Footwork... #counterstrike2 #cs2 #gaming</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/iDQz5wtm9MI"
+									title="(Patched) Heads Up: This Wall Crack Reveals Your Position in-game!, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">(Patched) Heads Up: This Wall Crack Reveals Your Position in-game!</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/D0tGPxhRmq0"
+									title="How to Get XP from Genesis Terminal in CS2, YouTube Shorts"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">How to Get XP from Genesis Terminal in CS2</h3>
+						</article>
+						</div>
 					</div>
-					<div class="home-yt-row home-yt-row--landscape" role="list">
+					<div class="home-yt-row-group">
+						<h3 class="home-yt-row-label" id="home-yt-row-longform">YouTube (16:9)</h3>
+						<div class="home-yt-row home-yt-row--landscape" role="list" aria-labelledby="home-yt-row-longform">
+						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/C9e4xtgWftE"
+									title="He's Right Behind You - 4:3 Moment - CS2, YouTube"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">He's Right Behind You - 4:3 Moment - CS2</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/8VqF5ywtigI"
+									title="Green's on A by Himself with a Five Seven, YouTube"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Green's on A by Himself with a Five Seven</h3>
+						</article>
 						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
 							<div class="home-yt-tile__media">
 								<iframe
 									data-embed-src="https://www.youtube.com/embed/KzcA0Zi4eZQ"
-									title="Player Models In Counter-Strike 2 Are Way More Interesting Than You Think — YouTube"
+									title="CS2 TIPS YOU NEED TO KNOW, YouTube"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen
 								></iframe>
 							</div>
-							<h3 class="home-yt-tile__title">
-								Player Models In Counter-Strike 2 Are Way More Interesting Than You Think.
-							</h3>
+							<h3 class="home-yt-tile__title">CS2 TIPS YOU NEED TO KNOW</h3>
 						</article>
 						<article class="home-yt-tile home-yt-tile--landscape" role="listitem">
 							<div class="home-yt-tile__media">
 								<iframe
 									data-embed-src="https://www.youtube.com/embed/ScmXK-EVHgQ"
-									title="Which Sounds Better? Wooting 60 HE Magnetic Jade vs Lekker Switches — YouTube"
+									title="Which Sounds Better? Wooting 60 HE Magnetic Jade vs Lekker Switches, YouTube"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen
 								></iframe>
 							</div>
-							<h3 class="home-yt-tile__title">
-								Which Sounds Better? Wooting 60 HE Magnetic Jade vs Lekker Switches
-							</h3>
+							<h3 class="home-yt-tile__title">Which Sounds Better? Wooting 60 HE Magnetic Jade vs Lekker Switches</h3>
 						</article>
+						</div>
+					</div>
+					<div class="home-yt-row-group">
+						<h3 class="home-yt-row-label" id="home-yt-row-tiktok">TikTok</h3>
+						<div class="home-yt-row home-yt-row--portrait" role="list" aria-labelledby="home-yt-row-tiktok">
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7270576052697648427?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7270576052697648427.jpg"
+									title="Should Not Have Won That 😂 #csgo #csgomoments #counterstrike #counter..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Should Not Have Won That 😂 #csgo #csgomoments #counterstrike #counte…</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7563848624027847949?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7563848624027847949.jpg"
+									title="In a recent YouTube and Twitch multistream interviewing the number on..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">In a recent YouTube and Twitch multistream interviewing the number on...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7269614909317500202?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7269614909317500202.jpg"
+									title="Fumbled &amp; Recovered 💀#csgo #csgomoments #csgomemes #counterstrike #co..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Fumbled &amp; Recovered 💀#csgo #csgomoments #csgomemes #counterstrike #c…</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7563846244037184782?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7563846244037184782.jpg"
+									title="In a recent YouTube and Twitch multistream interviewing the number on..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">In a recent YouTube and Twitch multistream interviewing the number on...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7391880830152461598?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7391880830152461598.jpg"
+									title="CS2 Mastery: Crouch Mechanics to Get on Top of Objects Faster! #cs2 #..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">CS2 Mastery: Crouch Mechanics to Get on Top of Objects Faster! #cs2 #...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7564922156069686541?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7564922156069686541.jpg"
+									title="After the recent Counter-Strike 2 update, the majority of the supply ..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">After the recent Counter-Strike 2 update, the majority of the supply ...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7564582132190874935?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7564582132190874935.jpg"
+									title="Cheap Coverts Skyrocket in Price #cs2 #livestream #fps #gaming #count..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Cheap Coverts Skyrocket in Price #cs2 #livestream #fps #gaming #count...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7265692692661767454?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7265692692661767454.jpg"
+									title="Don’t Look at Me Like That 👀 #csgomoments #csgo #counterstrikeglobalo..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Don’t Look at Me Like That 👀 #csgomoments #csgo #counterstrikeglobal…</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7563732941671648525?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7563732941671648525.jpg"
+									title="Sacrifices and Aquiring Time to Play for the Counter-Strike 2 2025 Ma..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Sacrifices and Aquiring Time to Play for the Counter-Strike 2 2025 Ma...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7650987414999158029?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7650987414999158029.jpg"
+									title="#oceanman, TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">#oceanman</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7395378505715895583?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7395378505715895583.jpg"
+									title="How to levitate in CS2 #cs2 #counterstrike2, TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">How to levitate in CS2 #cs2 #counterstrike2</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7265865874169466155?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7265865874169466155.jpg"
+									title="Goblin Spot #csgo #counterstrike #csgomoments #csgoclips #counterstri..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Goblin Spot #csgo #counterstrike #csgomoments #csgoclips #counterstri...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7262905539309358379?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7262905539309358379.jpg"
+									title="The Adrenaline Was Hittin After This Clip... #csgo #counterstrike #cs..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">The Adrenaline Was Hittin After This Clip... #csgo #counterstrike #cs...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7561120609514687757?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7561120609514687757.jpg"
+									title="The Monitor Height Hack That Keeps You Locked In While Gaming. #gamin..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">The Monitor Height Hack That Keeps You Locked In While Gaming. #gamin...</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--tiktok" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7559667308650614030?controls=1&amp;progress_bar=1&amp;play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7559667308650614030.jpg"
+									title="CS2 Room Tour reaction from Dima Wallhacks #cs2 #livestreams #gaming..., TikTok"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">CS2 Room Tour reaction from Dima Wallhacks #cs2 #livestreams #gaming...</h3>
+						</article>
+						</div>
+					</div>
+					<div class="home-yt-row-group">
+						<h3 class="home-yt-row-label" id="home-yt-row-x">X posts and replies</h3>
+						<div class="home-yt-row home-yt-row--portrait" role="list" aria-labelledby="home-yt-row-x">
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--x" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=1900576312365920513&amp;theme=dark&amp;dnt=true"
+									data-embed-poster="https://pbs.twimg.com/media/GmAzxaXXQAESq8K.png?name=orig"
+									title="FACEIT Shop released baby strollers for 50,000 points, X post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">FACEIT Shop released baby strollers for 50,000 points</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--x" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=1899879947608424563&amp;theme=dark&amp;dnt=true"
+									data-embed-poster="https://pbs.twimg.com/media/Gl26meKXwAAopBM.jpg?name=orig"
+									title="Name Tag Drops would cure my depression by at least 2%., X post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Name Tag Drops would cure my depression by at least 2%.</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--x" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=2074938327996772632&amp;theme=dark&amp;dnt=true"
+									data-embed-poster=""
+									title="Anyone else think it’s crazy Valve shuts down the most popular game mode, in their most popular game, for multiple days. Despite having SIX MONTHS to prepare a smooth transition between seasons????, X post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Anyone else think it’s crazy Valve shuts down the most popular game m…</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--portrait home-yt-tile--x" role="listitem">
+							<div class="home-yt-tile__media">
+								<iframe
+									data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=2074996170741502361&amp;theme=dark&amp;dnt=true"
+									data-embed-poster="https://pbs.twimg.com/media/HMveAX0W4AEcQbw.jpg?name=orig"
+									title="@CounterStrike I can finally let Grandma out of the cage, Cache is finally in the competitive map pool 😭, X post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">@CounterStrike I can finally let Grandma out of the cage, Cache is fi…</h3>
+						</article>
+						</div>
+					</div>
+					<div class="home-yt-row-group">
+						<h3 class="home-yt-row-label" id="home-yt-row-reddit">Reddit posts</h3>
+						<div class="home-yt-row home-yt-row--landscape" role="list" aria-labelledby="home-yt-row-reddit">
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/15fehzt/hopefully_this_tip_helps_someone_out?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/15fehzt.jpg"
+									title="Hopefully This Tip Helps Someone Out!, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Hopefully This Tip Helps Someone Out!</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/1jkdzr0/1v5_deagle?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1jkdzr0.jpg"
+									title="1v5 Deagle, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">1v5 Deagle</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/1mv03i2/im_so_excited_to_support_north_american?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1mv03i2.jpg"
+									title="I'm so excited to support North American Counter-Strike with the new T-shirt I just bought! 🇺🇸🦅, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">I'm so excited to support North American Counter-Strike with the new…</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/1jgxch2/inferno_bookend_d?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1jgxch2.jpg"
+									title="Inferno Bookend :D, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Inferno Bookend :D</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/16t80up/dear_valve_1_vote_to_surrender_is_not_okay?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/16t80up.jpg"
+									title="Dear Valve, 1 vote to surrender is not okay., Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Dear Valve, 1 vote to surrender is not okay.</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/ohnePixel/comments/1nx7pom/everyone_fix_game_please_valve?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1nx7pom.jpg"
+									title="Everyone: &quot;Fix Game PLEASE&quot; Valve:, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Everyone: &quot;Fix Game PLEASE&quot; Valve:</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/1i0fcm4/ive_been_practicing_my_wallbangs_on_train_the?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1i0fcm4.jpg"
+									title="I've been practicing my Wall-Bangs on Train the last two days 😄, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">I've been practicing my Wall-Bangs on Train the last two days 😄</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/ohnePixel/comments/1nl8li3/you_know_what_bro?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1nl8li3.jpg"
+									title="You know what bro…, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">You know what bro…</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/1dql5e7/heads_up_this_wall_crack_reveals_your_position_on?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1dql5e7.jpg"
+									title="Heads Up: This Wall Crack Reveals Your Position on Dust II!, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">Heads Up: This Wall Crack Reveals Your Position on Dust II!</h3>
+						</article>
+						<article class="home-yt-tile home-yt-tile--landscape home-yt-tile--reddit" role="listitem">
+							<div class="home-yt-tile__media home-yt-tile__media--reddit">
+								<iframe
+									data-embed-src="https://www.redditmedia.com/r/GlobalOffensive/comments/1cmehf8/43_moment?ref_source=embed&amp;ref=share&amp;embed=true"
+									data-embed-poster="/Socials/images/content-thumbs/reddit/1cmehf8.jpg"
+									title="4:3 Moment, Reddit post"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<h3 class="home-yt-tile__title">4:3 Moment</h3>
+						</article>
+						</div>
 					</div>
 				</div>
 			</section>
-			<section class="intro site-feed-section" id="whats-new" aria-labelledby="site-feed-heading">
-				<h2 id="site-feed-heading">What’s new</h2>
-				<p class="site-feed-lede">Major site update in progress—follow Discord for the latest.</p>
-				<ol
-					class="site-feed-list no-word-glow"
-					id="site-feed-list"
-					data-site-feed-static="true"
-					data-no-word-glow
-					aria-busy="false"
-				>
-					<li class="site-feed-item">
-						<a
-							class="site-feed-item__link"
-							href="https://www.youtube.com/shorts/DQ-05ya7Ftc"
-							target="_blank"
-							rel="noopener noreferrer"
+						<section class="intro site-feed-section" id="whats-new" aria-labelledby="site-feed-heading">
+				<div class="intro-section__head">
+					<h2 id="site-feed-heading">What’s new</h2>
+					<p class="site-feed-lede">Major site update in progress, follow Discord for the latest.</p>
+				</div>
+				<div class="site-feed-queue" data-site-feed-queue data-visible-count="5">
+					<div class="site-feed-queue__viewport" tabindex="0" aria-label="Site updates">
+						<ol
+							class="site-feed-list no-word-glow"
+							id="site-feed-list"
+							data-no-word-glow
+							aria-busy="true"
+						></ol>
+					</div>
+					<div class="site-feed-queue__controls" hidden>
+						<button
+							type="button"
+							class="site-feed-queue__nav site-feed-queue__nav--prev"
+							aria-label="Scroll to newer updates"
+							hidden
 						>
-							<span class="site-feed-item__layout">
-								<span class="site-feed-item__content">
-									<span class="site-feed-item__row">
-										<time class="site-feed-item__date" datetime="2026-06-27">Jun 27, 2026</time>
-										<span class="site-feed-item__title">CS2 knife pin display build</span>
-									</span>
-									<p class="site-feed-item__summary">
-										Perfect World licensed knife pins—display build Short plus pin set unboxing, synced to Content hub
-										feeds.
-									</p>
-									<p class="site-feed-item__external">youtube.com/shorts/DQ-05ya7Ftc</p>
-								</span>
-								<span class="site-feed-item__brand" data-social-brand="youtube" aria-hidden="true">
-									<svg
-										class="site-social-nav__icon site-feed-item__brand-icon"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 24 24"
-										width="28"
-										height="28"
-										focusable="false"
-									>
-										<path
-											fill="currentColor"
-											d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-										/>
-									</svg>
-								</span>
-							</span>
-						</a>
-					</li>
-					<li class="site-feed-item">
-						<div class="site-feed-item__shell">
-							<a class="site-feed-item__link" href="Gaming/ohnepixel-labubu.html">
-								<span class="site-feed-item__layout">
-									<span class="site-feed-item__content">
-										<span class="site-feed-item__row">
-											<time class="site-feed-item__date" datetime="2026-06-21">Jun 21, 2026</time>
-											<span class="site-feed-item__title">24K Gold³ Ohnepixel Labubu drop</span>
-										</span>
-										<p class="site-feed-item__summary">
-											Main unboxing plus Shorts—now on the Gaming hub, home mosaic, and synced social feeds.
-										</p>
-									</span>
-									<span class="site-feed-item__brand" data-social-brand="youtube" aria-hidden="true">
-										<svg
-											class="site-social-nav__icon site-feed-item__brand-icon"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											width="28"
-											height="28"
-											focusable="false"
-										>
-											<path
-												fill="currentColor"
-												d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-											/>
-										</svg>
-									</span>
-								</span>
-							</a>
-							<p class="site-feed-item__external site-feed-item__external--below">
-								<a
-									href="https://www.youtube.com/watch?v=dT9SIFc5q9g"
-									target="_blank"
-									rel="noopener noreferrer"
-									>youtube.com/watch?v=dT9SIFc5q9g</a
-								>
-							</p>
-						</div>
-					</li>
-					<li class="site-feed-item">
-						<a
-							class="site-feed-item__link"
-							href="https://x.com/owenminer/status/2069497100384022720"
-							target="_blank"
-							rel="noopener noreferrer"
+							↑
+						</button>
+						<button
+							type="button"
+							class="site-feed-queue__nav site-feed-queue__nav--next"
+							aria-label="Scroll to older updates"
+							hidden
 						>
-							<span class="site-feed-item__layout">
-								<span class="site-feed-item__content">
-									<span class="site-feed-item__row">
-										<time class="site-feed-item__date" datetime="2026-06-23">Jun 23, 2026</time>
-										<span class="site-feed-item__title">fentbubu saw Niko win his first Major</span>
-									</span>
-									<p class="site-feed-item__summary">
-										Biggest recent X post (14K+ views)—synced to the Content hub and view-all grid.
-									</p>
-									<p class="site-feed-item__external">x.com/owenminer/status/2069497100384022720</p>
-								</span>
-								<span class="site-feed-item__brand" data-social-brand="x" aria-hidden="true">
-									<svg
-										class="site-social-nav__icon site-feed-item__brand-icon"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 24 24"
-										width="28"
-										height="28"
-										focusable="false"
-									>
-										<path
-											fill="currentColor"
-											d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
-										/>
-									</svg>
-								</span>
-							</span>
-						</a>
-					</li>
-					<li class="site-feed-item">
-						<div class="site-feed-item__shell">
-							<a class="site-feed-item__link" href="The%20Setup/clothing.html">
-								<span class="site-feed-item__layout">
-									<span class="site-feed-item__content">
-										<span class="site-feed-item__row">
-											<time class="site-feed-item__date" datetime="2026-06-21">Jun 21, 2026</time>
-											<span class="site-feed-item__title">IEM Cologne Major outfit fit checks</span>
-										</span>
-										<p class="site-feed-item__summary">
-											Custom CS map screenshot fits—including the Top Mid Mirage Carhartt jacket—on Outfits and TikTok.
-										</p>
-									</span>
-									<span class="site-feed-item__brand" data-social-brand="tiktok" aria-hidden="true">
-										<svg
-											class="site-social-nav__icon site-feed-item__brand-icon"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											width="28"
-											height="28"
-											focusable="false"
-										>
-											<path
-												fill="currentColor"
-												d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"
-											/>
-										</svg>
-									</span>
-								</span>
-							</a>
-							<p class="site-feed-item__external site-feed-item__external--below">
-								<a
-									href="https://www.tiktok.com/@owenminercs/video/7653955939543895310"
-									target="_blank"
-									rel="noopener noreferrer"
-									>tiktok.com/@owenminercs/video/7653955939543895310</a
-								>
-							</p>
-						</div>
-					</li>
-					<li class="site-feed-item">
-						<a
-							class="site-feed-item__link"
-							href="https://discord.gg/fA9GbxmAge"
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="Owen Miner CS V2: complete site rework, new pages and features; opens Discord for website update news"
-						>
-							<span class="site-feed-item__layout">
-								<span class="site-feed-item__content">
-									<span class="site-feed-item__row">
-										<time class="site-feed-item__date" datetime="2026-05">May 2026</time>
-										<span class="site-feed-item__title">Owen Miner CS V2</span>
-									</span>
-									<p class="site-feed-item__summary">
-										Complete site rework. New pages, new features, more to come. Check the Discord for news on
-										website updates.
-									</p>
-									<p class="site-feed-item__external">discord.gg/fA9GbxmAge</p>
-								</span>
-								<span class="site-feed-item__brand" data-social-brand="discord" aria-hidden="true">
-									<svg
-										class="site-social-nav__icon site-feed-item__brand-icon"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 24 24"
-										width="28"
-										height="28"
-										focusable="false"
-									>
-										<path
-											fill="currentColor"
-											d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"
-										/>
-									</svg>
-								</span>
-							</span>
-						</a>
-					</li>
-				</ol>
+							↓
+						</button>
+					</div>
+				</div>
+				<p id="site-feed-error" class="site-feed-error" hidden></p>
 			</section>
 			<section
 				class="intro home-site-search-section"
@@ -641,8 +842,10 @@
 				aria-labelledby="home-site-search-heading"
 				data-owen-site-search="1"
 			>
-				<h2 id="home-site-search-heading">Search the site</h2>
-				<p class="home-site-search-lede">Find a page by name or topic across the full site index.</p>
+				<div class="intro-section__head">
+					<h2 id="home-site-search-heading">Search the site</h2>
+					<p class="home-site-search-lede">Find a page by name or topic across the full site index.</p>
+				</div>
 				<form class="site-search-form site-search-form--home" role="search" action="#" method="get">
 					<label for="home-site-search-input" class="site-visually-hidden">Search pages</label>
 					<input
@@ -660,10 +863,51 @@
 				<div class="site-search-results" id="home-site-search-results" aria-live="polite"></div>
 			</section>
 
+			<section class="intro home-about-section" id="about" aria-labelledby="home-about-heading">
+				<div class="home-about__layout">
+					<div class="home-about__content">
+						<h2 id="home-about-heading">Hi, my name is Owen Miner.</h2>
+						<p>
+							I love all things computers, I tore apart my first one at 12 and built my first gaming PC at
+							13. In college I learned to write software with Java, C++, C#, Python, HTML/CSS/JavaScript,
+							SQL, PL/SQL, and more.
+						</p>
+						<p>
+							Some of my hobbies include photography, video production, writing, and gaming. I'm also a huge
+							fan of <i>Counter-Strike</i>, and I've loved it for over ten years!
+						</p>
+						<p>
+							<strong
+								>This website is a hobby project I work on in my free time.</strong
+							>
+							It's a personal reference to look back at past work, and a resource hub for future projects when
+							I need clips, videos, information, and more. It's always evolving, and I'll keep building it
+							whenever I can.
+						</p>
+						<p>
+							<strong
+								>Feel free to message me on any social media platform if you have any questions or
+								comments!</strong
+							>
+						</p>
+					</div>
+					<figure class="home-about__photo">
+						<img
+							src="/About/Images/owenProfile.webp"
+							alt="Picture of Owen M"
+							width="480"
+							height="480"
+							loading="lazy"
+							decoding="async"
+						/>
+					</figure>
+				</div>
+			</section>
+
 		</div>
 
 		<shared-footer
-			disclosure="<i>This page has optional tip links (<a href='https://ko-fi.com/owenminer' data-kofi-link target='_blank' rel='noopener noreferrer'>Ko-fi</a>, <a href='https://streamelements.com/owenminercs/tip' data-streamelements-tip-link target='_blank' rel='noopener noreferrer'>StreamElements</a>). Gear, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+			disclosure="<i>This page has optional tip links (<a href='https://ko-fi.com/owenminer' data-kofi-link target='_blank' rel='noopener noreferrer'>Ko-fi</a>, <a href='https://streamelements.com/owenminercs/tip' data-streamelements-tip-link target='_blank' rel='noopener noreferrer'>StreamElements</a>) and no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>"
 		></shared-footer>
 		<script src="scripts/support-links.js"></script>
 	</body>

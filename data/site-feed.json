@@ -1,11 +1,76 @@
 {
 	"entries": [
 		{
-			"id": "2026-05-omcs-v2",
+			"id": "2026-06-27-knife-pin-display",
+			"date": "2026-06-27",
+			"title": "CS2 knife pin display build",
+			"summary": "Perfect World licensed knife pins, display build from leftover Mirage jacket materials.",
+			"path": "Gaming/cs2-merch.html",
+			"tag": "Gaming"
+		},
+		{
+			"id": "2026-06-21-labubu",
+			"date": "2026-06-21",
+			"title": "24K Gold³ Ohnepixel Labubu drop",
+			"summary": "Main unboxing plus Shorts, now on the Gaming hub, home mosaic, and synced social feeds.",
+			"path": "Gaming/ohnepixel-labubu.html",
+			"tag": "Gaming"
+		},
+		{
+			"id": "2026-06-21-outfits",
+			"date": "2026-06-21",
+			"title": "IEM Cologne Major outfit fit checks",
+			"summary": "Custom CS map screenshot fits, including the Top Mid Mirage Carhartt jacket, on Outfits and TikTok.",
+			"path": "The Setup/clothing.html",
+			"tag": "Gear"
+		},
+		{
+			"id": "2026-06-15-gaming-memorabilia",
+			"date": "2026-06-15",
+			"title": "Gaming memorabilia",
+			"summary": "GameStop midnight-release promo boxes, magazine wall, and childhood game shrines.",
+			"path": "Gaming/gaming-memorabilia.html",
+			"tag": "Gaming"
+		},
+		{
+			"id": "2026-06-12-cs2-skins",
+			"date": "2026-06-12",
+			"title": "CS2 skins",
+			"summary": "Photoshop showcase and Steam inventory highlights",
+			"path": "Gaming/cs2-skins.html",
+			"tag": "Gaming"
+		},
+		{
+			"id": "2026-06-10-austin-major",
+			"date": "2026-06-10",
+			"title": "Austin TX CS2 Major",
+			"summary": "Walkouts, apEX moment, Airbnb trip photos, and crowd clips.",
+			"path": "Gaming/austin-major.html",
+			"tag": "Gaming"
+		},
+		{
+			"id": "2026-06-08-stickers",
+			"date": "2026-06-08",
+			"title": "Old stickers",
+			"summary": "Agent K themed packs I used to include with Twitch subs and eBay orders.",
+			"path": "Gaming/stickers.html",
+			"tag": "Gaming"
+		},
+		{
+			"id": "2026-05-28-site-search",
+			"date": "2026-05-28",
+			"title": "Search the site",
+			"summary": "Find a page by name or topic across the full site index.",
+			"path": "search.html",
+			"tag": "Site"
+		},
+		{
+			"id": "2026-05-02-omcs-v2",
 			"date": "2026-05-02",
 			"title": "Owen Miner CS V2",
 			"summary": "Complete site rework. New pages, new features, more to come. Check the Discord for news on website updates.",
-			"path": "https://discord.gg/fA9GbxmAge"
+			"path": "site-map.html",
+			"tag": "Site"
 		}
 	]
 }

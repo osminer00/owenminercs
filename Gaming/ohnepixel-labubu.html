@@ -8,7 +8,10 @@
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="../css/owenminercs.css" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -26,13 +29,13 @@
 		<title>Ohnepixel Gold Gold Gold Labubu | Gaming | Owen Miner</title>
 		<meta
 			name="description"
-			content="24K Gold³ Labubu unboxing and Shorts with Ohnepixel — main video and vertical clips from Owen Miner."
+			content="24K Gold³ Labubu unboxing and Shorts with Ohnepixel, main video and vertical clips from Owen Miner."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:title" content="Ohnepixel Gold Gold Gold Labubu | Owen Miner" />
 		<meta
 			property="og:description"
-			content="24K Gold³ Labubu unboxing and Shorts with Ohnepixel — main video and vertical clips."
+			content="24K Gold³ Labubu unboxing and Shorts with Ohnepixel, main video and vertical clips."
 		/>
 		<meta
 			property="og:image"
@@ -50,7 +53,7 @@
 						"@id": "https://www.owenminercs.com/Gaming/ohnepixel-labubu#webpage",
 						"url": "https://www.owenminercs.com/Gaming/ohnepixel-labubu",
 						"name": "Ohnepixel Gold Gold Gold Labubu | Owen Miner",
-						"description": "24K Gold³ Labubu unboxing and Shorts with Ohnepixel — main video and vertical clips from Owen Miner.",
+						"description": "24K Gold³ Labubu unboxing and Shorts with Ohnepixel, main video and vertical clips from Owen Miner.",
 						"inLanguage": "en",
 						"isPartOf": { "@id": "https://www.owenminercs.com/#website" }
 					},
@@ -78,9 +81,27 @@
 			}
 		</script>
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro">
 				<p class="setup-detail__back"><a href="gaming.html">← Gaming</a></p>
@@ -95,193 +116,253 @@
 					</p>
 
 					<div class="cs2-yt-grid-wrap">
-						<h2 class="cs2-yt-section-heading">Main video</h2>
-						<div class="cs2-yt-grid cs2-yt-grid--main" role="list">
-							<article class="cs2-yt-card" role="listitem">
-								<div class="cs2-yt-card__head">
-									<h2 class="cs2-yt-card__title">24k GOLD³ LABUBU UNBOXING</h2>
-									<button
-										type="button"
-										class="cs2-yt-card__popout"
-										aria-haspopup="dialog"
-										aria-controls="cs2YtPlayerDialog"
-										data-youtube-id="dT9SIFc5q9g"
-										title="Expand player"
+						<div class="cs2-yt-theater" id="labubuYtTheater">
+							<div class="cs2-yt-theater__main">
+								<article
+									class="cs2-yt-card cs2-yt-theater__player"
+									id="labubuMainPlayer"
+									data-youtube-id="dT9SIFc5q9g"
+									data-aspect="landscape"
+								>
+									<div class="cs2-yt-card__head cs2-yt-theater__head">
+										<h2 class="cs2-yt-card__title" id="labubuMainTitle">24k GOLD³ LABUBU UNBOXING</h2>
+										<div class="cs2-yt-theater__actions">
+											<button
+												type="button"
+												class="cs2-yt-theater__back"
+												id="labubuBackToMain"
+												hidden
+											>
+												← Main video
+											</button>
+											<button
+												type="button"
+												class="cs2-yt-card__popout"
+												aria-haspopup="dialog"
+												aria-controls="cs2YtPlayerDialog"
+												data-youtube-id="dT9SIFc5q9g"
+												data-is-short="false"
+												title="Expand player"
+											>
+												Expand
+											</button>
+										</div>
+									</div>
+									<p class="cs2-yt-card__meta" id="labubuMainMeta">
+										June 21, 7:00&nbsp;am Central · Contains licensed music
+									</p>
+									<div
+										class="video-responsive cs2-yt-card__embed cs2-yt-theater__embed"
+										id="labubuMainEmbed"
 									>
-										Expand
-									</button>
-								</div>
-								<p class="cs2-yt-card__meta">
-									June 21, 7:00&nbsp;am Central · Contains licensed music
-								</p>
-								<div class="video-responsive cs2-yt-card__embed">
-									<iframe
-										loading="lazy"
-										width="560"
-										height="315"
-										src="https://www.youtube.com/embed/dT9SIFc5q9g"
-										title="24k GOLD³ LABUBU UNBOXING"
-										frameborder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerpolicy="strict-origin-when-cross-origin"
-										allowfullscreen
-									></iframe>
-								</div>
-							</article>
-						</div>
+										<iframe
+											width="560"
+											height="315"
+											data-embed-src="https://www.youtube.com/embed/dT9SIFc5q9g"
+											title="24k GOLD³ LABUBU UNBOXING"
+											frameborder="0"
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+											referrerpolicy="strict-origin-when-cross-origin"
+											allowfullscreen
+										></iframe>
+									</div>
+								</article>
+							</div>
 
-						<h2 class="cs2-yt-section-heading">Shorts</h2>
-						<div class="cs2-yt-grid cs2-yt-grid--shorts" role="list">
-							<article class="cs2-yt-card cs2-yt-card--short" role="listitem">
-								<div class="cs2-yt-card__head">
-									<h2 class="cs2-yt-card__title">#24KGoldGoldGoldOhnepixelLabubu</h2>
-									<button
-										type="button"
-										class="cs2-yt-card__popout"
-										aria-haspopup="dialog"
-										aria-controls="cs2YtPlayerDialog"
-										data-youtube-id="oJoIwk6NlEY"
-										title="Expand player"
-									>
-										Expand
-									</button>
-								</div>
-								<p class="cs2-yt-card__meta">June 19, 8:00&nbsp;am Central · #24kgoldOhnebubutakesflight</p>
-								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
-									<iframe
-										loading="lazy"
-										width="315"
-										height="560"
-										src="https://www.youtube.com/embed/oJoIwk6NlEY"
-										title="#24KGoldGoldGoldOhnepixelLabubu"
-										frameborder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerpolicy="strict-origin-when-cross-origin"
-										allowfullscreen
-									></iframe>
-								</div>
-							</article>
-							<article class="cs2-yt-card cs2-yt-card--short" role="listitem">
-								<div class="cs2-yt-card__head">
-									<h2 class="cs2-yt-card__title">How to make a 24k GOLD GOLD GOLD Labubu</h2>
-									<button
-										type="button"
-										class="cs2-yt-card__popout"
-										aria-haspopup="dialog"
-										aria-controls="cs2YtPlayerDialog"
-										data-youtube-id="oJoIwk6NlEY"
-										title="Expand player"
-									>
-										Expand
-									</button>
-								</div>
-								<p class="cs2-yt-card__meta">June 20, 7:00&nbsp;am Central · Contains licensed music</p>
-								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
-									<iframe
-										loading="lazy"
-										width="315"
-										height="560"
-										src="https://www.youtube.com/embed/oJoIwk6NlEY"
-										title="How to make a 24k GOLD GOLD GOLD Labubu"
-										frameborder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerpolicy="strict-origin-when-cross-origin"
-										allowfullscreen
-									></iframe>
-								</div>
-							</article>
-							<article class="cs2-yt-card cs2-yt-card--short" role="listitem">
-								<div class="cs2-yt-card__head">
-									<h2 class="cs2-yt-card__title">UNBOXING 24k Gold Gold Gold Labubu</h2>
-									<button
-										type="button"
-										class="cs2-yt-card__popout"
-										aria-haspopup="dialog"
-										aria-controls="cs2YtPlayerDialog"
-										data-youtube-id="dWl0mVrCHCk"
-										title="Expand player"
-									>
-										Expand
-									</button>
-								</div>
-								<p class="cs2-yt-card__meta">June 21, 7:00&nbsp;am Central</p>
-								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
-									<iframe
-										loading="lazy"
-										width="315"
-										height="560"
-										src="https://www.youtube.com/embed/dWl0mVrCHCk"
-										title="UNBOXING 24k Gold Gold Gold Labubu"
-										frameborder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerpolicy="strict-origin-when-cross-origin"
-										allowfullscreen
-									></iframe>
-								</div>
-							</article>
-							<article class="cs2-yt-card cs2-yt-card--short" role="listitem">
-								<div class="cs2-yt-card__head">
-									<h2 class="cs2-yt-card__title">#24kgoldOhnebubutakesflight</h2>
-									<button
-										type="button"
-										class="cs2-yt-card__popout"
-										aria-haspopup="dialog"
-										aria-controls="cs2YtPlayerDialog"
-										data-youtube-id="oJMJrT07SOM"
-										title="Expand player"
-									>
-										Expand
-									</button>
-								</div>
-								<p class="cs2-yt-card__meta">June 21, 9:45&nbsp;am Central</p>
-								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
-									<iframe
-										loading="lazy"
-										width="315"
-										height="560"
-										src="https://www.youtube.com/embed/oJMJrT07SOM"
-										title="#24kgoldOhnebubutakesflight"
-										frameborder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerpolicy="strict-origin-when-cross-origin"
-										allowfullscreen
-									></iframe>
-								</div>
-							</article>
-							<article class="cs2-yt-card cs2-yt-card--short" role="listitem">
-								<div class="cs2-yt-card__head">
-									<h2 class="cs2-yt-card__title">Ohnepixel 24K Gold³ labubu Close Up</h2>
-									<button
-										type="button"
-										class="cs2-yt-card__popout"
-										aria-haspopup="dialog"
-										aria-controls="cs2YtPlayerDialog"
-										data-youtube-id="m0DThy67bTE"
-										title="Expand player"
-									>
-										Expand
-									</button>
-								</div>
-								<p class="cs2-yt-card__meta">June 21, 12:00&nbsp;pm Central</p>
-								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
-									<iframe
-										loading="lazy"
-										width="315"
-										height="560"
-										src="https://www.youtube.com/embed/m0DThy67bTE"
-										title="Ohnepixel 24K Gold³ labubu Close Up"
-										frameborder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerpolicy="strict-origin-when-cross-origin"
-										allowfullscreen
-									></iframe>
-								</div>
-							</article>
+							<aside class="cs2-yt-theater__queue" aria-label="Shorts queue">
+								<h2 class="cs2-yt-theater__queue-heading">Shorts</h2>
+								<ol class="cs2-yt-queue" role="list">
+									<li class="cs2-yt-queue__row">
+										<button
+											type="button"
+											class="cs2-yt-queue__item"
+											data-youtube-id="oJoIwk6NlEY"
+											data-title="#24KGoldGoldGoldOhnepixelLabubu"
+											data-meta="June 19, 8:00 am Central · #24kgoldOhnebubutakesflight"
+										>
+											<span class="cs2-yt-queue__thumb">
+												<img
+													src="https://i.ytimg.com/vi/oJoIwk6NlEY/hqdefault.jpg"
+													alt=""
+													width="168"
+													height="94"
+													loading="lazy"
+													decoding="async"
+												/>
+											</span>
+											<span class="cs2-yt-queue__body">
+												<span class="cs2-yt-queue__title">#24KGoldGoldGoldOhnepixelLabubu</span>
+												<span class="cs2-yt-queue__meta"
+													>June 19, 8:00&nbsp;am Central · #24kgoldOhnebubutakesflight</span
+												>
+											</span>
+										</button>
+										<button
+											type="button"
+											class="cs2-yt-card__popout cs2-yt-queue__popout"
+											aria-haspopup="dialog"
+											aria-controls="cs2YtPlayerDialog"
+											data-youtube-id="oJoIwk6NlEY"
+											data-title="#24KGoldGoldGoldOhnepixelLabubu"
+											data-is-short="true"
+											title="Expand player"
+										>
+											Expand
+										</button>
+									</li>
+									<li class="cs2-yt-queue__row">
+										<button
+											type="button"
+											class="cs2-yt-queue__item"
+											data-youtube-id="oJoIwk6NlEY"
+											data-title="How to make a 24k GOLD GOLD GOLD Labubu"
+											data-meta="June 20, 7:00 am Central · Contains licensed music"
+										>
+											<span class="cs2-yt-queue__thumb">
+												<img
+													src="https://i.ytimg.com/vi/oJoIwk6NlEY/hqdefault.jpg"
+													alt=""
+													width="168"
+													height="94"
+													loading="lazy"
+													decoding="async"
+												/>
+											</span>
+											<span class="cs2-yt-queue__body">
+												<span class="cs2-yt-queue__title">How to make a 24k GOLD GOLD GOLD Labubu</span>
+												<span class="cs2-yt-queue__meta"
+													>June 20, 7:00&nbsp;am Central · Contains licensed music</span
+												>
+											</span>
+										</button>
+										<button
+											type="button"
+											class="cs2-yt-card__popout cs2-yt-queue__popout"
+											aria-haspopup="dialog"
+											aria-controls="cs2YtPlayerDialog"
+											data-youtube-id="oJoIwk6NlEY"
+											data-title="How to make a 24k GOLD GOLD GOLD Labubu"
+											data-is-short="true"
+											title="Expand player"
+										>
+											Expand
+										</button>
+									</li>
+									<li class="cs2-yt-queue__row">
+										<button
+											type="button"
+											class="cs2-yt-queue__item"
+											data-youtube-id="dWl0mVrCHCk"
+											data-title="UNBOXING 24k Gold Gold Gold Labubu"
+											data-meta="June 21, 7:00 am Central"
+										>
+											<span class="cs2-yt-queue__thumb">
+												<img
+													src="https://i.ytimg.com/vi/dWl0mVrCHCk/hqdefault.jpg"
+													alt=""
+													width="168"
+													height="94"
+													loading="lazy"
+													decoding="async"
+												/>
+											</span>
+											<span class="cs2-yt-queue__body">
+												<span class="cs2-yt-queue__title">UNBOXING 24k Gold Gold Gold Labubu</span>
+												<span class="cs2-yt-queue__meta">June 21, 7:00&nbsp;am Central</span>
+											</span>
+										</button>
+										<button
+											type="button"
+											class="cs2-yt-card__popout cs2-yt-queue__popout"
+											aria-haspopup="dialog"
+											aria-controls="cs2YtPlayerDialog"
+											data-youtube-id="dWl0mVrCHCk"
+											data-title="UNBOXING 24k Gold Gold Gold Labubu"
+											data-is-short="true"
+											title="Expand player"
+										>
+											Expand
+										</button>
+									</li>
+									<li class="cs2-yt-queue__row">
+										<button
+											type="button"
+											class="cs2-yt-queue__item"
+											data-youtube-id="oJMJrT07SOM"
+											data-title="#24kgoldOhnebubutakesflight"
+											data-meta="June 21, 9:45 am Central"
+										>
+											<span class="cs2-yt-queue__thumb">
+												<img
+													src="https://i.ytimg.com/vi/oJMJrT07SOM/hqdefault.jpg"
+													alt=""
+													width="168"
+													height="94"
+													loading="lazy"
+													decoding="async"
+												/>
+											</span>
+											<span class="cs2-yt-queue__body">
+												<span class="cs2-yt-queue__title">#24kgoldOhnebubutakesflight</span>
+												<span class="cs2-yt-queue__meta">June 21, 9:45&nbsp;am Central</span>
+											</span>
+										</button>
+										<button
+											type="button"
+											class="cs2-yt-card__popout cs2-yt-queue__popout"
+											aria-haspopup="dialog"
+											aria-controls="cs2YtPlayerDialog"
+											data-youtube-id="oJMJrT07SOM"
+											data-title="#24kgoldOhnebubutakesflight"
+											data-is-short="true"
+											title="Expand player"
+										>
+											Expand
+										</button>
+									</li>
+									<li class="cs2-yt-queue__row">
+										<button
+											type="button"
+											class="cs2-yt-queue__item"
+											data-youtube-id="m0DThy67bTE"
+											data-title="Ohnepixel 24K Gold³ labubu Close Up"
+											data-meta="June 21, 12:00 pm Central"
+										>
+											<span class="cs2-yt-queue__thumb">
+												<img
+													src="https://i.ytimg.com/vi/m0DThy67bTE/hqdefault.jpg"
+													alt=""
+													width="168"
+													height="94"
+													loading="lazy"
+													decoding="async"
+												/>
+											</span>
+											<span class="cs2-yt-queue__body">
+												<span class="cs2-yt-queue__title">Ohnepixel 24K Gold³ labubu Close Up</span>
+												<span class="cs2-yt-queue__meta">June 21, 12:00&nbsp;pm Central</span>
+											</span>
+										</button>
+										<button
+											type="button"
+											class="cs2-yt-card__popout cs2-yt-queue__popout"
+											aria-haspopup="dialog"
+											aria-controls="cs2YtPlayerDialog"
+											data-youtube-id="m0DThy67bTE"
+											data-title="Ohnepixel 24K Gold³ labubu Close Up"
+											data-is-short="true"
+											title="Expand player"
+										>
+											Expand
+										</button>
+									</li>
+								</ol>
+							</aside>
 						</div>
 
 						<h2 class="cs2-yt-section-heading">Where it started</h2>
 						<p class="cs2-yt-card__meta" style="margin-top: 0; margin-bottom: 10px">
-							I made this Photoshop in 2025 — it was the inspiration for the 24K Gold Ohnepixel Labubu.
+							I made this Photoshop in 2025, it was the inspiration for the 24K Gold Ohnepixel Labubu.
 						</p>
 						<div class="cs2-yt-grid cs2-yt-grid--main" role="list">
 							<article class="cs2-yt-card" role="listitem">
@@ -342,10 +423,8 @@
 								</p>
 								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
 									<iframe
-										loading="lazy"
-										width="315"
-										height="560"
-										src="https://www.tiktok.com/player/v1/7653597540746677518?controls=1&progress_bar=1&play_button=1"
+										data-embed-src="https://www.tiktok.com/player/v1/7653597540746677518?controls=1&progress_bar=1&play_button=1"
+										data-embed-poster="/Socials/images/content-thumbs/tiktok/7653597540746677518.jpg"
 										title="24k GOLD GOLD GOLD Ohnepixel Labubu tutorial on TikTok"
 										allow="fullscreen; encrypted-media; picture-in-picture"
 										referrerpolicy="origin-when-cross-origin"
@@ -366,22 +445,15 @@
 									>
 									· Jun 23, 2026
 								</p>
-								<a
-									href="https://x.com/owenminer/status/2069497100384022720"
-									target="_blank"
-									rel="noopener noreferrer"
-									class="cs2-yt-card__embed"
-								>
-									<img
-										src="https://pbs.twimg.com/media/HLhTJr4bYAAxk1a.jpg?name=orig"
-										alt="I made sure fentbubu got to see Niko win his first Major"
-										loading="lazy"
-										decoding="async"
-										width="680"
-										height="680"
-										style="width: 100%; height: auto; display: block; border-radius: 8px"
-									/>
-								</a>
+								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
+									<iframe
+										data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=2069497100384022720&theme=dark&dnt=true"
+										data-embed-poster="https://pbs.twimg.com/media/HLhTJr4bYAAxk1a.jpg?name=orig"
+										title="I made sure fentbubu got to see Niko win his first Major"
+										allow="fullscreen"
+										referrerpolicy="origin-when-cross-origin"
+									></iframe>
+								</div>
 							</article>
 							<article class="cs2-yt-card cs2-yt-card--short" role="listitem">
 								<div class="cs2-yt-card__head">
@@ -404,10 +476,8 @@
 								</p>
 								<div class="video-responsive video-responsive--short cs2-yt-card__embed">
 									<iframe
-										loading="lazy"
-										width="315"
-										height="560"
-										src="https://www.tiktok.com/player/v1/7654623063341911310?controls=1&progress_bar=1&play_button=1"
+										data-embed-src="https://www.tiktok.com/player/v1/7654623063341911310?controls=1&progress_bar=1&play_button=1"
+										data-embed-poster="/Socials/images/content-thumbs/tiktok/7654623063341911310.jpg"
 										title="The curse on North American Counter-Strike has been lifted"
 										allow="fullscreen; encrypted-media; picture-in-picture"
 										referrerpolicy="origin-when-cross-origin"
@@ -441,7 +511,7 @@
 			</div>
 		</dialog>
 		<shared-footer
-			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>"
 		></shared-footer>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<script>
@@ -466,15 +536,27 @@
 					frameWrap.classList.remove('video-responsive--short');
 				}
 
+				function resolvePopoutTitle(btn) {
+					const dataTitle = btn.getAttribute('data-title');
+					if (dataTitle) return dataTitle.trim();
+					const card = btn.closest('.cs2-yt-card, .cs2-yt-queue__row');
+					const t = card?.querySelector('.cs2-yt-card__title, .cs2-yt-queue__title');
+					return (t && t.textContent.trim()) || 'Video';
+				}
+
+				function isShortPopout(btn) {
+					if (btn.getAttribute('data-is-short') === 'true') return true;
+					const card = btn.closest('.cs2-yt-card');
+					return Boolean(card?.classList.contains('cs2-yt-card--short'));
+				}
+
 				document.querySelector('.cs2-yt-grid-wrap')?.addEventListener('click', function (ev) {
 					const btn = ev.target.closest('.cs2-yt-card__popout');
 					if (!btn) return;
 					const id = btn.getAttribute('data-youtube-id');
 					if (!id) return;
-					const card = btn.closest('.cs2-yt-card');
-					const t = card?.querySelector('.cs2-yt-card__title');
-					titleEl.textContent = (t && t.textContent.trim()) || 'Video';
-					frameWrap.classList.toggle('video-responsive--short', card?.classList.contains('cs2-yt-card--short'));
+					titleEl.textContent = resolvePopoutTitle(btn);
+					frameWrap.classList.toggle('video-responsive--short', isShortPopout(btn));
 					frame.src = 'https://www.youtube.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0';
 					dialog.showModal();
 				});
@@ -488,6 +570,104 @@
 				});
 
 				dialog.addEventListener('close', clearDialogPlayer);
+			})();
+		</script>
+		<script>
+			(function () {
+				const theater = document.getElementById('labubuYtTheater');
+				const player = document.getElementById('labubuMainPlayer');
+				const embedWrap = document.getElementById('labubuMainEmbed');
+				const titleEl = document.getElementById('labubuMainTitle');
+				const metaEl = document.getElementById('labubuMainMeta');
+				const backBtn = document.getElementById('labubuBackToMain');
+				const popoutBtn = player?.querySelector('.cs2-yt-card__popout');
+				if (!theater || !player || !embedWrap || !titleEl || !metaEl || !backBtn || !popoutBtn) return;
+
+				const mainState = {
+					id: player.getAttribute('data-youtube-id') || 'dT9SIFc5q9g',
+					title: titleEl.textContent.trim(),
+					meta: metaEl.innerHTML,
+					aspect: 'landscape',
+				};
+
+				function getIframe() {
+					return embedWrap.querySelector('iframe');
+				}
+
+				function resetEmbedFacade() {
+					const facade = embedWrap.querySelector('.embed-facade');
+					if (facade) {
+						const iframe = facade.querySelector('iframe');
+						if (iframe) embedWrap.appendChild(iframe);
+						facade.remove();
+					}
+					const iframe = getIframe();
+					if (!iframe) return;
+					iframe.removeAttribute('src');
+					iframe.removeAttribute('data-embed-src');
+				}
+
+				function loadMainVideo(id, title, metaHtml, { short = false, autoplay = false } = {}) {
+					const iframe = getIframe();
+					if (!iframe) return;
+
+					resetEmbedFacade();
+					embedWrap.classList.toggle('video-responsive--short', short);
+					player.setAttribute('data-youtube-id', id);
+					player.setAttribute('data-aspect', short ? 'portrait' : 'landscape');
+					titleEl.textContent = title;
+					metaEl.innerHTML = metaHtml;
+					iframe.title = title;
+					popoutBtn.setAttribute('data-youtube-id', id);
+					popoutBtn.setAttribute('data-is-short', short ? 'true' : 'false');
+
+					const embedUrl = 'https://www.youtube.com/embed/' + encodeURIComponent(id);
+					if (autoplay) {
+						iframe.src = embedUrl + '?autoplay=1&rel=0&enablejsapi=1';
+						iframe.loading = 'eager';
+					} else {
+						iframe.setAttribute('data-embed-src', embedUrl);
+						window.owenminercsInitDeferredEmbeds?.(embedWrap);
+					}
+				}
+
+				function setActiveQueueItem(item) {
+					theater.querySelectorAll('.cs2-yt-queue__item').forEach((el) => {
+						el.classList.toggle('cs2-yt-queue__item--active', el === item);
+					});
+				}
+
+				function showMainVideo(autoplay) {
+					loadMainVideo(mainState.id, mainState.title, mainState.meta, {
+						short: false,
+						autoplay: Boolean(autoplay),
+					});
+					setActiveQueueItem(null);
+					backBtn.hidden = true;
+				}
+
+				theater.addEventListener('click', function (ev) {
+					const queueBtn = ev.target.closest('.cs2-yt-queue__item');
+					if (!queueBtn || !theater.contains(queueBtn)) return;
+					if (ev.target.closest('.cs2-yt-queue__popout')) return;
+
+					const id = queueBtn.getAttribute('data-youtube-id');
+					const title = queueBtn.getAttribute('data-title') || '';
+					const meta = queueBtn.getAttribute('data-meta') || '';
+					if (!id) return;
+
+					loadMainVideo(id, title, meta, { short: true, autoplay: true });
+					setActiveQueueItem(queueBtn);
+					backBtn.hidden = false;
+
+					if (window.matchMedia('(max-width: 900px)').matches) {
+						player.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+				});
+
+				backBtn.addEventListener('click', function () {
+					showMainVideo(false);
+				});
 			})();
 		</script>
 		<script async src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>

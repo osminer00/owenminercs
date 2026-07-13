@@ -1,0 +1,165 @@
+/**
+
+ * Bubble liquid glass theme — nav sections (not home).
+
+ * Glass surfaces: liquid-glass-surfaces.css | Per-section accents: css/bubble-themes/{section}.css
+
+ */
+
+@import url('liquid-glass-surfaces.css');
+
+
+
+/* ----- Far bubble video background ----- */
+
+body.site-card-ui.bubble-theme .bubble-bg {
+
+	position: fixed;
+
+	inset: 0;
+
+	z-index: -3;
+
+	overflow: hidden;
+
+	pointer-events: none;
+
+	background: var(--bubble-bg-fallback, #020206);
+
+}
+
+
+
+body.site-card-ui.bubble-theme {
+
+	/* Preserve native clip colors — no global green hue-shift */
+
+	--bubble-blue-block-filter: saturate(1.12) contrast(1.04);
+
+	--bubble-media-brightness: 0.5;
+
+	/* Section quick links + nav chrome follow per-page bubble accent */
+
+	--site-nav-accent-hover: var(--bubble-accent-soft, var(--bubble-accent, #059669));
+
+	--site-nav-accent-bg-hover: var(--bubble-accent-bg-hover, rgba(22, 101, 52, 0.16));
+
+	--site-nav-glow-mid: var(--bubble-glow-mid, rgba(22, 101, 52, 0.48));
+
+	--lg-accent-fill: var(--bubble-accent-fill, rgba(22, 101, 52, 0.14));
+
+	--lg-accent-edge: var(--bubble-accent-edge, rgba(34, 197, 94, 0.28));
+
+}
+
+
+
+body.site-card-ui.bubble-theme .bubble-bg__media {
+
+	position: absolute;
+
+	inset: 0;
+
+	background: var(--bubble-bg-fallback, #020206) var(--bubble-poster, none) center / cover no-repeat;
+
+	filter: brightness(var(--bubble-media-brightness)) var(--bubble-blue-block-filter);
+
+	will-change: filter;
+
+}
+
+
+
+body.site-card-ui.bubble-theme .bubble-bg__video {
+
+	display: block;
+
+	width: 100%;
+
+	height: 100%;
+
+	object-fit: cover;
+
+}
+
+
+
+body.site-card-ui.bubble-theme .bubble-bg__veil {
+
+	position: absolute;
+
+	inset: 0;
+
+	background: var(
+
+		--bubble-veil,
+
+		radial-gradient(ellipse 90% 70% at 50% 40%, rgba(6, 18, 10, 0.06), rgba(4, 12, 8, 0.3) 78%),
+
+		linear-gradient(180deg, rgba(4, 14, 8, 0.16) 0%, rgba(2, 8, 4, 0.26) 100%)
+
+	);
+
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+	body.site-card-ui.bubble-theme .bubble-bg__video {
+
+		display: none;
+
+	}
+
+}
+
+
+
+html[data-low-effects] body.site-card-ui.bubble-theme .bubble-bg__video {
+
+	display: none;
+
+}
+
+
+
+/* Social cloud: bubble bg behind stage */
+
+body.site-card-ui.bubble-theme.bubble-theme--socials.socials-cloud-bg .social-cloud-stage {
+
+	position: relative;
+
+	z-index: 0;
+
+}
+
+
+
+/* Affiliate disclosure — readable panel; not liquid-glass inherit */
+
+body.site-card-ui.bubble-theme .affiliate-disclosure {
+	position: relative;
+	isolation: auto;
+	overflow: visible;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	box-decoration-break: initial;
+	-webkit-box-decoration-break: initial;
+}
+
+body.site-card-ui.bubble-theme .affiliate-disclosure::before,
+body.site-card-ui.bubble-theme .affiliate-disclosure::after {
+	display: none;
+	content: none;
+}
+
+body.site-card-ui.bubble-theme .intro .affiliate-disclosure,
+body.site-card-ui.bubble-theme .intro > .affiliate-disclosure {
+	text-align: left;
+}
+
+body.site-card-ui.bubble-theme .intro h1 + .affiliate-disclosure {
+	margin-top: 0.12rem;
+}
+

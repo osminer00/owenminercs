@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -17,7 +19,7 @@
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Owen Miner is looking for collaborators—full-time salaried roles aren’t realistic yet; open to revenue splits on projects that earn. Open requests: video editing, multilingual AI dubbing and captions (Russian, Chinese, more), music and SFX, art, miniatures, sewing, mappers and custom game server hosts for streams and videos, and more."
+			content="Owen Miner is looking for collaborators, full-time salaried roles aren’t realistic yet; open to revenue splits on projects that earn. Open requests: video editing, multilingual AI dubbing and captions (Russian, Chinese, more), music and SFX, art, miniatures, sewing, mappers and custom game server hosts for streams and videos, and more."
 		/>
 		<meta
 			name="keywords"
@@ -42,7 +44,7 @@
 		<meta property="og:title" content="Help Wanted | Owen Miner" />
 		<meta
 			property="og:description"
-			content="Looking for collaborators to grow together—salaried roles aren’t realistic yet, but I’m open to revenue splits on projects that earn, and team-style help is how I want to level up the content."
+			content="Looking for collaborators to grow together, salaried roles aren’t realistic yet, but I’m open to revenue splits on projects that earn, and team-style help is how I want to level up the content."
 		/>
 		<meta property="og:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
 		<meta property="og:url" content="https://www.owenminercs.com/Help%20Wanted/help-wanted.html" />
@@ -52,53 +54,61 @@
 		<meta name="twitter:title" content="Help Wanted | Owen Miner" />
 		<meta
 			name="twitter:description"
-			content="Collaborators wanted for videos and projects—open to revenue splits when projects earn."
+			content="Collaborators wanted for videos and projects, open to revenue splits when projects earn."
 		/>
 		<meta name="twitter:image" content="https://www.owenminercs.com/images/owenminercs-logo.png" />
 		<link rel="canonical" href="https://www.owenminercs.com/Help%20Wanted/help-wanted" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui help-wanted-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui help-wanted-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 
 		<div class="container">
 			<div class="intro">
-				<h1>Help Wanted</h1>
-				<p class="help-wanted-intro__lead">
-					Right now I don’t make enough from content to hire people on salary. I still think the realistic path to grow on social media while making stuff is
-					to put a small team together and collaborate, not grind alone forever. If you’d like to help out, I’m
-					actively looking for collaborators on creative projects for videos and content. For
-					<strong>any</strong> of the roles below, I’m open to discussing <strong>revenue splits</strong> when
-					a project actually earns (platform payouts, sponsors, product tied to the work, etc.)—fair terms
-					depend on what you contribute and how money shows up. If one of these sounds like your thing,
-					message me on the <a href="../Socials/socials.html">Socials page</a>.
-				</p>
-				<p class="help-wanted-intro__note">
-					These listings are all currently open. I can update details and priorities as projects evolve.
-				</p>
+				<div
+					class="gallery keep-board-intro"
+					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
+				>
+					<h1>Help Wanted</h1>
+					<p class="help-wanted-intro__lead">
+						Right now I don’t make enough from content to hire people on salary. I still think the realistic path to grow on social media while making stuff is
+						to put a small team together and collaborate, not grind alone forever. If you’d like to help out, I’m
+						actively looking for collaborators on creative projects for videos and content. For
+						<strong>any</strong> of the roles below, I’m open to discussing <strong>revenue splits</strong> when
+						a project actually earns (platform payouts, sponsors, product tied to the work, etc.), fair terms
+						depend on what you contribute and how money shows up. If one of these sounds like your thing,
+						message me on the <a href="../Socials/socials.html">Socials page</a>.
+					</p>
+					<p class="help-wanted-intro__note">
+						These listings are all currently open. I can update details and priorities as projects evolve.
+					</p>
+				</div>
 			</div>
 
-			<div class="keep-board keep-board--hub" aria-label="Help wanted listings">
-				<article class="keep-card keep-card--static" aria-label="Music for videos listing">
+			<section class="hub-content-panel" aria-label="Help wanted listings">
+			<div class="keep-board keep-board--hub">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Music for videos listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Music waveform graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M5 12v3m4-6v9m4-13v13m4-8v8"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Music</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-silver.jpg" alt="OwenMinerCS logo with silver globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -114,25 +124,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Sound effects for videos listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Sound effects for videos listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Sound effects speaker graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M4 10h3l4-4v12l-4-4H4zm12-3a5 5 0 0 1 0 10m2-13a9 9 0 0 1 0 16"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">SFX</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-red.jpg" alt="OwenMinerCS logo with red globe and green foliage" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -148,25 +142,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Photoshop for videos listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Photoshop for videos listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Image editing layers graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M12 4 4 8l8 4 8-4-8-4Zm-8 8 8 4 8-4m-16 4 8 4 8-4"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Photoshop</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-red-text.jpg" alt="OwenMinerCS logo with red globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -182,25 +160,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Video editing listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Video editing listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Video editing timeline graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M4 6h16M4 12h16M4 18h10m3-1 3 1-3 1v-2Z"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Editing</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-blue.jpg" alt="OwenMinerCS logo with blue globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -217,40 +179,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Multilingual dubbing and captions listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Multilingual dubbing and captions listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Globe and languages graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<circle
-									cx="12"
-									cy="12"
-									r="9"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									d="M3 12h18M12 3c-2.5 3-2.5 15 0 18m0-18c2.5 3 2.5 15 0 18"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M5 9c2 1 4 1 6 0m2 0c2 1 4 1 6 0M5 15c2-1 4-1 6 0m2 0c2-1 4-1 6 0"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Translate</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-purple.jpg" alt="OwenMinerCS logo with purple globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -258,13 +189,13 @@
 								<div class="keep-card__affiliate">
 									<p>
 										Looking for Russian, Chinese, and other-language translators to help ship
-										multilingual auto dubbing—similar in goal to polished multi-track channels like
+										multilingual auto dubbing, similar in goal to polished multi-track channels like
 										<a
 											href="https://www.youtube.com/@HTXStudio"
 											target="_blank"
 											rel="noopener noreferrer"
 											>HTX Studio on YouTube</a
-										>—reviewing AI-generated lines, fixing context and nuance, and tuning captions so
+										>, reviewing AI-generated lines, fixing context and nuance, and tuning captions so
 										tone and emotion still land when the voice is synthesized.
 									</p>
 								</div>
@@ -274,43 +205,19 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Visual artists household objects wall art digital listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Visual artists household objects wall art digital listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Paint brush and home graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M4 11 12 4l8 7v9h-6v-6h-4v6H4z"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="m3 21 3-3 2 2-3 3H3z"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Art</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-purple-dark.jpg" alt="OwenMinerCS logo with dark purple globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
 								<p class="keep-card__label">
-									Artists — household paint, wall art, digital, drawing, prints &amp; more
+									Artists, household paint, wall art, digital, drawing, prints &amp; more
 								</p>
 								<div class="keep-card__affiliate">
 									<p>
 										Still want help painting things around the house (trash cans, furniture,
-										electronics), but all kinds of art are welcome—wall pieces, digital work,
+										electronics), but all kinds of art are welcome, wall pieces, digital work,
 										traditional painting and drawing, prints, whatever fits. I have a lot of ideas
 										and could use collaborators to help bring them to life.
 									</p>
@@ -321,33 +228,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Miniature painter listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Miniature painter listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Miniature figurine and brush graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<circle
-									cx="12"
-									cy="8"
-									r="3"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M7 20v-2a5 5 0 0 1 10 0v2M3 21l3-3 2 2-3 3H3z"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Miniatures</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-purple-red.jpg" alt="OwenMinerCS logo with purple and red globe" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -364,40 +247,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Arts crafts and sewing listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Arts crafts and sewing listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Scissors and thread graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<circle
-									cx="7"
-									cy="17"
-									r="3"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<circle
-									cx="17"
-									cy="17"
-									r="3"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									d="M9.5 15 19 6M14.5 15 5 6"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Crafts</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-dark-blue.jpg" alt="OwenMinerCS logo with dark blue globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -414,32 +266,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Vibe coders listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Vibe coders listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Code brackets and spark graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M9 6 4 12l5 6m6-12 5 6-5 6"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									d="m12 4 1 2 2 1-2 1-1 2-1-2-2-1 2-1z"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Code</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-silver.jpg" alt="OwenMinerCS logo with silver globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -456,33 +285,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Engineers listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Engineers listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Engineering gear and wrench graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<circle
-									cx="9"
-									cy="9"
-									r="3"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="m12 12 8 8M14.5 4.5 19.5 9.5M16 3h5v5"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Engineering</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-red.jpg" alt="OwenMinerCS logo with red globe and green foliage" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -499,36 +304,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="AI and robotics listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="AI and robotics listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Robot and circuit graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<rect
-									x="6"
-									y="7"
-									width="12"
-									height="10"
-									rx="2"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<circle cx="10" cy="12" r="1" fill="currentColor" />
-								<circle cx="14" cy="12" r="1" fill="currentColor" />
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									d="M12 4v3M3 12h3m12 0h3M8 17v3m8-3v3"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">AI + Robotics</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-red-text.jpg" alt="OwenMinerCS logo with red globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -545,51 +323,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Mappers and custom game servers for streams and videos listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Mappers and custom game servers for streams and videos listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Map grid and server host graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<rect
-									x="3"
-									y="5"
-									width="10"
-									height="10"
-									rx="1.5"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									d="M6 5v10M9 5v10M3 8h10M3 11h10"
-								/>
-								<rect
-									x="15"
-									y="7"
-									width="6"
-									height="8"
-									rx="1"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									d="M15 10h6M17 7v3"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Maps + servers</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-blue.jpg" alt="OwenMinerCS logo with blue globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -597,7 +333,7 @@
 								<div class="keep-card__affiliate">
 									<p>
 										Looking for people who build or adapt workshop and custom maps for
-										Counter-Strike-style tutorials, lineups, and cinematic shots—and for folks who
+										Counter-Strike-style tutorials, lineups, and cinematic shots, and for folks who
 										can run, configure, and admin private servers so live streams and recorded
 										videos go smoothly (restarts, plugins, GOTV or observer setups, scheduling
 										players). The vibe is production support similar to channels like
@@ -605,13 +341,13 @@
 											href="https://www.youtube.com/@dima_wallhacks"
 											target="_blank"
 											rel="noopener noreferrer"
-											title="DeMoWallHacks — YouTube @dima_wallhacks"
+											title="DeMoWallHacks, YouTube @dima_wallhacks"
 											>DeMoWallHacks</a
 										>
 										and
 										<a href="https://www.youtube.com/@NadeKing" target="_blank" rel="noopener noreferrer"
 											>NadeKing</a
-										>—clear setups, repeatable takes, and maps built for teaching—not cheating.
+										>, clear setups, repeatable takes, and maps built for teaching, not cheating.
 									</p>
 								</div>
 								<span class="keep-card__cta">Message me on Discord if interested</span>
@@ -620,32 +356,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Top level gamers listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Top level gamers listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Game controller and trophy graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M6 10h12a4 4 0 0 1 4 4v1a3 3 0 0 1-5.1 2.1L14 14h-4l-2.9 3.1A3 3 0 0 1 2 15v-1a4 4 0 0 1 4-4Z"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									d="M8 7h8"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Gaming</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-purple.jpg" alt="OwenMinerCS logo with purple globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -662,35 +375,9 @@
 					>
 				</article>
 
-				<article class="keep-card keep-card--static" aria-label="Interesting interview guests listing">
+				<article class="keep-card keep-card--static" tabindex="0" aria-label="Interesting interview guests listing">
 					<span class="keep-card__inner">
-						<div
-							class="keep-card__thumb keep-card__thumb--empty"
-							role="img"
-							aria-label="Microphone and chat bubble graphic"
-						>
-							<svg class="keep-card__visual" viewBox="0 0 24 24" aria-hidden="true">
-								<rect
-									x="9"
-									y="4"
-									width="6"
-									height="10"
-									rx="3"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-								/>
-								<path
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.7"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M6 10a6 6 0 0 0 12 0M12 16v4m-4 0h8M4 20l3-2h5"
-								/>
-							</svg>
-							<span class="keep-card__visual-label">Interview</span>
-						</div>
+						<img class="keep-card__thumb" src="/images/logo/globes/globe-purple-dark.jpg" alt="OwenMinerCS logo with dark purple globe and orange text ring" loading="lazy" decoding="async" />
 						<div class="keep-card__scalable">
 							<div class="keep-card__video-slot">Open</div>
 							<div class="keep-card__body">
@@ -707,6 +394,7 @@
 					>
 				</article>
 			</div>
+			</section>
 		</div>
 
 		<shared-footer

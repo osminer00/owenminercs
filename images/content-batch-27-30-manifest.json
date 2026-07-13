@@ -1,0 +1,129 @@
+{
+  "generated": "2026-06-30T15:48:15.914Z",
+  "sets": {
+    "govee-edison": {
+      "images": [
+        {
+          "file": "this-one-is-not-govee-but-it-was-the-first-edison-style-bulb-i-saw-at-lowes-when-i-moved-into-my-current-apartment-and-was-looking-for-decorations-loved-it-and-waited-for-the-govee-version.webp",
+          "source": "this one is not govee but it was the first edison style bulb I saw at lowes when i moved into my current apartment and was looking for decorations. Loved it and waited for the govee version.HEIC"
+        }
+      ],
+      "outDir": "images/lighting/govee-edison"
+    },
+    "plants-real": {
+      "images": [
+        {
+          "file": "areca-palms-when-they-arrived-one-of-them-did-not-survive-the-repot-very-well-which-is-a-known-issue-and-makes-me-really-sad.webp",
+          "source": "Areca Palms when they arrived, one of them did not survive the repot very well which is a known issue and makes me really sad.HEIC"
+        },
+        {
+          "file": "full-plant-car-with-palm-trees-santa-vera-snake-plant-spider-plant-pothos-on-a-kitchen-that-is-made-of-metal-and-is-on-wheels-i-love-wheels.webp",
+          "source": "Full plant car with palm trees Santa Vera snake plant spider plant pothos on a kitchen that is made of metal and is on wheels I love wheels.HEIC"
+        },
+        {
+          "file": "img-6958.webp",
+          "source": "IMG_6958.HEIC"
+        }
+      ],
+      "outDir": "images/plants/real"
+    },
+    "pny-enthusiast": {
+      "images": [
+        {
+          "file": "img-4902.webp",
+          "source": "IMG_4902.JPG"
+        },
+        {
+          "file": "img-4903.webp",
+          "source": "IMG_4903.JPG"
+        },
+        {
+          "file": "img-4904.webp",
+          "source": "IMG_4904.JPG"
+        },
+        {
+          "file": "img-4905.webp",
+          "source": "IMG_4905.JPG"
+        },
+        {
+          "file": "img-4906.webp",
+          "source": "IMG_4906.JPG"
+        },
+        {
+          "file": "img-4907.webp",
+          "source": "IMG_4907.JPG"
+        },
+        {
+          "file": "img-4908.webp",
+          "source": "IMG_4908.JPG"
+        },
+        {
+          "file": "img-4909.webp",
+          "source": "IMG_4909.JPG"
+        },
+        {
+          "file": "img-4910.webp",
+          "source": "IMG_4910.JPG"
+        },
+        {
+          "file": "img-4911.webp",
+          "source": "IMG_4911.JPG"
+        },
+        {
+          "file": "img-4912.webp",
+          "source": "IMG_4912.JPG"
+        },
+        {
+          "file": "img-4913.webp",
+          "source": "IMG_4913.JPG"
+        },
+        {
+          "file": "img-4914.webp",
+          "source": "IMG_4914.JPG"
+        },
+        {
+          "file": "img-4915.webp",
+          "source": "IMG_4915.JPG"
+        },
+        {
+          "file": "img-4916.webp",
+          "source": "IMG_4916.JPG"
+        },
+        {
+          "file": "img-4917.webp",
+          "source": "IMG_4917.JPG"
+        }
+      ],
+      "outDir": "images/archive/old-pcs/pny-enthusiast-edition"
+    },
+    "rog-gladius": {
+      "images": [
+        {
+          "file": "img-5126.webp",
+          "source": "IMG_5126.JPG"
+        },
+        {
+          "file": "img-5127.webp",
+          "source": "IMG_5127.JPG"
+        },
+        {
+          "file": "img-5128.webp",
+          "source": "IMG_5128.JPG"
+        },
+        {
+          "file": "img-5129.webp",
+          "source": "IMG_5129.JPG"
+        },
+        {
+          "file": "img-5130.webp",
+          "source": "IMG_5130.JPG"
+        },
+        {
+          "file": "img-5131.webp",
+          "source": "IMG_5131.JPG"
+        }
+      ],
+      "outDir": "images/archive/peripherals/rog-gladius"
+    }
+  }
+}

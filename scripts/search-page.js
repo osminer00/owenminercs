@@ -3,6 +3,29 @@
  * Depends on `window.owenminercsSiteSearchApi` from `components.js`.
  */
 (function initSearchResultsPage() {
+	let pageResultsEl = null;
+	let pageNavWired = false;
+
+	function wirePageResultsKeyboard(resultsEl, api) {
+		if (!resultsEl || pageNavWired) return;
+		pageNavWired = true;
+		pageResultsEl = resultsEl;
+		api.wireResultsNavigation(resultsEl);
+		document.addEventListener('keydown', (e) => {
+			if (!pageResultsEl) return;
+			const t = e.target;
+			if (
+				t instanceof HTMLInputElement ||
+				t instanceof HTMLTextAreaElement ||
+				t instanceof HTMLSelectElement ||
+				(t instanceof HTMLElement && t.isContentEditable)
+			) {
+				return;
+			}
+			window.owenminercsSiteSearchApi.handleResultsKeyDown(pageResultsEl, e);
+		});
+	}
+
 	function setSummary(summaryEl, queryRaw) {
 		if (!summaryEl) return;
 		const q = (queryRaw || '').trim();
@@ -37,7 +60,7 @@
 			return;
 		}
 
-		document.title = `${q.trim()} — Search | Owen Miner`;
+		document.title = `${q.trim()}: Search | Owen Miner`;
 
 		fetch(api.indexUrl)
 			.then((r) => {
@@ -48,6 +71,7 @@
 				const entries = data && Array.isArray(data.entries) ? data.entries : [];
 				const list = api.filterEntries(entries, q, Infinity);
 				api.renderResults(resultsEl, list, q, 'fullPage');
+				wirePageResultsKeyboard(resultsEl, api);
 			})
 			.catch(() => {
 				resultsEl.textContent = '';

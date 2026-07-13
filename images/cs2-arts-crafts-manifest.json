@@ -1,0 +1,52 @@
+{
+  "generated": "2026-06-30T15:55:10.930Z",
+  "sets": {
+    "sewing": {
+      "images": [
+        {
+          "file": "blanket-concept-from-snap-fish.webp",
+          "source": "blanket concept from snap fish.PNG"
+        },
+        {
+          "file": "cs2-screenshot-blanket-ancient-screenshot-close-up.webp",
+          "source": "cs2 screenshot blanket ancient screenshot close up.HEIC"
+        },
+        {
+          "file": "cs2-screenshot-blanket-unboxed.webp",
+          "source": "cs2 screenshot blanket unboxed.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cs2-arts-crafts/sewing"
+    },
+    "cs-joyer": {
+      "images": [
+        {
+          "file": "cs-joyer-display-original-concept-pic.webp",
+          "source": "cs joyer display original concept pic.HEIC"
+        }
+      ],
+      "videos": [
+        {
+          "file": "concept-video.mp4",
+          "source": "cs joyer display original concept video.MOV"
+        }
+      ],
+      "outDir": "images/cs2-arts-crafts/cs-joyer"
+    },
+    "wallhack-skates": {
+      "images": [
+        {
+          "file": "img-5300.webp",
+          "source": "IMG_5300.HEIC"
+        },
+        {
+          "file": "img-5301.webp",
+          "source": "IMG_5301.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/mouse/wallhack-skates-packaging"
+    }
+  }
+}

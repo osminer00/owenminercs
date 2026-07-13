@@ -21,13 +21,17 @@ from pathlib import Path
 
 DEFAULT_USERNAME = "OwenMiner"
 MAX_ITEMS = 20
-MIN_LIKES = 1
+MIN_LIKES = 100
 
 RSS_URL_TEMPLATE = "https://nitter.net/{username}/rss"
 RSS_SEARCH_URL_TEMPLATE = (
     "https://nitter.net/search/rss?f=tweets&q=%28from%3A{username}%29%20min_faves%3A{min_likes}"
 )
 FX_STATUS_URL_TEMPLATE = "https://api.fxtwitter.com/{username}/status/{status_id}"
+PROFILE_MIRROR_URLS = (
+    "https://zamantika.com/profile/owenminer",
+    "https://zamantika.com/profile/OwenMiner",
+)
 
 
 def fetch_text(url: str) -> str:
@@ -57,8 +61,8 @@ def parse_rss_status_ids(rss_text: str) -> list[str]:
         link = (item.findtext("link") or "").strip()
         title = (item.findtext("title") or "").strip()
 
-        # Skip retweets and replies from the RSS stream.
-        if title.startswith("RT by @") or title.startswith("R to @"):
+        # Skip retweets only; keep replies for the home X row.
+        if title.startswith("RT by @"):
             continue
 
         status_id = ""
@@ -119,26 +123,30 @@ def select_primary_media(tweet: dict) -> dict | None:
     return None
 
 
-def build_content_item(tweet: dict, username: str) -> dict | None:
+def author_is_owen(tweet: dict, username: str) -> bool:
     author = tweet.get("author") or {}
-    if str(author.get("screen_name") or "").lower() != username.lower():
+    screen_name = str(author.get("screen_name") or "").lower()
+    allowed = {username.lower(), "owenminer", "owenminercs"}
+    return screen_name in allowed
+
+
+def build_content_item(tweet: dict, username: str) -> dict | None:
+    if not author_is_owen(tweet, username):
         return None
 
     primary_media = select_primary_media(tweet)
-    if not primary_media:
-        return None
 
     likes = int(tweet.get("likes") or 0)
     if likes < MIN_LIKES:
         return None
     comments = int(tweet.get("replies") or 0)
 
-    media_type = str(primary_media.get("type") or "").lower()
+    media_type = str((primary_media or {}).get("type") or "").lower()
     is_video = media_type in ("video", "gif")
 
-    video_url = str(primary_media.get("url") or "").strip() if is_video else ""
-    thumb_url = str(primary_media.get("thumbnail_url") or "").strip()
-    image_url = str(primary_media.get("url") or "").strip()
+    video_url = str(primary_media.get("url") or "").strip() if primary_media and is_video else ""
+    thumb_url = str(primary_media.get("thumbnail_url") or "").strip() if primary_media else ""
+    image_url = str(primary_media.get("url") or "").strip() if primary_media else ""
     preview_url = thumb_url if thumb_url else image_url
 
     tweet_text = str(tweet.get("text") or "").strip()
@@ -147,7 +155,7 @@ def build_content_item(tweet: dict, username: str) -> dict | None:
 
     return {
         "platform": "x",
-        "contentType": "video" if is_video else "photo",
+        "contentType": "video" if is_video else ("photo" if primary_media else "text"),
         "title": truncate_text(tweet_text),
         "url": str(tweet.get("url") or f"https://x.com/{username}/status/{tweet.get('id', '')}").strip(),
         "thumbnail": preview_url,
@@ -157,8 +165,11 @@ def build_content_item(tweet: dict, username: str) -> dict | None:
         "viewCount": int(tweet.get("views") or 0),
         "likeCount": likes,
         "commentCount": comments,
-        "mediaKind": "video" if is_video else "image",
-        "aspectRatio": normalize_ratio(primary_media.get("width"), primary_media.get("height")),
+        "mediaKind": "video" if is_video else ("image" if primary_media else "text"),
+        "aspectRatio": normalize_ratio(
+            (primary_media or {}).get("width"),
+            (primary_media or {}).get("height"),
+        ),
     }
 
 
@@ -209,6 +220,27 @@ def collect_status_ids_from_posts(posts: list[dict]) -> list[str]:
     return status_ids
 
 
+def fetch_profile_mirror_status_ids() -> list[str]:
+    status_ids: list[str] = []
+    seen_ids: set[str] = set()
+    for mirror_url in PROFILE_MIRROR_URLS:
+        try:
+            page_text = fetch_text(mirror_url)
+            for match in re.finditer(r"status/(\d{10,})", page_text):
+                status_id = match.group(1)
+                if status_id in seen_ids:
+                    continue
+                seen_ids.add(status_id)
+                status_ids.append(status_id)
+        except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+            print(f"[x-top-posts] profile mirror error: {mirror_url}: {exc}", file=sys.stderr)
+            continue
+        except Exception as exc:
+            print(f"[x-top-posts] profile mirror error: {mirror_url}: {exc}", file=sys.stderr)
+            continue
+    return status_ids
+
+
 def fetch_rss_status_ids(username: str) -> tuple[list[str], list[str]]:
     status_ids: list[str] = []
     seen_ids: set[str] = set()
@@ -256,6 +288,19 @@ def build_top_posts(username: str, existing_posts: list[dict]) -> tuple[list[dic
     status_ids, rss_errors = fetch_rss_status_ids(username)
     used_existing_fallback = False
 
+    mirror_ids = fetch_profile_mirror_status_ids()
+    if mirror_ids:
+        seen_ids = set(status_ids)
+        for status_id in mirror_ids:
+            if status_id in seen_ids:
+                continue
+            seen_ids.add(status_id)
+            status_ids.append(status_id)
+
+    for status_id in collect_status_ids_from_posts(existing_posts):
+        if status_id not in status_ids:
+            status_ids.append(status_id)
+
     if not status_ids and existing_posts:
         status_ids = collect_status_ids_from_posts(existing_posts)
         used_existing_fallback = bool(status_ids)
@@ -284,10 +329,26 @@ def main() -> None:
     if not posts and existing_posts:
         for error in rss_errors:
             print(f"[x-top-posts] RSS error: {error}", file=sys.stderr)
+        filtered_existing = [
+            item
+            for item in existing_posts
+            if int(item.get("likeCount") or 0) >= MIN_LIKES
+        ]
+        if filtered_existing:
+            target_path.write_text(
+                json.dumps(filtered_existing, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+            print(
+                f"[x-top-posts] Sync returned 0 new posts; kept {len(filtered_existing)} existing post(s) at {MIN_LIKES}+ likes.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         print(
-            f"[x-top-posts] Sync returned 0 posts; preserving {len(existing_posts)} existing post(s).",
+            f"[x-top-posts] Sync returned 0 posts and no existing posts meet {MIN_LIKES}+ likes; wrote empty list.",
             file=sys.stderr,
         )
+        target_path.write_text("[]\n", encoding="utf-8")
         sys.exit(1)
 
     if fetch_failed and not posts:

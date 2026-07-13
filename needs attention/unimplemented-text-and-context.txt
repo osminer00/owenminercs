@@ -1,0 +1,144 @@
+﻿UNIMPLEMENTED TEXT AND CONTEXT
+Generated: 2026-07-11
+Source drive: G:\My Drive\Media for owenminercs.com
+Repo scan: 667 media files, 16 text files, 82 folders
+
+This file collects user-written text, folder names, and descriptive filenames that are
+NOT fully represented on owenminercs.com yet. Original text files are copied under
+text-sources/ (preserve Drive paths).
+
+========================================================================
+TEXT FILES (copied to needs attention/text-sources/)
+Site status = whether distinctive phrases from the file appear in site HTML/JSON.
+========================================================================
+
+--- put on website\grass wall\grass wall.txt ---
+Site status: PARTIAL (grass-wall.html exists; this voice-note has extra detail and 4 HEIC photos are not on site)
+Content:
+Alright this definitely needs a section on my setup page but also it has a lot of CS2 merch on it so maybe included on the CS2 merch page Two of the images have no flash two of them have flash but it also has my CS2 weapon pin skin Perfect World merch display box that I made it has all of the pins including the Dragon lore so list those pins out of course you've got the Diego Blaze PP bison Two of those Emerald Norman Gunder the etc etc you have the list already it also has Liquid Counter Strike Austin TX exclusive stickers that I got when they were handed out at the event also has two plushies hanging on it with the blue gem Karamba and the skeleton fade I also just hang random postcards and stuff you can also see the perfect world official merge gold chain also have a old Coca Cola clock that was a gift from my sister years and years ago with the neon light and also the counter strike two major frame I got these grass walls from Aliexpress I was inspired by a post on reddit R slash male living space somebody had a grass wall above there bathroom mirror and I thought was really cool so I did that in my apartment and did it on the wall behind my desk You can also see the hanging string lights that I got from Hobby Lobby and I also had a Tweety bird Looney Tunes pocket watch that I got from my grandma's garage sale when I was like 10 years old hanging up there too but I like the grass wall 'cause I can just hang random stuff on it and move it around.
+
+--- put on website\christimas gift perfect world merch\cs2 merch christmas present.txt ---
+Site status: NOT ON SITE
+Content:
+2024 I didn't know what to put on my Christmas list and the perfect world shaghai major had just happened which had a lot of cool cs2 merch. It was a process to figure out how to get it but somehow my mother pulled it off and started my CS2 merch collection which has grown quite a bit since! The merch took well over a month to ship so it missed Christmas day and she printed photos of the items to put inside gifts lol.
+
+--- put on website\assassins creed promotional stuff\New Text Document.txt ---
+Site status: PARTIAL (gaming-memorabilia.html has midnight release section; this is fuller personal story)
+Content:
+these are all gamestop promotional boxes that I got at the midnight release for assassins creed. Battlefiled was also released on the same night. This was my first and only midnight release that I went to when I was 13 years old at the local gamestop. It was really fun and a special time in my childhood. I remember all of my middleschool friends were hyped for me because I was allowed to stay up until like 1 am on a school night and got to play battle field 4 before it released by a few hours because they had a few tv's and playstations setup to play. At the end of the night they raffled off the posters and promotional boxes by pulling names out of a hat. at the very end there was extras left over so the gamestop staff let me take the rest home which had me really excited!
+
+--- put on website\battle field promotinal stuff\New Text Document.txt ---
+Site status: NOT ON SITE (note to merge with AC carousel on same memorabilia page)
+Content:
+check the assassins creed desc and put these two folder carosels on the same page because they are from the same midnight release.
+
+--- put on website\New folder\nikon d3100 camer page desc.txt ---
+Site status: PARTIAL (nikon-d3100-legacy.html exists; verify this copy and photos are added)
+Content:
+Nikon d3100 was my first camera. I bought it for $500 something dollars cash at best buy around 2015. I was really into photography but my iPhone 4s wasn't cutting it so I saved up my summer mowing money to buy this camera. I took a lot of photos and filmed a lot of videos with it. A lot of the videos I never posted but started to film youtube videos with this camera and expirmented with videography for years.
+
+--- put on website\nzxt phantom\nzxt phatom.txt ---
+Site status: PARTIAL (first PC build archive exists; verify this blurb)
+Content:
+my very first pc case. I sold it a few years ago because it was just massive but I still love the design to this day. gives me storm trooper vibes.
+
+--- put on website\asus tuff 280 hz monitor\asus monitor tuff 280hz.txt ---
+Site status: PARTIAL (monitor history on site; this 280hz chapter may be missing detail)
+Content:
+27 inch monitor 280hz. First monitor that I used over 60hz, purchased in 2022 if I remember right. Great monitor I ended up selling it to purchase my current 480hz asus monitor. I never used the default stand and always had it on a monitor arm. It was very weird to go from 24 inch to 27 inches, I still think I prefer a smaller 24 inch for csgo because you can fit more in your visual field but at one point in 2019 I played on my ultra wide monitor for like 6 months witch was also a crazy expirence. Screen shake on an ultra wide is NUTS and makes it hard to focus but you can damn near see behind you even with a stretched res so It's lowkey overpowered because you can see more angles at one time. Yes i played on both standard ultra wide res and the 16:10 equivalent on the ultra wide, both were fun but can make you nauseous over time.
+
+--- put on website\microphone before shure was a hyperx duocast\duocast.txt ---
+Site status: PARTIAL (hyperx-duocast.html exists)
+Content:
+(see text-sources copy; file may be empty or minimal)
+
+--- put on website\rog gladius mouse\New Text Document.txt ---
+Site status: PARTIAL
+Content:
+When I bought my 480 Hertz monitor there was a deal where you could get like $75 off if you used some buy now pay it later service so I did that but then paid it off basically instantly and then also it came with an ROG mouse which was brand new and I didn't need it 'cause I already had another mouse and this one was wired so I just sold it on eBay to try to help afford the 480 Hertz monitor.
+
+--- put on website\razerblade 2019\razerblade fauly ram.txt ---
+Site status: PARTIAL (legacy-laptop.html exists; RAM story may need adding)
+Content:
+When I first got my razor blade within six months I ran into a lot of issues and it took me quite a bit of diagnosing to figure out that it was a faulty stick of RAM. My first go around I replaced the RAM with a higher megahertz set and it also didn't work so it really tripped me up and I couldn't figure out what was wrong with the RAM for a while until somebody messaged me on eBay and said hey make sure that you have the correct megahertz of RAM because if you try to go over the original speed then you'll get a bunch of crashes Even though it says online that you could up the megahertz you cannot on this specific computer so this little stick of RAM cost me a lot of issues and severely degraded my trust in Razer the company.
+
+--- put on website\sound card first\sound blaster z.txt ---
+Site status: PARTIAL (sound-blaster-z.html exists)
+Content:
+This was my first ever sound card I put it in my very first PC that I ever built It helped boost the audio give me some extra bass give me multiple outputs so that I could have both my headphones and speakers hooked up to my PC at one time I used it up until I bought my road streamer X I used to have it mounted in the back of my PC with GPU riser cable The software was pretty old because the device was pretty old but it had nice simple software that was quick and easy to use where I could adjust the equalizer specifically for Counter Strike Global Offensive and it legitimately helped hear things better with Bear Dynamic headphones it was basically like installing ear hacks You could hear footsteps and different things way better when you had the equalizer set up for your headphones.
+
+--- put on website\sound card first\old ssd\old ssd.txt ---
+Site status: NOT ON SITE
+Content:
+This is my old SSD from my 2020 build I ended up not needing it for a while and it was just sitting on unused because it wasn't quite as fast as an NV me So since prices were rising on eBay for SS DS I decided to wipe it and sell it But honestly at this point I almost wish that I kept it 'cause I'm running out of space again with all these videos but I didn't really lose much money on it which is crazy 'cause I had it for a few years.
+
+--- put on website\sound card first\old ssd\riser cable\New Text Document.txt ---
+Site status: PARTIAL (sound blaster page mentions riser)
+Content:
+This is the riser cable that I used to mount the sound card in the back of my Lea oh Eleven dynamic I mounted it on the bottom of the back panel and I had my power supply mounted above that but it worked pretty well I never hooked up the RGB but it was just a cheap GPU riser cable off of Amazon There was more than powerful enough for the sound card
+
+--- put on website\handwarmer\New Text Document.txt ---
+Site status: PARTIAL (handwarmer on cs2-merch.html; mod photos not on site)
+Content:
+I cut holes out of the silicone pot cover so I could quick charge them with magnetic usb charger. It was annoying and took a lot of time to open and close the silicone covers.
+
+--- put on website\ds\ds.txt ---
+Site status: PARTIAL (console-nintendo-ds.html linked from setup hub)
+Content:
+ds lite This is one of my first gaming systems and I use the hell out of it as you can see it's all stickered up with Guitar Hero stickers that came with the game I still have Guitar Hero the game on it and play it occasionally Absolutely goated game
+
+--- put on website\broken deer run treadmill internals\deer runt trying to fix.txt ---
+Site status: NOT ON SITE (no treadmill page found)
+Content:
+So I have a deer run treadmill that is currently not functional but I use it to walk backwards on it because that's an exercise by knees over toes guys can help you build your leg and knee strength but I tore it apart a few times to try to fix it there was a problem with the motor and the belt it smelled like it was going to start a fire so I stopped using it while plugged in and now just use it for that one specific exercise and I got a different walking pad that I eat now daily That's by superrun
+
+========================================================================
+FOLDER NAMES WITH UNIMPLEMENTED MEDIA (top-level Drive folders)
+========================================================================
+
+cs2 clothing (64 files) — custom CS2 screenshot shirts; clothing.html exists but these photos are not in repo
+put on website (85 unimplemented files) — user-marked priority bucket
+b650 rog strix motherboard (11)
+extra superlight mice (11)
+asus m5a97 le r2 (9)
+rm650x power supply (7)
+first overear headphones skullcandy (6)
+razer deathadder (5)
+corsair vengence lpx (5)
+DONT (4) — includes "dont put on site.mp4"; review before publishing
+lekker v1 switch with spring swap and lube (4)
+corsair vengance pro (3)
+2024 setup standing desk work station (2)
+
+Already on site (Drive folders with 0 unimplemented copies): 3800x, 2070 super, razer blade 2019, complexity disband video, Nintendo switch, and most of "put on website" subfolders that matched existing repo filenames.
+
+========================================================================
+DESCRIPTIVE FILENAMES (user intent in filename — media copied under media/)
+========================================================================
+
+- austin texas michilen star tacos near airbnb.heic
+- austin texas airbnb balcony view.HEIC
+- put on website\ohnebubu 24k gold gold gold labubu before painting with a ruler next to it.HEIC
+- put on website\picutre of the box of led lights that hang in my kitchen and above my desk setup.HEIC
+- put on website\setup photo from 2-6-2025.HEIC
+- put on website\mid rearange of my living room I realized that the agent K rug looks really good when sitting on my couch and it was also nice because my robot vacum wouldnt damage it.HEIC
+- put on website\remove audio before posting on website, contains copyrighted music - this is my gaming setup in 2020 with ikea white shelves, ikea desk, ipad 6th gen apple pencil, razer keyboard razer mouse dual monitors.mp4
+- put on website\this video has a bunch of photos from when I first build my pc pull those pictures and put them on the website not the screen reorded video.MP4
+- put on website\2018 setup\2018 setup. cringe photo of me tryna aura farm but its funny to look at now but with more exposure and editied.jpg
+- put on website\2022-2023 setup\also watching ohnepixel during a blast event where ohne yapped about cs2 coming out- one of the last blast tournaments on csgo before cs2.HEIC
+- put on website\2022-2023 setup\2023 gaming mode when i had my 240hz monitor in the center of the dessk and ultrawide moved to vertical with monitor arms four monitor setup.HEIC
+- put on website\2022-2023 setup\mute sound, contains copyrighted music - gaming setup from 2022 or 2023, this is my workstation mode with the ultrawide horizontal and Im doing coding homework from college.MOV
+- put on website\austin texas major\austin cs drunk selfie- I was first in line for the meet and greet and asked some cringe question lol but it was really cool to meet one of my youtube inspirations.HEIC
+- put on website\austin texas major\banks hyping up crowd.MOV
+- put on website\austin texas major\vitality walkout with lots of boos.MOV
+- put on website\austin texas major\apex middle finger close up.MOV
+- put on website\setting up my cs2 merch in my aprtment when I moved in in june of 2025 right after the cs2 major\ (10 setup MOVs)
+- put on website\stickers\owenminercs sticker pack - I used to give these out to twitch subscribers and ebay orrders for fun let me know if they should return.HEIC
+- cs2 clothing\Nuke at night CS2 custom made screenshot shirt dickies work shirt.mp4
+
+========================================================================
+WINDOWS EXPLORER TAGS
+========================================================================
+
+No user-defined Tags/Comments were found via Shell metadata (Google Drive File Stream
+only exposed generic type labels like "HEIC File"). See file-tags-metadata.txt for raw dump.

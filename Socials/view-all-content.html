@@ -9,6 +9,8 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="stylesheet" href="./view-all-content.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
@@ -20,15 +22,16 @@
 			gtag('js', new Date());
 			gtag('config', 'G-GYG1QRQ8DY');
 		</script>
-		<title>View all content | Owen Miner — OwenMinerCS</title>
+		<title>View all content | Owen Miner, OwenMinerCS</title>
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
-			content="Every OwenMinerCS post across YouTube, Shorts, TikTok, X, and more — grouped so the same clip shows once with links to each platform."
+			content="Every OwenMinerCS post across YouTube, Shorts, TikTok, X, and more, grouped so the same clip shows once with links to each platform."
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
-		<meta name="theme-color" content="#0f0f0f" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#0f0f0f" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -36,7 +39,7 @@
 		<meta property="og:title" content="View all content | Owen Miner" />
 		<meta
 			property="og:description"
-			content="Browse every post from OwenMinerCS across platforms — duplicates merged into one card."
+			content="Browse every post from OwenMinerCS across platforms, duplicates merged into one card."
 		/>
 		<meta property="og:image" content="https://www.owenminercs.com/About/Images/owenProfile.webp" />
 		<meta property="og:url" content="https://www.owenminercs.com/Socials/view-all-content" />
@@ -44,9 +47,27 @@
 		<link rel="canonical" href="https://www.owenminercs.com/Socials/view-all-content" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui vac-all-page">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui vac-all-page bubble-theme bubble-theme--socials">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro vac-intro">
 				<p class="vac-back"><a href="socials.html">← Content hub</a></p>
@@ -66,10 +87,21 @@
 				<p id="viewAllContentStatus" aria-live="polite">Loading feeds…</p>
 			</div>
 
-			<div class="keep-board" id="viewAllContentBoard" aria-label="All posts grouped by content"></div>
+			<section class="hub-content-panel">
+				<div class="vac-sortbar" id="viewAllContentSortbar" hidden>
+					<label for="viewAllContentSort" class="vac-sortbar__label">sort by</label>
+					<select id="viewAllContentSort" class="vac-sortbar__select" autocomplete="off">
+						<option value="likes-desc" selected>Likes (highest first)</option>
+						<option value="views-desc">View count (highest first)</option>
+						<option value="date-desc">Upload date (newest first)</option>
+					</select>
+				</div>
+				<div class="keep-board" id="viewAllContentBoard" aria-label="All posts grouped by content"></div>
+
+			</section>
 		</div>
 		<shared-footer
-			disclosure='<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Gear, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>'
+			disclosure='<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>'
 		></shared-footer>
 		<script src="../scripts/support-links.js"></script>
 		<script src="./scripts/view-all-content.js" defer></script>

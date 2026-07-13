@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<!-- Preload CSS to ensure styles are applied immediately -->
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
@@ -18,14 +20,7 @@
 		<!-- Page-specific metadata -->
 		<title>2024 PC Build | Owen Miner</title>
 		<meta name="author" content="Owen Miner" />
-		<meta
-			name="description"
-			content="Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, Lian Li O11 Dynamic and more high-performance components."
-		/>
-		<meta
-			name="keywords"
-			content="PC build, custom PC, AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, gaming PC, high-performance PC, Owen Miner, PC setup"
-		/>
+		<meta name="description" content="Parts list for Owen's 2024 gaming PC, Ryzen 9800X3D, RTX 4090, Lian Li O11 Dynamic Evo." />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="index, follow" />
 		<meta name="twitter:site" content="@OwenMiner" />
@@ -38,17 +33,15 @@
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
-		<!--Favicon--><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<!--Favicon-->
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
 		<link rel="icon" href="/images/logo/favicon-16.png" type="image/png" sizes="16x16" />
 		<!-- Open Graph for social sharing -->
 		<meta property="og:title" content="2024 PC Build | Owen Miner" />
-		<meta
-			property="og:description"
-			content="Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, Lian Li O11 Dynamic and more high-performance components."
-		/>
+		<meta property="og:description" content="Parts list for Owen's 2024 gaming PC, Ryzen 9800X3D, RTX 4090, Lian Li O11 Dynamic Evo." />
 		<meta property="og:image" content="https://www.owenminercs.com/PC/Images/pc-build.webp" />
 		<meta property="og:url" content="https://www.owenminercs.com/PC/pc.html" />
 		<meta property="og:type" content="website" />
@@ -56,10 +49,7 @@
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="2024 PC Build | Owen Miner" />
-		<meta
-			name="twitter:description"
-			content="Explore Owen Miner's custom PC build featuring an AMD Ryzen 7 7800X3D, NVIDIA RTX 4090, Lian Li O11 Dynamic and more high-performance components."
-		/>
+		<meta name="twitter:description" content="Parts list for Owen's 2024 gaming PC, Ryzen 9800X3D, RTX 4090, Lian Li O11 Dynamic Evo." />
 		<meta name="twitter:image" content="https://www.owenminercs.com/PC/Images/pc-build.webp" />
 		<!-- Canonical Tag -->
 		<link rel="canonical" href="https://www.owenminercs.com/PC/pc" />
@@ -87,8 +77,8 @@
 						"@type": "WebPage",
 						"@id": "https://www.owenminercs.com/PC/pc.html#webpage",
 						"url": "https://www.owenminercs.com/PC/pc.html",
-						"name": "Custom gaming PC build — specs and parts",
-						"description": "Owen Miner's high-end gaming PC: AMD Ryzen, NVIDIA RTX 4090, case, cooling, storage, and part links.",
+						"name": "2024 gaming PC",
+						"description": "Parts list for Owen's 2024 gaming PC with retailer links.",
 						"isPartOf": {
 							"@type": "WebSite",
 							"name": "Owen Miner CS",
@@ -96,28 +86,6 @@
 						},
 						"author": { "@id": "https://www.owenminercs.com/#person" },
 						"inLanguage": "en"
-					},
-					{
-						"@type": "FAQPage",
-						"@id": "https://www.owenminercs.com/PC/pc.html#faq",
-						"mainEntity": [
-							{
-								"@type": "Question",
-								"name": "What is on this PC build page?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "A part-by-part list of Owen Miner's custom gaming PC with retailer links, including CPU, GPU, motherboard, RAM, storage, PSU, case, and cooling."
-								}
-							},
-							{
-								"@type": "Question",
-								"name": "Where are related setup and game guides?",
-								"acceptedAnswer": {
-									"@type": "Answer",
-									"text": "The same site has a Wooting 60HE keyboard build guide, an apartment tour page with monitors and peripherals, and a Gaming hub with CS2 pages, wallpapers, and merch."
-								}
-							}
-						]
 					}
 				]
 			}
@@ -126,52 +94,47 @@
 
 		<link rel="stylesheet" href="../css/affiliate-styles.css" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 		<script src="../scripts/affiliate-links.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui pc-build-page">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui pc-build-page bubble-theme bubble-theme--socials">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
 			<div class="intro pc-build-intro">
 				<h1 class="pc-build-page-title">2024 gaming PC</h1>
-				<p class="pc-build-lede">
-					Part-by-part list for Owen’s 2024 main gaming rig (AMD Ryzen, RTX 4090, Lian Li case, and more) with
-					links. Also on this site: <a href="../Keyboard/60he.html">Wooting 60HE keyboard build</a>,
-					<a href="../The%20Setup/audio.html#headphones">Headphones (under Audio)</a>,
-					<a href="../Desk Setup/setup.html">apartment tour</a>,
-					<a href="../Gaming/gaming.html">Gaming hub (CS2 &amp; more)</a>,
-					<a href="../Socials/socials.html">socials &amp; support</a>.
-				</p>
-				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure</span> Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media. As an Amazon Associate I earn from qualifying purchases.</p>
-				<section class="pc-build-callout" aria-labelledby="pc-faq-heading">
-					<h2 id="pc-faq-heading">Quick FAQ</h2>
-					<p>
-						<strong>What is on this page?</strong> Retailer-linked specs for each major component of the
-						build.
-					</p>
-					<p class="pc-build-callout__last">
-						<strong>Related guides?</strong> Keyboard, headphones hub, apartment tour, and gaming hub are
-						linked above for peripherals and game content.
-					</p>
-				</section>
-				<section class="pc-build-callout" aria-labelledby="pc-headphones-heading">
-					<h2 id="pc-headphones-heading">Headphones</h2>
-					<p class="pc-build-callout__last">
-						Desk listening gear lives on the setup site:
-						<a href="../The%20Setup/audio.html#headphones">headphones</a> (Beyerdynamic DT 990 Pro).
-					</p>
-				</section>
+				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure:</span> Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund videos, streams, and site content. As an Amazon Associate I earn from qualifying purchases. Thanks for supporting the channel.</p>
 			</div>
+			<div class="hub-content-panel pc-build-panel">
 			<section class="gallery2 pc-build-gallery" aria-label="PC components and retailer links">
-				<img
-					class="pc-build-hero-img"
-					src="images/pc.webp"
-					alt="Custom gaming PC build in a Lian Li case with internal lighting"
-					width="640"
-					height="853"
-					loading="lazy"
-					decoding="async"
-					onclick="window.open(this.src)"
-				/>
+				<figure class="pc-build-hero">
+					<img
+						class="pc-build-hero-img"
+						src="images/pc.webp"
+						alt="Custom gaming PC build in a Lian Li case with internal lighting"
+						width="640"
+						height="853"
+						loading="lazy"
+						decoding="async"
+						onclick="window.open(this.src)"
+					/>
+				</figure>
 
 				<ul class="pc-build-parts-list">
 					<li class="pc-build-part">
@@ -353,9 +316,68 @@
 					</li>
 				</ul>
 			</section>
+
+			<section class="pc-build-story" id="4090-unboxing" aria-labelledby="4090-unboxing-heading">
+				<h2 class="pc-build-story__title" id="4090-unboxing-heading">RTX 4090 Founders Edition, unboxing</h2>
+				<p class="pc-build-story__lede">
+					First time seeing the FE 4090 in person, absolute unit compared to everything I had run before.
+				</p>
+				<div class="photogallery subpage-gallery--dense">
+					<div class="photogallery-row">
+						<div class="photogallery-col">
+							<img class="photogallery-img" src="images/4090-unboxing/img-4434.webp" alt="NVIDIA RTX 4090 Founders Edition box" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							<img class="photogallery-img" src="images/4090-unboxing/img-4436.webp" alt="RTX 4090 FE unboxed on desk" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+						</div>
+						<div class="photogallery-col">
+							<img class="photogallery-img" src="images/4090-unboxing/img-4435.webp" alt="RTX 4090 Founders Edition first look" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="pc-build-story" id="4090-vertical" aria-labelledby="4090-vertical-heading">
+				<h2 class="pc-build-story__title" id="4090-vertical-heading">Vertical mount attempt (abandoned)</h2>
+				<p class="pc-build-story__lede">
+					Tried mounting the 4090 vertically in the O11 Dynamic Evo, gave up after the riser cable was a dud
+					(RMA’d) and routing display cables plus the Strimer was way more painful than horizontal. Landed
+					on a standard horizontal install instead.
+				</p>
+				<p class="pc-build-story__lede">
+					The clearance for display cables was very tight. If you had a thick HDMI cable, it was almost
+					impossible to plug in without an adapter. I did have two DisplayPort-to-HDMI adapters at one point,
+					which made it easier to plug and unplug the HDMI cables without having to fight to plug them in the
+					crammed space.
+				</p>
+				<p class="pc-build-story__lede">
+					It was also a pain if you ever needed to move your monitors or move your PC to clean, because the
+					display cables had to be routed through the back panel. Vertical mounting your GPU is a cool idea on
+					paper, but in practice it's just a massive headache.
+				</p>
+				<p class="pc-build-story__lede">
+					Also, mounting vertically with a 4090 FE was a pretty dumb idea for heat dissipation. The Founders
+					Edition is designed to blow hot air out of the back of the card where the display ports are, but
+					mounting vertically sends all that hot air directly into a solid piece of metal on the top of the
+					Lian Li O11 Dynamic Evo. I did have the idea to 3D print airflow channels up to the top exhaust,
+					inspired by the Optimum Tech fully controlled airflow PC build.
+				</p>
+				<div class="photogallery subpage-gallery--dense">
+					<div class="photogallery-row">
+						<div class="photogallery-col">
+							<img class="photogallery-img" src="images/4090-vertical/img-4468.webp" alt="RTX 4090 vertical mount test fit in O11 Dynamic Evo" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							<img class="photogallery-img" src="images/4090-vertical/vertical-fe-4090-attempt.webp" alt="Founders Edition 4090 vertical orientation attempt" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							<img class="photogallery-img" src="images/4090-vertical/attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult.webp" alt="Vertical 4090 install with cable clearance issues" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+						</div>
+						<div class="photogallery-col">
+							<img class="photogallery-img" src="images/4090-vertical/attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult-ima.webp" alt="Vertical GPU attempt, Strimer cable routing" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+							<img class="photogallery-img" src="images/4090-vertical/attempt-at-mounting-4090-vertically-in-the-lianli-o11-dynamic-evo-i-gave-up-after-the-riser-cable-was-a-dud-and-had-to-be-rma-d-also-plugging-in-display-cables-and-the-strimmer-was-way-too-difficult-ima-2.webp" alt="Abandoned vertical 4090 mount in Lian Li case" width="1200" height="1600" loading="lazy" decoding="async" onclick="window.open(this.src)" />
+						</div>
+					</div>
+				</div>
+			</section>
+			</div>
 		</div>
 		<shared-footer
-			disclosure="<i>As an Amazon Associate I earn from qualifying purchases.</i>"
+			disclosure="<i>Amazon links on this page may earn commission through the Amazon Associates Program.</i>"
 		></shared-footer>
 	</body>
 </html>

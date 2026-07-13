@@ -250,6 +250,43 @@
 		return svgIcon({}, [g]);
 	}
 
+	/** Shooting star — diagonal streak + bright head */
+	function iconCatchShootingStar() {
+		return svgIcon({}, [
+			svgEl('path', {
+				d: 'M6 38 L34 14',
+				fill: 'none',
+				stroke: 'currentColor',
+				'stroke-width': '2',
+				'stroke-linecap': 'round',
+				opacity: '0.45',
+			}),
+			svgEl('path', {
+				d: 'M10 34 L32 16',
+				fill: 'none',
+				stroke: 'currentColor',
+				'stroke-width': '3.5',
+				'stroke-linecap': 'round',
+				opacity: '0.85',
+			}),
+			svgEl('circle', {
+				cx: '36',
+				cy: '12',
+				r: '4.5',
+				fill: 'currentColor',
+			}),
+			svgEl('circle', {
+				cx: '36',
+				cy: '12',
+				r: '7.5',
+				fill: 'none',
+				stroke: 'currentColor',
+				'stroke-width': '1.25',
+				opacity: '0.35',
+			}),
+		]);
+	}
+
 	/** Dust II bug write-up — arrow meets critter */
 	function iconBugEater() {
 		return svgIcon({}, [
@@ -299,6 +336,7 @@
 		'social-dock-grand-tour': iconSocialDockGrandTour,
 		'main-nav-full-tour': iconMainNavFullTour,
 		'bug-eater': iconBugEater,
+		'catch-shooting-star': iconCatchShootingStar,
 	};
 
 	function createAchievementIconSvg(id) {

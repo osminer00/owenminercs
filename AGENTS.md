@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-05-02
+Last reviewed: 2026-07-10
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -49,9 +49,16 @@ Important areas:
 - Treat the worktree as user-owned; many files may already be modified.
 - Check `git status --short` before and after substantial edits.
 - Make scoped edits and preserve unrelated user changes.
+- **User-written copy only (default):** Do not add or publish visible page text the user did not write or explicitly approve in chat — no AI-drafted intros, FAQs, SEO ledes, cross-link paragraphs, meta/JSON-LD prose blocks, or “helpful” filler. If copy is needed, propose it in the chat and wait for approval before putting it in HTML. Exceptions without asking: required legal/affiliate disclosure blocks already standardized on the site (`affiliate-disclosure`, footer `disclosure=`, `affiliate-links.json` templates), alt text for accessibility, and tiny structural labels (e.g. nav/button text) when the user asked for the feature. See `memory/preferences.md` → **Copy approval**.
+- **No em dashes (hard rule):** Do **not** use em dashes (`—`, U+2014) or spaced double hyphens (` -- `) in agent-written visible site copy, titles, ledes, captions, alt text, meta descriptions, or agent-written prose in memory/docs. That punctuation reads as AI slop on this site. Use periods, commas, colons, or parentheses instead. Keep dashes verbatim only when the user explicitly wrote that exact dash in approved copy. See `memory/preferences.md` → **No em dashes**.
 - Reuse existing styles/components before adding new systems.
 - Keep global CSS changes conservative.
+- **Subpage density:** Hub pages keep current density; detail/subpages need more content per scroll — compact heroes, `.subpage-gallery--dense` on photo grids, tight section rhythm. See `memory/preferences.md` → **Subpage density**.
+- **SEO intro placement:** Long keyword or cross-link SEO paragraphs belong at the **bottom** of the page (de-emphasized, still in DOM), not in the hero under the title. Hero = `h1` + disclosure + optional one-line tagline only. See `memory/preferences.md` → **SEO intro placement**.
+- **Links must look like links:** Inline `<a>` in body/card/prose copy must be visibly clickable (accent color + underline, `#d946ef` on the purple bubble theme), not inherited plain text. Do not rely on default link styling inside dark card wrappers. See `memory/issues.md` → **Inline `<a>` links look like plain text**.
 - For public media/photo/setup changes, run `node .\dev\media-accessibility-check.mjs` when practical.
+- **Affiliate URL format:** Amazon and AliExpress compensated links use **search** URLs (not direct `/dp/` or `/item/` product pages) so links survive delistings. See `memory/preferences.md` → **Affiliate link URL format**; get user approval before bulk link migrations.
+- **On-site embeds:** In content sections, prefer YouTube/TikTok/X embeds or in-site detail pages over outbound watch/post links. See `memory/preferences.md` → **On-site embeds**; bulk changes need an audit list and user approval first.
 
 ## Cross-Platform Pointers
 

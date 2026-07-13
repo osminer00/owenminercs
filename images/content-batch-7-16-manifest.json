@@ -1,0 +1,427 @@
+{
+  "generated": "2026-06-30T04:19:59.881Z",
+  "sets": {
+    "handwarmer": {
+      "images": [
+        {
+          "file": "cs2-brand-handwarmer-different-from-black-hand-warmer-add-to-cs2-merch-page-and-handwarmer-section-on-website.webp",
+          "source": "CS2 brand handwarmer different from black hand warmer - add to cs2 merch page and handwarmer section on website.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/gadgets/handwarmer"
+    },
+    "inferno-bookend": {
+      "images": [
+        {
+          "file": "img-5427.webp",
+          "source": "IMG_5427.HEIC"
+        },
+        {
+          "file": "img-5428.webp",
+          "source": "IMG_5428.HEIC"
+        },
+        {
+          "file": "img-5441.webp",
+          "source": "IMG_5441.HEIC"
+        },
+        {
+          "file": "img-5442.webp",
+          "source": "IMG_5442.HEIC"
+        },
+        {
+          "file": "img-5443.webp",
+          "source": "IMG_5443.HEIC"
+        },
+        {
+          "file": "img-5676.webp",
+          "source": "IMG_5676.HEIC"
+        },
+        {
+          "file": "inferno-bookend-merch-close-up-right-after-the-stream-i-did-of-building-it-add-this-and-the-stream-to-the-cs2-merch-page.webp",
+          "source": "inferno bookend merch close up, right after the stream I did of building it. add this and the stream to the cs2 merch page.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cs2-merch/inferno-bookend"
+    },
+    "pins": {
+      "images": [
+        {
+          "file": "first-cs2-skin-pin-box-opening-after.webp",
+          "source": "first cs2 skin pin box opening after.JPG"
+        },
+        {
+          "file": "first-cs2-skin-pin-box-opening-before.webp",
+          "source": "first cs2 skin pin box opening before.HEIC"
+        },
+        {
+          "file": "perfect-world-esports-cs2-pins-and-gold-chain-and-smoke-water-bottle-this-is-before-i-unboxed-the-dragon-lore-which-is-now-in-the-center.webp",
+          "source": "perfect world esports cs2 pins and gold chain and smoke water bottle- this is before I unboxed the dragon lore which is now in the center.jpg"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cs2-merch/pins"
+    },
+    "steel-plate": {
+      "images": [
+        {
+          "file": "img-5797.webp",
+          "source": "IMG_5797.HEIC"
+        },
+        {
+          "file": "img-5798.webp",
+          "source": "IMG_5798.HEIC"
+        },
+        {
+          "file": "img-5799.webp",
+          "source": "IMG_5799.HEIC"
+        },
+        {
+          "file": "img-5800.webp",
+          "source": "IMG_5800.HEIC"
+        },
+        {
+          "file": "img-5801.webp",
+          "source": "IMG_5801.HEIC"
+        },
+        {
+          "file": "img-5802.webp",
+          "source": "IMG_5802.HEIC"
+        },
+        {
+          "file": "img-5803.webp",
+          "source": "IMG_5803.HEIC"
+        },
+        {
+          "file": "img-5804.webp",
+          "source": "IMG_5804.HEIC"
+        },
+        {
+          "file": "img-5805.webp",
+          "source": "IMG_5805.HEIC"
+        },
+        {
+          "file": "img-5806.webp",
+          "source": "IMG_5806.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "Keyboard/images/60he-v1-mods/steel-plate"
+    },
+    "foam-pad": {
+      "images": [],
+      "videos": [],
+      "outDir": "Keyboard/images/60he-v1-mods/foam-pad"
+    },
+    "silicone-pad": {
+      "images": [
+        {
+          "file": "img-5823.webp",
+          "source": "IMG_5823.HEIC"
+        },
+        {
+          "file": "img-5825.webp",
+          "source": "IMG_5825.HEIC"
+        },
+        {
+          "file": "img-5826.webp",
+          "source": "IMG_5826.HEIC"
+        },
+        {
+          "file": "img-5827.webp",
+          "source": "IMG_5827.HEIC"
+        },
+        {
+          "file": "img-5828.webp",
+          "source": "IMG_5828.HEIC"
+        },
+        {
+          "file": "img-5829.webp",
+          "source": "IMG_5829.HEIC"
+        },
+        {
+          "file": "img-5830.webp",
+          "source": "IMG_5830.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "Keyboard/images/60he-v1-mods/silicone-pad"
+    },
+    "crosshair-alpha": {
+      "images": [
+        {
+          "file": "img-5792.webp",
+          "source": "IMG_5792.HEIC"
+        },
+        {
+          "file": "img-5793.webp",
+          "source": "IMG_5793.HEIC"
+        },
+        {
+          "file": "img-5794.webp",
+          "source": "IMG_5794.HEIC"
+        },
+        {
+          "file": "img-5795.webp",
+          "source": "IMG_5795.HEIC"
+        },
+        {
+          "file": "img-5796.webp",
+          "source": "IMG_5796.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "Keyboard/images/60he-v1-mods/crosshair-alpha"
+    },
+    "silicone-mold-case": {
+      "images": [
+        {
+          "file": "img-5831.webp",
+          "source": "IMG_5831.HEIC"
+        },
+        {
+          "file": "img-5832.webp",
+          "source": "IMG_5832.HEIC"
+        },
+        {
+          "file": "img-5833.webp",
+          "source": "IMG_5833.HEIC"
+        },
+        {
+          "file": "img-5834.webp",
+          "source": "IMG_5834.HEIC"
+        },
+        {
+          "file": "img-5835.webp",
+          "source": "IMG_5835.HEIC"
+        },
+        {
+          "file": "img-5836.webp",
+          "source": "IMG_5836.HEIC"
+        },
+        {
+          "file": "img-5837.webp",
+          "source": "IMG_5837.HEIC"
+        },
+        {
+          "file": "img-5838.webp",
+          "source": "IMG_5838.HEIC"
+        },
+        {
+          "file": "img-5839.webp",
+          "source": "IMG_5839.HEIC"
+        },
+        {
+          "file": "img-5840.webp",
+          "source": "IMG_5840.HEIC"
+        },
+        {
+          "file": "img-5841.webp",
+          "source": "IMG_5841.HEIC"
+        },
+        {
+          "file": "img-5842.webp",
+          "source": "IMG_5842.HEIC"
+        },
+        {
+          "file": "img-5843.webp",
+          "source": "IMG_5843.HEIC"
+        },
+        {
+          "file": "img-5844.webp",
+          "source": "IMG_5844.HEIC"
+        },
+        {
+          "file": "img-5845.webp",
+          "source": "IMG_5845.HEIC"
+        },
+        {
+          "file": "img-5846.webp",
+          "source": "IMG_5846.HEIC"
+        },
+        {
+          "file": "img-5847.webp",
+          "source": "IMG_5847.HEIC"
+        },
+        {
+          "file": "img-5848.webp",
+          "source": "IMG_5848.HEIC"
+        },
+        {
+          "file": "img-5849.webp",
+          "source": "IMG_5849.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "Keyboard/images/60he-v1-mods/silicone-mold-case"
+    },
+    "gpro-stock": {
+      "images": [
+        {
+          "file": "img-5033.webp",
+          "source": "IMG_5033.HEIC"
+        },
+        {
+          "file": "img-5034.webp",
+          "source": "IMG_5034.HEIC"
+        },
+        {
+          "file": "img-5035.webp",
+          "source": "IMG_5035.HEIC"
+        },
+        {
+          "file": "img-5105.webp",
+          "source": "IMG_5105.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/mouse/gpro-superlight/stock"
+    },
+    "gpro-mod": {
+      "images": [
+        {
+          "file": "img-5314.webp",
+          "source": "IMG_5314.HEIC"
+        },
+        {
+          "file": "img-5315.webp",
+          "source": "IMG_5315.HEIC"
+        },
+        {
+          "file": "img-5316.webp",
+          "source": "IMG_5316.HEIC"
+        },
+        {
+          "file": "img-5317.webp",
+          "source": "IMG_5317.HEIC"
+        },
+        {
+          "file": "img-5318.webp",
+          "source": "IMG_5318.HEIC"
+        },
+        {
+          "file": "img-5319.webp",
+          "source": "IMG_5319.HEIC"
+        },
+        {
+          "file": "img-5320.webp",
+          "source": "IMG_5320.HEIC"
+        },
+        {
+          "file": "img-5321.webp",
+          "source": "IMG_5321.HEIC"
+        },
+        {
+          "file": "img-5328.webp",
+          "source": "IMG_5328.HEIC"
+        },
+        {
+          "file": "img-5329.webp",
+          "source": "IMG_5329.HEIC"
+        },
+        {
+          "file": "img-5330.webp",
+          "source": "IMG_5330.HEIC"
+        },
+        {
+          "file": "img-5331.webp",
+          "source": "IMG_5331.HEIC"
+        },
+        {
+          "file": "img-5332.webp",
+          "source": "IMG_5332.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/mouse/gpro-superlight/mod"
+    },
+    "nikon-d3100": {
+      "images": [
+        {
+          "file": "img-4748.webp",
+          "source": "IMG_4748.JPG"
+        },
+        {
+          "file": "img-4749.webp",
+          "source": "IMG_4749.JPG"
+        },
+        {
+          "file": "img-4750.webp",
+          "source": "IMG_4750.JPG"
+        },
+        {
+          "file": "img-4751.webp",
+          "source": "IMG_4751.JPG"
+        },
+        {
+          "file": "img-4752.webp",
+          "source": "IMG_4752.JPG"
+        },
+        {
+          "file": "img-4753.webp",
+          "source": "IMG_4753.JPG"
+        },
+        {
+          "file": "img-4755.webp",
+          "source": "IMG_4755.JPG"
+        },
+        {
+          "file": "img-4757.webp",
+          "source": "IMG_4757.JPG"
+        },
+        {
+          "file": "img-4758.webp",
+          "source": "IMG_4758.JPG"
+        },
+        {
+          "file": "img-4759.webp",
+          "source": "IMG_4759.JPG"
+        },
+        {
+          "file": "img-4760.webp",
+          "source": "IMG_4760.JPG"
+        },
+        {
+          "file": "img-4761.webp",
+          "source": "IMG_4761.JPG"
+        },
+        {
+          "file": "img-4762.webp",
+          "source": "IMG_4762.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cameras/nikon-d3100"
+    },
+    "nintendo-ds": {
+      "images": [
+        {
+          "file": "ds-back-with-guitar-hero.webp",
+          "source": "ds back with guitar hero.HEIC"
+        },
+        {
+          "file": "ds-front-with-guitar-hero.webp",
+          "source": "ds front with guitar hero.HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/consoles/nintendo-ds"
+    },
+    "setup-2018": {
+      "images": [
+        {
+          "file": "2018-gaming-setup-with-vizio-tv-mounted-above-double-asus-monitors-also-have-my-nzxt-phantom-blue-snowball-microphone-and-hypbeast-supreme-shelves-coca-cola-light-and-my-favorite-chair-of-all-time.webp",
+          "source": "2018 gaming setup with vizio tv mounted above double asus monitors. also have my nzxt phantom, blue snowball microphone and hypbeast supreme shelves. coca cola light, and my favorite chair of all time.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/archive/setups/2018"
+    },
+    "apartment-merch-2025": {
+      "images": [],
+      "videos": [],
+      "outDir": "images/cs2-merch/apartment-setup-2025"
+    }
+  }
+}

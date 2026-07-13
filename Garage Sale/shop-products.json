@@ -6,7 +6,7 @@
 		"checkoutApi": {
 			"stripeEndpoint": "/api/shop-checkout"
 		},
-		"publicNote": "Sticker and print checkout runs on Stripe (cards, Apple/Google Pay, Link). Prices and SKUs are confirmed server-side — no manual payment links. The same items may appear on eBay for discovery.",
+		"publicNote": "Sticker and print checkout runs on Stripe (cards, Apple/Google Pay, Link). Prices and SKUs are confirmed server-side. No manual payment links. The same items may appear on eBay for discovery.",
 		"hostedCheckout": {
 			"primaryCtaLabel": "Checkout",
 			"alternateCtaLabel": "Pay with card"

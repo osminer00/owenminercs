@@ -1,6 +1,38 @@
+// Apply stored lite-visuals preference before paint when possible.
+try {
+	if (localStorage.getItem('owenminercs-low-effects') === 'on') {
+		document.documentElement.setAttribute('data-low-effects', '');
+	}
+} catch (_) {}
+
 // Determine the base path to the root of the site by looking at this script's URL
 const scriptUrl = document.querySelector('script[src*="components.js"]').src;
 const siteRoot = scriptUrl.replace('scripts/components.js', '');
+
+function owenminercsPrefersLiteVisuals() {
+	return (
+		document.documentElement.hasAttribute('data-low-effects') ||
+		(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+	);
+}
+
+function whenLowEffectsReady(fn) {
+	if (window.owenminercsLowEffectsReady && typeof window.owenminercsLowEffectsReady.then === 'function') {
+		window.owenminercsLowEffectsReady.then(fn);
+		return;
+	}
+	fn();
+}
+
+function injectLowEffectsClient() {
+	if (globalThis.__owenLowEffectsLoaded || document.querySelector('script[data-owen-low-effects]')) return;
+	const s = document.createElement('script');
+	s.src = `${siteRoot}scripts/low-effects.js`;
+	s.defer = true;
+	s.setAttribute('data-owen-low-effects', '1');
+	document.head.appendChild(s);
+}
+injectLowEffectsClient();
 
 const THEME_STORAGE_KEY = 'owenminercs-theme';
 const TEXT_ENTRY_SELECTOR =
@@ -22,16 +54,30 @@ function brandLogoVideoUrl() {
 function siteLogoMarkup(options = {}) {
 	const footer = Boolean(options.footer);
 	const staticSrc = brandLogoStaticUrl('dark');
-	const videoSrc = brandLogoVideoUrl();
 	const footerClass = footer ? ' site-logo--footer' : '';
 	const lazyAttrs = footer ? 'loading="lazy" decoding="async"' : 'fetchpriority="high" decoding="async"';
-	const videoPreload = footer ? 'preload="none"' : 'preload="auto"';
+
+	const videoSrc = brandLogoVideoUrl();
+	const videoPreload = 'preload="metadata"';
 
 	return `
               <video class="site-logo site-logo--motion${footerClass}" autoplay loop muted playsinline ${videoPreload} poster="${staticSrc}" aria-hidden="true">
                 <source src="${videoSrc}" type="video/webm">
               </video>
               <img class="site-logo site-logo--still${footerClass}" src="${staticSrc}" alt="owenminercs" ${lazyAttrs}>`;
+}
+
+function visualsControlMarkup(placement) {
+	const modifier =
+		placement === 'header' ? ' site-visuals-control--header' : ' site-visuals-control--footer';
+	return `<label class="site-visuals-control${modifier}">
+              <span class="site-visuals-control__label">Visuals:</span>
+              <select class="site-visuals-control__select" data-owen-low-effects-select aria-label="Visual quality">
+                <option value="auto">auto</option>
+                <option value="on">lite</option>
+                <option value="off">high</option>
+              </select>
+            </label>`;
 }
 
 function syncBrandLogosForTheme(theme) {
@@ -175,6 +221,102 @@ function searchFilterEntries(entries, query, maxResults = 40) {
 	return out.slice(0, maxResults);
 }
 
+const SITE_SEARCH_ACTIVE_LINK_CLASS = 'site-search-results__link--active';
+
+function searchGetResultLinks(container) {
+	if (!container || typeof container.querySelectorAll !== 'function') return [];
+	return [...container.querySelectorAll('.site-search-results__link')];
+}
+
+function searchGetActiveResultIndex(container) {
+	const links = searchGetResultLinks(container);
+	return links.findIndex((link) => link.classList.contains(SITE_SEARCH_ACTIVE_LINK_CLASS));
+}
+
+function searchSetActiveResultIndex(container, index) {
+	const links = searchGetResultLinks(container);
+	links.forEach((link, i) => {
+		const active = i === index;
+		link.classList.toggle(SITE_SEARCH_ACTIVE_LINK_CLASS, active);
+		if (active) link.setAttribute('aria-current', 'true');
+		else link.removeAttribute('aria-current');
+	});
+	const active = index >= 0 && index < links.length ? links[index] : null;
+	if (active) searchScrollActiveResultIntoView(active);
+	return active;
+}
+
+function searchScrollActiveResultIntoView(link) {
+	if (!link || typeof link.scrollIntoView !== 'function') return;
+	link.scrollIntoView({ block: 'nearest' });
+}
+
+function searchResetActiveResult(container) {
+	const links = searchGetResultLinks(container);
+	if (!links.length) return null;
+	return searchSetActiveResultIndex(container, 0);
+}
+
+function searchMoveActiveResult(container, delta) {
+	const links = searchGetResultLinks(container);
+	if (!links.length) return null;
+	let idx = searchGetActiveResultIndex(container);
+	if (idx < 0) idx = delta > 0 ? -1 : links.length;
+	idx = Math.max(0, Math.min(links.length - 1, idx + delta));
+	return searchSetActiveResultIndex(container, idx);
+}
+
+function searchNavigateActiveResult(container) {
+	const links = searchGetResultLinks(container);
+	if (!links.length) return;
+	const idx = searchGetActiveResultIndex(container);
+	const link = idx >= 0 ? links[idx] : links[0];
+	if (link instanceof HTMLAnchorElement) window.location.assign(link.href);
+}
+
+function searchHandleResultsKeyDown(resultsEl, e) {
+	if (!resultsEl) return false;
+	const links = searchGetResultLinks(resultsEl);
+	if (!links.length) return false;
+	if (e.key === 'ArrowDown') {
+		e.preventDefault();
+		searchMoveActiveResult(resultsEl, 1);
+		return true;
+	}
+	if (e.key === 'ArrowUp') {
+		e.preventDefault();
+		searchMoveActiveResult(resultsEl, -1);
+		return true;
+	}
+	if (e.key === 'Enter') {
+		e.preventDefault();
+		searchNavigateActiveResult(resultsEl);
+		return true;
+	}
+	return false;
+}
+
+/** Keyboard highlight + Enter navigation for a rendered results list. */
+function searchWireResultsNavigation(resultsEl, options = {}) {
+	if (!resultsEl || resultsEl.dataset.siteSearchNavWired === '1') return;
+	resultsEl.dataset.siteSearchNavWired = '1';
+
+	resultsEl.addEventListener('mouseover', (e) => {
+		const link = e.target.closest('.site-search-results__link');
+		if (!link || !resultsEl.contains(link)) return;
+		const links = searchGetResultLinks(resultsEl);
+		const idx = links.indexOf(link);
+		if (idx >= 0) searchSetActiveResultIndex(resultsEl, idx);
+	});
+
+	const input = options.input;
+	if (input) {
+		input.addEventListener('keydown', (e) => {
+			searchHandleResultsKeyDown(resultsEl, e);
+		});
+	}
+}
+
 /**
  * @param {'preview'|'fullPage'} variant Empty-query messaging for modal/home vs dedicated page.
  */
@@ -223,9 +365,11 @@ function searchRenderResults(container, list, query, variant) {
 		ul.appendChild(li);
 	}
 	container.appendChild(ul);
+	searchResetActiveResult(container);
 }
 
 const SITE_SEARCH_INDEX_URL = `${siteRoot}data/site-search-index.json`;
+const SITE_MAP_ORDER_URL = `${siteRoot}data/site-map-order.json`;
 
 window.owenminercsSiteSearchApi = {
 	indexUrl: SITE_SEARCH_INDEX_URL,
@@ -233,6 +377,9 @@ window.owenminercsSiteSearchApi = {
 	getSearchPageUrl,
 	filterEntries: searchFilterEntries,
 	renderResults: searchRenderResults,
+	wireResultsNavigation: searchWireResultsNavigation,
+	handleResultsKeyDown: searchHandleResultsKeyDown,
+	navigateActiveResult: searchNavigateActiveResult,
 };
 
 const DISCORD_INVITE_URL = 'https://discord.gg/fA9GbxmAge';
@@ -354,6 +501,9 @@ const ACH_MAIN_NAV_FULL_TOUR = 'main-nav-full-tour';
 const NAV_RETURN_STATE_KEY = 'owenminercs-nav-return-state-v1';
 const NAV_RETURN_SCROLL_KEY = 'owenminercs-nav-return-scroll-v1';
 const NAV_RETURN_MAX_AGE_MS = 1000 * 60 * 60 * 8;
+const SCROLL_POSITIONS_KEY = 'owenminercs-scroll-positions-v1';
+const SCROLL_POSITION_MAX_AGE_MS = 1000 * 60 * 60 * 2;
+const SCROLL_POSITION_MAX_ENTRIES = 50;
 /** Stable ids matching header/footer `data-nav` (order matches the bar). */
 const MAIN_NAV_TOUR_SLOTS = Object.freeze([
 	'index.html',
@@ -396,7 +546,7 @@ function getMainNavTourSlotFromLocation() {
 	}
 	const lc = currentPath.toLowerCase();
 
-	// Home (`index.html`) only — do not treat `/Socials/` etc. as home (unlike a loose trailing-slash check).
+	// Home (`index.html`) only, do not treat `/Socials/` etc. as home (unlike a loose trailing-slash check).
 	if (currentPath === '/' || currentPath === '' || lc.endsWith('index.html')) {
 		return 'index.html';
 	}
@@ -527,27 +677,276 @@ function applyPendingNavReturnScrollRestore() {
 	const target = normalizeUrlForMatch(payload.targetUrl || '');
 	if (!here || !target || here !== target) return;
 
-	const x = Number(payload.scrollX);
-	const y = Number(payload.scrollY);
 	localStorage.removeItem(NAV_RETURN_SCROLL_KEY);
+	restoreScrollPositionWithRetries(payload);
+}
+
+/** Detail/sub-hub "← Gear" style links inside `.setup-detail__back` / `.vac-back`. */
+function isHubBackLink(anchor) {
+	if (!(anchor instanceof HTMLAnchorElement)) return false;
+	if (anchor.classList.contains('hub-back-link')) return true;
+	return Boolean(anchor.closest('.setup-detail__back, .vac-back'));
+}
+
+function isPrimaryHubBackLink(anchor) {
+	if (!isHubBackLink(anchor)) return false;
+	const container = anchor.closest('.setup-detail__back, .vac-back');
+	if (!container) return false;
+	const first = container.querySelector('a[href]');
+	return first === anchor;
+}
+
+function canUseHistoryBack() {
+	if (window.history.length <= 1) return false;
+	try {
+		const ref = document.referrer;
+		if (!ref) return false;
+		const refUrl = new URL(ref);
+		if (refUrl.origin !== window.location.origin) return false;
+		return normalizeUrlForMatch(ref) !== normalizeUrlForMatch(window.location.href);
+	} catch (_) {
+		return false;
+	}
+}
+
+function tryHubBackViaHistory(event, anchor) {
+	if (!isPrimaryHubBackLink(anchor)) return false;
+	if (event.defaultPrevented) return false;
+	if (event.button !== 0) return false;
+	if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
+	if (anchor.target && anchor.target !== '_self') return false;
+	if (!canUseHistoryBack()) return false;
+
+	event.preventDefault();
+	persistScrollPosition();
+	window.history.back();
+	return true;
+}
+
+function applyHubBackLinkLabels(root) {
+	const scope = root instanceof Element ? root : document;
+	scope.querySelectorAll('.setup-detail__back, .vac-back').forEach(function (container) {
+		const anchor = container.querySelector('a[href]');
+		if (!anchor) return;
+		if (!canUseHistoryBack()) return;
+		anchor.textContent = '\u2190 Back';
+		anchor.setAttribute('aria-label', 'Back to previous page');
+	});
+}
+
+function queueHubBackScrollRestore(anchor) {
+	if (!isHubBackLink(anchor)) return;
+	if (anchor.target && anchor.target !== '_self') return;
+	const href = anchor.getAttribute('href');
+	if (!href || href.startsWith('#')) return;
+	let destination;
+	try {
+		destination = new URL(href, window.location.href);
+	} catch (_) {
+		return;
+	}
+	if (destination.origin !== window.location.origin) return;
+
+	const destKey = normalizeUrlForMatch(destination.href);
+	if (!destKey) return;
+	const record = readScrollPositionsMap()[destKey];
+	if (!record || typeof record !== 'object') return;
+
+	writeJsonStorage(NAV_RETURN_SCROLL_KEY, {
+		targetUrl: destination.href,
+		scrollX: Number(record.scrollX) || 0,
+		scrollY: Number(record.scrollY) || 0,
+		createdAt: Date.now(),
+	});
+}
+
+function readScrollPositionsMap() {
+	try {
+		const raw = sessionStorage.getItem(SCROLL_POSITIONS_KEY);
+		return raw ? JSON.parse(raw) : {};
+	} catch (_) {
+		return {};
+	}
+}
+
+function writeScrollPositionsMap(map) {
+	try {
+		sessionStorage.setItem(SCROLL_POSITIONS_KEY, JSON.stringify(map));
+	} catch (_) {}
+}
+
+function scrollPositionStorageKey() {
+	return normalizeUrlForMatch(window.location.href);
+}
+
+function shouldSkipScrollRestoreForHash() {
+	const hash = window.location.hash || '';
+	return hash !== '' && hash !== '#top';
+}
+
+function isBackForwardNavigation() {
+	try {
+		const nav = performance.getEntriesByType('navigation')[0];
+		return Boolean(nav && nav.type === 'back_forward');
+	} catch (_) {
+		return false;
+	}
+}
+
+function hasPendingNavReturnScrollRestore() {
+	const payload = readJsonStorage(NAV_RETURN_SCROLL_KEY);
+	if (!payload || typeof payload !== 'object') return false;
+	const here = normalizeUrlForMatch(window.location.href);
+	const target = normalizeUrlForMatch(payload.targetUrl || '');
+	return Boolean(here && target && here === target);
+}
+
+function persistScrollPosition() {
+	const key = scrollPositionStorageKey();
+	if (!key) return;
+
+	const map = readScrollPositionsMap();
+	map[key] = {
+		scrollX: window.scrollX || 0,
+		scrollY: window.scrollY || 0,
+		updatedAt: Date.now(),
+	};
+
+	const now = Date.now();
+	const entries = Object.entries(map).filter(
+		([, value]) => now - Number(value && value.updatedAt) <= SCROLL_POSITION_MAX_AGE_MS
+	);
+	entries.sort((a, b) => Number(b[1].updatedAt || 0) - Number(a[1].updatedAt || 0));
+
+	const pruned = {};
+	for (let i = 0; i < Math.min(entries.length, SCROLL_POSITION_MAX_ENTRIES); i++) {
+		pruned[entries[i][0]] = entries[i][1];
+	}
+	writeScrollPositionsMap(pruned);
+}
+
+function readSavedScrollPosition() {
+	const key = scrollPositionStorageKey();
+	if (!key) return null;
+	const record = readScrollPositionsMap()[key];
+	if (!record || typeof record !== 'object') return null;
+	if (Date.now() - Number(record.updatedAt || 0) > SCROLL_POSITION_MAX_AGE_MS) return null;
+	return record;
+}
+
+function restoreScrollPositionWithRetries(record) {
+	const x = Number(record.scrollX);
+	const y = Number(record.scrollY);
 	if (!Number.isFinite(x) || !Number.isFinite(y)) return;
 
 	const restore = function () {
 		window.scrollTo(x, y);
 	};
 	requestAnimationFrame(restore);
+	window.setTimeout(restore, 0);
 	window.setTimeout(restore, 160);
 	window.setTimeout(restore, 420);
+	window.setTimeout(restore, 900);
 }
 
-function buildNavReturnButton(record) {
-	const wrap = document.createElement('div');
-	wrap.className = 'site-nav-return-popup';
-	wrap.setAttribute('role', 'status');
-	wrap.setAttribute('aria-live', 'polite');
+function shouldAttemptSessionScrollRestore() {
+	if (shouldSkipScrollRestoreForHash()) return false;
+	if (hasPendingNavReturnScrollRestore()) return false;
+	return isBackForwardNavigation();
+}
+
+function applySessionScrollRestore() {
+	if (!shouldAttemptSessionScrollRestore()) return;
+	const record = readSavedScrollPosition();
+	if (!record) return;
+	restoreScrollPositionWithRetries(record);
+}
+
+function scheduleSessionScrollRestoreAfterDom() {
+	requestAnimationFrame(function () {
+		requestAnimationFrame(applySessionScrollRestore);
+	});
+}
+
+function initSiteScrollRestoration() {
+	if (document.documentElement.dataset.owenScrollRestoreBound === '1') return;
+	document.documentElement.dataset.owenScrollRestoreBound = '1';
+
+	if ('scrollRestoration' in history) {
+		history.scrollRestoration = 'auto';
+	}
+
+	let saveTimer = 0;
+	function schedulePersistScroll() {
+		if (saveTimer) return;
+		saveTimer = window.setTimeout(function () {
+			saveTimer = 0;
+			persistScrollPosition();
+		}, 150);
+	}
+
+	window.addEventListener('scroll', schedulePersistScroll, { passive: true });
+	window.addEventListener('pagehide', persistScrollPosition);
+
+	document.addEventListener(
+		'click',
+		function (event) {
+			if (event.defaultPrevented) return;
+			const target = event.target;
+			const anchor = target && target.closest ? target.closest('a[href]') : null;
+			if (!anchor) return;
+			if (tryHubBackViaHistory(event, anchor)) return;
+			if (anchor.target && anchor.target !== '_self') return;
+			const href = anchor.getAttribute('href');
+			if (!href || href.startsWith('#')) return;
+			try {
+				const destination = new URL(href, window.location.href);
+				if (destination.origin !== window.location.origin) return;
+			} catch (_) {
+				return;
+			}
+			persistScrollPosition();
+			queueHubBackScrollRestore(anchor);
+		},
+		true
+	);
+
+	window.addEventListener('pageshow', function (event) {
+		if (!event.persisted && !isBackForwardNavigation()) return;
+		scheduleSessionScrollRestoreAfterDom();
+	});
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', scheduleSessionScrollRestoreAfterDom, {
+			once: true,
+		});
+		document.addEventListener('DOMContentLoaded', function () {
+			applyHubBackLinkLabels(document);
+		}, { once: true });
+	} else {
+		scheduleSessionScrollRestoreAfterDom();
+		applyHubBackLinkLabels(document);
+	}
+}
+
+function readNavReturnRecord() {
+	const record = readJsonStorage(NAV_RETURN_STATE_KEY);
+	if (!record || typeof record !== 'object') return null;
+	if (Date.now() - Number(record.createdAt || 0) > NAV_RETURN_MAX_AGE_MS) {
+		localStorage.removeItem(NAV_RETURN_STATE_KEY);
+		return null;
+	}
+	const current = normalizeUrlForMatch(window.location.href);
+	const expected = normalizeUrlForMatch(record.toUrl || '');
+	const source = normalizeUrlForMatch(record.fromUrl || '');
+	if (!current || !expected || current !== expected || current === source) return null;
+	return record;
+}
+
+function buildSiteFloatingNavBackButton(record) {
 	const button = document.createElement('button');
 	button.type = 'button';
-	button.className = 'site-nav-return-popup__button';
+	button.className = 'site-nav-return-popup__button site-nav-return-popup__button--back';
 	button.textContent = 'Back';
 	const labelSource = record.fromTitle || 'your previous page';
 	button.setAttribute('aria-label', `Back to ${labelSource}`);
@@ -561,23 +960,44 @@ function buildNavReturnButton(record) {
 		localStorage.removeItem(NAV_RETURN_STATE_KEY);
 		window.location.href = record.fromUrl;
 	});
-	wrap.appendChild(button);
+	return button;
+}
+
+function buildSiteFloatingNavTopButton() {
+	const link = document.createElement('a');
+	link.href = '#top';
+	link.className = 'site-nav-return-popup__button site-nav-return-popup__button--top';
+	link.textContent = 'Top';
+	link.setAttribute('aria-label', 'Back to top of page');
+	link.addEventListener('click', function (event) {
+		event.preventDefault();
+		const prefersReducedMotion =
+			typeof window.matchMedia === 'function' &&
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+		const topTarget = document.getElementById('top');
+		if (topTarget && typeof topTarget.focus === 'function') {
+			topTarget.focus({ preventScroll: true });
+		}
+	});
+	return link;
+}
+
+function buildSiteFloatingNav() {
+	const wrap = document.createElement('nav');
+	wrap.className = 'site-nav-return-popup';
+	wrap.setAttribute('aria-label', 'Page navigation');
+	const record = readNavReturnRecord();
+	if (record) {
+		wrap.appendChild(buildSiteFloatingNavBackButton(record));
+	}
+	wrap.appendChild(buildSiteFloatingNavTopButton());
 	return wrap;
 }
 
-function maybeShowNavReturnButton() {
-	const record = readJsonStorage(NAV_RETURN_STATE_KEY);
-	if (!record || typeof record !== 'object') return;
-	if (Date.now() - Number(record.createdAt || 0) > NAV_RETURN_MAX_AGE_MS) {
-		localStorage.removeItem(NAV_RETURN_STATE_KEY);
-		return;
-	}
-	const current = normalizeUrlForMatch(window.location.href);
-	const expected = normalizeUrlForMatch(record.toUrl || '');
-	const source = normalizeUrlForMatch(record.fromUrl || '');
-	if (!current || !expected || current !== expected || current === source) return;
+function initSiteFloatingNav() {
 	if (document.querySelector('.site-nav-return-popup')) return;
-	document.body.appendChild(buildNavReturnButton(record));
+	document.body.appendChild(buildSiteFloatingNav());
 }
 
 function initMainNavReturnHistory() {
@@ -598,7 +1018,7 @@ function initMainNavReturnHistory() {
 	);
 	const run = function () {
 		applyPendingNavReturnScrollRestore();
-		maybeShowNavReturnButton();
+		initSiteFloatingNav();
 	};
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', run, { once: true });
@@ -629,11 +1049,11 @@ window.owenminercsClearAchievementProgress = function owenminercsClearAchievemen
 	});
 })();
 
-/** Loads homepage “What’s new” feed from `data/site-feed.json` (skipped when `#site-feed-list` has `data-site-feed-static`). */
+/** Loads homepage “What’s new” feed from `data/site-feed.json`. */
 function injectSiteFeedClient() {
 	if (document.querySelector('script[data-owen-site-feed]')) return;
 	const list = document.getElementById('site-feed-list');
-	if (list && list.hasAttribute('data-site-feed-static')) return;
+	if (!list) return;
 	const s = document.createElement('script');
 	s.src = `${siteRoot}scripts/site-feed.js`;
 	s.defer = true;
@@ -651,7 +1071,26 @@ function injectAchievementCelebrationClient() {
 	document.body.appendChild(s);
 }
 
-/* Brand mark paths from Simple Icons (CC0 1.0) — https://simpleicons.org/ — for compact bottom-dock nav only. */
+/** Mouse-reactive starfield canvas behind page content (see `scripts/starfield-bg.js`). */
+function injectStarfieldBgClient() {
+	if (document.body?.hasAttribute('data-no-starfield')) return;
+	if (document.documentElement.hasAttribute('data-low-effects')) return;
+	if (document.querySelector('script[data-owen-starfield-bg]')) return;
+	const s = document.createElement('script');
+	s.src = `${siteRoot}scripts/starfield-bg.js`;
+	s.defer = true;
+	s.setAttribute('data-owen-starfield-bg', '1');
+	document.body.appendChild(s);
+}
+
+function scheduleStarfieldBgClient() {
+	whenLowEffectsReady(function () {
+		if (document.documentElement.hasAttribute('data-low-effects')) return;
+		injectStarfieldBgClient();
+	});
+}
+
+/* Brand mark paths from Simple Icons (CC0 1.0), https://simpleicons.org/, for compact bottom-dock nav only. */
 const SOCIAL_ICON_PATHS = {
 	x: 'M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z',
 	reddit: 'M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z',
@@ -706,8 +1145,17 @@ function resolveActiveNavLink(scope) {
 	const currentPath = window.location.pathname;
 	const links = scope.querySelectorAll('nav a[data-nav]');
 	let activeLink = null;
-	if (currentPath.endsWith('/') || currentPath.endsWith('index.html')) {
-		activeLink = scope.querySelector('a[data-nav="index.html"]');
+	if (
+		currentPath.endsWith('/') ||
+		currentPath.endsWith('index.html') ||
+		currentPath.includes('/site-map')
+	) {
+		if (currentPath.includes('/site-map')) {
+			activeLink = scope.querySelector('a[data-nav="site-map"]');
+		}
+		if (!activeLink && (currentPath.endsWith('/') || currentPath.endsWith('index.html'))) {
+			activeLink = scope.querySelector('a[data-nav="index.html"]');
+		}
 	} else {
 		for (const link of links) {
 			const dataNav = link.getAttribute('data-nav');
@@ -745,50 +1193,211 @@ function resolveActiveNavLink(scope) {
 function applyNavHighlight(scope) {
 	const links = scope.querySelectorAll('nav a[data-nav]');
 	links.forEach((link) => {
+		if (link.closest('[data-footer-quick-links-carousel]')) {
+			link.classList.remove('home-pillars__link--active');
+			return;
+		}
 		link.classList.add('site-nav-link');
 		link.classList.remove('site-nav-link--active');
 	});
 	const activeLink = resolveActiveNavLink(scope);
-	if (activeLink) {
-		activeLink.classList.add('site-nav-link--active');
+	if (!activeLink) {
+		highlightFooterCarouselCurrentPage(scope);
+		return;
 	}
+	if (activeLink.closest('[data-footer-quick-links-carousel]')) {
+		scope.querySelectorAll('[data-footer-quick-links-carousel] .home-pillars__link').forEach((link) => {
+			link.classList.toggle('home-pillars__link--active', link === activeLink);
+		});
+		return;
+	}
+	activeLink.classList.add('site-nav-link--active');
+	highlightFooterCarouselCurrentPage(scope);
+}
+
+/** Inject the site-wide quick-links carousel at the top of `.container` (same data/behavior as footer). */
+function injectSiteQuickLinks() {
+	if (!document.body.classList.contains('site-card-ui')) return;
+	const container = document.querySelector('body.site-card-ui > .container');
+	if (!container) return;
+
+	container.querySelector('.site-nav-pillars')?.remove();
+	container
+		.querySelector(':scope > .home-pillars:not([data-footer-quick-links-carousel])')
+		?.remove();
+
+	if (container.querySelector('[data-site-header-quick-links-carousel]')) return;
+
+	const tpl = document.createElement('template');
+	tpl.innerHTML = quickLinksCarouselMarkup({ placement: 'header' }).trim();
+	container.insertBefore(tpl.content.firstChild, container.firstChild);
+
+	populateFooterQuickLinksCarousel(container);
+}
+
+const SITE_HEADER_MOBILE_NAV_MQ = '(max-width: 700px)';
+
+function initHeaderMobileNav(headerRoot) {
+	const stickyBar = headerRoot.querySelector('.site-header-sticky-bar');
+	const toggle = headerRoot.querySelector('.site-nav-toggle');
+	const panel = headerRoot.querySelector('#site-primary-nav-panel');
+	if (!stickyBar || !toggle || !panel) return () => {};
+
+	const mobileMq = window.matchMedia(SITE_HEADER_MOBILE_NAV_MQ);
+
+	function isMobileNav() {
+		return mobileMq.matches;
+	}
+
+	function setNavOpen(open) {
+		const expanded = Boolean(open);
+		stickyBar.classList.toggle('site-header-sticky-bar--nav-open', expanded);
+		toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+		toggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+		panel.hidden = false;
+	}
+
+	function closeNav() {
+		setNavOpen(false);
+	}
+
+	function onToggleClick(event) {
+		event.stopPropagation();
+		setNavOpen(toggle.getAttribute('aria-expanded') !== 'true');
+	}
+
+	function onDocumentClick(event) {
+		if (!isMobileNav() || toggle.getAttribute('aria-expanded') !== 'true') return;
+		if (!stickyBar.contains(event.target)) closeNav();
+	}
+
+	function onDocumentKeyDown(event) {
+		if (event.key === 'Escape') closeNav();
+	}
+
+	function onMobileMqChange() {
+		if (isMobileNav()) {
+			setNavOpen(false);
+		} else {
+			panel.hidden = false;
+			stickyBar.classList.remove('site-header-sticky-bar--nav-open');
+			toggle.setAttribute('aria-expanded', 'false');
+			toggle.setAttribute('aria-label', 'Open menu');
+		}
+	}
+
+	function onNavLinkClick() {
+		closeNav();
+	}
+
+	toggle.addEventListener('click', onToggleClick);
+	document.addEventListener('click', onDocumentClick);
+	document.addEventListener('keydown', onDocumentKeyDown);
+	mobileMq.addEventListener('change', onMobileMqChange);
+	panel.querySelectorAll('a').forEach((anchor) => anchor.addEventListener('click', onNavLinkClick));
+
+	onMobileMqChange();
+
+	return () => {
+		toggle.removeEventListener('click', onToggleClick);
+		document.removeEventListener('click', onDocumentClick);
+		document.removeEventListener('keydown', onDocumentKeyDown);
+		mobileMq.removeEventListener('change', onMobileMqChange);
+		panel.querySelectorAll('a').forEach((anchor) => anchor.removeEventListener('click', onNavLinkClick));
+	};
 }
 
 class SharedHeader extends HTMLElement {
+	#mobileNavCleanup = null;
+
 	connectedCallback() {
 		this.innerHTML = `
       <header class="site-shared-header">
         <div class="site-shared-header__content">
           <div class="site-header-brand-row">
-            <span class="site-header-brand-row__balance" aria-hidden="true"></span>
             <a href="${siteRoot}" class="site-logo-link site-logo-link--header" title="owenminercs.com" aria-label="Home">${siteLogoMarkup()}
             </a>
+            <div class="site-header-search" data-owen-site-search="1">
+              <form class="site-header-search__form" role="search" action="#" method="get">
+                <label for="header-site-search-input" class="site-visually-hidden">search site</label>
+                <input
+                  type="search"
+                  id="header-site-search-input"
+                  class="site-header-search__input site-search__input"
+                  name="q"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="search site"
+                  enterkeyhint="search"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-controls="header-site-search-results"
+                  aria-autocomplete="list"
+                  data-owen-site-search="1"
+                />
+              </form>
+              <div
+                class="site-header-search__dropdown site-search-results"
+                id="header-site-search-results"
+                role="listbox"
+                aria-live="polite"
+                hidden
+              ></div>
+            </div>
             <div class="site-header-dock-cluster">
+              ${visualsControlMarkup('header')}
               <button type="button" class="site-social-dock-reset" data-owen-social-dock-reset="1" title="Reset social bar position" hidden>Reset Social Bar</button>
             </div>
           </div>
           <div class="site-header-sticky-bar">
-            <nav aria-label="Primary">
-            <ul>
-              <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home — bio, intro, and what’s new">Home</a></li>
-              <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, PC, keyboard, peripherals, and priced gear">Gear</a></li>
-              <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
-              <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators" title="Supporters, tips, and thank-yous">Donators</a></li>
-              <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
-              <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
-              <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
-              <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
-              <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
-              <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
-            </ul>
-          </nav>
-          <hr class="site-rule site-rule--flush">
+            <div class="site-header-sticky-bar__top">
+              <button
+                type="button"
+                class="site-nav-toggle"
+                aria-expanded="false"
+                aria-controls="site-primary-nav-panel"
+                aria-label="Open menu"
+              >
+                <span class="site-nav-toggle__bars" aria-hidden="true">
+                  <span class="site-nav-toggle__bar"></span>
+                  <span class="site-nav-toggle__bar"></span>
+                  <span class="site-nav-toggle__bar"></span>
+                </span>
+              </button>
+            </div>
+            <div id="site-primary-nav-panel" class="site-header-nav-panel">
+              <nav aria-label="Primary">
+                <ul>
+                  <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home: bio, intro, and what’s new">Home</a></li>
+                  <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, PC, keyboard, peripherals, and priced gear">Gear</a></li>
+                  <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
+                  <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators" title="Supporters, tips, and thank-yous">Donators</a></li>
+                  <li><a href="${getLink('Garage%20Sale/garage-sale')}" class="site-nav-link" data-nav="garage-sale" title="Stickers, prints, and items for sale">For sale</a></li>
+                  <li><a href="${getLink('Help%20Wanted/help-wanted')}" class="site-nav-link" data-nav="Help Wanted" title="Open roles, collabs, and requests">Help Wanted</a></li>
+                  <li><a href="${getLink('QA/qa')}" class="site-nav-link" data-nav="QA" title="Questions and answers">Q&amp;A</a></li>
+                  <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
+                  <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
+                  <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
+                  <li><a href="${getLink('site-map')}" class="site-nav-link" data-nav="site-map" title="All pages on the site, grouped by section">Map</a></li>
+                </ul>
+              </nav>
+              <hr class="site-rule site-rule--flush">
+            </div>
           </div>
         </div>
       </header>
     `;
 
 		applyNavHighlight(this);
+		this.#mobileNavCleanup = initHeaderMobileNav(this);
+		if (window.owenminercsLowEffects?.refreshVisualsControls) {
+			window.owenminercsLowEffects.refreshVisualsControls();
+		}
+	}
+
+	disconnectedCallback() {
+		this.#mobileNavCleanup?.();
+		this.#mobileNavCleanup = null;
 	}
 }
 
@@ -796,41 +1405,567 @@ class SharedHeader extends HTMLElement {
 function stripFooterAmazonEarningsSuffix(html) {
 	if (!html || typeof html !== 'string') return html;
 	let s = html;
-	s = s.replace(
+	const amazonSuffixPatterns = [
 		/\s*As an Amazon Associate I earn from qualifying purchases through eligible links on those pages\.?(?=\s*<\/i>)/i,
-		''
-	);
-	s = s.replace(
 		/\s*As an Amazon Associate I earn from qualifying purchases through eligible links on this page\.?(?=\s*<\/i>)/i,
-		''
-	);
-	s = s.replace(/\s*As an Amazon Associate I earn from qualifying purchases\.?(?=\s*<\/i>)/i, '');
+		/\s*As an Amazon Associate I earn from qualifying purchases\.?(?=\s*<\/i>)/i,
+		/\s*Gear, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program\.?(?=\s*<\/i>)/i,
+	];
+	for (const pattern of amazonSuffixPatterns) {
+		s = s.replace(pattern, '');
+	}
 	return s;
+}
+
+/** Footer carousel fallback until site-map JSON loads (main nav pills). */
+const MAIN_NAV_FOOTER_QUICK_LINKS = Object.freeze([
+	{ path: 'index', label: 'Home page' },
+	{ path: 'The%20Setup/the-setup', label: 'Gear' },
+	{ path: 'Gaming/gaming', label: 'Gaming' },
+	{ path: 'Donators/donators', label: 'Donators' },
+	{ path: 'Garage%20Sale/garage-sale', label: 'For sale' },
+	{ path: 'Help%20Wanted/help-wanted', label: 'Help Wanted' },
+	{ path: 'QA/qa', label: 'Q&A' },
+	{ path: 'dev/dev-stack', label: 'Programs' },
+	{ path: 'Achievements/achievements', label: 'Achievements' },
+	{ path: 'Socials/socials', label: 'Content' },
+	{ path: 'site-map', label: 'Map' },
+]);
+
+function normalizeFooterCarouselPathKey(p) {
+	try {
+		return decodeURIComponent(p).replace(/\\/g, '/').replace(/\.html$/i, '').toLowerCase();
+	} catch {
+		return String(p || '').toLowerCase();
+	}
+}
+
+function cleanFooterCarouselTitle(raw) {
+	let t = (raw || '').trim();
+	t = t.replace(/\s*\|\s*Owen Miner\s*$/i, '');
+	t = t.replace(/\s*\|\s*OwenMinerCS\s*$/i, '');
+	t = t.replace(/\s*\|\s*Easter eggs\s*/i, '');
+	t = t.replace(/\s*\|\s*$/g, '').trim();
+	return t || 'Page';
+}
+
+function footerCarouselHref(sitePath) {
+	if (!sitePath || sitePath === 'index') return siteRoot;
+	return getLink(sitePath);
+}
+
+const FOOTER_QUICK_LINKS_LABEL_OVERRIDES = Object.freeze({
+	index: 'Home page',
+	'the setup/previous-setups': 'Gaming Setup Archive',
+});
+
+function footerCarouselLabelFromPath(sitePath, entryMap) {
+	const key = normalizeFooterCarouselPathKey(sitePath);
+	if (FOOTER_QUICK_LINKS_LABEL_OVERRIDES[key]) return FOOTER_QUICK_LINKS_LABEL_OVERRIDES[key];
+	const entry = entryMap.get(key);
+	if (entry?.title) return cleanFooterCarouselTitle(entry.title);
+	const segments = decodeURIComponent(sitePath).split('/');
+	const leaf = segments[segments.length - 1] || 'Page';
+	return leaf.replace(/-/g, ' ');
+}
+
+/** Popular destinations pulled to the front of the footer carousel (rest keep site-map order). */
+const FOOTER_QUICK_LINKS_PRIORITY = Object.freeze([
+	'index',
+	'The%20Setup/the-setup',
+	'The%20Setup/previous-setups',
+	'The%20Setup/keyboards',
+	'Gaming/cs2-merch',
+	'PC/pc',
+	'Gaming/gaming',
+	'Gaming/cs2-videos',
+	'Gaming/cs2-skins',
+	'Donators/donators',
+	'Garage%20Sale/garage-sale',
+	'Socials/socials',
+	'site-map',
+]);
+
+function sortFooterQuickLinksByPriority(links) {
+	const rank = new Map();
+	FOOTER_QUICK_LINKS_PRIORITY.forEach((p, i) => rank.set(normalizeFooterCarouselPathKey(p), i));
+	const prioritized = [];
+	const rest = [];
+	for (const link of links) {
+		if (rank.has(normalizeFooterCarouselPathKey(link.path))) prioritized.push(link);
+		else rest.push(link);
+	}
+	prioritized.sort(
+		(a, b) =>
+			rank.get(normalizeFooterCarouselPathKey(a.path)) -
+			rank.get(normalizeFooterCarouselPathKey(b.path))
+	);
+	return [...prioritized, ...rest];
+}
+
+function buildFooterQuickLinksList(order, entryMap) {
+	const seen = new Set();
+	const links = [];
+	const push = (sitePath) => {
+		const key = normalizeFooterCarouselPathKey(sitePath);
+		if (!key || seen.has(key)) return;
+		seen.add(key);
+		links.push({
+			path: sitePath,
+			label: footerCarouselLabelFromPath(sitePath, entryMap),
+		});
+	};
+	for (const section of order?.sections || []) {
+		for (const sitePath of section.paths || []) push(sitePath);
+	}
+	// Site map isn't part of the section listings; surface it in the carousel.
+	push('site-map');
+	return sortFooterQuickLinksByPriority(links);
+}
+
+function normalizeFooterCarouselPageHref(href) {
+	try {
+		const u = new URL(href, window.location.origin);
+		let p = decodeURIComponent(u.pathname);
+		if (p.endsWith('/index.html')) p = p.slice(0, -10) || '/';
+		else if (p.endsWith('.html')) p = p.slice(0, -5);
+		if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
+		return p.toLowerCase();
+	} catch {
+		return '';
+	}
+}
+
+function highlightFooterCarouselCurrentPage(scope) {
+	const carousel = scope?.querySelector('[data-footer-quick-links-carousel]');
+	if (!carousel) return;
+	const current = normalizeFooterCarouselPageHref(window.location.href);
+	carousel.querySelectorAll('.home-pillars__link').forEach((link) => {
+		link.classList.toggle(
+			'home-pillars__link--active',
+			normalizeFooterCarouselPageHref(link.href) === current
+		);
+	});
+}
+
+function appendFooterQuickLinksToTrack(track, links, { duplicate = false } = {}) {
+	track.replaceChildren();
+	const addSet = () => {
+		links.forEach((link, index) => {
+			if (index > 0) {
+				const sep = document.createElement('span');
+				sep.className = 'home-pillars__sep';
+				sep.setAttribute('aria-hidden', 'true');
+				sep.textContent = '\u00b7';
+				track.appendChild(sep);
+			}
+			const anchor = document.createElement('a');
+			anchor.className = 'home-pillars__link';
+			anchor.href = footerCarouselHref(link.path);
+			anchor.dataset.footerPath = link.path || 'index';
+			anchor.textContent = link.label;
+			track.appendChild(anchor);
+		});
+	};
+	addSet();
+	if (duplicate) addSet();
+	track.dataset.uniqueLinkCount = String(links.length);
+}
+
+function quickLinksCarouselMarkup({ placement = 'footer' } = {}) {
+	const isHeader = placement === 'header';
+	const placementClass = isHeader ? 'home-pillars--header site-header-quick-links' : 'home-pillars--footer';
+	const carouselAttr = isHeader
+		? 'data-site-header-quick-links-carousel'
+		: 'data-footer-quick-links-carousel';
+	return `<nav class="home-pillars ${placementClass} site-footer-quick-links" aria-label="Explore all site pages" ${carouselAttr} data-footer-quick-links-carousel><button type="button" class="site-footer-quick-links__arrow site-footer-quick-links__arrow--prev" aria-label="Scroll quick links left" data-footer-quick-links-prev>\u2039</button><div class="site-footer-quick-links__viewport"><div class="site-footer-quick-links__track" data-footer-quick-links-track></div></div><button type="button" class="site-footer-quick-links__arrow site-footer-quick-links__arrow--next" aria-label="Scroll quick links right" data-footer-quick-links-next>\u203a</button></nav>`;
+}
+
+function footerQuickLinksCarouselMarkup() {
+	return quickLinksCarouselMarkup({ placement: 'footer' });
+}
+
+const FOOTER_QUICK_LINKS_DRAG_THRESHOLD_PX = 6;
+const FOOTER_QUICK_LINKS_MOMENTUM_MIN_VELOCITY = 0.035;
+const FOOTER_QUICK_LINKS_MOMENTUM_FRICTION = 0.91;
+const FOOTER_QUICK_LINKS_MOMENTUM_BOOST = 0.88;
+
+/** Manual drag on footer quick-links; clicks on pills still navigate when movement stays below threshold. */
+function bindFooterQuickLinksDrag(root, viewport) {
+	if (!root || !viewport || viewport.dataset.footerQuickLinksDragBound === '1') return;
+	viewport.dataset.footerQuickLinksDragBound = '1';
+
+	let pointerActive = false;
+	let dragging = false;
+	let didDrag = false;
+	let dragStartX = 0;
+	let dragOriginScroll = 0;
+	let activePointerId = null;
+	let lastMoveX = 0;
+	let lastMoveTime = 0;
+	let velocityX = 0;
+	let momentumFrame = null;
+
+	function pauseAutoplay() {
+		const autoplay = root._footerQuickLinksAutoplay;
+		if (!autoplay) return;
+		autoplay.paused = true;
+		autoplay.stop();
+	}
+
+	function stopMomentum() {
+		if (momentumFrame) {
+			window.cancelAnimationFrame(momentumFrame);
+			momentumFrame = null;
+		}
+		root._footerQuickLinksMomentumActive = false;
+		root.classList.remove('site-footer-quick-links--coasting');
+	}
+
+	function startMomentum(pointerVelocityPxPerMs) {
+		stopMomentum();
+		let velocity = -pointerVelocityPxPerMs * FOOTER_QUICK_LINKS_MOMENTUM_BOOST;
+		if (Math.abs(velocity) < FOOTER_QUICK_LINKS_MOMENTUM_MIN_VELOCITY) {
+			didDrag = false;
+			return;
+		}
+
+		root._footerQuickLinksMomentumActive = true;
+		root.classList.add('site-footer-quick-links--coasting');
+		let lastTime = performance.now();
+
+		const tick = (now) => {
+			const dt = Math.min(Math.max(now - lastTime, 0), 32);
+			lastTime = now;
+			viewport.scrollLeft += velocity * dt;
+			velocity *= FOOTER_QUICK_LINKS_MOMENTUM_FRICTION ** (dt / (1000 / 60));
+			if (Math.abs(velocity) < FOOTER_QUICK_LINKS_MOMENTUM_MIN_VELOCITY) {
+				stopMomentum();
+				didDrag = false;
+				return;
+			}
+			momentumFrame = window.requestAnimationFrame(tick);
+		};
+
+		momentumFrame = window.requestAnimationFrame(tick);
+	}
+
+	function clearPointerListeners() {
+		document.removeEventListener('pointermove', onPointerMove);
+		document.removeEventListener('pointerup', onPointerEnd);
+		document.removeEventListener('pointercancel', onPointerEnd);
+	}
+
+	function onPointerMove(event) {
+		if (!pointerActive || event.pointerId !== activePointerId) return;
+		const dx = event.clientX - dragStartX;
+		if (!dragging && Math.abs(dx) > FOOTER_QUICK_LINKS_DRAG_THRESHOLD_PX) {
+			dragging = true;
+			didDrag = true;
+			root.classList.add('site-footer-quick-links--dragging');
+			viewport.setPointerCapture(event.pointerId);
+		}
+		if (!dragging) return;
+		event.preventDefault();
+		const now = performance.now();
+		const x = event.clientX;
+		if (lastMoveTime > 0) {
+			const dt = now - lastMoveTime;
+			if (dt > 0 && dt < 120) {
+				const instant = (x - lastMoveX) / dt;
+				velocityX = velocityX * 0.35 + instant * 0.65;
+			}
+		}
+		lastMoveX = x;
+		lastMoveTime = now;
+		viewport.scrollLeft = dragOriginScroll - dx;
+	}
+
+	function onPointerEnd(event) {
+		if (!pointerActive || event.pointerId !== activePointerId) return;
+		clearPointerListeners();
+		if (viewport.hasPointerCapture(event.pointerId)) {
+			viewport.releasePointerCapture(event.pointerId);
+		}
+		const wasDragging = dragging;
+		pointerActive = false;
+		dragging = false;
+		activePointerId = null;
+		root.classList.remove('site-footer-quick-links--dragging');
+		if (wasDragging) startMomentum(velocityX);
+		else didDrag = false;
+	}
+
+	viewport.addEventListener('dragstart', (event) => event.preventDefault(), true);
+
+	viewport.addEventListener('pointerdown', (event) => {
+		if (event.button !== 0) return;
+		stopMomentum();
+		pointerActive = true;
+		dragging = false;
+		didDrag = false;
+		activePointerId = event.pointerId;
+		dragStartX = event.clientX;
+		dragOriginScroll = viewport.scrollLeft;
+		lastMoveX = event.clientX;
+		lastMoveTime = performance.now();
+		velocityX = 0;
+		pauseAutoplay();
+		document.addEventListener('pointermove', onPointerMove);
+		document.addEventListener('pointerup', onPointerEnd);
+		document.addEventListener('pointercancel', onPointerEnd);
+	});
+
+	viewport.addEventListener(
+		'click',
+		(event) => {
+			if (!didDrag && !root._footerQuickLinksMomentumActive) return;
+			event.preventDefault();
+			event.stopPropagation();
+			if (!root._footerQuickLinksMomentumActive) didDrag = false;
+		},
+		true
+	);
+}
+
+/** Prev/next arrows nudge the carousel so it reads as a scroller; pauses autoplay like drag does. */
+function bindFooterQuickLinksArrows(root, viewport) {
+	if (!root || !viewport || root.dataset.footerQuickLinksArrowsBound === '1') return;
+	const prev = root.querySelector('[data-footer-quick-links-prev]');
+	const next = root.querySelector('[data-footer-quick-links-next]');
+	if (!prev && !next) return;
+	root.dataset.footerQuickLinksArrowsBound = '1';
+
+	const step = () => Math.max(120, Math.round(viewport.clientWidth * 0.6));
+	const nudge = (direction) => {
+		const autoplay = root._footerQuickLinksAutoplay;
+		if (autoplay) {
+			autoplay.paused = true;
+			autoplay.stop();
+		}
+		viewport.scrollBy({ left: direction * step(), behavior: 'smooth' });
+	};
+
+	prev?.addEventListener('click', () => nudge(-1));
+	next?.addEventListener('click', () => nudge(1));
+}
+
+function bindFooterQuickLinksInfiniteLoop(viewport, track) {
+	if (!viewport || !track || viewport.dataset.footerQuickLinksLoopBound === '1') return;
+	viewport.dataset.footerQuickLinksLoopBound = '1';
+	let adjusting = false;
+	viewport.addEventListener(
+		'scroll',
+		() => {
+			if (adjusting) return;
+			const half = track.scrollWidth / 2;
+			if (half <= 0) return;
+			if (viewport.scrollLeft >= half) {
+				adjusting = true;
+				viewport.scrollLeft -= half;
+				adjusting = false;
+			}
+		},
+		{ passive: true }
+	);
+}
+
+/** Load every public page from site-map order; fall back to main nav pills on error. */
+function populateFooterQuickLinksCarousel(footerRoot) {
+	const root = footerRoot?.querySelector('[data-footer-quick-links-carousel]');
+	const track =
+		root?.querySelector('[data-footer-quick-links-track]') ||
+		root?.querySelector('.site-footer-quick-links__track');
+	if (!root || !track) return;
+
+	const reduced =
+		window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	appendFooterQuickLinksToTrack(
+		track,
+		sortFooterQuickLinksByPriority([...MAIN_NAV_FOOTER_QUICK_LINKS]),
+		{ duplicate: false }
+	);
+	highlightFooterCarouselCurrentPage(footerRoot);
+	initFooterQuickLinksCarousel(footerRoot);
+
+	Promise.all([
+		fetch(SITE_MAP_ORDER_URL).then((r) => {
+			if (!r.ok) throw new Error('site-map order');
+			return r.json();
+		}),
+		fetch(SITE_SEARCH_INDEX_URL).then((r) => {
+			if (!r.ok) throw new Error('search index');
+			return r.json();
+		}),
+	])
+		.then(([order, indexData]) => {
+			const entryMap = new Map();
+			for (const entry of indexData?.entries || []) {
+				if (entry?.path) entryMap.set(normalizeFooterCarouselPathKey(entry.path), entry);
+			}
+			const links = buildFooterQuickLinksList(order, entryMap);
+			if (links.length < 2) return;
+
+			root._footerQuickLinksAutoplay?.stop?.();
+			appendFooterQuickLinksToTrack(track, links, { duplicate: !reduced });
+			const viewport = root.querySelector('.site-footer-quick-links__viewport');
+			if (!reduced && viewport) bindFooterQuickLinksInfiniteLoop(viewport, track);
+			highlightFooterCarouselCurrentPage(footerRoot);
+			const activePill = root.querySelector('.home-pillars__link--active');
+			if (activePill && viewport) {
+				const target =
+					activePill.offsetLeft - (viewport.clientWidth - activePill.offsetWidth) / 2;
+				viewport.scrollLeft = Math.max(0, target);
+			}
+			initFooterQuickLinksCarousel(footerRoot);
+		})
+		.catch(() => {
+			initFooterQuickLinksCarousel(footerRoot);
+		});
+}
+
+/** Auto-scroll footer quick links when visible; pauses off-screen, hover/focus, hidden tab, reduced motion. */
+function initFooterQuickLinksCarousel(footerRoot) {
+	const root = footerRoot?.querySelector('[data-footer-quick-links-carousel]');
+	if (!root) return;
+
+	const viewport = root.querySelector('.site-footer-quick-links__viewport');
+	const track = root.querySelector('.site-footer-quick-links__track');
+	const uniqueCount = Number(track?.dataset.uniqueLinkCount) || 0;
+	const allLinks = root.querySelectorAll('.home-pillars__link');
+	const linkCount = uniqueCount > 0 ? uniqueCount : allLinks.length;
+	if (!viewport || linkCount < 2) return;
+
+	bindFooterQuickLinksDrag(root, viewport);
+	bindFooterQuickLinksArrows(root, viewport);
+
+	const reduced =
+		window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (reduced) return;
+
+	let autoplay = root._footerQuickLinksAutoplay;
+	if (!autoplay) {
+		autoplay = {
+			viewport,
+			allLinks,
+			linkCount,
+			index: 0,
+			timer: null,
+			paused: false,
+			visible: false,
+			holdMs: 2400,
+			scrollMs: 480,
+		};
+		root._footerQuickLinksAutoplay = autoplay;
+
+		autoplay.stop = function stop() {
+			if (autoplay.timer) {
+				window.clearInterval(autoplay.timer);
+				autoplay.timer = null;
+			}
+		};
+
+		autoplay.scrollToIndex = function scrollToIndex(next) {
+			const link = autoplay.allLinks[next];
+			if (!link) return;
+			const target =
+				link.offsetLeft - (autoplay.viewport.clientWidth - link.offsetWidth) / 2;
+			autoplay.viewport.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+		};
+
+		autoplay.tick = function tick() {
+			if (autoplay.paused || !autoplay.visible) return;
+			const next = (autoplay.index + 1) % autoplay.linkCount;
+			if (next === 0) {
+				autoplay.viewport.scrollTo({ left: 0, behavior: 'auto' });
+			} else {
+				autoplay.scrollToIndex(next);
+			}
+			autoplay.index = next;
+		};
+
+		autoplay.start = function start() {
+			autoplay.stop();
+			if (autoplay.paused || !autoplay.visible || document.visibilityState === 'hidden') {
+				return;
+			}
+			autoplay.timer = window.setInterval(
+				autoplay.tick,
+				autoplay.holdMs + autoplay.scrollMs
+			);
+		};
+
+		root.addEventListener('mouseenter', () => {
+			autoplay.paused = true;
+			autoplay.stop();
+		});
+		root.addEventListener('mouseleave', () => {
+			autoplay.paused = false;
+			autoplay.start();
+		});
+		root.addEventListener('focusin', () => {
+			autoplay.paused = true;
+			autoplay.stop();
+		});
+		root.addEventListener('focusout', (event) => {
+			if (root.contains(event.relatedTarget)) return;
+			autoplay.paused = false;
+			autoplay.start();
+		});
+		document.addEventListener('visibilitychange', () => {
+			if (document.visibilityState === 'hidden') autoplay.stop();
+			else autoplay.start();
+		});
+
+		if ('IntersectionObserver' in window) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					autoplay.visible = !!(entries[0] && entries[0].isIntersecting);
+					if (autoplay.visible && !autoplay.paused) autoplay.start();
+					else autoplay.stop();
+				},
+				{ root: null, threshold: 0.2 }
+			);
+			observer.observe(root);
+		} else {
+			autoplay.visible = true;
+			autoplay.start();
+		}
+	}
+
+	autoplay.stop();
+	autoplay.viewport = viewport;
+	autoplay.allLinks = allLinks;
+	autoplay.linkCount = linkCount;
+	autoplay.index = 0;
+	if (autoplay.visible && !autoplay.paused) autoplay.start();
 }
 
 class SharedFooter extends HTMLElement {
 	connectedCallback() {
-		// For disclosures, some pages have custom text (like the Gear page specifying affiliate links).
 		const customDisclosure =
 			this.getAttribute('disclosure') ||
-			'<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Gear, Keyboard, and PC pages include Amazon links where Owen Miner participates in the Amazon Associates Program.</i>';
+			'<i>This page has optional tip links (<a href="https://ko-fi.com/owenminer" data-kofi-link target="_blank" rel="noopener noreferrer">Ko-fi</a>, <a href="https://streamelements.com/owenminercs/tip" data-streamelements-tip-link target="_blank" rel="noopener noreferrer">StreamElements</a>) and no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>';
 
-		const pageSpecificAmazonDisclosure = /This page includes Amazon shopping links/i.test(customDisclosure);
-		const disclosureForRight = pageSpecificAmazonDisclosure
-			? customDisclosure
-			: stripFooterAmazonEarningsSuffix(customDisclosure);
-		const showCrossPageAmazonByline = !pageSpecificAmazonDisclosure;
+		const pageSpecificAmazonDisclosure =
+			/(Amazon (shopping )?links on this page|Shopping links on this page|Amazon product links on this page|This page includes Amazon)/i.test(
+				customDisclosure
+			);
+		const pageSpecificAliExpressDisclosure = /AliExpress store links on this page/i.test(customDisclosure);
+		const disclosureForRight =
+			pageSpecificAmazonDisclosure || pageSpecificAliExpressDisclosure
+				? customDisclosure
+				: stripFooterAmazonEarningsSuffix(customDisclosure);
+		const showCrossPageAmazonByline = !pageSpecificAmazonDisclosure && !pageSpecificAliExpressDisclosure;
 
 		this.innerHTML = `
       <footer>
-        <hr class="site-rule site-rule--spaced">
-        <h4><a href="#top" class="site-footer-back-top">Back To Top</a></h4>
-        <hr class="site-rule site-rule--spaced">
-        
-        <div>
+        <hr class="site-rule site-rule--spaced site-rule--footer-compact">
+        <div class="site-footer-nav-wrap">
           <nav aria-label="Main navigation">
             <ul>
-              <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home — bio, intro, and what’s new">Home</a></li>
+              <li><a href="${siteRoot}" class="site-nav-link" data-nav="index.html" title="Home: bio, intro, and what’s new">Home</a></li>
               <li><a href="${getLink('The%20Setup/the-setup')}" class="site-nav-link" data-nav="The Setup" title="Desk, PC, keyboard, peripherals, and priced gear">Gear</a></li>
               <li><a href="${getLink('Gaming/gaming')}" class="site-nav-link" data-nav="Gaming" title="CS2, wallpapers, and gaming pages">Gaming</a></li>
               <li><a href="${getLink('Donators/donators')}" class="site-nav-link" data-nav="Donators" title="Supporters, tips, and thank-yous">Donators</a></li>
@@ -840,42 +1975,44 @@ class SharedFooter extends HTMLElement {
               <li><a href="${getLink('dev/dev-stack')}" class="site-nav-link" data-nav="Dev" title="Programs for coding, creative work, and streaming">Programs</a></li>
               <li><a href="${getLink('Achievements/achievements')}" class="site-nav-link" data-nav="Achievements" title="Easter eggs and site milestones">Achievements</a></li>
               <li><a href="${getLink('Socials/socials')}" class="site-nav-link" data-nav="Socials" title="Social feeds and featured posts">Content</a></li>
+              <li><a href="${getLink('site-map')}" class="site-nav-link" data-nav="site-map" title="All pages on the site, grouped by section">Map</a></li>
             </ul>
           </nav>
         </div>
-        <div class="site-footer-top-row">
-          <div class="site-footer-social-bar">
-            ${socialNavMarkup('site-social-nav--footer')}
-          </div>
-          <div class="site-footer-bug-report">
-            <p class="site-footer-bug-report__line">If you run into any problems on this website, report bugs in the <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
-            <p class="site-footer-bug-report__line">Suggestions for the site are welcome there too, so I can track ideas alongside bug reports.</p>
-          </div>
-        </div>
-        <hr class="site-rule site-rule--spaced">
-        <div class="site-footer-meta">
-          <div class="site-footer-meta__disclosure">
-            <h4 id="Disclosure" class="site-footer-meta__disclosure-heading"><span class="site-footer-meta__disclosure-label">Disclosure:</span> ${disclosureForRight}</h4>
-            ${
-							showCrossPageAmazonByline
-								? '<p class="site-footer-meta__amazon">As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</p>'
-								: ''
-						}
-          </div>
-          <div class="site-footer-meta__brand">
-            <a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home — owenminercs.com">${siteLogoMarkup({ footer: true })}
+        ${footerQuickLinksCarouselMarkup()}
+        <div class="site-footer-brand-band">
+          <div class="site-footer-logo-layer">
+            <a href="${siteRoot}" class="site-logo-link site-logo-link--footer" title="owenminercs.com" aria-label="Home: owenminercs.com">${siteLogoMarkup({ footer: true })}
             </a>
           </div>
-          <div class="site-footer-meta__usage">
-            <h4 class="site-footer-meta__photos">Reach out on <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a> for usage rights on any content on this page. Small creators and individuals are highly encouraged to reach out and I usually give out rights for free! Large companies need to pay for usage for any commercial use including in AI models.</h4>
+          <div class="site-footer-meta site-footer-meta--around-globe">
+            <div class="site-footer-social-bar">
+              ${socialNavMarkup('site-social-nav--footer')}
+            </div>
+            <div class="site-footer-support">
+              <p class="site-footer-support__text">If you run into any problems on this website, report bugs in the <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a>. Suggestions for the site are welcome there too, so I can track ideas alongside bug reports. Reach out on <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">Discord</a> for usage rights on any content on this page. Small creators and individuals are highly encouraged to reach out and I usually give out rights for free! Large companies need to pay for usage for any commercial use including in AI models.</p>
+              ${visualsControlMarkup('footer')}
+            </div>
+            <div class="site-footer-meta__disclosure">
+              <h4 id="Disclosure" class="site-footer-meta__disclosure-heading"><span class="site-footer-meta__disclosure-label">Disclosure:</span> ${disclosureForRight}</h4>
+              ${
+								showCrossPageAmazonByline
+									? '<p class="site-footer-meta__amazon">As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</p>'
+									: ''
+							}
+            </div>
           </div>
-        </div>  
+        </div>
         <hr class="site-rule site-rule--footer-end">
       </footer>
     `;
 
 		applyNavHighlight(this);
+		populateFooterQuickLinksCarousel(this);
 		injectSiteFeedClient();
+		if (window.owenminercsLowEffects?.refreshVisualsControls) {
+			window.owenminercsLowEffects.refreshVisualsControls();
+		}
 	}
 }
 
@@ -885,20 +2022,59 @@ customElements.define('shared-footer', SharedFooter);
 /** Client-side search over static JSON; results rendered with DOM APIs only (no HTML injection). */
 function initSiteSearch() {
 	let entries = [];
+	const getEntries = () => entries;
 
-	function wireInputToResults(input, resultsEl) {
+	function wireInputToResults(input, resultsEl, options = {}) {
+		const maxResults = options.maxResults ?? 40;
+		const variant = options.variant ?? 'preview';
+		const dropdown = options.dropdown === true;
+
+		searchWireResultsNavigation(resultsEl, { input });
+
+		function setDropdownOpen(open) {
+			resultsEl.classList.toggle('site-header-search__dropdown--open', open);
+			input.setAttribute('aria-expanded', open ? 'true' : 'false');
+			resultsEl.hidden = !open;
+		}
+
+		if (dropdown) {
+			resultsEl.addEventListener('mousedown', (e) => {
+				if (e.target.closest('.site-search-results__link')) e.preventDefault();
+			});
+			input.addEventListener('blur', () => {
+				window.setTimeout(() => {
+					if (document.activeElement === input) return;
+					setDropdownOpen(false);
+				}, 150);
+			});
+			input.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape') {
+					setDropdownOpen(false);
+					input.blur();
+					e.preventDefault();
+				}
+			});
+			setDropdownOpen(false);
+		}
+
 		function run() {
 			const q = input.value || '';
 			searchRenderResults(
 				resultsEl,
-				searchFilterEntries(entries, q, 40),
+				searchFilterEntries(getEntries(), q, maxResults),
 				q,
-				'preview'
+				variant
 			);
+			if (dropdown) {
+				const shouldOpen = document.activeElement === input && q.trim().length >= 2;
+				setDropdownOpen(shouldOpen);
+			}
 		}
+
 		input.addEventListener('input', run);
 		input.addEventListener('change', run);
-		run();
+		if (dropdown) input.addEventListener('focus', run);
+		else run();
 	}
 
 	const homeInput = document.getElementById('home-site-search-input');
@@ -909,8 +2085,23 @@ function initSiteSearch() {
 		if (homeForm) {
 			homeForm.addEventListener('submit', (e) => {
 				e.preventDefault();
-				const first = homeResults.querySelector('.site-search-results__link');
-				if (first instanceof HTMLAnchorElement) first.click();
+				searchNavigateActiveResult(homeResults);
+			});
+		}
+	}
+
+	const headerInput = document.getElementById('header-site-search-input');
+	const headerResults = document.getElementById('header-site-search-results');
+	if (headerInput && headerResults) {
+		wireInputToResults(headerInput, headerResults, {
+			maxResults: Infinity,
+			dropdown: true,
+		});
+		const headerForm = headerInput.closest('.site-header-search__form');
+		if (headerForm) {
+			headerForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				if (!headerResults.hidden) searchNavigateActiveResult(headerResults);
 			});
 		}
 	}
@@ -926,6 +2117,9 @@ function initSiteSearch() {
 				const ev = new Event('input', { bubbles: true });
 				homeInput.dispatchEvent(ev);
 			}
+			if (headerInput && document.activeElement === headerInput) {
+				headerInput.dispatchEvent(new Event('input', { bubbles: true }));
+			}
 		})
 		.catch(() => {
 			entries = [];
@@ -935,6 +2129,13 @@ function initSiteSearch() {
 				p.className = 'site-search-results__empty';
 				p.textContent = 'Could not load search index.';
 				homeResults.appendChild(p);
+			}
+			if (headerResults && document.activeElement === headerInput) {
+				headerResults.textContent = '';
+				const p = document.createElement('p');
+				p.className = 'site-search-results__empty';
+				p.textContent = 'Could not load search index.';
+				headerResults.appendChild(p);
 			}
 		});
 }
@@ -997,7 +2198,7 @@ function shouldWrapLinkAsLineGlow(a) {
 	if (a.closest('script, style, noscript, template, pre, code, textarea, kbd, samp, svg, math'))
 		return false;
 	if (a.closest('[data-no-word-glow], .no-word-glow')) return false;
-	if (a.matches('.site-nav-link, .site-logo-link, .site-social-nav__link, .site-feed-item__link')) return false;
+	if (a.matches('.site-nav-link, .site-logo-link, .site-social-nav__link')) return false;
 	if (a.closest('.site-feed-item, .site-feed-list')) return false;
 	if (a.matches('.site-header-search-open, .site-nav-search-open')) return false;
 	if (a.matches('.donators-support-hero')) return false;
@@ -1029,6 +2230,64 @@ function wrapAllEligibleLinksAsLineGlow(root) {
 	});
 }
 
+const LINK_HOVER_HINT_SKIP =
+	'.site-logo-link, .site-nav-link, .site-social-nav__link, .site-header-search-open, .site-nav-search-open, .home-explore-card__primary, .keep-card, .keep-card__primary, .site-feed-item__link, .donators-support-hero, [aria-hidden="true"]';
+
+/** Human-readable destination for native title tooltip when author did not set one. */
+function formatLinkHoverHint(href) {
+	if (!href || typeof href !== 'string') return '';
+	const value = href.trim();
+	if (!value || value.startsWith('#') || /^javascript:/i.test(value)) return '';
+	if (/^(mailto:|tel:)/i.test(value)) return value;
+	try {
+		const url = new URL(value, window.location.origin);
+		const path = `${url.pathname || '/'}${url.search || ''}${url.hash || ''}`;
+		if (url.origin === window.location.origin) return path || '/';
+		const host = url.hostname.replace(/^www\./i, '');
+		return `${host}${path === '/' ? '' : path}`;
+	} catch (_) {
+		return value;
+	}
+}
+
+function shouldAddLinkHoverHint(a) {
+	if (!(a instanceof HTMLAnchorElement)) return false;
+	if (a.getAttribute('title')?.trim()) return false;
+	if (a.matches(LINK_HOVER_HINT_SKIP)) return false;
+	if (a.closest('.site-nav-link, .site-social-nav')) return false;
+	const imgs = a.querySelectorAll('img');
+	if (imgs.length && !/\S/.test((a.textContent || '').replace(/\u00a0/g, ' '))) return false;
+	return Boolean(formatLinkHoverHint(a.getAttribute('href')));
+}
+
+/** Set title from href so hover shows where a link goes (skips chrome + image-only links). */
+function initLinkHoverHints(root = document.body) {
+	if (!root || typeof root.querySelectorAll !== 'function') return;
+	root.querySelectorAll('a[href]').forEach((a) => {
+		if (!shouldAddLinkHoverHint(a)) return;
+		const hint = formatLinkHoverHint(a.getAttribute('href'));
+		if (hint) a.setAttribute('title', hint);
+	});
+}
+
+function bindLinkHoverHintObserver() {
+	if (document.documentElement.dataset.linkHoverHintBound === '1') return;
+	document.documentElement.dataset.linkHoverHintBound = '1';
+	const run = debounce(() => initLinkHoverHints(document.body), 120);
+	const observer = new MutationObserver((records) => {
+		for (const record of records) {
+			for (const node of record.addedNodes) {
+				if (!(node instanceof Element)) continue;
+				if (node.matches?.('a[href]') || node.querySelector?.('a[href]')) {
+					run();
+					return;
+				}
+			}
+		}
+	});
+	observer.observe(document.documentElement, { childList: true, subtree: true });
+}
+
 function collectWordGlowTextNodes(root) {
 	const out = [];
 	const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -1036,7 +2295,7 @@ function collectWordGlowTextNodes(root) {
 			if (!node.nodeValue || !/\S/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
 			const p = node.parentElement;
 			if (!p) return NodeFilter.FILTER_REJECT;
-			/* Header/footer nav pills use their own border + outer glow — no per-word highlight */
+			/* Header/footer nav pills use their own border + outer glow, no per-word highlight */
 			if (p.closest('.site-nav-link')) return NodeFilter.FILTER_REJECT;
 			if (p.closest(WORD_GLOW_SKIP)) return NodeFilter.FILTER_REJECT;
 			if (p.closest('a[href]')) return NodeFilter.FILTER_REJECT;
@@ -1243,6 +2502,8 @@ function wrapWordsInTextNode(textNode) {
 function initWordBackgroundGlow() {
 	prepareKeepCardLineGlows();
 	wrapAllEligibleLinksAsLineGlow(document.body);
+	initLinkHoverHints(document.body);
+	bindLinkHoverHintObserver();
 	const textNodes = collectWordGlowTextNodes(document.body);
 	for (const tn of textNodes) {
 		wrapWordsInTextNode(tn);
@@ -1362,9 +2623,36 @@ function isAffiliateShoppingHref(href) {
 	const value = String(href || '').trim().toLowerCase();
 	if (!value) return false;
 	if (value.includes('tag=owenminercs-20')) return true;
+	if (value.includes('aliexpress.com/wholesale')) return true;
 	if (value.includes('s.click.aliexpress.com') || value.includes('click.aliexpress.com')) return true;
 	if (value.includes('pwrdesports.aliexpress.com')) return true;
 	return false;
+}
+
+function affiliateLinkTitleForHref(href) {
+	const value = String(href || '').trim().toLowerCase();
+	if (!value) return '';
+	if (value.includes('tag=owenminercs-20')) return 'Amazon affiliate';
+	if (
+		value.includes('aliexpress.com/wholesale') ||
+		value.includes('s.click.aliexpress.com') ||
+		value.includes('click.aliexpress.com') ||
+		value.includes('pwrdesports.aliexpress.com')
+	) {
+		return 'AliExpress affiliate';
+	}
+	return '';
+}
+
+/** Hover title on compensated shopping links (Amazon / AliExpress). */
+function labelAffiliateLinkTitles(root = document.body) {
+	if (!root || typeof root.querySelectorAll !== 'function') return;
+	root.querySelectorAll('a[href]').forEach((anchor) => {
+		const existing = (anchor.getAttribute('title') || '').trim();
+		if (existing) return;
+		const title = affiliateLinkTitleForHref(anchor.getAttribute('href'));
+		if (title) anchor.setAttribute('title', title);
+	});
 }
 
 function affiliateLinkAlreadyLabeled(anchor) {
@@ -1390,6 +2678,7 @@ function labelAffiliateLinksInDocument(root = document.body) {
 
 function initAffiliateLinkLabels() {
 	labelAffiliateLinksInDocument();
+	labelAffiliateLinkTitles();
 }
 
 /** Load third-party iframes on demand (click-to-play facade or near-viewport for carousel layers). */
@@ -1408,6 +2697,12 @@ function parseDeferredEmbedUrl(src) {
 		if (host.includes('tiktok.com') && tt) {
 			return { provider: 'tiktok', id: tt[1], embedUrl: u.href };
 		}
+		if (host.includes('platform.twitter.com') && u.searchParams.get('id')) {
+			return { provider: 'twitter', id: u.searchParams.get('id'), embedUrl: u.href };
+		}
+		if (host.includes('redditmedia.com')) {
+			return { provider: 'reddit', id: u.pathname, embedUrl: u.href };
+		}
 	} catch (_) {}
 	return { provider: 'unknown', id: null, embedUrl: src };
 }
@@ -1420,8 +2715,26 @@ function applyTikTokIframeReferrerPolicy(iframe) {
 }
 
 function youtubePosterUrl(videoId, quality) {
+	if (quality === 'oar') return `https://i.ytimg.com/vi/${videoId}/oardefault.jpg`;
 	const q = quality === 'hq' ? 'hqdefault' : 'maxresdefault';
 	return `https://i.ytimg.com/vi/${videoId}/${q}.jpg`;
+}
+
+function bindYoutubePosterFallback(poster, videoId) {
+	if (!(poster instanceof HTMLImageElement) || !videoId) return;
+	poster.addEventListener('error', () => {
+		const src = poster.src || '';
+		if (src.includes('maxresdefault')) {
+			poster.src = youtubePosterUrl(videoId, 'hq');
+		} else if (src.includes('hqdefault')) {
+			poster.src = youtubePosterUrl(videoId, 'oar');
+		}
+	});
+}
+
+function tiktokPosterUrl(videoId) {
+	if (!videoId) return '';
+	return `/Socials/images/content-thumbs/tiktok/${videoId}.jpg`;
 }
 
 function promoteIframeSrcToDeferred(iframe) {
@@ -1440,14 +2753,69 @@ function shouldUseEmbedFacade(iframe) {
 	if (iframe.closest('.embed-facade')) return false;
 	if (iframe.classList.contains('keep-card__album-layer')) return false;
 	const src = iframe.getAttribute('data-embed-src') || iframe.getAttribute('src') || '';
+	if (/platform\.twitter\.com\/embed/i.test(src)) {
+		return iframe.hasAttribute('data-embed-poster');
+	}
+	if (/redditmedia\.com/i.test(src)) {
+		return iframe.hasAttribute('data-embed-poster');
+	}
 	return /youtube\.com\/embed|tiktok\.com\/player/i.test(src);
 }
 
-function loadDeferredEmbed(iframe) {
+/** Append autoplay params for facade clicks (user gesture → start playback in one tap). */
+function getAutoplayEmbedUrl(rawSrc) {
+	if (!rawSrc) return '';
+	try {
+		const parsed = new URL(rawSrc, window.location.href);
+		parsed.searchParams.set('autoplay', '1');
+		parsed.searchParams.set('playsinline', '1');
+		const host = parsed.hostname.replace(/^www\./i, '').toLowerCase();
+		if (host.includes('youtube.com') || host.includes('youtu.be')) {
+			parsed.searchParams.set('enablejsapi', '1');
+			if (window.location?.origin) {
+				parsed.searchParams.set('origin', window.location.origin);
+			}
+		}
+		if (host.includes('tiktok.com')) {
+			parsed.searchParams.set('autoplay', '1');
+		}
+		return parsed.toString();
+	} catch (_) {
+		const hasQuery = rawSrc.includes('?');
+		return `${rawSrc}${hasQuery ? '&' : '?'}autoplay=1&playsinline=1`;
+	}
+}
+
+function cueYouTubeIframePlay(iframeEl) {
+	if (!(iframeEl instanceof HTMLIFrameElement)) return;
+	const send = () => {
+		try {
+			iframeEl.contentWindow?.postMessage(
+				JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
+				'*',
+			);
+		} catch (_) {
+			// Ignore cross-origin postMessage failures.
+		}
+	};
+	send();
+	window.setTimeout(send, 120);
+	window.setTimeout(send, 450);
+}
+
+function loadDeferredEmbed(iframe, { autoplay = false } = {}) {
 	const src = iframe.getAttribute('data-embed-src');
 	if (!src || iframe.getAttribute('src')) return;
 	applyTikTokIframeReferrerPolicy(iframe);
-	iframe.setAttribute('src', src);
+	const loadSrc = autoplay ? getAutoplayEmbedUrl(src) : src;
+	const info = parseDeferredEmbedUrl(src);
+	if (autoplay && info?.provider === 'youtube') {
+		iframe.addEventListener('load', () => cueYouTubeIframePlay(iframe), { once: true });
+	}
+	if (autoplay) {
+		iframe.loading = 'eager';
+	}
+	iframe.setAttribute('src', loadSrc);
 	iframe.removeAttribute('data-embed-src');
 	const facade = iframe.closest('.embed-facade');
 	if (facade) facade.classList.add('embed-facade--loaded');
@@ -1457,7 +2825,10 @@ function activateEmbedFacade(facade) {
 	if (!(facade instanceof Element)) return;
 	if (facade.classList.contains('embed-facade--loaded')) return;
 	const iframe = facade.querySelector('iframe[data-embed-src]:not([src])');
-	if (iframe) loadDeferredEmbed(iframe);
+	if (!iframe) return;
+	const src = iframe.getAttribute('data-embed-src') || '';
+	const autoplay = !/redditmedia\.com/i.test(src);
+	loadDeferredEmbed(iframe, { autoplay });
 }
 
 function buildEmbedFacade(iframe) {
@@ -1471,6 +2842,8 @@ function buildEmbedFacade(iframe) {
 	facade.className = 'embed-facade';
 	if (info?.provider === 'youtube') facade.classList.add('embed-facade--youtube');
 	if (info?.provider === 'tiktok') facade.classList.add('embed-facade--tiktok');
+	if (info?.provider === 'twitter') facade.classList.add('embed-facade--twitter');
+	if (info?.provider === 'reddit') facade.classList.add('embed-facade--reddit');
 
 	const title = iframe.getAttribute('title') || 'Embedded video';
 	const playBtn = document.createElement('button');
@@ -1484,18 +2857,40 @@ function buildEmbedFacade(iframe) {
 		poster.alt = '';
 		poster.decoding = 'async';
 		poster.loading = 'lazy';
-		poster.src = youtubePosterUrl(info.id, 'max');
-		poster.addEventListener(
-			'error',
-			() => {
-				poster.src = youtubePosterUrl(info.id, 'hq');
-			},
-			{ once: true },
-		);
+		const customPoster = iframe.getAttribute('data-embed-poster');
+		const isShort = isShortFormIframeSrc(embedSrc, iframe);
+		poster.src = customPoster || youtubePosterUrl(info.id, isShort ? 'oar' : 'max');
+		if (!customPoster && !isShort) bindYoutubePosterFallback(poster, info.id);
 		facade.appendChild(poster);
 	}
 
 	if (info?.provider === 'tiktok') {
+		const posterSrc = iframe.getAttribute('data-embed-poster') || tiktokPosterUrl(info?.id);
+		if (posterSrc) {
+			const poster = document.createElement('img');
+			poster.className = 'embed-facade__poster';
+			poster.alt = '';
+			poster.decoding = 'async';
+			poster.loading = 'lazy';
+			poster.src = posterSrc;
+			facade.appendChild(poster);
+		}
+	}
+
+	if (info?.provider === 'twitter') {
+		const posterSrc = iframe.getAttribute('data-embed-poster') || '';
+		if (posterSrc) {
+			const poster = document.createElement('img');
+			poster.className = 'embed-facade__poster';
+			poster.alt = '';
+			poster.decoding = 'async';
+			poster.loading = 'lazy';
+			poster.src = posterSrc;
+			facade.appendChild(poster);
+		}
+	}
+
+	if (info?.provider === 'reddit') {
 		const posterSrc = iframe.getAttribute('data-embed-poster') || '';
 		if (posterSrc) {
 			const poster = document.createElement('img');
@@ -1560,11 +2955,32 @@ function initDeferredEmbeds(scope) {
 		)
 		.forEach(promoteIframeSrcToDeferred);
 	root.querySelectorAll('iframe[data-embed-src]:not([src])').forEach((iframe) => {
+		// A facade already handles this iframe (built on an earlier pass, or cloned by
+		// a carousel). Leave it as click-to-play; do NOT route it to the near-viewport
+		// observer, which would auto-load it without autoplay and kill the click target.
+		if (iframe.closest('.embed-facade')) return;
 		if (shouldUseEmbedFacade(iframe)) {
 			buildEmbedFacade(iframe);
 		} else {
 			observeDeferredEmbed(iframe);
 		}
+	});
+}
+
+/**
+ * Delegated activation for embed facades. Covers carousel clones, whose DOM is
+ * duplicated with cloneNode() and therefore has no per-element click listeners.
+ */
+function bindEmbedFacadeDelegation() {
+	if (bindEmbedFacadeDelegation._bound) return;
+	bindEmbedFacadeDelegation._bound = true;
+	document.addEventListener('click', (event) => {
+		const target = event.target;
+		if (!target || typeof target.closest !== 'function') return;
+		const facade = target.closest('.embed-facade');
+		if (!facade || facade.classList.contains('embed-facade--loaded')) return;
+		if (facade.closest('.home-yt-carousel--dragging')) return;
+		activateEmbedFacade(facade);
 	});
 }
 
@@ -1586,7 +3002,7 @@ function watchDeferredEmbeds() {
 function initContentImageLoading(scope) {
 	const root = scope && typeof scope.querySelectorAll === 'function' ? scope : document;
 	const skipSelector =
-		'.site-shared-header, .site-logo-link, .site-logo, .site-logo--motion, .site-logo--still, [data-no-lazy-img], [data-home-explore-carousel] [data-explore-clone]';
+		'.site-shared-header, .site-logo-link, .site-logo, .site-logo--motion, .site-logo--still, [data-no-lazy-img], [data-home-explore-carousel] [data-explore-clone], [data-home-yt-carousel] [data-yt-clone]';
 
 	root.querySelectorAll('img[src]').forEach((img) => {
 		if (img.closest(skipSelector)) return;
@@ -1604,7 +3020,10 @@ function initContentImageLoading(scope) {
 function initPerformanceMedia(scope) {
 	initDeferredEmbeds(scope);
 	initContentImageLoading(scope);
-	if (!scope) watchDeferredEmbeds();
+	if (!scope) {
+		watchDeferredEmbeds();
+		bindEmbedFacadeDelegation();
+	}
 }
 
 window.owenminercsInitDeferredEmbeds = initDeferredEmbeds;
@@ -1616,6 +3035,12 @@ if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', initSiteSearch);
 	document.addEventListener('DOMContentLoaded', initAffiliateLinkLabels);
 	document.addEventListener('DOMContentLoaded', initPerformanceMedia);
+	document.addEventListener('DOMContentLoaded', scheduleStarfieldBgClient);
+	document.addEventListener('DOMContentLoaded', injectSiteQuickLinks);
+	document.addEventListener('DOMContentLoaded', initCardGridPlaceholderSort);
+	document.addEventListener('DOMContentLoaded', () => initKeepCardPrimaryLinks(document), {
+		once: true,
+	});
 } else {
 	initWordBackgroundGlow();
 	initTemporaryInputLockdown();
@@ -1623,6 +3048,10 @@ if (document.readyState === 'loading') {
 	initSiteSearch();
 	initAffiliateLinkLabels();
 	initPerformanceMedia();
+	scheduleStarfieldBgClient();
+	injectSiteQuickLinks();
+	initCardGridPlaceholderSort();
+	initKeepCardPrimaryLinks(document);
 }
 
 const SOCIAL_DOCK_POS_KEY = 'owenminercs-social-dock-pos';
@@ -1669,7 +3098,7 @@ function relocateSocialDockToDefaultMount(wrap) {
 const SOCIAL_DOCK_DRAG_ARIA_DESC =
 	'Drag the middle of the pill to move the bar (you can drag it partly or fully off-screen). Drag near the outer edge of the pill to rotate and resize. Double-click empty space on the bar to reset, or use Reset Social Bar in the header if the bar is off-screen.';
 const SOCIAL_DOCK_DRAG_THRESHOLD_PX = 6;
-/** After release, short “ice” coast — scales pointer speed (keeps glide slow). */
+/** After release, short “ice” coast, scales pointer speed (keeps glide slow). */
 const SOCIAL_DOCK_ICE_VELOCITY_SCALE = 0.3;
 const SOCIAL_DOCK_ICE_FRICTION_PER_S = 6.2;
 const SOCIAL_DOCK_ICE_MIN_SPEED_PX_S = 7.5;
@@ -1738,7 +3167,7 @@ function getMainCenterInPivotLocal(mainEl, spinEl) {
 
 /**
  * True when the pointer lies inside the pill but within {@link SOCIAL_DOCK_EDGE_ROTATE_PX} of its rim.
- * Uses layout size/center (not axis-aligned screen bbox — icon counter-rotate skews that after spin).
+ * Uses layout size/center (not axis-aligned screen bbox, icon counter-rotate skews that after spin).
  */
 function isPointerOnSocialBarEdge(clientX, clientY, mainEl, pivotEl) {
 	if (!(mainEl instanceof Element)) return false;
@@ -1788,14 +3217,14 @@ function parseSocialDockTiltDeg(tv) {
 	return Number.isFinite(t) ? t : null;
 }
 
-/** Integer coords for fixed positioning (no viewport clamp — users may drag partially off-screen). */
+/** Integer coords for fixed positioning (no viewport clamp, users may drag partially off-screen). */
 function socialDockCoordsRounded(x, y) {
 	return { left: Math.round(x), top: Math.round(y) };
 }
 
 /**
  * Keeps the dock inside the viewport with a small margin. Use only for **default** anchor
- * placement (header fallback, resize when not customized). Do not use while dragging — the
+ * placement (header fallback, resize when not customized). Do not use while dragging, the
  * iterative correction fights the pointer near edges and feels glitchy.
  */
 function clampSocialDockToViewport(wrap, x, y) {
@@ -1807,7 +3236,7 @@ function clampSocialDockToViewport(wrap, x, y) {
 	let ny = Math.round(y);
 	/*
 	 * offsetWidth/offsetHeight ignore transforms on descendants. A rotated/scaled bar
-	 * can be visually tall/narrow while the wrap stays wide — clamping on layout size
+	 * can be visually tall/narrow while the wrap stays wide, clamping on layout size
 	 * leaves large fake “margins”. Use the spin’s transformed bounds instead.
 	 */
 	const probe =
@@ -2168,7 +3597,7 @@ function initSiteSocialDragRotate(wrap) {
 				window.owenminercsUnlockAchievement(ACH_FIDGET_SPINNER);
 			} catch (_) {}
 		}
-		if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		if (!owenminercsPrefersLiteVisuals()) {
 			spin.setAttribute('data-fidget-fx', String(pickFidgetFxVariant()));
 			spin.classList.add('is-fidget-turbo');
 		}
@@ -2448,7 +3877,7 @@ function initSiteSupportDockDrag(wrap) {
 	}
 
 	function socialDockPrefersIceCoast() {
-		return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		return !owenminercsPrefersLiteVisuals();
 	}
 
 	function stopIceSlide() {
@@ -2732,7 +4161,7 @@ function initSiteSupportDockDrag(wrap) {
 function initSocialDockEasterEggs(wrap) {
 	const nav = wrap.querySelector('.site-social-nav--dock');
 	if (!nav) return;
-	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+	if (owenminercsPrefersLiteVisuals()) return;
 
 	const EE_HOP = 'site-social-nav__link--ee-hop';
 	const EE_MARBLE = 'site-social-nav__link--ee-marble';
@@ -2956,7 +4385,7 @@ function initSocialDockEasterEggs(wrap) {
 	});
 })();
 
-/** Used by e.g. Donators — open the same in-page donation overlay as clicking a Ko-fi link, without a separate “open Ko-fi” step. */
+/** Used by e.g. Donators, open the same in-page donation overlay as clicking a Ko-fi link, without a separate “open Ko-fi” step. */
 window.owenminercsOpenKofiDonateOverlay = function () {
 	if (typeof window.__owenKofiTryOpenOverlay === 'function') {
 		return window.__owenKofiTryOpenOverlay();
@@ -3032,6 +4461,8 @@ if (document.body) {
 	initMainNavReturnHistory();
 })();
 
+initSiteScrollRestoration();
+
 /**
  * Re-run DOM helpers under `root` after injecting fetched page HTML (moss-nocturne-site preview shell).
  * Does not re-bind global listeners from initWordBackgroundGlow / initWordGlowBookmark.
@@ -3043,6 +4474,7 @@ window.owenminercsHydrateRoot = function (root) {
 	initPerformanceMedia(root);
 	prepareKeepCardLineGlows();
 	wrapAllEligibleLinksAsLineGlow(root);
+	initLinkHoverHints(root);
 	const textNodes = collectWordGlowTextNodes(root);
 	for (let i = 0; i < textNodes.length; i++) {
 		wrapWordsInTextNode(textNodes[i]);
@@ -3094,3 +4526,284 @@ window.owenminercsHydrateRoot = function (root) {
 	}
 	window.addEventListener('hashchange', run);
 })();
+
+/** Carousel placeholder filter, see scripts/carousel-placeholder-filter.js (keep in sync). */
+(function initCarouselPlaceholderFilter() {
+	if (window.owenminercsCarouselFilter) return;
+
+	function normSrc(src) {
+		return String(src || '')
+			.trim()
+			.toLowerCase();
+	}
+
+	function isCarouselPlaceholderSrc(src) {
+		const lower = normSrc(src);
+		if (!lower || /^data:/i.test(lower)) return true;
+		if (lower.includes('coming-soon-card')) return true;
+		if (lower.includes('owenminercs-logo')) return true;
+		if (lower.includes('/images/logo/globes/') || lower.includes('logo/globes/globe-')) return true;
+		if (/\/images\/logo\/(favicon|apple-touch)/.test(lower)) return true;
+		if (lower.endsWith('.svg')) return true;
+		return false;
+	}
+
+	function slideSrc(slide) {
+		if (!slide) return '';
+		if (typeof slide === 'string') return slide;
+		if (typeof slide.src === 'string') return slide.src;
+		if (slide.getAttribute) return slide.getAttribute('src') || '';
+		return '';
+	}
+
+	function filterCarouselSlides(slides) {
+		if (!slides || !slides.length) return slides || [];
+		const real = [];
+		const placeholders = [];
+		for (let i = 0; i < slides.length; i++) {
+			const slide = slides[i];
+			if (isCarouselPlaceholderSrc(slideSrc(slide))) placeholders.push(slide);
+			else real.push(slide);
+		}
+		if (real.length) return real;
+		return placeholders.length ? placeholders : slides;
+	}
+
+	function pruneCarouselImageNodes(container) {
+		if (!container || !container.querySelectorAll) return;
+		const imgs = container.querySelectorAll('img[src]');
+		if (!imgs.length) return;
+		const real = [];
+		const placeholders = [];
+		for (let i = 0; i < imgs.length; i++) {
+			const src = imgs[i].getAttribute('src');
+			if (isCarouselPlaceholderSrc(src)) placeholders.push(imgs[i]);
+			else real.push(imgs[i]);
+		}
+		if (!real.length || !placeholders.length) return;
+		for (let j = 0; j < placeholders.length; j++) {
+			placeholders[j].remove();
+		}
+	}
+
+	const SORTABLE_CARD_SELECTOR =
+		'.keep-card, .site-teaser-card, .home-explore-card, .garage-sale-card, .garage-sale-ebay-card';
+
+	function isSortableCard(el) {
+		return !!(el && el.matches && el.matches(SORTABLE_CARD_SELECTOR));
+	}
+
+	function isCardPlaceholderOnly(card) {
+		if (!card) return false;
+		if (card.getAttribute && card.getAttribute('data-card-sort-skip') === 'true') return false;
+		if (card.querySelector('.keep-card__reddit-embed, .keep-card__video-thumb')) return false;
+		if (card.querySelector('iframe[src]')) return false;
+		if (card.querySelector('.keep-card__thumb--empty')) return true;
+
+		const album = card.querySelector('.keep-card__album');
+		if (album && !album.querySelector('img[src], iframe[src]')) return true;
+
+		const imgs = card.querySelectorAll('img[src]');
+		if (!imgs.length) {
+			const thumb = card.querySelector('.keep-card__thumb');
+			return !!(thumb && thumb.tagName !== 'IMG');
+		}
+
+		for (let i = 0; i < imgs.length; i++) {
+			if (!isCarouselPlaceholderSrc(imgs[i].getAttribute('src'))) return false;
+		}
+		return true;
+	}
+
+	function cardVideoSlotText(card) {
+		const slot = card && card.querySelector('.keep-card__video-slot');
+		return slot ? String(slot.textContent || '').trim() : '';
+	}
+
+	function isCardSetupArchive(card) {
+		if (!card) return false;
+		if (card.getAttribute && card.getAttribute('data-card-setup-archive') === 'true') return true;
+		if (card.getAttribute && card.getAttribute('data-card-setup-archive') === 'false') return false;
+		return /^Archive$/i.test(cardVideoSlotText(card));
+	}
+
+	function isCardLegacyGear(card) {
+		if (!card) return false;
+		if (card.getAttribute && card.getAttribute('data-card-sort-skip') === 'true') return false;
+		if (card.getAttribute && card.getAttribute('data-card-legacy') === 'false') return false;
+		if (isCardSetupArchive(card)) return false;
+		if (card.getAttribute && card.getAttribute('data-card-legacy') === 'true') return true;
+
+		const slot = cardVideoSlotText(card);
+		if (/^Legacy/i.test(slot)) return true;
+
+		const href = (card.getAttribute && card.getAttribute('data-href')) || '';
+		if (/-legacy(\.html|\/|$)/i.test(href)) return true;
+
+		const cta = card.querySelector('.keep-card__cta');
+		const ctaText = cta ? String(cta.textContent || '').trim() : '';
+		if (/^Archive\s*→/i.test(ctaText)) return true;
+
+		let blob = '';
+		const label = card.querySelector('.keep-card__label');
+		const aff = card.querySelector('.keep-card__affiliate');
+		if (label) blob += label.textContent + ' ';
+		if (aff) blob += aff.textContent + ' ';
+		return /\bsold\b/i.test(blob);
+	}
+
+	function cardSortRank(card) {
+		const placeholder = isCardPlaceholderOnly(card) ? 1 : 0;
+		if (isCardLegacyGear(card)) return 2 + placeholder;
+		return placeholder;
+	}
+
+	function stableSortCardRun(parent, run) {
+		if (!parent || run.length < 2) return false;
+
+		const indexed = run.map((card, idx) => ({
+			card,
+			rank: cardSortRank(card),
+			idx,
+		}));
+		let minRank = indexed[0].rank;
+		let maxRank = indexed[0].rank;
+		for (let r = 1; r < indexed.length; r++) {
+			if (indexed[r].rank < minRank) minRank = indexed[r].rank;
+			if (indexed[r].rank > maxRank) maxRank = indexed[r].rank;
+		}
+		if (minRank === maxRank) return false;
+
+		indexed.sort((a, b) => (a.rank !== b.rank ? a.rank - b.rank : a.idx - b.idx));
+
+		const anchor = run[run.length - 1].nextSibling;
+		for (let j = 0; j < indexed.length; j++) {
+			parent.insertBefore(indexed[j].card, anchor);
+		}
+		return true;
+	}
+
+	function sortSiblingCardRuns(parent) {
+		if (!parent || !parent.children) return;
+		const children = [...parent.children];
+		let i = 0;
+		while (i < children.length) {
+			const child = children[i];
+			if (isSortableCard(child)) {
+				const run = [];
+				while (i < children.length && isSortableCard(children[i])) {
+					run.push(children[i]);
+					i++;
+				}
+				stableSortCardRun(parent, run);
+			} else {
+				if (child.querySelector && child.querySelector(SORTABLE_CARD_SELECTOR)) {
+					sortSiblingCardRuns(child);
+				}
+				i++;
+			}
+		}
+	}
+
+	const CARD_GRID_SELECTOR =
+		'.keep-board, .site-teaser-grid, .garage-sale-grid, [data-garage-sale-grid], [data-card-sort-grid]';
+
+	function sortAllCardGrids(root) {
+		const scope = root && root.querySelectorAll ? root : document;
+		const grids = scope.querySelectorAll(CARD_GRID_SELECTOR);
+		for (let g = 0; g < grids.length; g++) {
+			sortSiblingCardRuns(grids[g]);
+		}
+	}
+
+	function slidesHaveRealMedia(slides) {
+		if (!slides || !slides.length) return false;
+		for (let i = 0; i < slides.length; i++) {
+			if (!isCarouselPlaceholderSrc(slideSrc(slides[i]))) return true;
+		}
+		return false;
+	}
+
+	function sortConfigCardsPlaceholderLast(cards, imgKey) {
+		const key = imgKey || 'img';
+		if (!cards || !cards.length) return cards || [];
+		return cards
+			.map((card, idx) => {
+				const src = typeof card === 'string' ? card : card && card[key];
+				return {
+					card,
+					idx,
+					rank: isCarouselPlaceholderSrc(src) ? 1 : 0,
+				};
+			})
+			.sort((a, b) => (a.rank !== b.rank ? a.rank - b.rank : a.idx - b.idx))
+			.map((item) => item.card);
+	}
+
+	window.owenminercsCarouselFilter = {
+		isCarouselPlaceholderSrc,
+		filterCarouselSlides,
+		pruneCarouselImageNodes,
+		isCardPlaceholderOnly,
+		isCardSetupArchive,
+		isCardLegacyGear,
+		cardSortRank,
+		slidesHaveRealMedia,
+		sortSiblingCardRuns,
+		sortAllCardGrids,
+		sortConfigCardsPlaceholderLast,
+	};
+})();
+
+function initCardGridPlaceholderSort() {
+	const api = window.owenminercsCarouselFilter;
+	if (api && typeof api.sortAllCardGrids === 'function') {
+		api.sortAllCardGrids(document);
+	}
+}
+
+const KEEP_CARD_INTERACTIVE_TARGET =
+	'a[href], button, iframe, .reddit-embed-bq, .keep-card__embed-skip-nav, .keep-card__reddit-embed, .keep-card__album-nav, .keep-card__photo-jump, .embed-facade, input, select, textarea';
+
+function keepCardClickShouldNavigate(event) {
+	if (event.defaultPrevented) return false;
+	const interactive = event.target.closest(KEEP_CARD_INTERACTIVE_TARGET);
+	if (!interactive) return true;
+	return Boolean(event.target.closest('.keep-card__album-viewport'));
+}
+
+function initKeepCardPrimaryLinks(root) {
+	const scope = root && root.querySelectorAll ? root : document;
+	scope
+		.querySelectorAll(
+			'.keep-card[data-href]:not(.keep-card--affiliate-quick):not(.keep-card--static):not(.site-map-card)',
+		)
+		.forEach((card) => {
+			if (card.querySelector(':scope > .keep-card__primary')) return;
+			const href = card.getAttribute('data-href');
+			if (!href) return;
+
+			const link = document.createElement('a');
+			link.className = 'keep-card__primary';
+			link.href = href;
+	link.style.position = 'absolute';
+	link.style.inset = '0';
+	link.style.zIndex = '0';
+			const labelEl = card.querySelector('.keep-card__label');
+			if (labelEl && labelEl.textContent) {
+				link.setAttribute('aria-label', labelEl.textContent.trim());
+			}
+			card.insertBefore(link, card.firstChild);
+
+			if (card.getAttribute('role') === 'link') {
+				card.removeAttribute('tabindex');
+			}
+
+			card.addEventListener('click', (e) => {
+				if (!keepCardClickShouldNavigate(e)) return;
+				window.location.href = href;
+			});
+		});
+}
+
+window.owenminercsInitKeepCardPrimaryLinks = initKeepCardPrimaryLinks;

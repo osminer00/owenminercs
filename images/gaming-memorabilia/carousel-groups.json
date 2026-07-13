@@ -1,0 +1,159 @@
+{
+  "generated": "2026-06-30",
+  "ac": [
+    {
+      "id": "ac-black",
+      "title": "Black AC IV promo box",
+      "files": [
+        "img-4779.webp",
+        "img-4783.webp",
+        "img-4788.webp",
+        "img-4794.webp",
+        "img-4795.webp",
+        "img-4797.webp",
+        "img-4798.webp",
+        "img-4800.webp",
+        "img-4803.webp",
+        "img-4805.webp",
+        "img-4806.webp",
+        "img-4807.webp",
+        "img-4808.webp",
+        "img-4809.webp",
+        "img-4810.webp"
+      ]
+    },
+    {
+      "id": "ac-white",
+      "title": "White AC IV promo box",
+      "files": [
+        "img-4780.webp",
+        "img-4782.webp",
+        "img-4784.webp",
+        "img-4785.webp",
+        "img-4786.webp",
+        "img-4787.webp",
+        "img-4789.webp",
+        "img-4790.webp",
+        "img-4791.webp",
+        "img-4792.webp",
+        "img-4793.webp",
+        "img-4799.webp",
+        "img-4801.webp",
+        "img-4802.webp",
+        "img-4804.webp",
+        "img-4811.webp"
+      ]
+    }
+  ],
+  "bf": [
+    {
+      "id": "bf-box-1",
+      "title": "Battlefield 4 promo box 1",
+      "files": [
+        "img-4815.webp",
+        "img-4817.webp",
+        "img-4820.webp",
+        "img-4822.webp",
+        "img-4823.webp",
+        "img-4825.webp",
+        "img-4827.webp",
+        "img-4828.webp",
+        "img-4833.webp",
+        "img-4836.webp",
+        "img-4837.webp",
+        "img-4838.webp",
+        "img-4839.webp",
+        "img-4841.webp",
+        "img-4843.webp",
+        "img-4848.webp",
+        "img-4850.webp",
+        "img-4852.webp",
+        "img-4853.webp",
+        "img-4855.webp",
+        "img-4857.webp",
+        "img-5392.webp",
+        "img-5399.webp"
+      ]
+    },
+    {
+      "id": "bf-box-2",
+      "title": "Battlefield 4 promo box 2",
+      "files": [
+        "img-4812.webp",
+        "img-4814.webp",
+        "img-4818.webp",
+        "img-4824.webp",
+        "img-4830.webp",
+        "img-4831.webp",
+        "img-4832.webp",
+        "img-4835.webp",
+        "img-4840.webp",
+        "img-4844.webp",
+        "img-4846.webp",
+        "img-4847.webp",
+        "img-4849.webp",
+        "img-4851.webp",
+        "img-4856.webp",
+        "img-5391.webp",
+        "img-5398.webp"
+      ]
+    },
+    {
+      "id": "bf-box-3",
+      "title": "Battlefield 4 promo box 3",
+      "files": [
+        "img-4813.webp",
+        "img-4816.webp",
+        "img-4819.webp",
+        "img-4821.webp",
+        "img-4826.webp",
+        "img-4829.webp",
+        "img-4842.webp",
+        "img-4845.webp",
+        "img-4854.webp"
+      ]
+    },
+    {
+      "id": "bf-poster",
+      "title": "Battlefield 4 poster",
+      "files": [
+        "img-5393.webp",
+        "img-5394.webp",
+        "img-5395.webp",
+        "img-5396.webp",
+        "img-5397.webp"
+      ]
+    }
+  ],
+  "skyrim": [
+    {
+      "id": "skyrim-box",
+      "title": "Skyrim promo box",
+      "files": [
+        "img-5228.webp",
+        "img-5229.webp",
+        "img-5230.webp",
+        "img-5231.webp",
+        "img-5232.webp",
+        "img-5233.webp",
+        "img-5234.webp",
+        "img-5235.webp",
+        "img-5236.webp",
+        "img-5237.webp",
+        "img-5238.webp",
+        "img-5239.webp",
+        "img-5240.webp"
+      ]
+    }
+  ],
+  "black-ops": [
+    {
+      "id": "black-ops-shrine",
+      "title": "Black Ops disc shrine",
+      "files": [
+        "img-7896.webp",
+        "img-7897.webp"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
 	"entries": {
-		"Keyboard/60he": [
+		"The%20Setup/keyboards": [
 			"lekker",
 			"liquor switches",
 			"wooting 60he",
@@ -11,6 +11,9 @@
 		"Keyboard/60he-2023": ["lekker", "lekker switches", "liquor", "lubing", "wooting switches"],
 		"Keyboard/60he-2025": ["lekker", "wooting", "60he", "kilowatt"],
 		"Gaming/cs2-merch": ["agent k", "agent figurine", "shanghai major", "merch", "plush", "pins"],
+		"Gaming/cs2-skins": ["cs2 skins", "m9 slaughter", "steam inventory", "knife", "gloves"],
+		"Gaming/complexity-disband-meme": ["complexity", "north american", "na cs", "meme", "disband"],
+		"The%20Setup/clothing": ["outfits", "fit check", "shoes", "clothing"],
 		"Counter-Strike/nosmoking": ["wallpaper", "wallpapers", "cs2", "counter-strike"],
 		"Garage%20Sale/garage-sale": ["garage sale", "ebay", "shop", "stripe", "for sale"]
 	}

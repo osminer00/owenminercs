@@ -30,7 +30,22 @@
 	var shopStripeEndpoint =
 		(script && script.getAttribute('data-shop-stripe-checkout')) || '';
 
-	var PLACEHOLDER_IMG = new URL('../images/owenminercs-logo.png', window.location.href).href;
+	var GLOBE_PLACEHOLDERS = [
+		'/images/logo/globes/globe-red.jpg',
+		'/images/logo/globes/globe-red-text.jpg',
+		'/images/logo/globes/globe-blue.jpg',
+		'/images/logo/globes/globe-purple.jpg',
+		'/images/logo/globes/globe-purple-dark.jpg',
+		'/images/logo/globes/globe-purple-red.jpg',
+		'/images/logo/globes/globe-dark-blue.jpg',
+		'/images/logo/globes/globe-silver.jpg',
+	];
+	var globePlaceholderIndex = 0;
+	function nextGlobePlaceholder() {
+		var src = GLOBE_PLACEHOLDERS[globePlaceholderIndex % GLOBE_PLACEHOLDERS.length];
+		globePlaceholderIndex += 1;
+		return new URL(src, window.location.href).href;
+	}
 	var CART_KEY = 'owenminercs-ebay-cart-v1';
 
 	var SHOP_SECTION_ORDER = ['stickers', 'prints', 'custom-work'];
@@ -319,7 +334,7 @@
 			var abs = resolveProductUrl(s, base);
 			if (abs) out.push(abs);
 		});
-		if (!out.length) out.push(PLACEHOLDER_IMG);
+		if (!out.length) out.push(nextGlobePlaceholder());
 		return out;
 	}
 
@@ -476,7 +491,7 @@
 			checkoutUrl: getBuyOnSiteUrl(item) || '',
 			dynamicStripe: Boolean(item.dynamicStripeCheckout),
 			shopProductId: item.shopProductId || '',
-			image: imgs[0] || PLACEHOLDER_IMG,
+			image: imgs[0] || nextGlobePlaceholder(),
 		};
 	}
 
@@ -534,18 +549,18 @@
 			price.className = 'shop-cart-line-price';
 			price.textContent =
 				(line.checkoutUrl || line.dynamicStripe
-					? 'Price (direct): ' + (line.price || '—')
-					: 'Price (eBay): ' + (line.price || '—'));
+					? 'Price (direct): ' + (line.price || 'n/a')
+					: 'Price (eBay): ' + (line.price || 'n/a'));
 			var ship = document.createElement('span');
 			ship.className = 'shop-cart-line-ship';
 			if (line.checkoutUrl) {
 				ship.textContent = line.url
-					? 'Prefer direct checkout — eBay is optional for the same item.'
+					? 'Prefer direct checkout. eBay is optional for the same item.'
 					: 'Pay on the seller checkout page.';
 			} else if (line.dynamicStripe) {
 				ship.textContent = 'Checkout opens Stripe (cards and wallets). U.S. shipping collected at checkout.';
 			} else {
-				ship.textContent = 'Shipping: ' + (line.shipping || '—') + ' · U.S. only';
+				ship.textContent = 'Shipping: ' + (line.shipping || 'n/a') + ' · U.S. only';
 			}
 			main.appendChild(title);
 			main.appendChild(price);
@@ -695,7 +710,7 @@
 			shipP.textContent = stripeBtn
 				? 'Stripe checkout collects name, phone, and U.S. shipping address. Totals are confirmed before you pay.'
 				: ebay
-					? 'Prefer buying direct when checkout is available — marketplace fees on eBay add up. Shipping may differ between checkout and eBay.'
+					? 'Prefer buying direct when checkout is available. Marketplace fees on eBay add up. Shipping may differ between checkout and eBay.'
 					: 'Shipping and totals are shown on the direct checkout page.';
 		} else {
 			shipP.textContent =
@@ -732,7 +747,7 @@
 			var hint = document.createElement('p');
 			hint.className = 'garage-sale-ebay-spread-note';
 			hint.textContent = direct
-				? 'Details may also appear on the eBay listing when linked. Complete payment on checkout or eBay — whichever you choose.'
+				? 'Details may also appear on the eBay listing when linked. Complete payment on checkout or eBay, whichever you choose.'
 				: 'Full item specifics, returns, and exact shipping options are on the eBay listing. Purchases complete on eBay.';
 			detailBody.appendChild(hint);
 		} else if (
@@ -844,7 +859,7 @@
 			var np = document.createElement('p');
 			np.className = 'garage-sale-ebay-spread-note';
 			np.textContent =
-				direct || stripeBtn ? 'Price — see checkout.' : 'Price — open eBay listing.';
+				direct || stripeBtn ? 'Price: see checkout.' : 'Price: open eBay listing.';
 			card.appendChild(np);
 		}
 
@@ -973,7 +988,7 @@
 		badge.className = 'shop-hold-badge';
 		var availLower = String((item && item.shopAvailabilityText) || '').toLowerCase();
 		badge.textContent =
-			availLower === 'sold out' ? 'Sold out here' : 'On hold — not sold here yet';
+			availLower === 'sold out' ? 'Sold out here' : 'On hold, not sold here yet';
 		card.appendChild(badge);
 
 		var galleryImages = Array.isArray(item.images) ? item.images.slice() : [];
@@ -987,7 +1002,7 @@
 			buildIgCarousel(
 				ig,
 				galleryImages.map(function (u) {
-					return resolveProductUrl(String(u), productsUrl) || PLACEHOLDER_IMG;
+					return resolveProductUrl(String(u), productsUrl) || nextGlobePlaceholder();
 				}),
 				item.title
 			);
@@ -1073,8 +1088,8 @@
 		media.className = 'garage-sale-placeholder-media';
 		var img = document.createElement('img');
 		img.className = 'garage-sale-placeholder-image';
-		img.src = '../images/coming-soon-card.svg';
-		img.alt = 'Nothing for sale placeholder graphic';
+		img.src = '/images/logo/globes/globe-red.jpg';
+		img.alt = 'OwenMinerCS logo with red globe, nothing listed right now';
 		img.width = 800;
 		img.height = 450;
 		img.decoding = 'async';
@@ -1090,7 +1105,7 @@
 		var note = document.createElement('p');
 		note.className = 'garage-sale-ebay-spread-note';
 		note.textContent =
-			'Active items are on eBay now — this page is just a placeholder until the next direct drop.';
+			'Active items are on eBay now. This page is just a placeholder until the next direct drop.';
 		card.appendChild(note);
 
 		var cta = document.createElement('div');
@@ -1144,6 +1159,10 @@
 		}
 		if (noteEl && noteEl.textContent) {
 			noteEl.hidden = !hasSaleListings();
+		}
+		var sortApi = window.owenminercsCarouselFilter;
+		if (sortApi && typeof sortApi.sortAllCardGrids === 'function') {
+			sortApi.sortAllCardGrids(document);
 		}
 	}
 

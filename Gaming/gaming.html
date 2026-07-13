@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
 		<script>
@@ -13,7 +15,7 @@
 			gtag('js', new Date());
 			gtag('config', 'G-GYG1QRQ8DY');
 		</script>
-		<title>Gaming — Counter-Strike 2 for now | Owen Miner</title>
+		<title>Gaming, Counter-Strike 2 for now | Owen Miner</title>
 		<meta name="author" content="Owen Miner" />
 		<meta
 			name="description"
@@ -33,7 +35,8 @@
 		<link
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
-		/><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		/>
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -61,7 +64,7 @@
 				"@type": "CollectionPage",
 				"@id": "https://www.owenminercs.com/Gaming/gaming#webpage",
 				"url": "https://www.owenminercs.com/Gaming/gaming",
-				"name": "Gaming — Counter-Strike 2 | Owen Miner",
+				"name": "Gaming, Counter-Strike 2 | Owen Miner",
 				"description": "CS2 and Counter-Strike: Faceit level 10 content, PGL Shanghai Major merch, Agent Number K wallpapers, CS2 videos, and profile links.",
 				"inLanguage": "en",
 				"isPartOf": { "@id": "https://www.owenminercs.com/#website" },
@@ -70,22 +73,40 @@
 		</script>
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui bubble-theme bubble-theme--socials gaming-hub-page" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
-			<div class="intro">
-				<div class="gallery" style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black">
+			<div class="intro gaming-hub-intro">
+				
+				<div
+					class="gallery keep-board-intro"
+					style="border: solid black; border-radius: 7px; box-shadow: 5px 5px black"
+				>
 					<h1>Gaming</h1>
-					<p class="gaming-hub__lede">
-						Faceit level 10 CS2 content—merch shelves, wallpapers, videos, and competitive notes. Desk gear and
-						keyboard builds live under
-						<a href="../The%20Setup/the-setup.html">Gear</a> and
-						<a href="../Keyboard/60he.html">Wooting 60HE</a>.
-					</p>
-				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure</span> Some links on this page are compensated AliExpress store links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media.</p>
+				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure:</span> Some links on this page are compensated AliExpress store links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund videos, streams, and site content. Thanks for supporting the channel.</p>
 				</div>
+			</div>
 
+			<section class="hub-content-panel" aria-label="Gaming topics">
 				<div class="gaming-board-filters" role="toolbar" aria-label="Filter card types">
 					<span class="gaming-board-filters__label">Show:</span>
 					<button
@@ -110,15 +131,58 @@
 
 				<div class="keep-board" aria-label="Gaming topics">
 					<div class="gaming-card-group" data-gaming-group="site">
-					<div class="keep-card" role="link" tabindex="0" data-href="../Counter-Strike/nosmoking.html">
+					<div class="keep-card" role="link" tabindex="0" data-href="cs2-merch.html">
 						<span class="keep-card__inner">
-							<div class="keep-card__thumb keep-card__album" role="img" aria-label="Agent Number K wallpaper previews"></div>
+							<img
+								class="keep-card__thumb"
+								src="../images/csShelves.webp"
+								alt="Ikea white shelves with merchandise from Shanghai CS2 Major"
+							/>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Video (embed)</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Counter Strike Merch</p>
+									<div class="keep-card__affiliate">
+										<p>
+											PGL Shanghai Major shelves, collectibles and display pieces.
+											<a
+												class="merch-affiliate-link"
+												href="https://pwrdesports.aliexpress.com/store/1103775565?spm=a2g0o.store_pc_allItems_or_groupList.pcShopHead_2009118762807.0"
+												target="_blank"
+												rel="noopener noreferrer sponsored nofollow"
+												>Perfect World ESports Store on AliExpress (affiliate)</a
+											>
+										</p>
+									</div>
+									<span class="keep-card__cta">More →</span>
+								</div>
+							</div></span
+						>
+
+						<div class="keep-card__peek">
+							<p>
+								I have a pretty extensive collection of the PGL Perfect World Counter-Strike 2 Shanghai
+								Major merch.
+							</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card" role="link" tabindex="0" data-href="../Counter-Strike/nosmoking.html" data-keep-thumb-manual="true">
+						<span class="keep-card__inner">
+							<img
+								class="keep-card__thumb"
+								src="../images/Desktop_background/Agent K Large smoke black background .png"
+								alt="Agent number K figurine smoking a cigarette with small smoke background"
+								loading="lazy"
+								decoding="async"
+							/>
 							<div class="keep-card__scalable">
 								<div class="keep-card__video-slot">Video (embed)</div>
 								<div class="keep-card__body">
 									<p class="keep-card__label">Agent Number K Wallpapers</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.95rem; font-weight: 500">
+										<p>
 											Free Agent Number K CS2 wallpapers (No Smoking theme)
 										</p>
 									</div>
@@ -144,7 +208,7 @@
 								<div class="keep-card__body">
 									<p class="keep-card__label">Counter Strike Background</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">
+										<p>
 											From 2015 community servers to FACEIT level 10 and Premier leaderboard runs.
 										</p>
 									</div>
@@ -159,27 +223,22 @@
 						</div>
 					</div>
 
-					<div class="keep-card" role="link" tabindex="0" data-href="cs2-merch.html">
+					<div class="keep-card" role="link" tabindex="0" data-href="gaming-memorabilia.html" data-keep-thumb-manual="true">
 						<span class="keep-card__inner">
 							<img
 								class="keep-card__thumb"
-								src="../images/csShelves.webp"
-								alt="Ikea white shelves with merchandise from Shanghai CS2 Major"
+								src="/images/gaming-memorabilia/ac/img-4786.webp"
+								alt="Assassin's Creed GameStop midnight release promotional box"
+								loading="lazy"
+								decoding="async"
 							/>
 							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
+								<div class="keep-card__video-slot">Collectibles</div>
 								<div class="keep-card__body">
-									<p class="keep-card__label">Major merch</p>
+									<p class="keep-card__label">Gaming memorabilia</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.85rem">
-											PGL Shanghai Major shelves—collectibles and display pieces.
-											<a
-												class="merch-affiliate-link"
-												href="https://pwrdesports.aliexpress.com/store/1103775565?spm=a2g0o.store_pc_allItems_or_groupList.pcShopHead_2009118762807.0"
-												target="_blank"
-												rel="noopener noreferrer sponsored nofollow"
-												>Perfect World ESports Store on AliExpress (affiliate)</a
-											>
+										<p>
+											GameStop midnight-release promo boxes, magazine wall, and childhood game shrines.
 										</p>
 									</div>
 									<span class="keep-card__cta">More →</span>
@@ -188,10 +247,86 @@
 						>
 
 						<div class="keep-card__peek">
-							<p>
-								I have a pretty extensive collection of the PGL Perfect World Counter-Strike 2 Shanghai
-								Major merch.
-							</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card" role="link" tabindex="0" data-href="cs2-arts-and-crafts.html">
+						<span class="keep-card__inner">
+							<img
+								class="keep-card__thumb"
+								src="../images/cs2-arts-crafts/sewing/cs2-screenshot-blanket-unboxed.webp"
+								alt="CS2 screenshot blanket sewing project unboxed"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Crafts</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">CS2 arts &amp; crafts</p>
+									<span class="keep-card__cta">More →</span>
+								</div>
+							</div></span
+						>
+
+						<div class="keep-card__peek">
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card" role="link" tabindex="0" data-href="stickers.html">
+						<span class="keep-card__inner">
+							<img
+								class="keep-card__thumb"
+								src="../images/stickers/sticker-pack-photo.webp"
+								alt="OwenMinerCS Agent K themed sticker pack once mailed to Twitch subscribers and eBay orders"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Archive</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Old stickers</p>
+									<div class="keep-card__affiliate">
+										<p>
+											Agent K themed packs I used to include with Twitch subs and eBay orders.
+										</p>
+									</div>
+									<span class="keep-card__cta">More →</span>
+								</div>
+							</div></span
+						>
+
+						<div class="keep-card__peek">
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card" role="link" tabindex="0" data-href="austin-major.html">
+						<span class="keep-card__inner">
+							<img
+								class="keep-card__thumb"
+								src="../images/austin-major/apex-middle-finger-poster.jpg"
+								alt="apEX middle finger moment at the Austin TX CS2 Major"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Photos &amp; clips</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Austin TX CS2 Major</p>
+									<div class="keep-card__affiliate">
+										<p>
+											All my photos and arena clips from the BLAST Austin Major
+										</p>
+									</div>
+									<span class="keep-card__cta">More →</span>
+								</div>
+							</div></span
+						>
+
+						<div class="keep-card__peek">
+							<p>Walkouts, apEX moment, Airbnb trip photos, and crowd clips.</p>
 							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 						</div>
 					</div>
@@ -207,9 +342,6 @@
 								<div class="keep-card__video-slot">Video (embed)</div>
 								<div class="keep-card__body">
 									<p class="keep-card__label">More Counter-Strike 2 Content (videos)</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.85rem">&nbsp;</p>
-									</div>
 									<span class="keep-card__cta">More →</span>
 								</div>
 							</div></span
@@ -220,6 +352,50 @@
 							<p>My First CS-GO Video</p>
 							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 						</div>
+					</div>
+
+					<div class="keep-card" role="link" tabindex="0" data-href="complexity-disband-meme.html">
+						<span class="keep-card__inner">
+							<img
+								class="keep-card__thumb"
+								src="https://i.ytimg.com/vi/W8T3VbErF68/hqdefault.jpg"
+								alt="RIP COMPLEXITY Counter-Strike meme video preview"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Meme</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Complexity disband / NA support meme</p>
+									<div class="keep-card__affiliate">
+										<p>Reddit, YouTube, TikTok, and practice clip</p>
+									</div>
+									<span class="keep-card__cta">More →</span>
+								</div>
+							</div></span
+						>
+					</div>
+
+					<div class="keep-card" role="link" tabindex="0" data-href="cs2-skins.html">
+						<span class="keep-card__inner">
+							<img
+								class="keep-card__thumb"
+								src="/images/gaming/cs2-skins/m9-slaughter-and-slightot-gloves-with-train-background-photoshop-both-sides-of-the-knife.webp"
+								alt="M9 Slaughter and Slit gloves Train background Photoshop"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Skins</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">CS2 skins</p>
+									<div class="keep-card__affiliate">
+										<p>Photoshop showcase and Steam inventory highlights</p>
+									</div>
+									<span class="keep-card__cta">More →</span>
+								</div>
+							</div></span
+						>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="ohnepixel-labubu.html">
@@ -234,7 +410,7 @@
 								<div class="keep-card__body">
 									<p class="keep-card__label">Ohnepixel Gold Gold Gold Labubu</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.85rem">
+										<p>
 											24K Gold³ Labubu unboxing and Shorts with Ohnepixel
 										</p>
 									</div>
@@ -252,66 +428,261 @@
 					</div>
 					<div class="gaming-card-group" data-gaming-group="reddit">
 
+					<div class="gaming-highlights-grid">
 					<div class="keep-board-section-heading" style="grid-column: 1 / -1">
-						<h5 style="margin: 0 0 0.25rem"><i>Recent highlights (June 2026):</i></h5>
-						<p style="margin: 0; font-size: 0.95rem; color: var(--muted, #aaa)">
-							Big posts from the last few days on X, YouTube, and TikTok—synced into the Content hub feeds.
+						<h5><i>Recent highlights (June 2026):</i></h5>
+						<p>
+							Big posts from the last few days on X, YouTube, TikTok, and Instagram, synced into the Content hub
+							feeds.
 						</p>
 					</div>
 
-					<div class="keep-card" role="link" tabindex="0" data-href="https://www.youtube.com/shorts/DQ-05ya7Ftc">
+					<div class="keep-card keep-card--static">
 						<span class="keep-card__inner">
-							<img
-								class="keep-card__thumb"
-								src="https://i.ytimg.com/vi/DQ-05ya7Ftc/hqdefault.jpg"
-								alt="CS2 knife pin display build from Perfect World merch"
-								loading="lazy"
-								decoding="async"
-							/>
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="NA CS player reacts to basic Mirage movement tech"
+							>
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/isXjGDcmuP0"
+									title="NA CS player reacts to basic Mirage movement tech"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Short</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">NA soul leaves after Mirage tech</p>
+									<div class="keep-card__affiliate">
+										<p>YouTube Short · Jun 27, 2026</p>
+									</div>
+								</div>
+							</div></span
+						>
+						<div class="keep-card__peek">
+							<p>North American CS player's soul leaves his body after witnessing basic Mirage movement tech.</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card keep-card--static">
+						<span class="keep-card__inner">
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="CS2 knife pin display build from Perfect World merch"
+							>
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/DQ-05ya7Ftc"
+									title="CS2 knife pin display build from Perfect World merch"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
 							<div class="keep-card__scalable">
 								<div class="keep-card__video-slot">Short</div>
 								<div class="keep-card__body">
 									<p class="keep-card__label">CS2 knife pin display build</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">YouTube Short · Jun 27, 2026</p>
+										<p>YouTube Short · Jun 27, 2026</p>
 									</div>
-									<span class="keep-card__cta">Open clip →</span>
 								</div>
 							</div></span
 						>
 						<div class="keep-card__peek">
-							<p>Perfect World licensed knife pins—display build from leftover Mirage jacket materials.</p>
+							<p>Perfect World licensed knife pins, display build from leftover Mirage jacket materials.</p>
 							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 						</div>
 					</div>
 
-					<div
-						class="keep-card"
-						role="link"
-						tabindex="0"
-						data-href="https://x.com/owenminer/status/2069497100384022720"
-					>
+					<div class="keep-card keep-card--static">
 						<span class="keep-card__inner">
-							<img
-								class="keep-card__thumb"
-								src="https://pbs.twimg.com/media/HLhTJr4bYAAxk1a.jpg?name=orig"
-								alt="fentbubu watching Niko win his first Major"
-								loading="lazy"
-								decoding="async"
-							/>
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="Mirage movement tech reaction on TikTok"
+							>
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7656155486265298189?controls=1&progress_bar=1&play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7656155486265298189.jpg"
+									title="Mirage movement tech reaction on TikTok"
+									allow="fullscreen; encrypted-media; picture-in-picture"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">TikTok</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Mirage movement tech reaction</p>
+									<div class="keep-card__affiliate">
+										<p>TikTok · Jun 27, 2026</p>
+									</div>
+								</div>
+							</div></span
+						>
+						<div class="keep-card__peek">
+							<p>NA CS player's soul leaves his body after witnessing basic Mirage movement tech for the first time.</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card keep-card--static">
+						<span class="keep-card__inner">
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="Imported CS2 knife blind boxes from Perfect World China"
+							>
+								<iframe
+									data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=2070303029941739603&theme=dark&dnt=true"
+									data-embed-poster="https://pbs.twimg.com/amplify_video_thumb/2070301677320634368/img/EM-m4T7QQFRg5Ovq.jpg"
+									title="Imported CS2 knife blind boxes from Perfect World China"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">X post</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Imported CS2 knife blind boxes</p>
+									<div class="keep-card__affiliate">
+										<p>X · 9.3K views · Jun 26, 2026</p>
+									</div>
+								</div>
+							</div></span
+						>
+						<div class="keep-card__peek">
+							<p>Imported CS2 knife blind boxes from Perfect World China. Which is your favorite pin?</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card keep-card--static">
+						<span class="keep-card__inner">
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="CS2 knife pin blind box unboxing POV"
+							>
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/RzkWbLgK_oo"
+									title="CS2 knife pin blind box unboxing POV"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">Short</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">CS2 knife pin set unboxing</p>
+									<div class="keep-card__affiliate">
+										<p>YouTube Short · Jun 26, 2026</p>
+									</div>
+								</div>
+							</div></span
+						>
+						<div class="keep-card__peek">
+							<p>Perfect World licensed knife badge blind boxes. Meta Glasses POV unboxing from Superbuy import.</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card keep-card--static">
+						<span class="keep-card__inner">
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="Perfect World CS2 knife blind box unboxing on TikTok"
+							>
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7655493736159333646?controls=1&progress_bar=1&play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7655493736159333646.jpg"
+									title="Perfect World CS2 knife blind box unboxing on TikTok"
+									allow="fullscreen; encrypted-media; picture-in-picture"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">TikTok</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Perfect World knife blind boxes</p>
+									<div class="keep-card__affiliate">
+										<p>TikTok · Jun 26, 2026</p>
+									</div>
+								</div>
+							</div></span
+						>
+						<div class="keep-card__peek">
+							<p>Imported official CS2 knife blind boxes from Perfect World China.</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card keep-card--static">
+						<span class="keep-card__inner">
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="Dynamic weather hot take for Counter-Strike 2"
+							>
+								<iframe
+									data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=2070228002789540316&theme=dark&dnt=true"
+									data-embed-poster="https://pbs.twimg.com/media/HLrtZZyXEAEofyy.jpg?name=orig"
+									title="Dynamic weather hot take for Counter-Strike 2"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">X post</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Dynamic weather hot take for CS2</p>
+									<div class="keep-card__affiliate">
+										<p>X · 4.9K views · Jun 25, 2026</p>
+									</div>
+								</div>
+							</div></span
+						>
+						<div class="keep-card__peek">
+							<p>Rain, sunshine, day &amp; night, dynamic weather could change CS2 round by round.</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					<div class="keep-card keep-card--static">
+						<span class="keep-card__inner">
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="fentbubu watching Niko win his first Major"
+							>
+								<iframe
+									data-embed-src="https://platform.twitter.com/embed/Tweet.html?id=2069497100384022720&theme=dark&dnt=true"
+									data-embed-poster="https://pbs.twimg.com/media/HLhTJr4bYAAxk1a.jpg?name=orig"
+									title="fentbubu watching Niko win his first Major"
+									allow="fullscreen"
+									referrerpolicy="strict-origin-when-cross-origin"
+								></iframe>
+							</div>
 							<div class="keep-card__scalable">
 								<div class="keep-card__video-slot">X post</div>
 								<div class="keep-card__body">
 									<p class="keep-card__label">fentbubu saw Niko win his first Major</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">X · 14K+ views · Jun 23, 2026</p>
+										<p>X · 25K views · Jun 23, 2026</p>
 									</div>
-									<span class="keep-card__cta">Open on X →</span>
 								</div>
 							</div></span
 						>
 						<div class="keep-card__peek">
-							<p>I made sure fentbubu got to see Niko win his first Major. · X · 14K+ views</p>
+							<p>I made sure fentbubu got to see Niko win his first Major. · X · 25K views</p>
 							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
 						</div>
 					</div>
@@ -328,7 +699,7 @@
 								<div class="keep-card__body">
 									<p class="keep-card__label">24K Gold³ Labubu unboxing + Shorts</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">YouTube · TikTok · X · Jun 19–21, 2026</p>
+										<p>YouTube · TikTok · X · Jun 19 to 21, 2026</p>
 									</div>
 									<span class="keep-card__cta">Watch →</span>
 								</div>
@@ -340,23 +711,28 @@
 						</div>
 					</div>
 
-					<div class="keep-card" role="link" tabindex="0" data-href="https://www.youtube.com/shorts/JNMGA4uPaM0">
+					<div class="keep-card keep-card--static">
 						<span class="keep-card__inner">
-							<img
-								class="keep-card__thumb"
-								src="https://i.ytimg.com/vi/JNMGA4uPaM0/hqdefault.jpg"
-								alt="apEX flipped me off at Austin Major anniversary clip"
-								loading="lazy"
-								decoding="async"
-							/>
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="apEX flipped me off at Austin Major anniversary clip"
+							>
+								<iframe
+									data-embed-src="https://www.youtube.com/embed/JNMGA4uPaM0"
+									title="apEX flipped me off at Austin Major anniversary clip"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
 							<div class="keep-card__scalable">
 								<div class="keep-card__video-slot">Short</div>
 								<div class="keep-card__body">
-									<p class="keep-card__label">1 vs 15,000 — apEX anniversary</p>
+									<p class="keep-card__label">1 vs 15,000, apEX anniversary</p>
 									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">YouTube Short · 2.4K views · Jun 22, 2026</p>
+										<p>YouTube Short · 2.6K views · Jun 22, 2026</p>
 									</div>
-									<span class="keep-card__cta">Open clip →</span>
 								</div>
 							</div></span
 						>
@@ -366,12 +742,48 @@
 						</div>
 					</div>
 
+					<div class="keep-card keep-card--static">
+						<span class="keep-card__inner">
+							<div
+								class="keep-card__thumb keep-card__video-thumb keep-card__embed-skip-nav"
+								role="region"
+								aria-label="Top Mid Mirage Carhartt jacket custom build"
+							>
+								<iframe
+									data-embed-src="https://www.tiktok.com/player/v1/7654342162502470926?controls=1&progress_bar=1&play_button=1"
+									data-embed-poster="/Socials/images/content-thumbs/tiktok/7654342162502470926.jpg"
+									title="Top Mid Mirage Carhartt jacket custom build"
+									allow="fullscreen; encrypted-media; picture-in-picture"
+									referrerpolicy="origin-when-cross-origin"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="keep-card__scalable">
+								<div class="keep-card__video-slot">TikTok</div>
+								<div class="keep-card__body">
+									<p class="keep-card__label">Top Mid Mirage Carhartt jacket</p>
+									<div class="keep-card__affiliate">
+										<p>TikTok · 494 views · Jun 22, 2026</p>
+									</div>
+								</div>
+							</div></span
+						>
+						<div class="keep-card__peek">
+							<p>Mirage screenshot printed on a woven blanket, stitched into a custom Carhartt-style jacket.</p>
+							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
+						</div>
+					</div>
+
+					</div>
+
 					<div class="keep-board-section-heading" style="grid-column: 1 / -1; margin-top: 0.5rem">
-						<h5 style="margin: 0 0 0.25rem"><i>Top Reddit posts (all-time):</i></h5>
-						<p style="margin: 0; font-size: 0.95rem; color: var(--muted, #aaa)">
-							Ten highest-scoring submissions on my profile (same embed style as below).
+						<h5><i>Top Reddit posts (all-time):</i></h5>
+						<p>
+							Ten highest-scoring submissions on my profile.
 						</p>
 					</div>
+
+					<div class="gaming-reddit-embed-grid">
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/GlobalOffensive/comments/1mv03i2/im_so_excited_to_support_north_american/">
 						<span class="keep-card__inner">
@@ -389,21 +801,7 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">I'm so excited to support North American Counter-Strike with the new T-shirt I just bought! 🇺🇸🦅</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 3,152 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>I'm so excited to support North American Counter-Strike with the new T-shirt I just bought! 🇺🇸🦅 · r/GlobalOffensive · 3,152 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/GlobalOffensive/comments/1jgxch2/inferno_bookend_d/">
@@ -422,21 +820,7 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">Inferno Bookend :D</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 2,301 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>Inferno Bookend :D · r/GlobalOffensive · 2,301 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/GlobalOffensive/comments/16t80up/dear_valve_1_vote_to_surrender_is_not_okay/">
@@ -455,21 +839,7 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">Dear Valve, 1 vote to surrender is not okay.</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 1,410 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>Dear Valve, 1 vote to surrender is not okay. · r/GlobalOffensive · 1,410 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/ohnePixel/comments/1nx7pom/everyone_fix_game_please_valve/">
@@ -488,21 +858,7 @@
 									<a href="https://www.reddit.com/r/ohnePixel/">ohnePixel</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">Everyone: "Fix Game PLEASE" Valve:</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/ohnePixel · 1,145 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>Everyone: "Fix Game PLEASE" Valve: · r/ohnePixel · 1,145 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/GlobalOffensive/comments/15fehzt/hopefully_this_tip_helps_someone_out/">
@@ -521,21 +877,7 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">Hopefully This Tip Helps Someone Out!</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 525 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>Hopefully This Tip Helps Someone Out! · r/GlobalOffensive · 525 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/GlobalOffensive/comments/1i0fcm4/ive_been_practicing_my_wallbangs_on_train_the/">
@@ -554,21 +896,7 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">I've been practicing my Wall-Bangs on Train the last two days 😄</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 389 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>I've been practicing my Wall-Bangs on Train the last two days 😄 · r/GlobalOffensive · 389 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/ohnePixel/comments/1nl8li3/you_know_what_bro/">
@@ -587,21 +915,7 @@
 									<a href="https://www.reddit.com/r/ohnePixel/">ohnePixel</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">You know what bro…</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/ohnePixel · 228 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>You know what bro… · r/ohnePixel · 228 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="cs2-dust2-gap-bug.html">
@@ -620,24 +934,7 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">Heads Up: This Wall Crack Reveals Your Position on Dust II!</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 170 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>
-								Tiny Dust II geometry gap: public video, creator shout-out, and a map tweak in a later
-								update. (r/GlobalOffensive · 170 upvotes)
-							</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/GlobalOffensive/comments/1jkdzr0/1v5_deagle/">
@@ -656,21 +953,7 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">1v5 Deagle</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 132 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>1v5 Deagle · r/GlobalOffensive · 132 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
 					</div>
 
 					<div class="keep-card" role="link" tabindex="0" data-href="https://www.reddit.com/r/GlobalOffensive/comments/1cmehf8/43_moment/">
@@ -689,63 +972,27 @@
 									<a href="https://www.reddit.com/r/GlobalOffensive/">GlobalOffensive</a>
 								</blockquote>
 							</div>
-							<div class="keep-card__scalable">
-								<div class="keep-card__video-slot">Video (embed)</div>
-								<div class="keep-card__body">
-									<p class="keep-card__label">4:3 Moment</p>
-									<div class="keep-card__affiliate">
-										<p style="margin: 0; font-size: 0.9rem">r/GlobalOffensive · 121 upvotes</p>
-									</div>
-									<span class="keep-card__cta">More →</span>
-								</div>
-							</div></span
-						>
-						<div class="keep-card__peek">
-							<p>4:3 Moment · r/GlobalOffensive · 121 upvotes</p>
-							<div class="keep-card__peek-extra" aria-hidden="true">&nbsp;</div>
-						</div>
+						</span>
+					</div>
+
 					</div>
 
 					</div>
 				</div>
-			</div>
 
-			<div class="intro" style="padding: 1rem 1.5rem; margin-top: 1.5rem; text-align: left">
-				<h2>Frequently asked questions</h2>
-				<dl>
-					<dt><strong>What is your CS2 competitive level?</strong></dt>
-					<dd style="margin-bottom: 1rem">
-						I play <strong>Counter-Strike 2</strong> at <strong>Faceit level 10</strong> with over
-						<strong>7000 hours</strong>.
-						<a
-							href="https://www.faceit.com/en/players/BowlCutBoi/stats/cs2"
-							target="_blank"
-							rel="noopener noreferrer"
-							>Faceit</a
-						>
-						and
-						<a href="https://steamcommunity.com/id/bowlcutboi/" target="_blank" rel="noopener noreferrer"
-							>Steam</a
-						>
-						profiles.
-					</dd>
-					<dt><strong>Where can I download the Agent Number K CS2 wallpapers?</strong></dt>
-					<dd style="margin-bottom: 1rem">
-						Use the link to
-						<a href="../Counter-Strike/nosmoking.html">free Agent Number K wallpapers</a> (including the No
-						Smoking theme) on this site.
-					</dd>
-					<dt><strong>What does this page include?</strong></dt>
-					<dd style="margin-bottom: 1rem">
-						<strong>PGL Shanghai Major</strong> merch collection with photos, embedded
-						<strong>CS2 YouTube</strong> videos, and links to my social channels.
-					</dd>
-				</dl>
-			</div>
+				<aside class="gaming-hub__seo" id="gaming-hub-about" aria-label="About this gaming hub">
+					<p class="gaming-hub__seo-lede">
+						Faceit level 10 CS2 content, merch shelves, wallpapers, videos, and competitive notes. Desk gear and
+						keyboard builds live under
+						<a href="../The%20Setup/the-setup.html">Gear</a> and
+						<a href="../Keyboard/60he.html">Wooting 60HE</a>.
+					</p>
+				</aside>
+			</section>
 		</div>
 
 		<shared-footer
-			disclosure="<i>This page includes an AliExpress affiliate link to the Perfect World ESports store on the merch card. As an Amazon Associate I earn from qualifying purchases through eligible links on Gear, Keyboard, and PC pages.</i>"
+			disclosure="<i>Merch cards link to a compensated Perfect World ESports AliExpress store. Thanks if you shop through them, it helps fund content.</i>"
 		></shared-footer>
 		<script src="../scripts/keep-thumbs.js" defer></script>
 		<script src="../scripts/setup-cards.js" defer></script>

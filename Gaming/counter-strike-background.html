@@ -8,7 +8,10 @@
 			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="../css/owenminercs.css" /><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -58,9 +61,27 @@
 			}
 		</script>
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 
 		<div class="container">
 			<div class="intro" style="text-align: left">
@@ -77,7 +98,7 @@
 					/>
 					<p>
 						I have been playing Counter-Strike since 2015. Most of my time early on was in community
-						servers—1v1s, b-hop, and surf. I have always enjoyed the skin scene and had a lot of fun testing
+						servers, 1v1s, b-hop, and surf. I have always enjoyed the skin scene and had a lot of fun testing
 						combos on community servers. Toward the end of CS:GO my peak competitive rank was Supreme. I
 						reached FACEIT level 10 in about 300 matches, in January 2024, a few months after CS2's release.
 					</p>
@@ -110,16 +131,77 @@
 						"
 					>
 						<dt style="font-weight: bold; margin-top: 0.5rem"><strong>Peak Premier rank</strong></dt>
-						<dd style="margin: 0.25rem 0 0 1rem">29,236</dd>
+						<dd style="margin: 0.25rem 0 0 1rem">29,771</dd>
 						<dt style="font-weight: bold; margin-top: 0.75rem"><strong>Peak FACEIT Elo</strong></dt>
 						<dd style="margin: 0.25rem 0 0 1rem">2312</dd>
 					</dl>
+					<p style="margin: 0.75rem 0 0">
+						<a
+							href="https://leetify.com/app/profile/76561198129628120"
+							target="_blank"
+							rel="noopener noreferrer"
+							>View my Leetify profile →</a
+						><br />
+						<span style="opacity: 0.8">Last updated 7/10; check Leetify for updated rank.</span>
+					</p>
+
+					<section style="margin-top: 1.5rem" aria-labelledby="supreme-rankup-heading">
+						<h2 id="supreme-rankup-heading" style="font-size: 1.15rem; margin: 0 0 0.5rem">
+							First time hitting Supreme (CS:GO alt)
+						</h2>
+						<p style="margin: 0 0 0.75rem">
+							Don&apos;t tell Valve, but I booted an old alt that had been Master Guardian, got placed at
+							Legendary Eagle after not playing for a few years, then ranked to Supreme within a day on short
+							matches when I was locked in and winning. I moved back to my main to grind Global; CS:GO shut
+							down before I got there.
+						</p>
+						<div class="photogallery subpage-gallery--dense" style="width: 100%; margin-top: 0">
+							<div class="photogallery-row">
+								<div class="photogallery-col">
+									<img
+										class="photogallery-img"
+										src="../images/gaming/supreme-rankup/dont-tell-valve-but-i-booted-up-my-alt-account-which-used-to-be-like-master-guardian-and-got-legendary-eagle-after-recieving-my-rank-from-not-plaing-for-a-few-years.webp"
+										alt="CS:GO rank screen, alt account placed at Legendary Eagle after inactivity"
+										loading="lazy"
+										decoding="async"
+										onclick="window.open(this.src)"
+									/>
+									<img
+										class="photogallery-img"
+										src="../images/gaming/supreme-rankup/another-image-of-getting-supreme-on-alt-account-short-matches-were-the-method-and-had-you-rank-up-super-quick-if-you-were-locked-in-and-winning.webp"
+										alt="CS:GO rank-up to Supreme on alt account using short matches"
+										loading="lazy"
+										decoding="async"
+										onclick="window.open(this.src)"
+									/>
+								</div>
+								<div class="photogallery-col">
+									<img
+										class="photogallery-img"
+										src="../images/gaming/supreme-rankup/alt-account-supreme-rank-close-up.webp"
+										alt="CS:GO Supreme rank close-up on alt account"
+										loading="lazy"
+										decoding="async"
+										onclick="window.open(this.src)"
+									/>
+									<img
+										class="photogallery-img"
+										src="../images/gaming/supreme-rankup/after-getting-legendary-eagle-on-my-alt-i-ranked-up-to-supreme-like-within-a-day-so-i-went-to-my-main-account-to-grind-to-global-didnt-get-gloabl-before-csgo-shut-down-sad-emoji.webp"
+										alt="CS:GO Supreme rank on alt, then switched to main to grind Global before CS:GO shutdown"
+										loading="lazy"
+										decoding="async"
+										onclick="window.open(this.src)"
+									/>
+								</div>
+							</div>
+						</div>
+					</section>
 				</div>
 			</div>
 		</div>
 
 		<shared-footer
-			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+			disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>"
 		></shared-footer>
 	</body>
 </html>

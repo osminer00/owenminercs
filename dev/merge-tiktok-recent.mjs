@@ -91,3 +91,4 @@ const merged = dedupeByUrl([...recent, ...existing]).sort((a, b) => {
 
 writeFileSync(outPath, `${JSON.stringify(merged, null, 2)}\n`, "utf8");
 console.log(`[merge-tiktok-recent] merged ${recent.length} recent -> ${merged.length} total in ${outPath}`);
+console.log("[merge-tiktok-recent] run: node dev/cache-social-thumbnails.mjs");

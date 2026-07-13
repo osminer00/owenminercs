@@ -1,0 +1,20 @@
+/** Content (Socials) — purple + cyan clip ~2:12–2:36, poster 2:15 */
+
+body.site-card-ui.bubble-theme.bubble-theme--socials {
+	--bubble-accent: #d946ef;
+	--bubble-accent-soft: rgba(217, 70, 239, 0.72);
+	--bubble-accent-fill: rgba(192, 38, 211, 0.14);
+	--bubble-accent-edge: rgba(232, 121, 249, 0.38);
+	--bubble-accent-specular: rgba(240, 171, 252, 0.26);
+	--bubble-accent-bg-hover: rgba(192, 38, 211, 0.12);
+	--bubble-glow-warm: rgba(40, 8, 48, 0.5);
+	--bubble-glow-mid: rgba(192, 38, 211, 0.48);
+	--bubble-glow-cool: rgba(34, 211, 238, 0.28);
+	--bubble-bg-fallback: #08040c;
+	--bubble-poster: url('/images/bubble-themes/socials/poster.jpg');
+	--bubble-media-brightness: 0.46;
+	--bubble-blue-block-filter: saturate(1.2) hue-rotate(4deg) contrast(1.05);
+	--bubble-veil:
+		radial-gradient(ellipse 90% 70% at 50% 40%, rgba(24, 4, 32, 0.08), rgba(0, 0, 0, 0.34) 78%),
+		linear-gradient(180deg, rgba(16, 2, 24, 0.18) 0%, rgba(0, 0, 0, 0.3) 100%);
+}

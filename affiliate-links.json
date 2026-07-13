@@ -1,10 +1,16 @@
 {
 	"disclosure": {
-		"en": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media. As an Amazon Associate I earn from qualifying purchases.",
+		"en": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund videos, streams, and site content. As an Amazon Associate I earn from qualifying purchases. Thanks for supporting the channel.",
 		"short": "As an Amazon Associate I earn from qualifying purchases.",
-		"top": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media.",
-		"topAmazon": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media. As an Amazon Associate I earn from qualifying purchases.",
-		"topAliExpress": "Some links on this page are compensated AliExpress store links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media."
+		"top": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund videos, streams, and site content. Thanks for supporting the channel.",
+		"topAmazon": "Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund videos, streams, and site content. As an Amazon Associate I earn from qualifying purchases. Thanks for supporting the channel.",
+		"topAliExpress": "Some links on this page are compensated AliExpress store links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund videos, streams, and site content. Thanks for supporting the channel.",
+		"footerDefault": "This page has optional tip links and no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.",
+		"footerAmazonByline": "As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.",
+		"footerPageAmazon": "Amazon links on this page are part of the Amazon Associates Program and may earn commission at no extra cost to you.",
+		"footerPageAmazonMixed": "Amazon shopping links on this page may earn commission. Links to other stores (like Elgato or Shure) are not affiliate links unless marked.",
+		"footerPageAliExpress": "AliExpress store links on this page are compensated and may earn commission at no extra cost to you. Thanks for supporting the channel.",
+		"footerNoShoppingCrossPage": "This page has no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links."
 	},
 	"products": {
 		"pc_components": {
@@ -283,7 +289,7 @@
 			},
 			"cordless_drill_b0dxqtydfc": {
 				"name": "Cordless drill",
-				"specs": "Amazon listing B0DXQTDYFC — see product page for brand, battery, and kit contents",
+				"specs": "Amazon listing B0DXQTDYFC, see product page for brand, battery, and kit contents",
 				"asin": "B0DXQTDYFC",
 				"paid_price": "See Amazon",
 				"category": "Tools",
@@ -305,7 +311,7 @@
 			},
 			"metallixity_hss_drill_bits_3mm_2pc": {
 				"name": "METALLIXITY 3mm HSS drill bits (2-pack)",
-				"specs": "4241 high-speed steel twist bits, 118° point — see Amazon for full title and materials list",
+				"specs": "4241 high-speed steel twist bits, 118° point, see Amazon for full title and materials list",
 				"asin": "B0F59BSK6K",
 				"paid_price": "See Amazon",
 				"category": "Tools",
@@ -359,11 +365,11 @@
 			"asus_vn247h_display": {
 				"name": "Asus 24\" 1080p Monitor (legacy secondary)",
 				"specs": "1920x1080, 60Hz",
-				"asin": "B005BZNDS0",
+				"asin": "B00AVYNS7M",
 				"paid_price": "$119.00",
 				"category": "Monitor",
 				"links": {
-					"amazon": "https://www.amazon.com/dp/B005BZNDS0?tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/dp/B00AVYNS7M?tag=owenminercs-20"
 				},
 				"pages": [
 					"Desk Setup/setup.html",
@@ -374,12 +380,13 @@
 			"wallhack_sp004_mousepad": {
 				"name": "Wallhack SP-004 Glass Mousepad",
 				"specs": "Hard glass control/speed surface",
+				"asin": "B0CTT9CQX8",
 				"paid_price": "$119.00",
 				"category": "Mouse Pad",
 				"links": {
+					"amazon": "https://www.amazon.com/s?k=Wallhack+SP-004+Black&tag=owenminercs-20",
 					"direct": "https://wallhack.com/products/sp-004-black",
-					"amazon_search": false,
-					"aliexpress": false
+					"disable_aliexpress": true
 				},
 				"pages": ["The Setup/the-setup.html", "The Setup/mouse-pad.html"]
 			},
@@ -465,7 +472,7 @@
 			},
 			"mirrorless_cage_zv_e10_search": {
 				"name": "Camera cage for Sony ZV-E10 (SmallRig-style rig)",
-				"specs": "Cold shoes and 1/4\" threads—verify listing fits ZV-E10 before buying",
+				"specs": "Cold shoes and 1/4\" threads, verify listing fits ZV-E10 before buying",
 				"category": "Camera Rig",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Sony+ZV-E10+camera+cage+SmallRig&tag=owenminercs-20"
@@ -474,7 +481,7 @@
 			},
 			"ulanzi_camera_mount_search": {
 				"name": "ULANZI camera mount / cold shoe accessory",
-				"specs": "Ball head, magic arm, or desk clamp—pick the listing that matches your rig",
+				"specs": "Ball head, magic arm, or desk clamp, pick the listing that matches your rig",
 				"category": "Camera Mount",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=ULANZI+camera+mount+cold+shoe&tag=owenminercs-20"
@@ -501,7 +508,7 @@
 			},
 			"insta360_x5_search": {
 				"name": "Insta360 X5",
-				"specs": "360° camera for reframed shots and fit-check backgrounds",
+				"specs": "360° camera for reframed shots and spinning backdrop angles",
 				"category": "Camera",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Insta360+X5&tag=owenminercs-20"
@@ -509,8 +516,8 @@
 				"pages": ["The Setup/insta360-x5.html", "The Setup/cameras.html"]
 			},
 			"iphone_pro_max_camera_search": {
-				"name": "Apple iPhone Pro Max (phone-as-camera)",
-				"specs": "Extra desk/fit-check angle via NDI—main YouTube camera is the Sony ZV-E10",
+				"name": "Apple iPhone Pro Max",
+				"specs": "Extra desk angle via NDI, main YouTube camera is the Sony ZV-E10",
 				"category": "Camera",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Apple+iPhone+Pro+Max&tag=owenminercs-20"
@@ -519,7 +526,7 @@
 			},
 			"nikon_d3100_legacy_search": {
 				"name": "Nikon D3100 (legacy DSLR)",
-				"specs": "Entry APS-C DSLR (2010 era)—discontinued; listings are mostly used / refurbished",
+				"specs": "Entry APS-C DSLR (2010 era), discontinued; listings are mostly used / refurbished",
 				"category": "Camera",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Nikon+D3100&tag=owenminercs-20"
@@ -533,11 +540,11 @@
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=Ocoopa+hand+warmer+rechargeable&tag=owenminercs-20"
 				},
-				"pages": ["The Setup/gadgets.html"]
+				"pages": ["The Setup/gadgets.html", "The Setup/ocoopa-hand-warmers.html"]
 			},
 			"electric_air_duster": {
 				"name": "Electric air duster (PC and desk cleaning)",
-				"specs": "Reusable blower for keyboards, cases, and fans—check nozzle and power before buying",
+				"specs": "Reusable blower for keyboards, cases, and fans, check nozzle and power before buying",
 				"category": "Desk accessory",
 				"links": {
 					"amazon": "https://www.amazon.com/s?k=electric+air+duster+keyboard+pc&tag=owenminercs-20"
@@ -546,7 +553,7 @@
 			},
 			"under_desk_cable_trays_2pack_15in": {
 				"name": "Under-desk cable management trays (2-pack, 15.7\", no drill)",
-				"specs": "Wire organizer baskets—clamp or adhesive style varies by listing; check mount type before buying",
+				"specs": "Wire organizer baskets, clamp or adhesive style varies by listing; check mount type before buying",
 				"asin": "B09NBPQ1KP",
 				"category": "Desk accessory",
 				"links": {
@@ -556,7 +563,7 @@
 			},
 			"metal_power_strip_10outlet_12ft": {
 				"name": "10-outlet under-desk surge protector (12 ft cord, 125V / 15A)",
-				"specs": "Heavy-duty strip for under-desk mount—wide-spaced outlets; listing cites metal housing and surge protection—confirm ratings on the buy box",
+				"specs": "Heavy-duty strip for under-desk mount, wide-spaced outlets; listing cites metal housing and surge protection, confirm ratings on the buy box",
 				"asin": "B09ZL8V5Y7",
 				"category": "Desk accessory",
 				"links": {
@@ -566,7 +573,7 @@
 			},
 			"amazon_basics_rechargeable_aa_16pack": {
 				"name": "Amazon Basics 16-Pack Rechargeable AA NiMH Batteries",
-				"specs": "2000 mAh, 1.2V, pre-charged, low self-discharge—listing cites up to ~1000 recharge cycles",
+				"specs": "2000 mAh, 1.2V, pre-charged, low self-discharge, listing cites up to ~1000 recharge cycles",
 				"asin": "B007B9NV8Q",
 				"category": "Power",
 				"links": {
@@ -576,7 +583,7 @@
 			},
 			"rechargeable_d_lithium_usbc_4pack": {
 				"name": "Rechargeable D lithium batteries with USB-C (4-pack)",
-				"specs": "1.5V constant-style D cells, USB-C recharge—exact capacity and kit contents vary by listing",
+				"specs": "1.5V constant-style D cells, USB-C recharge, exact capacity and kit contents vary by listing",
 				"asin": "B0F2SKX4GN",
 				"category": "Power",
 				"links": {
@@ -607,7 +614,7 @@
 				"specs": "Small black rare-earth discs for mounts, whiteboard, crafts, desk projects",
 				"category": "Desk accessory",
 				"links": {
-					"amazon": "https://www.amazon.com/dp/B0CXPFXF5Z?tag=owenminercs-20"
+					"amazon": "https://www.amazon.com/s?k=TRYMAG+neodymium+magnets+10x2mm+200&tag=owenminercs-20"
 				},
 				"pages": ["The Setup/magnets.html"]
 			}
@@ -658,7 +665,7 @@
 				"specs": "Same listing family as the Crosshair Alpha build on 60he",
 				"category": "Case",
 				"links": {
-					"aliexpress": "https://www.aliexpress.us/item/3256805158305721.html"
+					"aliexpress": "https://www.aliexpress.com/wholesale?SearchText=GH60+aluminum+keyboard+case+black"
 				},
 				"pages": ["Keyboard/60he.html"]
 			}

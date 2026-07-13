@@ -5,7 +5,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/owenminercs.css"><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="../css/owenminercs.css">
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
   <link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -22,17 +25,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://www.owenminercs.com/The%20Setup/monitor-arms">
   <script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 </head>
-<body id="top" class="site-card-ui setup-detail-page" style="zoom: 95%;">
-  <shared-header></shared-header>
+<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials" style="zoom: 95%;">
+  		<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
   <div class="container">
     <div class="intro">
       <p class="setup-detail__back"><a href="the-setup.html">← Gear</a></p>
-				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure</span> Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund content on this website and social media. As an Amazon Associate I earn from qualifying purchases.</p>
+				
 			<div class ="ultrawide">
 				<button class ="minimize5" title="Ultrawide">-</button>
 				
 				<h1>Monitor Arms:</h1>
+				<p class="affiliate-disclosure" role="note"><span class="affiliate-disclosure__label">Disclosure:</span> Some links on this page are affiliate links. If you buy through them, Owen Miner may earn a commission at no extra cost to you. That support helps fund videos, streams, and site content. As an Amazon Associate I earn from qualifying purchases. Thanks for supporting the channel.</p>
 			
 				
 				<h4><a href="https://www.amazon.com/s?k=desk+clamp+monitor+arm&tag=owenminercs-20" target="_blank" rel="noopener noreferrer" title="Desk clamp monitor arms on Amazon">Monitor Arms <span class="b_w_link">| prices vary</span></a></h4>
@@ -52,7 +74,7 @@
 			</div>
     </div>
   </div>
-  <shared-footer disclosure="<i>This page includes Amazon shopping links tagged with my Amazon Associates ID. As an Amazon Associate I earn from qualifying purchases. Other links on this page go to third-party stores (for example Elgato, Shure, Wallhack) and are not necessarily affiliate links.</i>"></shared-footer>
+  <shared-footer disclosure="<i>Amazon shopping links on this page may earn commission. Links to other stores (like Elgato or Shure) are not affiliate links unless marked.</i>"></shared-footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script>
     $(document).ready(function () {

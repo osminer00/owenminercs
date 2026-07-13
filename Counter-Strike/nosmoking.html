@@ -10,6 +10,8 @@
 		/>
 		<!-- Preload CSS to ensure styles are applied immediately -->
 		<link rel="stylesheet" href="../css/owenminercs.css" />
+		<link rel="stylesheet" href="../css/bubble-theme-base.css" />
+		<link rel="stylesheet" href="../css/bubble-themes/socials.css" />
 		<link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
@@ -37,7 +39,8 @@
 		<meta name="twitter:site" content="@OwenMiner" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="theme-color" content="#0f0f0f" />
-		<!--Favicon--><link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+		<!--Favicon-->
+<link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
 
 		<link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
 
@@ -88,12 +91,32 @@
 		</script>
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 		<script src="../scripts/components.js" defer></script>
+		<script src="../scripts/bubble-scroll.js" defer></script>
 	</head>
-	<body id="top" class="site-card-ui" style="zoom: 95%">
-		<shared-header></shared-header>
+	<body id="top" class="site-card-ui setup-detail-page bubble-theme bubble-theme--socials nosmoking-page" style="zoom: 95%">
+				<div class="bubble-bg" aria-hidden="true">
+			<div class="bubble-bg__media">
+				<video
+					id="bubble-bg-video"
+					class="bubble-bg__video"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					poster="/images/bubble-themes/socials/poster.jpg"
+				>
+					<source src="/images/bubble-themes/socials/bg.mp4" type="video/mp4" />
+				</video>
+			</div>
+			<div class="bubble-bg__veil"></div>
+		</div>
+<shared-header></shared-header>
 		<div class="container">
-			<div class="photogallery">
-				<button class="minimize" title="Gallery" style="margin-left: auto">-</button>
+			<div class="intro setup-page-compact">
+				<p class="setup-detail__back"><a href="../Gaming/gaming.html">← Gaming</a></p>
+			</div>
+			<div class="photogallery subpage-gallery--dense">
 				<h1>No Smoking Wallpaper Collection</h1>
 				<h2>Counter-Strike 2 Agent Number K</h2>
 				<p>
@@ -276,10 +299,39 @@
 						loading="lazy"
 					/>
 				</div>
+
+				<section class="nosmoking-photoshoot" aria-labelledby="photoshoot-heading" style="margin-top: 2rem; text-align: left">
+					<h2 id="photoshoot-heading">Behind the wallpapers, Agent K photoshoot</h2>
+					<p>
+						These wallpapers started as figurine photos on my
+						<a href="../The Setup/camera.html">Sony ZV-E10</a>, then Photoshop compositing. Clips below are from the
+						background shoot and edit sessions (click to play; no autoplay). Summer 2025 desk
+						tour with the finished backgrounds on monitors:
+						<a href="../The%20Setup/summer-2025-agent-k-setup.html">summer 2025 Agent K setup</a>.
+					</p>
+					<div style="display: grid; gap: 1.25rem; margin-top: 1rem; max-width: 52rem">
+						<figure>
+							<video controls preload="metadata" playsinline muted style="width: 100%; border-radius: 6px; background: #000" poster="../images/agent-k/photoshoot/mirage-palace-photoshop-on-bench-poster.jpg">
+								<source src="../images/agent-k/photoshoot/mirage-palace-photoshop-on-bench.mp4" type="video/mp4" />
+							</video>
+							<figcaption style="margin-top: 0.35rem; font-size: 0.88rem; opacity: 0.85">
+								Mirage Palace bench composite, practice Photoshop pass from photoshoot 2.
+							</figcaption>
+						</figure>
+						<figure>
+							<video controls preload="metadata" playsinline muted style="width: 100%; border-radius: 6px; background: #000" poster="../images/agent-k/photoshoot/editing-backgrounds-unused-footage-poster.jpg">
+								<source src="../images/agent-k/photoshoot/editing-backgrounds-unused-footage.mp4" type="video/mp4" />
+							</video>
+							<figcaption style="margin-top: 0.35rem; font-size: 0.88rem; opacity: 0.85">
+								Unused edit-session footage while building the No Smoking background set.
+							</figcaption>
+						</figure>
+					</div>
+				</section>
 			</div>
 
 			<shared-footer
-				disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages include Amazon Associates links. As an Amazon Associate I earn from qualifying purchases through eligible links on those pages.</i>"
+				disclosure="<i>This page has no paid shopping links. Gear, Keyboard, and PC pages may include Amazon affiliate links.</i>"
 			></shared-footer>
 		</div>
 	</body>

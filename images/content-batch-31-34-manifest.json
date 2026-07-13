@@ -1,0 +1,123 @@
+{
+  "generated": "2026-06-30T15:51:57.746Z",
+  "sets": {
+    "ssd-2020-sold": {
+      "images": [
+        {
+          "file": "img-4676.webp",
+          "source": "IMG_4676.JPG"
+        },
+        {
+          "file": "img-4677.webp",
+          "source": "IMG_4677.JPG"
+        },
+        {
+          "file": "img-4678.webp",
+          "source": "IMG_4678.JPG"
+        },
+        {
+          "file": "img-4679.webp",
+          "source": "IMG_4679.JPG"
+        },
+        {
+          "file": "img-4680.webp",
+          "source": "IMG_4680.JPG"
+        },
+        {
+          "file": "img-4681.webp",
+          "source": "IMG_4681.JPG"
+        },
+        {
+          "file": "img-4682.webp",
+          "source": "IMG_4682.JPG"
+        },
+        {
+          "file": "img-4683.webp",
+          "source": "IMG_4683.JPG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/archive/old-pcs/ssd-2020-sold"
+    },
+    "aliexpress-merch": {
+      "images": [
+        {
+          "file": "img-5068.webp",
+          "source": "IMG_5068.PNG"
+        },
+        {
+          "file": "img-5069.webp",
+          "source": "IMG_5069.PNG"
+        },
+        {
+          "file": "img-5070.webp",
+          "source": "IMG_5070.PNG"
+        },
+        {
+          "file": "img-5071.webp",
+          "source": "IMG_5071.PNG"
+        },
+        {
+          "file": "img-5072.webp",
+          "source": "IMG_5072.PNG"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/cs2-merch/aliexpress"
+    },
+    "supreme-rankup": {
+      "images": [
+        {
+          "file": "after-getting-legendary-eagle-on-my-alt-i-ranked-up-to-supreme-like-within-a-day-so-i-went-to-my-main-account-to-grind-to-global-didnt-get-gloabl-before-csgo-shut-down-sad-emoji.webp",
+          "source": "after getting legendary eagle on my alt I ranked up to supreme like within a day, so i went to my main account to grind to global, didnt get gloabl before csgo shut down sad emoji.HEIC"
+        },
+        {
+          "file": "alt-account-supreme-rank-close-up.webp",
+          "source": "alt account supreme rank close up.HEIC"
+        },
+        {
+          "file": "another-image-of-getting-supreme-on-alt-account-short-matches-were-the-method-and-had-you-rank-up-super-quick-if-you-were-locked-in-and-winning.webp",
+          "source": "another image of getting supreme on alt account, short matches were the method and had you rank up super quick if you were locked in and winning.HEIC"
+        },
+        {
+          "file": "dont-tell-valve-but-i-booted-up-my-alt-account-which-used-to-be-like-master-guardian-and-got-legendary-eagle-after-recieving-my-rank-from-not-plaing-for-a-few-years.webp",
+          "source": "dont tell valve but I booted up my alt account which used to be like master guardian and got legendary eagle after recieving my rank from not plaing for a few years..HEIC"
+        }
+      ],
+      "videos": [],
+      "outDir": "images/gaming/supreme-rankup"
+    },
+    "agent-k-photoshoot": {
+      "images": [],
+      "videos": [
+        {
+          "file": "mirage-palace-photoshop-on-bench.mp4",
+          "source": "Agent K photoshoot 2 - havent done anything with this yet other than practice photo shop this one shows the mirage palace photoshop on the bench.MOV"
+        },
+        {
+          "file": "editing-backgrounds-unused-footage.mp4",
+          "source": "editing the agent k backgrounds- unused footage for video.MOV"
+        }
+      ],
+      "outDir": "images/agent-k/photoshoot"
+    },
+    "summer-2025-agent-k-setup": {
+      "images": [],
+      "videos": [
+        {
+          "file": "img-6484.mp4",
+          "source": "IMG_6484.MOV"
+        },
+        {
+          "file": "img-6485.mp4",
+          "source": "IMG_6485.MOV"
+        },
+        {
+          "file": "img-6486.mp4",
+          "source": "IMG_6486.MOV"
+        }
+      ],
+      "outDir": "images/archive/setups/summer-2025-agent-k"
+    }
+  }
+}
