@@ -52,8 +52,7 @@
 	--social-tip-bg: rgba(6, 7, 10, 0.94);
 	--social-tip-border: rgba(255, 255, 255, 0.12);
 	--social-tip-shadow:
-		0 14px 42px rgba(0, 0, 0, 0.58),
-		0 0 0 1px rgba(255, 255, 255, 0.06),
+		0 14px 42px rgba(0, 0, 0, 0.58), 0 0 0 1px rgba(255, 255, 255, 0.06),
 		0 0 36px rgba(74, 222, 128, 0.14);
 	--social-tip-accent: rgba(186, 245, 210, 0.95);
 	--social-tip-glow: rgba(74, 222, 128, 0.35);
@@ -66,7 +65,8 @@
 	/* Card title accent (non-link tiles): aligns with social visited / shop meta greens */
 	--card-title-accent: #a7f3c9;
 	--card-title-glow:
-		0 0 1px rgba(167, 243, 201, 0.9), 0 0 14px rgba(74, 222, 128, 0.45), 0 0 28px rgba(34, 197, 94, 0.22);
+		0 0 1px rgba(167, 243, 201, 0.9), 0 0 14px rgba(74, 222, 128, 0.45),
+		0 0 28px rgba(34, 197, 94, 0.22);
 	/* Hero H1 + non-link buttons (green; nav/link hovers stay blue/purple via --nav-pill-* / link rules) */
 	--hero-title-glow: var(--card-title-glow);
 	--button-accent-ring: rgba(74, 222, 128, 0.52);
@@ -215,7 +215,6 @@ a.site-logo-link:focus-visible {
 	.site-logo-link--header {
 		order: 2;
 	}
-
 }
 
 .text3d {
@@ -769,7 +768,9 @@ body.site-card-ui #top > shared-header + div:not(.container) > h1:first-of-type 
 	min-height: 0;
 }
 
-#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__link .site-social-nav__icon {
+#site-support-dock.site-support-dock--drag-lock-horizontal
+	.site-social-nav__link
+	.site-social-nav__icon {
 	width: 19px;
 	height: 19px;
 }
@@ -780,15 +781,21 @@ body.site-card-ui #top > shared-header + div:not(.container) > h1:first-of-type 
 		isolation: isolate;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='0'] .site-social-nav__main {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='0']
+		.site-social-nav__main {
 		animation: dock-fidget-aurora 2.35s cubic-bezier(0.45, 0, 0.25, 1) infinite alternate;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='1'] .site-social-nav__main {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='1']
+		.site-social-nav__main {
 		position: relative;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='1'] .site-social-nav__main::after {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='1']
+		.site-social-nav__main::after {
 		content: '';
 		position: absolute;
 		inset: 0;
@@ -808,23 +815,33 @@ body.site-card-ui #top > shared-header + div:not(.container) > h1:first-of-type 
 		opacity: 0.82;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='2'] .site-social-nav__main {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='2']
+		.site-social-nav__main {
 		animation: dock-fidget-ember 1.65s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='3'] .site-social-nav__main {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='3']
+		.site-social-nav__main {
 		animation: dock-fidget-cryo 2.1s cubic-bezier(0.5, 0, 0.15, 1) infinite alternate;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='4'] .site-social-nav__main {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='4']
+		.site-social-nav__main {
 		animation: dock-fidget-depth 1.45s cubic-bezier(0.55, 0, 0.45, 1) infinite alternate;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='5'] .site-social-nav__main {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='5']
+		.site-social-nav__main {
 		position: relative;
 	}
 
-	#site-support-dock .site-social-nav__spin.is-fidget-turbo[data-fidget-fx='5'] .site-social-nav__main::before {
+	#site-support-dock
+		.site-social-nav__spin.is-fidget-turbo[data-fidget-fx='5']
+		.site-social-nav__main::before {
 		content: '';
 		position: absolute;
 		left: 6%;
@@ -1331,7 +1348,9 @@ body.has-site-support-dock:has(> #site-support-dock.site-support-dock--placed) {
 	transform-origin: 50% 0%;
 }
 .site-social-nav--footer .site-social-nav__link:nth-child(n + 5):hover .site-social-nav__tip,
-.site-social-nav--footer .site-social-nav__link:nth-child(n + 5):focus-visible .site-social-nav__tip {
+.site-social-nav--footer
+	.site-social-nav__link:nth-child(n + 5):focus-visible
+	.site-social-nav__tip {
 	transform: translate(-50%, 0) scale(1) rotate(calc(0deg - var(--site-social-tilt, 0deg)));
 }
 .site-footer-bug-report a {
@@ -1735,7 +1754,9 @@ body.has-site-support-dock:has(> #site-support-dock.site-support-dock--placed) {
 	transform-origin: 50% 0%;
 }
 #site-support-dock.site-support-dock--placed .site-social-nav__link:hover .site-social-nav__tip,
-#site-support-dock.site-support-dock--placed .site-social-nav__link:focus-visible .site-social-nav__tip {
+#site-support-dock.site-support-dock--placed
+	.site-social-nav__link:focus-visible
+	.site-social-nav__tip {
 	transform: translate(-50%, 0) scale(1) rotate(calc(0deg - var(--site-social-tilt, 0deg)));
 }
 
@@ -2080,6 +2101,55 @@ header {
 	width: 100%;
 	margin-bottom: 10px;
 	box-shadow: var(--shadow-card);
+}
+.site-search-page-form {
+	width: min(100%, 760px);
+	margin: 0.25rem auto 1rem;
+	text-align: left;
+}
+.site-search-page-form__label {
+	display: block;
+	margin-bottom: 0.45rem;
+	font-size: 0.85rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--text-muted);
+}
+.site-search-page-form__row {
+	display: flex;
+	gap: 0.6rem;
+	align-items: stretch;
+}
+.site-search-page-form__input {
+	flex: 1 1 auto;
+	min-width: 0;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-sm);
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--text);
+	padding: 0.75rem 0.9rem;
+	font: inherit;
+}
+.site-search-page-form__input:focus-visible {
+	outline: 2px solid rgba(88, 166, 255, 0.55);
+	outline-offset: 2px;
+	border-color: rgba(88, 166, 255, 0.72);
+}
+.site-search-page-form__submit {
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--button-accent-ring);
+	background: var(--button-accent-fill);
+	color: var(--text);
+	box-shadow: var(--button-accent-glow);
+	padding: 0.75rem 1rem;
+	font: inherit;
+	font-weight: 800;
+	cursor: pointer;
+}
+.site-search-page-summary {
+	text-align: center;
+	color: var(--text-muted);
 }
 p {
 	font-size: 18px;
@@ -2768,9 +2838,7 @@ h4 {
 	display: grid;
 	place-items: center;
 	aspect-ratio: 16 / 10;
-	background:
-		linear-gradient(135deg, rgba(123, 197, 158, 0.22), rgba(255, 182, 200, 0.14)),
-		#111;
+	background: linear-gradient(135deg, rgba(123, 197, 158, 0.22), rgba(255, 182, 200, 0.14)), #111;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 	overflow: hidden;
 }
@@ -4568,7 +4636,9 @@ html:not([data-theme='light'])
 	a:not(.b_w_link):not(.site-logo-link):not(.site-nav-link):not(.site-social-nav__link):hover,
 html:not([data-theme='light'])
 	body.site-card-ui
-	a:not(.b_w_link):not(.site-logo-link):not(.site-nav-link):not(.site-social-nav__link):focus-visible {
+	a:not(.b_w_link):not(.site-logo-link):not(.site-nav-link):not(
+		.site-social-nav__link
+	):focus-visible {
 	color: #58a6ff !important;
 	text-shadow:
 		0 0 10px rgba(88, 166, 255, 0.55),
@@ -4682,7 +4752,9 @@ html:not([data-theme='light']) body.site-card-ui button:hover {
 	a:not(.b_w_link):not(.site-logo-link):not(.site-nav-link):not(.site-social-nav__link):hover,
 [data-theme='light']
 	body.site-card-ui
-	a:not(.b_w_link):not(.site-logo-link):not(.site-nav-link):not(.site-social-nav__link):focus-visible {
+	a:not(.b_w_link):not(.site-logo-link):not(.site-nav-link):not(
+		.site-social-nav__link
+	):focus-visible {
 	color: #0d47a1 !important;
 	text-shadow:
 		0 0 10px rgba(37, 99, 235, 0.4),
@@ -5214,7 +5286,9 @@ html:not([data-theme='light']) body.site-card-ui .site-feed-item__link .site-fee
 [data-theme='light'] body.site-card-ui .setup-vs-card__title,
 [data-theme='light'] body.site-card-ui .music-mini-card__title {
 	color: #065f46;
-	text-shadow: 0 0 1px rgba(16, 185, 129, 0.35), 0 1px 0 rgba(255, 255, 255, 0.45);
+	text-shadow:
+		0 0 1px rgba(16, 185, 129, 0.35),
+		0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 [data-theme='light'] body.site-card-ui a.keep-card .keep-card__label,
@@ -5471,15 +5545,11 @@ html:not([data-theme='light']) a:visited .text-word-glow--bookmark {
 @media (hover: hover) and (pointer: fine) {
 	html:not([data-theme='light'])
 		body.site-card-ui
-		a[href]:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:hover,
 	html:not([data-theme='light'])
 		body.site-card-ui
-		a[href]:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:focus-visible {
 		color: #ffffff !important;
 		text-shadow: none !important;
@@ -5496,15 +5566,11 @@ html:not([data-theme='light']) a:visited .text-word-glow--bookmark {
 
 	html:not([data-theme='light'])
 		body.site-card-ui
-		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:hover,
 	html:not([data-theme='light'])
 		body.site-card-ui
-		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:focus-visible {
 		color: #ffffff !important;
 		text-shadow: none !important;
@@ -5522,9 +5588,7 @@ html:not([data-theme='light']) a:visited .text-word-glow--bookmark {
 
 html:not([data-theme='light'])
 	body.site-card-ui
-	a[href]:not(.site-nav-link):not(.site-logo-link):not(
-		.site-social-nav__link
-	)
+	a[href]:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 	.text-word-glow--line.text-word-glow--bookmark {
 	color: #ffffff !important;
 	text-shadow: none !important;
@@ -5541,9 +5605,7 @@ html:not([data-theme='light'])
 
 html:not([data-theme='light'])
 	body.site-card-ui
-	a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(
-		.site-social-nav__link
-	)
+	a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 	.text-word-glow--line.text-word-glow--bookmark {
 	color: #ffffff !important;
 	text-shadow: none !important;
@@ -5754,15 +5816,11 @@ html:not([data-theme='light']) .site-nav-link .text-word-glow,
 @media (hover: hover) and (pointer: fine) {
 	[data-theme='light']
 		body.site-card-ui
-		a[href]:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:hover,
 	[data-theme='light']
 		body.site-card-ui
-		a[href]:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:focus-visible {
 		color: #166534 !important;
 		text-shadow: none !important;
@@ -5779,15 +5837,11 @@ html:not([data-theme='light']) .site-nav-link .text-word-glow,
 
 	[data-theme='light']
 		body.site-card-ui
-		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:hover,
 	[data-theme='light']
 		body.site-card-ui
-		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(
-			.site-social-nav__link
-		)
+		a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 		.text-word-glow--line:focus-visible {
 		color: #5b21b6 !important;
 		text-shadow: none !important;
@@ -5805,9 +5859,7 @@ html:not([data-theme='light']) .site-nav-link .text-word-glow,
 
 [data-theme='light']
 	body.site-card-ui
-	a[href]:not(.site-nav-link):not(.site-logo-link):not(
-		.site-social-nav__link
-	)
+	a[href]:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 	.text-word-glow--line.text-word-glow--bookmark {
 	color: #14532d !important;
 	text-shadow: none !important;
@@ -5824,9 +5876,7 @@ html:not([data-theme='light']) .site-nav-link .text-word-glow,
 
 [data-theme='light']
 	body.site-card-ui
-	a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(
-		.site-social-nav__link
-	)
+	a[href]:visited:not(.site-nav-link):not(.site-logo-link):not(.site-social-nav__link)
 	.text-word-glow--line.text-word-glow--bookmark {
 	color: #14532d !important;
 	text-shadow: none !important;
@@ -6259,26 +6309,58 @@ html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-
 	box-shadow: var(--nav-pill-active-glow) !important;
 }
 
-html:not([data-theme='light']) body.site-card-ui shared-header header .site-nav-link--active:visited,
-html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-link--active:visited {
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-header
+	header
+	.site-nav-link--active:visited,
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-footer
+	footer
+	.site-nav-link--active:visited {
 	background: var(--nav-pill-visited-active-fill) !important;
 	border-color: var(--nav-pill-visited-active-ring) !important;
 	box-shadow: var(--nav-pill-visited-active-glow) !important;
 }
 
 html:not([data-theme='light']) body.site-card-ui shared-header header .site-nav-link:visited:hover,
-html:not([data-theme='light']) body.site-card-ui shared-header header .site-nav-link:visited:focus-visible,
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-header
+	header
+	.site-nav-link:visited:focus-visible,
 html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-link:visited:hover,
-html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-link:visited:focus-visible {
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-footer
+	footer
+	.site-nav-link:visited:focus-visible {
 	background-color: transparent !important;
 	border-color: var(--nav-pill-visited-ring) !important;
 	box-shadow: var(--nav-pill-visited-glow) !important;
 }
 
-html:not([data-theme='light']) body.site-card-ui shared-header header .site-nav-link--active:visited:hover,
-html:not([data-theme='light']) body.site-card-ui shared-header header .site-nav-link--active:visited:focus-visible,
-html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-link--active:visited:hover,
-html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-link--active:visited:focus-visible {
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-header
+	header
+	.site-nav-link--active:visited:hover,
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-header
+	header
+	.site-nav-link--active:visited:focus-visible,
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-footer
+	footer
+	.site-nav-link--active:visited:hover,
+html:not([data-theme='light'])
+	body.site-card-ui
+	shared-footer
+	footer
+	.site-nav-link--active:visited:focus-visible {
 	background: var(--nav-pill-visited-active-fill) !important;
 	border-color: var(--nav-pill-visited-active-ring) !important;
 	box-shadow: var(--nav-pill-visited-active-glow) !important;
@@ -6307,7 +6389,8 @@ html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-
 	--social-nav-ring-visited-hover: rgba(22, 163, 74, 0.55);
 	--social-nav-glow-visited-hover: 0 0 16px rgba(22, 163, 74, 0.22);
 	--hero-title-glow:
-		0 0 1px rgba(22, 163, 74, 0.42), 0 0 12px rgba(34, 197, 94, 0.28), 0 0 22px rgba(21, 128, 61, 0.14);
+		0 0 1px rgba(22, 163, 74, 0.42), 0 0 12px rgba(34, 197, 94, 0.28),
+		0 0 22px rgba(21, 128, 61, 0.14);
 	--button-accent-ring: rgba(22, 163, 74, 0.48);
 	--button-accent-glow: 0 0 14px rgba(34, 197, 94, 0.28), 0 0 26px rgba(21, 128, 61, 0.14);
 	--button-accent-fill: rgba(34, 197, 94, 0.1);
@@ -6466,7 +6549,9 @@ html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-
 [data-theme='light'] .site-social-nav:not(.site-social-nav--footer) a:hover,
 [data-theme='light'] .site-social-nav:not(.site-social-nav--footer) a:focus-visible,
 [data-theme='light'] .site-social-nav:not(.site-social-nav--footer) .site-social-nav__link:hover,
-[data-theme='light'] .site-social-nav:not(.site-social-nav--footer) .site-social-nav__link:focus-visible {
+[data-theme='light']
+	.site-social-nav:not(.site-social-nav--footer)
+	.site-social-nav__link:focus-visible {
 	color: var(--social-nav-fg);
 	text-shadow: none;
 	background: var(--social-nav-fill-hover);
@@ -6476,8 +6561,12 @@ html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-
 
 [data-theme='light'] .site-social-nav:not(.site-social-nav--footer) a:visited:hover,
 [data-theme='light'] .site-social-nav:not(.site-social-nav--footer) a:visited:focus-visible,
-[data-theme='light'] .site-social-nav:not(.site-social-nav--footer) .site-social-nav__link:visited:hover,
-[data-theme='light'] .site-social-nav:not(.site-social-nav--footer) .site-social-nav__link:visited:focus-visible {
+[data-theme='light']
+	.site-social-nav:not(.site-social-nav--footer)
+	.site-social-nav__link:visited:hover,
+[data-theme='light']
+	.site-social-nav:not(.site-social-nav--footer)
+	.site-social-nav__link:visited:focus-visible {
 	color: var(--social-nav-fg-visited);
 	border-color: var(--social-nav-ring-visited-hover);
 	box-shadow: var(--social-nav-glow-visited-hover);
@@ -6492,8 +6581,12 @@ html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-
 		0 0 20px color-mix(in srgb, var(--social-tip-glow) 26%, transparent),
 		inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
-[data-theme='light'] .site-social-nav--footer .site-social-nav__link[data-social-brand='instagram']:hover,
-[data-theme='light'] .site-social-nav--footer .site-social-nav__link[data-social-brand='instagram']:focus-visible {
+[data-theme='light']
+	.site-social-nav--footer
+	.site-social-nav__link[data-social-brand='instagram']:hover,
+[data-theme='light']
+	.site-social-nav--footer
+	.site-social-nav__link[data-social-brand='instagram']:focus-visible {
 	background: linear-gradient(
 		127deg,
 		color-mix(in srgb, #fdf084 38%, #ffffff),
@@ -6731,9 +6824,17 @@ html:not([data-theme='light']) body.site-card-ui shared-footer footer .site-nav-
 }
 
 [data-theme='light'] body.site-card-ui shared-header header .site-nav-link--active:visited:hover,
-[data-theme='light'] body.site-card-ui shared-header header .site-nav-link--active:visited:focus-visible,
+[data-theme='light']
+	body.site-card-ui
+	shared-header
+	header
+	.site-nav-link--active:visited:focus-visible,
 [data-theme='light'] body.site-card-ui shared-footer footer .site-nav-link--active:visited:hover,
-[data-theme='light'] body.site-card-ui shared-footer footer .site-nav-link--active:visited:focus-visible {
+[data-theme='light']
+	body.site-card-ui
+	shared-footer
+	footer
+	.site-nav-link--active:visited:focus-visible {
 	background: var(--nav-pill-visited-active-fill) !important;
 	border-color: var(--nav-pill-visited-active-ring) !important;
 	box-shadow: var(--nav-pill-visited-active-glow) !important;
@@ -7138,7 +7239,9 @@ body.site-card-ui:not(.socials-cloud-bg) .site-nav-link--active:visited:focus-vi
 }
 
 body.site-card-ui:not(.socials-cloud-bg) .site-social-nav:not(.site-social-nav--footer) a:hover,
-body.site-card-ui:not(.socials-cloud-bg) .site-social-nav:not(.site-social-nav--footer) a:focus-visible,
+body.site-card-ui:not(.socials-cloud-bg)
+	.site-social-nav:not(.site-social-nav--footer)
+	a:focus-visible,
 body.site-card-ui:not(.socials-cloud-bg)
 	.site-social-nav:not(.site-social-nav--footer)
 	.site-social-nav__link:hover,
@@ -7151,8 +7254,12 @@ body.site-card-ui:not(.socials-cloud-bg)
 	box-shadow: var(--social-nav-glow-hover) !important;
 }
 
-body.site-card-ui:not(.socials-cloud-bg) .site-social-nav:not(.site-social-nav--footer) a:visited:hover,
-body.site-card-ui:not(.socials-cloud-bg) .site-social-nav:not(.site-social-nav--footer) a:visited:focus-visible,
+body.site-card-ui:not(.socials-cloud-bg)
+	.site-social-nav:not(.site-social-nav--footer)
+	a:visited:hover,
+body.site-card-ui:not(.socials-cloud-bg)
+	.site-social-nav:not(.site-social-nav--footer)
+	a:visited:focus-visible,
 body.site-card-ui:not(.socials-cloud-bg)
 	.site-social-nav:not(.site-social-nav--footer)
 	.site-social-nav__link:visited:hover,

@@ -69,7 +69,9 @@ test('social dock first drag keeps header geometry until the pointer is released
 	);
 	const lockIndex = dragFunction.indexOf('setHeaderDragLock(promotedFromHeader);');
 	const bodyPromotionIndex = dragFunction.indexOf('document.body.appendChild(wrap);', lockIndex);
-	const placedClassIndex = dragFunction.indexOf("wrap.classList.add('site-support-dock--placed');");
+	const placedClassIndex = dragFunction.indexOf(
+		"wrap.classList.add('site-support-dock--placed');"
+	);
 
 	assert.ok(promotedIndex >= 0, 'drag start should capture whether the dock began in the header');
 	assert.ok(lockIndex > promotedIndex, 'drag lock should use the pre-promotion placement state');
@@ -77,10 +79,17 @@ test('social dock first drag keeps header geometry until the pointer is released
 		bodyPromotionIndex > lockIndex,
 		'dock should be locked horizontal before it is moved into fixed body placement'
 	);
-	assert.ok(placedClassIndex > lockIndex, 'placed class should not be added before the drag lock');
+	assert.ok(
+		placedClassIndex > lockIndex,
+		'placed class should not be added before the drag lock'
+	);
 
 	const unlockCalls = dragFunction.match(/setHeaderDragLock\(false\);/g) || [];
-	assert.equal(unlockCalls.length, 2, 'pointer release and lost capture should both clear the lock');
+	assert.equal(
+		unlockCalls.length,
+		2,
+		'pointer release and lost capture should both clear the lock'
+	);
 });
 
 test('social dock drag-lock CSS mirrors header horizontal layout while fixed', () => {
@@ -108,16 +117,14 @@ test('social dock drag-lock CSS mirrors header horizontal layout while fixed', (
 	assert.match(linksRule, /gap:\s*0\.26rem;/);
 	assert.match(linksRule, /min-height:\s*0;/);
 
-	const iconRule = extractCssRule(
-		'#site-support-dock.site-support-dock--drag-lock-horizontal .site-social-nav__link .site-social-nav__icon'
+	const iconRule = extractCssRuleByPattern(
+		'#site-support-dock\\.site-support-dock--drag-lock-horizontal\\s+\\.site-social-nav__link\\s+\\.site-social-nav__icon',
+		'drag-lock icon sizing'
 	);
 	assert.match(iconRule, /width:\s*19px;/);
 	assert.match(iconRule, /height:\s*19px;/);
 });
 
 test('homepage keeps Impact affiliate verification meta tag in the head', () => {
-	assert.match(
-		indexSource,
-		/<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/
-	);
+	assert.match(indexSource, /<meta name="impact-site-verification" content="[0-9a-f-]{36}" \/>/);
 });
