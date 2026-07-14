@@ -26,9 +26,7 @@ function extractFunction(source, functionName) {
 }
 
 function extractTextEntrySelector() {
-	const match = componentsSource.match(
-		/const TEXT_ENTRY_SELECTOR\s*=\s*'(?<selector>[^']+)';/
-	);
+	const match = componentsSource.match(/const TEXT_ENTRY_SELECTOR\s*=\s*'(?<selector>[^']+)';/);
 	assert.ok(match, 'TEXT_ENTRY_SELECTOR should exist');
 	return match.groups.selector;
 }
