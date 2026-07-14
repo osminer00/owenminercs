@@ -12,7 +12,10 @@ const REDIS_TOKEN = 'test-redis-token';
 
 async function importCloudflareUtils() {
 	const dir = mkdtempSync(join(tmpdir(), 'owen-twitch-utils-'));
-	const source = readFileSync(new URL('../functions/api/_twitch-utils.js', import.meta.url), 'utf8');
+	const source = readFileSync(
+		new URL('../functions/api/_twitch-utils.js', import.meta.url),
+		'utf8'
+	);
 	writeFileSync(join(dir, '_twitch-utils.mjs'), source);
 	const moduleUrl = pathToFileURL(join(dir, '_twitch-utils.mjs')).href;
 	const mod = await import(`${moduleUrl}?cacheBust=${Date.now()}-${Math.random()}`);
