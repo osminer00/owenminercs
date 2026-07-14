@@ -10,6 +10,11 @@ const netlifyEventsubSource = readFileSync(
 	new URL('../netlify/functions/twitch-eventsub.js', import.meta.url),
 	'utf8'
 );
+const searchHtmlSource = readFileSync(new URL('../search.html', import.meta.url), 'utf8');
+const searchPageSource = readFileSync(
+	new URL('../scripts/search-page.js', import.meta.url),
+	'utf8'
+);
 
 function assertEventsubReleasesClaimedIdempotency(source, label) {
 	assert.match(source, /let idempotencyClaimed = false;/, `${label} should track claimed keys`);
@@ -27,4 +32,21 @@ function assertEventsubReleasesClaimedIdempotency(source, label) {
 test('Twitch EventSub retries are not suppressed after persistence failures', () => {
 	assertEventsubReleasesClaimedIdempotency(cloudflareEventsubSource, 'Cloudflare handler');
 	assertEventsubReleasesClaimedIdempotency(netlifyEventsubSource, 'Netlify handler');
+});
+
+test('search page keeps a working search entry point at /search and /search/', () => {
+	assert.match(searchHtmlSource, /<form[\s\S]*role="search"[\s\S]*data-owen-site-search/);
+	assert.match(searchHtmlSource, /action="\/search"/);
+	assert.match(searchHtmlSource, /type="search"[\s\S]*name="q"/);
+	assert.match(searchHtmlSource, /id="site-search-page-input"/);
+	assert.match(searchHtmlSource, /href="\/css\/owenminercs\.css"/);
+	assert.match(searchHtmlSource, /src="\/scripts\/components\.js"/);
+	assert.match(searchHtmlSource, /src="\/scripts\/search-page\.js"/);
+	assert.match(searchHtmlSource, /src="\/scripts\/support-links\.js"/);
+	assert.match(
+		searchPageSource,
+		/const inputEl = document\.getElementById\('site-search-page-input'\);/
+	);
+	assert.match(searchPageSource, /if \(inputEl\) inputEl\.value = q;/);
+	assert.doesNotMatch(searchPageSource, /search section on the home page/);
 });
