@@ -15,6 +15,7 @@ const searchPageSource = readFileSync(
 	new URL('../scripts/search-page.js', import.meta.url),
 	'utf8'
 );
+const keyboardGuideSource = readFileSync(new URL('../Keyboard/60he.html', import.meta.url), 'utf8');
 
 function assertEventsubReleasesClaimedIdempotency(source, label) {
 	assert.match(source, /let idempotencyClaimed = false;/, `${label} should track claimed keys`);
@@ -52,4 +53,13 @@ test('search page keeps a working search entry point at /search and /search/', (
 	);
 	assert.match(searchPageSource, /if \(inputEl\) inputEl\.value = q;/);
 	assert.doesNotMatch(searchPageSource, /search section on the home page/);
+});
+
+test('canonical Wooting URL retains the promoted parts guide', () => {
+	assert.match(keyboardGuideSource, /2025 Kilowatt Parts List/);
+	assert.match(keyboardGuideSource, /2023 Crosshair Alpha Parts List/);
+	assert.match(keyboardGuideSource, /Gateron Magnetic Jade Pro/);
+	assert.match(keyboardGuideSource, /Wooting Friction Fit Pad/);
+	assert.match(keyboardGuideSource, /Kilowatt Build Breakdown/);
+	assert.match(keyboardGuideSource, /Crosshair Alpha Build Breakdown/);
 });
