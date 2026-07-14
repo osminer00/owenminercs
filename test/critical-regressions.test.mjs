@@ -26,7 +26,10 @@ function assertEventsubReleasesClaimedIdempotency(source, label) {
 	const cleanupIndex = source.indexOf("['DEL', idempotencyKey]");
 	assert.ok(claimIndex > -1, `${label} should claim idempotency`);
 	assert.ok(pipelineIndex > claimIndex, `${label} should persist after claiming idempotency`);
-	assert.ok(cleanupIndex > pipelineIndex, `${label} should release key only after persist failures`);
+	assert.ok(
+		cleanupIndex > pipelineIndex,
+		`${label} should release key only after persist failures`
+	);
 }
 
 test('Twitch EventSub retries are not suppressed after persistence failures', () => {
