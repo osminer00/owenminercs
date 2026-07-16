@@ -1,0 +1,857 @@
+/**
+ * CS2 Config Visualizer — page-specific styles
+ * Counter-Strike/cs2-config.css
+ *
+ * Scoped under .cs2-config-page to avoid polluting global CSS.
+ * Uses gaming bubble theme vars: --bubble-accent (#f43f5e), --bubble-accent-fill, etc.
+ */
+
+/* ==========================================================================
+   Page Layout
+   ========================================================================== */
+.cs2-config-page .container {
+  max-width: var(--site-main-column-max, 1280px);
+  padding-bottom: 3rem;
+}
+
+.cs2-config-page .cs2-config-hero {
+  padding: 0.75rem 0 0.5rem;
+}
+
+.cs2-config-page .cs2-config-hero h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 0 18px rgba(244, 63, 94, 0.45);
+}
+
+.cs2-config-workspace {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    'keyboard inspector'
+    'output   output';
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .cs2-config-workspace {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'keyboard'
+      'inspector'
+      'output';
+  }
+}
+
+/* ==========================================================================
+   Glass Card Base (shared surface)
+   ========================================================================== */
+.cs2-glass-card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 12px;
+  background:
+    radial-gradient(ellipse 108% 98% at 50% 50%, transparent 80%, rgba(0,0,0,0.32) 100%),
+    rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(18px) saturate(1.4) brightness(0.93);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4) brightness(0.93);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 24px rgba(0, 0, 0, 0.4);
+  padding: 0.85rem 1rem;
+}
+
+/* ==========================================================================
+   Layout Selector Pills
+   ========================================================================== */
+.cs2-layout-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+
+.cs2-layout-pill {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.cs2-layout-pill:hover {
+  background: rgba(244, 63, 94, 0.1);
+  border-color: rgba(244, 63, 94, 0.4);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.cs2-layout-pill.active {
+  background: rgba(244, 63, 94, 0.18);
+  border-color: var(--bubble-accent, #f43f5e);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.3);
+}
+
+/* ==========================================================================
+   Profile Tabs (keyboard view switcher)
+   ========================================================================== */
+.cs2-profile-tabs {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.cs2-profile-tab {
+  padding: 0.28rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cs2-profile-tab:hover {
+  background: rgba(244, 63, 94, 0.08);
+  border-color: rgba(244, 63, 94, 0.3);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.cs2-profile-tab.active {
+  background: rgba(244, 63, 94, 0.16);
+  border-color: var(--bubble-accent, #f43f5e);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Capture Toggle
+   ========================================================================== */
+.cs2-capture-toggle {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0.85rem;
+  margin-bottom: 0.65rem;
+  border: 2px dashed rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cs2-capture-toggle:hover {
+  border-color: rgba(244, 63, 94, 0.45);
+  background: rgba(244, 63, 94, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cs2-capture-toggle--active {
+  border-style: solid;
+  border-color: var(--bubble-accent, #f43f5e);
+  background: rgba(244, 63, 94, 0.12);
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.18), 0 0 12px rgba(244, 63, 94, 0.2);
+  animation: cs2-capture-pulse 2s ease-in-out infinite;
+}
+
+@keyframes cs2-capture-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.18), 0 0 12px rgba(244, 63, 94, 0.2); }
+  50%       { box-shadow: 0 0 0 5px rgba(244, 63, 94, 0.1), 0 0 20px rgba(244, 63, 94, 0.3); }
+}
+
+/* ==========================================================================
+   Keyboard Grid
+   ========================================================================== */
+.cs2-keyboard-panel {
+  grid-area: keyboard;
+}
+
+.cs2-keyboard-wrap {
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+#cs2-keyboard-keys {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 560px;
+}
+
+.cs2-kb-row {
+  display: flex;
+  gap: 3px;
+}
+
+/* --- Key Caps --- */
+:root {
+  --key-base-size: 38px;
+}
+
+.cs2-key {
+  flex: 0 0 calc(var(--key-width, 1) * var(--key-base-size));
+  width: calc(var(--key-width, 1) * var(--key-base-size));
+  height: var(--key-base-size);
+  min-width: 0;
+  padding: 2px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.08) 100%),
+    rgba(18, 18, 22, 0.88);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.6rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  position: relative;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s, color 0.12s, transform 0.08s;
+  overflow: hidden;
+  user-select: none;
+}
+
+.cs2-key:hover {
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.35);
+  color: #fff;
+}
+
+.cs2-key--bound {
+  background:
+    linear-gradient(160deg, rgba(244,63,94,0.08) 0%, rgba(0,0,0,0.12) 100%),
+    rgba(18, 18, 22, 0.88);
+  border-color: rgba(244, 63, 94, 0.5);
+  box-shadow: 0 0 6px 1px rgba(244, 63, 94, 0.28), inset 0 1px 0 rgba(244,63,94,0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cs2-key--selected {
+  border-color: #fff !important;
+  box-shadow: 0 0 0 2px var(--bubble-accent, #f43f5e), 0 0 10px rgba(244, 63, 94, 0.4) !important;
+  color: #fff !important;
+  z-index: 2;
+}
+
+.cs2-key--flash {
+  animation: cs2-keyflash 200ms ease-out forwards;
+}
+
+@keyframes cs2-keyflash {
+  0%   { transform: scale(0.94); background: rgba(255,255,255,0.35); border-color: #fff; box-shadow: 0 0 18px 4px rgba(255,255,255,0.5); color: #000; }
+  100% { transform: scale(1); }
+}
+
+.cs2-key--inert {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.cs2-key__label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.cs2-key__cmd {
+  font-size: 0.48rem;
+  color: var(--bubble-accent, #f43f5e);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs2-key--flash { animation: none; }
+  .cs2-capture-toggle--active { animation: none; }
+}
+
+/* ==========================================================================
+   Mouse Button Chips
+   ========================================================================== */
+.cs2-mouse-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cs2-mouse-row-label {
+  width: 100%;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.1rem;
+}
+
+.cs2-mouse-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 6px;
+  background: rgba(18, 18, 22, 0.8);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.cs2-mouse-chip:hover {
+  border-color: rgba(244, 63, 94, 0.4);
+  background: rgba(244, 63, 94, 0.08);
+  color: #fff;
+}
+
+.cs2-mouse-chip--bound {
+  border-color: rgba(244, 63, 94, 0.5);
+  box-shadow: 0 0 5px rgba(244, 63, 94, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cs2-mouse-chip--selected {
+  border-color: #fff !important;
+  box-shadow: 0 0 0 2px var(--bubble-accent, #f43f5e) !important;
+}
+
+.cs2-mouse-chip__label {
+  font-weight: 800;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.cs2-mouse-chip__desc {
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Bind Inspector Panel
+   ========================================================================== */
+.cs2-inspector-panel {
+  grid-area: inspector;
+}
+
+.cs2-inspector__empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.cs2-inspector__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cs2-inspector__key-badge {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(244, 63, 94, 0.2);
+  border: 1px solid rgba(244, 63, 94, 0.5);
+  border-radius: 6px;
+  padding: 0.15rem 0.55rem;
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.2);
+}
+
+.cs2-inspector__section {
+  margin-bottom: 0.75rem;
+}
+
+.cs2-inspector__label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+
+.cs2-inspector__input {
+  width: 100%;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+  margin-bottom: 0.4rem;
+}
+
+.cs2-inspector__input:focus {
+  border-color: var(--bubble-accent, #f43f5e);
+  box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.2);
+}
+
+.cs2-inspector__select {
+  width: 100%;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.45);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem;
+  outline: none;
+  margin-bottom: 0.4rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.cs2-inspector__cheat-warning {
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgba(244, 63, 94, 0.55);
+  border-radius: 6px;
+  background: rgba(244, 63, 94, 0.1);
+  color: rgba(255, 180, 180, 0.95);
+  font-size: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.cs2-inspector__suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.cs2-suggestion-pill {
+  padding: 0.22rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  cursor: pointer;
+  transition: all 0.12s;
+  text-align: left;
+}
+
+.cs2-suggestion-pill:hover {
+  background: rgba(244, 63, 94, 0.15);
+  border-color: rgba(244, 63, 94, 0.45);
+  color: #fff;
+}
+
+.cs2-inspector__profile-use {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cs2-inspector__profile-tag {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.4;
+}
+
+.cs2-inspector__profile-tag code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--bubble-accent, #f43f5e);
+  font-size: 0.68rem;
+}
+
+/* --- Command List --- */
+.cs2-inspector__search-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.65rem;
+}
+
+.cs2-cmd-list {
+  max-height: 260px;
+  overflow-y: auto;
+  margin-top: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(244, 63, 94, 0.35) transparent;
+}
+
+.cs2-cmd-list__category {
+  padding: 0.25rem 0.55rem 0.1rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(244, 63, 94, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  position: sticky;
+  top: 0;
+  background: rgba(10, 10, 14, 0.9);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+.cs2-cmd-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 0.4rem;
+  padding: 0.35rem 0.55rem;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.1s;
+}
+
+.cs2-cmd-item:hover {
+  background: rgba(244, 63, 94, 0.1);
+  color: #fff;
+}
+
+.cs2-cmd-item--blocked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cs2-cmd-item__label {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.cs2-cmd-item__cmd {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: var(--bubble-accent, #f43f5e);
+  background: rgba(244, 63, 94, 0.08);
+  padding: 0.06rem 0.3rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs2-cmd-item__desc {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 0.1rem;
+  line-height: 1.3;
+}
+
+.cs2-cmd-item__lock {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  font-size: 0.62rem;
+  color: rgba(244, 63, 94, 0.75);
+  margin-top: 0.1rem;
+}
+
+.cs2-cmd-list__empty {
+  padding: 0.75rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.cs2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.cs2-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+.cs2-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cs2-btn--accent {
+  background: rgba(244, 63, 94, 0.18);
+  border-color: rgba(244, 63, 94, 0.55);
+  color: #fff;
+}
+
+.cs2-btn--accent:hover:not(:disabled) {
+  background: rgba(244, 63, 94, 0.28);
+  border-color: var(--bubble-accent, #f43f5e);
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.25);
+}
+
+.cs2-btn--success {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border-color: rgba(34, 197, 94, 0.55) !important;
+}
+
+.cs2-inspector__clear-btn {
+  padding: 0.22rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: inherit;
+}
+
+.cs2-inspector__clear-btn:hover:not(:disabled) {
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.4);
+  color: rgba(255, 200, 200, 0.95);
+}
+
+.cs2-inspector__clear-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Config Output Panel
+   ========================================================================== */
+.cs2-output-panel {
+  grid-area: output;
+}
+
+.cs2-output-tabs {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.cs2-output-tab {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px 8px 0 0;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cs2-output-tab:hover {
+  background: rgba(244, 63, 94, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cs2-output-tab.active {
+  background: rgba(244, 63, 94, 0.16);
+  border-color: var(--bubble-accent, #f43f5e);
+  border-bottom-color: transparent;
+  color: #fff;
+}
+
+.cs2-output-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.cs2-output-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cs2-comments-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.cs2-comments-toggle-wrap label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.cs2-comments-toggle-wrap input[type='checkbox'] {
+  accent-color: var(--bubble-accent, #f43f5e);
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+.cs2-reset-btn-wrap {
+  margin-left: auto;
+}
+
+/* --- Code Block --- */
+.cs2-code-block {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: #0d1117;
+  overflow: hidden;
+}
+
+.cs2-code-block pre {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  overflow-x: auto;
+  max-height: 380px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(244, 63, 94, 0.35) transparent;
+  white-space: pre;
+}
+
+/* Syntax colors */
+.cfg-comment { color: rgba(100, 200, 120, 0.65); font-style: italic; }
+.cfg-keyword { color: rgba(244, 63, 94, 0.9); font-weight: 700; }
+.cfg-key     { color: rgba(255, 255, 255, 0.95); }
+.cfg-value   { color: rgba(130, 200, 255, 0.85); }
+
+/* --- Extra config / scripts textareas --- */
+.cs2-extra-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+  margin-top: 0.65rem;
+  display: block;
+}
+
+.cs2-extra-textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  resize: vertical;
+  min-height: 90px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.cs2-extra-textarea:focus {
+  border-color: rgba(244, 63, 94, 0.45);
+  box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.12);
+}
+
+/* ==========================================================================
+   Back nav + intro
+   ========================================================================== */
+.cs2-config-page .setup-detail__back {
+  margin: 0 0 0.4rem;
+}
+
+.cs2-config-page .setup-detail__back a {
+  color: var(--bubble-accent, #f43f5e);
+  text-decoration: underline;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Dark / Light theme overrides
+   ========================================================================== */
+[data-theme='light'] .cs2-key {
+  background: linear-gradient(160deg, rgba(255,255,255,0.9) 0%, rgba(235,235,240,0.85) 100%);
+  border-color: rgba(0,0,0,0.15);
+  color: rgba(0,0,0,0.75);
+}
+
+[data-theme='light'] .cs2-key--bound {
+  border-color: rgba(244, 63, 94, 0.6);
+  background: rgba(255,240,242,0.9);
+  color: rgba(0,0,0,0.85);
+}
+
+[data-theme='light'] .cs2-key:hover {
+  background: rgba(255,230,234,0.9);
+}
+
+[data-theme='light'] .cs2-glass-card {
+  background: rgba(255,255,255,0.55);
+  border-color: rgba(0,0,0,0.1);
+}
+
+[data-theme='light'] .cs2-code-block {
+  background: #1a1a2e;
+}
+
+[data-theme='light'] .cs2-inspector__input,
+[data-theme='light'] .cs2-inspector__select,
+[data-theme='light'] .cs2-extra-textarea {
+  background: rgba(255,255,255,0.85);
+  color: rgba(0,0,0,0.85);
+  border-color: rgba(0,0,0,0.18);
+}

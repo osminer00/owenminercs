@@ -21,6 +21,8 @@ http://www.owenminercs.com/*  https://www.owenminercs.com/:splat  301!
 
 /nosmoking    /Counter-Strike/nosmoking   301
 /nosmoking.html    /Counter-Strike/nosmoking   301
+/cs2-config    /Counter-Strike/cs2-config.html   200
+/cs2-config.html    /Counter-Strike/cs2-config.html   200
 /garage-sale    /Garage%20Sale/garage-sale   301
 /garage-sale.html    /Garage%20Sale/garage-sale   301
 /Photography/photography    /Garage%20Sale/garage-sale#photography   301

@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/owenminercs.css" />
+    <link rel="stylesheet" href="../css/bubble-theme-base.css" />
+    <link rel="stylesheet" href="../css/bubble-themes/gaming.css" />
+    <link rel="stylesheet" href="../css/liquid-glass-surfaces.css" />
+    <link rel="stylesheet" href="cs2-config.css" />
+    <link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYG1QRQ8DY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-GYG1QRQ8DY');
+    </script>
+    <title>CS2 Config Visualizer &amp; Generator | Owen Miner</title>
+    <meta name="author" content="Owen Miner" />
+    <meta
+      name="description"
+      content="Visual CS2 keybind editor with an interactive 2D keyboard. Build and export your autoexec, practice, and demo configs for Counter-Strike 2."
+    />
+    <meta
+      name="keywords"
+      content="CS2, Counter-Strike 2, config, keybinds, autoexec, practice config, demo controls, bind generator, Owen Miner"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="twitter:site" content="@OwenMiner" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="#0f0f0f" />
+    <link rel="icon" href="/images/logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="/images/logo/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/images/logo/favicon-16.png" type="image/png" sizes="16x16" />
+    <meta property="og:title" content="CS2 Config Visualizer &amp; Generator | Owen Miner" />
+    <meta
+      property="og:description"
+      content="Visual CS2 keybind editor with an interactive 2D keyboard. Build and export your autoexec, practice, and demo configs."
+    />
+    <meta property="og:url" content="https://www.owenminercs.com/cs2-config" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Owen Miner CS" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CS2 Config Visualizer &amp; Generator | Owen Miner" />
+    <meta
+      name="twitter:description"
+      content="Visual CS2 keybind editor for autoexec, practice, and demo configs with 2D keyboard preview."
+    />
+    <link rel="canonical" href="https://www.owenminercs.com/cs2-config" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": "https://www.owenminercs.com/cs2-config#app",
+        "url": "https://www.owenminercs.com/cs2-config",
+        "name": "CS2 Config Visualizer & Generator",
+        "description": "Visual CS2 keybind editor with interactive 2D keyboard for autoexec, practice, and demo configs.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://www.owenminercs.com/#website" },
+        "about": { "@id": "https://www.owenminercs.com/#person" }
+      }
+    </script>
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <script src="../scripts/components.js" defer></script>
+    <script src="../scripts/bubble-scroll.js" defer></script>
+  </head>
+  <body id="top" class="site-card-ui bubble-theme bubble-theme--gaming cs2-config-page" style="zoom: 95%">
+    <div class="bubble-bg" aria-hidden="true">
+      <div class="bubble-bg__media">
+        <video
+          id="bubble-bg-video"
+          class="bubble-bg__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="/images/bubble-themes/gaming/poster.jpg"
+        >
+          <source src="/images/bubble-themes/gaming/bg.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="bubble-bg__veil"></div>
+    </div>
+
+    <shared-header></shared-header>
+
+    <div class="container">
+      <!-- Back nav -->
+      <div class="intro setup-page-compact">
+        <p class="setup-detail__back"><a href="../Gaming/gaming.html">← Gaming</a></p>
+      </div>
+
+      <!-- Hero -->
+      <section class="cs2-config-hero" aria-labelledby="cs2-config-h1">
+        <h1 id="cs2-config-h1">CS2 Config Visualizer</h1>
+      </section>
+
+      <!-- Main workspace -->
+      <section class="cs2-config-workspace" aria-label="Config visualizer workspace">
+
+        <!-- LEFT: Keyboard Panel -->
+        <div class="cs2-keyboard-panel cs2-glass-card" aria-label="Keyboard layout and key selector">
+
+          <!-- Layout selector -->
+          <div class="cs2-layout-selector" role="toolbar" aria-label="Select keyboard layout">
+            <button type="button" class="cs2-layout-pill" data-layout="60pct">60%</button>
+            <button type="button" class="cs2-layout-pill" data-layout="65pct">65%</button>
+            <button type="button" class="cs2-layout-pill" data-layout="75pct">75%</button>
+            <button type="button" class="cs2-layout-pill" data-layout="tkl">TKL (80%)</button>
+            <button type="button" class="cs2-layout-pill" data-layout="60split">60% Split Space</button>
+          </div>
+
+          <!-- Profile tabs -->
+          <div class="cs2-profile-tabs" role="tablist" aria-label="Active profile for keyboard view">
+            <button type="button" class="cs2-profile-tab" data-profile-tab="autoexec" role="tab" aria-selected="true">Gameplay</button>
+            <button type="button" class="cs2-profile-tab" data-profile-tab="practice" role="tab" aria-selected="false">Practice</button>
+            <button type="button" class="cs2-profile-tab" data-profile-tab="demo" role="tab" aria-selected="false">Demo</button>
+          </div>
+
+          <!-- Key capture toggle -->
+          <button
+            type="button"
+            class="cs2-capture-toggle"
+            id="cs2-capture-toggle"
+            aria-pressed="false"
+          >Key capture: OFF — click to activate</button>
+
+          <!-- Keyboard grid -->
+          <div class="cs2-keyboard-wrap">
+            <div id="cs2-keyboard-keys" role="grid" aria-label="Keyboard keys"></div>
+          </div>
+
+          <!-- Mouse button chips -->
+          <div class="cs2-mouse-row" aria-label="Mouse buttons">
+            <div class="cs2-mouse-row-label">Mouse</div>
+            <div id="cs2-mouse-chips" style="display:flex;flex-wrap:wrap;gap:0.4rem;"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Inspector Panel -->
+        <aside class="cs2-inspector-panel cs2-glass-card" id="cs2-inspector" aria-label="Bind inspector" aria-live="polite">
+          <div class="cs2-inspector__empty">
+            <p>Click a key on the keyboard or press a key on your physical keyboard to inspect and bind it.</p>
+          </div>
+        </aside>
+
+        <!-- BOTTOM: Config Output Panel -->
+        <div class="cs2-output-panel cs2-glass-card" aria-label="Generated config output">
+
+          <!-- Output profile tabs -->
+          <div class="cs2-output-tabs" role="tablist" aria-label="Config output profile">
+            <button type="button" class="cs2-output-tab active" data-output-tab="autoexec" role="tab">Gameplay (autoexec)</button>
+            <button type="button" class="cs2-output-tab" data-output-tab="practice" role="tab">Practice</button>
+            <button type="button" class="cs2-output-tab" data-output-tab="demo" role="tab">Demo Controls</button>
+          </div>
+
+          <!-- Autoexec output -->
+          <div data-output-panel="autoexec" class="cs2-output-pane">
+            <div class="cs2-output-actions">
+              <button type="button" class="cs2-btn cs2-btn--accent" data-copy-profile="autoexec">Copy to Clipboard</button>
+              <button type="button" class="cs2-btn" data-download-profile="autoexec">Download autoexec.cfg</button>
+              <div class="cs2-reset-btn-wrap">
+                <button type="button" class="cs2-btn" data-reset-profile="autoexec">Reset to Defaults</button>
+              </div>
+              <div class="cs2-comments-toggle-wrap">
+                <input type="checkbox" id="cs2-comments-toggle" checked />
+                <label for="cs2-comments-toggle">Include comments</label>
+              </div>
+            </div>
+            <div class="cs2-code-block">
+              <pre id="cs2-output-autoexec" aria-label="Autoexec config output"></pre>
+            </div>
+            <label class="cs2-extra-label" for="cs2-extra-config-autoexec">Extra config / CVars (included before bind lines)</label>
+            <textarea
+              id="cs2-extra-config-autoexec"
+              class="cs2-extra-textarea"
+              spellcheck="false"
+              aria-label="Autoexec extra CVars"
+              placeholder="Additional non-bind cvars..."
+            ></textarea>
+            <label class="cs2-extra-label" for="cs2-extra-scripts-autoexec">Custom aliases and scripts (appended to end of config)</label>
+            <textarea
+              id="cs2-extra-scripts-autoexec"
+              class="cs2-extra-textarea"
+              spellcheck="false"
+              aria-label="Autoexec custom scripts"
+              placeholder="alias, toggles, custom scripts..."
+            ></textarea>
+          </div>
+
+          <!-- Practice output -->
+          <div data-output-panel="practice" class="cs2-output-pane" hidden>
+            <div class="cs2-output-actions">
+              <button type="button" class="cs2-btn cs2-btn--accent" data-copy-profile="practice">Copy to Clipboard</button>
+              <button type="button" class="cs2-btn" data-download-profile="practice">Download practice.cfg</button>
+              <div class="cs2-reset-btn-wrap">
+                <button type="button" class="cs2-btn" data-reset-profile="practice">Reset to Defaults</button>
+              </div>
+            </div>
+            <div class="cs2-code-block">
+              <pre id="cs2-output-practice" aria-label="Practice config output"></pre>
+            </div>
+            <label class="cs2-extra-label" for="cs2-extra-config-practice">Extra config / CVars</label>
+            <textarea
+              id="cs2-extra-config-practice"
+              class="cs2-extra-textarea"
+              spellcheck="false"
+              aria-label="Practice extra CVars"
+            ></textarea>
+            <label class="cs2-extra-label" for="cs2-extra-scripts-practice">Custom aliases and scripts</label>
+            <textarea
+              id="cs2-extra-scripts-practice"
+              class="cs2-extra-textarea"
+              spellcheck="false"
+              aria-label="Practice custom scripts"
+            ></textarea>
+          </div>
+
+          <!-- Demo output -->
+          <div data-output-panel="demo" class="cs2-output-pane" hidden>
+            <div class="cs2-output-actions">
+              <button type="button" class="cs2-btn cs2-btn--accent" data-copy-profile="demo">Copy to Clipboard</button>
+              <button type="button" class="cs2-btn" data-download-profile="demo">Download demo.cfg</button>
+              <div class="cs2-reset-btn-wrap">
+                <button type="button" class="cs2-btn" data-reset-profile="demo">Reset to Defaults</button>
+              </div>
+            </div>
+            <div class="cs2-code-block">
+              <pre id="cs2-output-demo" aria-label="Demo controls config output"></pre>
+            </div>
+            <label class="cs2-extra-label" for="cs2-extra-config-demo">Extra config / CVars</label>
+            <textarea
+              id="cs2-extra-config-demo"
+              class="cs2-extra-textarea"
+              spellcheck="false"
+              aria-label="Demo extra CVars"
+            ></textarea>
+            <label class="cs2-extra-label" for="cs2-extra-scripts-demo">Custom aliases and scripts</label>
+            <textarea
+              id="cs2-extra-scripts-demo"
+              class="cs2-extra-textarea"
+              spellcheck="false"
+              aria-label="Demo custom scripts"
+            ></textarea>
+          </div>
+
+        </div><!-- /output panel -->
+
+      </section><!-- /workspace -->
+
+      <shared-footer
+        disclosure="<i>This page has no paid shopping links.</i>"
+      ></shared-footer>
+    </div>
+
+    <script src="cs2-config.js" defer></script>
+  </body>
+</html>
