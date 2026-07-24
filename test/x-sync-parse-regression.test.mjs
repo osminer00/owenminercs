@@ -38,7 +38,9 @@ test('X sync resolves the live nav username and keeps DEFAULT_USERNAME aligned',
 	assert.doesNotMatch(componentsSource, /https:\/\/x\.com\/OwenMinerCS\b/i);
 
 	const resolved = JSON.parse(
-		loadHelper('module.resolve_username_from_nav(module.Path(sys.argv[1]).resolve().parents[1])')
+		loadHelper(
+			'module.resolve_username_from_nav(module.Path(sys.argv[1]).resolve().parents[1])'
+		)
 	);
 	assert.equal(resolved, 'OwenMiner');
 

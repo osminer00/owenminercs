@@ -174,32 +174,35 @@ test('EventSub webhook rejects stale and invalid signatures before touching Redi
 			UPSTASH_REDIS_REST_TOKEN: UPSTASH_TOKEN,
 		},
 		async () => {
-			await withFetch(async () => {
-				fetchCount += 1;
-				throw new Error('Redis must not be contacted for rejected webhook requests');
-			}, async () => {
-				const stale = await signedPost({
-					messageType: 'notification',
-					payload: { subscription: { type: 'channel.follow' }, event: {} },
-					timestamp: freshTimestamp(-11 * 60 * 1000),
-				});
-				assert.equal(stale.statusCode, 403);
-				assert.deepEqual(parseBody(stale), {
-					error: 'Stale or invalid message timestamp.',
-				});
+			await withFetch(
+				async () => {
+					fetchCount += 1;
+					throw new Error('Redis must not be contacted for rejected webhook requests');
+				},
+				async () => {
+					const stale = await signedPost({
+						messageType: 'notification',
+						payload: { subscription: { type: 'channel.follow' }, event: {} },
+						timestamp: freshTimestamp(-11 * 60 * 1000),
+					});
+					assert.equal(stale.statusCode, 403);
+					assert.deepEqual(parseBody(stale), {
+						error: 'Stale or invalid message timestamp.',
+					});
 
-				const badSig = await signedPost({
-					messageType: 'notification',
-					payload: { subscription: { type: 'channel.follow' }, event: {} },
-					tamperSignature: true,
-				});
-				assert.equal(badSig.statusCode, 403);
-				assert.deepEqual(parseBody(badSig), {
-					error: 'Invalid Twitch EventSub signature.',
-				});
+					const badSig = await signedPost({
+						messageType: 'notification',
+						payload: { subscription: { type: 'channel.follow' }, event: {} },
+						tamperSignature: true,
+					});
+					assert.equal(badSig.statusCode, 403);
+					assert.deepEqual(parseBody(badSig), {
+						error: 'Invalid Twitch EventSub signature.',
+					});
 
-				assert.equal(fetchCount, 0);
-			});
+					assert.equal(fetchCount, 0);
+				}
+			);
 		}
 	);
 });
@@ -214,19 +217,22 @@ test('EventSub webhook verification challenge returns plain challenge without Re
 			UPSTASH_REDIS_REST_TOKEN: UPSTASH_TOKEN,
 		},
 		async () => {
-			await withFetch(async () => {
-				fetchCount += 1;
-				throw new Error('challenge verification should not call Redis');
-			}, async () => {
-				const response = await signedPost({
-					messageType: 'webhook_callback_verification',
-					payload: { challenge: 'challenge-token-123' },
-				});
-				assert.equal(response.statusCode, 200);
-				assert.equal(response.body, 'challenge-token-123');
-				assert.match(response.headers['Content-Type'], /text\/plain/);
-				assert.equal(fetchCount, 0);
-			});
+			await withFetch(
+				async () => {
+					fetchCount += 1;
+					throw new Error('challenge verification should not call Redis');
+				},
+				async () => {
+					const response = await signedPost({
+						messageType: 'webhook_callback_verification',
+						payload: { challenge: 'challenge-token-123' },
+					});
+					assert.equal(response.statusCode, 200);
+					assert.equal(response.body, 'challenge-token-123');
+					assert.match(response.headers['Content-Type'], /text\/plain/);
+					assert.equal(fetchCount, 0);
+				}
+			);
 		}
 	);
 });
@@ -241,89 +247,95 @@ test('EventSub webhook marks duplicates and persists new follow notifications wi
 			UPSTASH_REDIS_REST_TOKEN: UPSTASH_TOKEN,
 		},
 		async () => {
-			await withFetch(async (url, options = {}) => {
-				const href = String(url);
-				const body = JSON.parse(options.body);
-				redisCalls.push({ href, body });
+			await withFetch(
+				async (url, options = {}) => {
+					const href = String(url);
+					const body = JSON.parse(options.body);
+					redisCalls.push({ href, body });
 
-				if (href === UPSTASH_URL) {
-					const key = body[1];
-					if (key === 'activity:twitch:seen:dup-1') {
+					if (href === UPSTASH_URL) {
+						const key = body[1];
+						if (key === 'activity:twitch:seen:dup-1') {
+							return {
+								ok: true,
+								async text() {
+									return JSON.stringify({ result: null });
+								},
+							};
+						}
 						return {
 							ok: true,
 							async text() {
-								return JSON.stringify({ result: null });
+								return JSON.stringify({ result: 'OK' });
 							},
 						};
 					}
-					return {
-						ok: true,
-						async text() {
-							return JSON.stringify({ result: 'OK' });
+
+					if (href === `${UPSTASH_URL}/pipeline`) {
+						return {
+							ok: true,
+							async text() {
+								return JSON.stringify(body.map(() => ({ result: 'OK' })));
+							},
+						};
+					}
+
+					throw new Error(`Unexpected Redis URL: ${href}`);
+				},
+				async () => {
+					const duplicate = await signedPost({
+						messageType: 'notification',
+						messageId: 'dup-1',
+						payload: {
+							subscription: { type: 'channel.follow' },
+							event: { user_name: 'DupViewer', followed_at: '2026-07-05T01:00:00Z' },
 						},
-					};
-				}
+					});
+					assert.equal(duplicate.statusCode, 200);
+					assert.deepEqual(parseBody(duplicate), { ok: true, duplicate: true });
+					assert.equal(redisCalls.length, 1);
+					assert.equal(redisCalls[0].href, UPSTASH_URL);
 
-				if (href === `${UPSTASH_URL}/pipeline`) {
-					return {
-						ok: true,
-						async text() {
-							return JSON.stringify(body.map(() => ({ result: 'OK' })));
+					const created = await signedPost({
+						messageType: 'notification',
+						messageId: 'new-1',
+						payload: {
+							subscription: { type: 'channel.follow' },
+							event: {
+								user_name: 'FreshViewer',
+								followed_at: '2026-07-05T02:00:00Z',
+							},
 						},
-					};
+					});
+					assert.equal(created.statusCode, 204);
+					assert.equal(created.body, '');
+					assert.equal(redisCalls.length, 3);
+					assert.equal(redisCalls[1].href, UPSTASH_URL);
+					assert.deepEqual(redisCalls[1].body.slice(0, 3), [
+						'SET',
+						'activity:twitch:seen:new-1',
+						'1',
+					]);
+					assert.equal(redisCalls[2].href, `${UPSTASH_URL}/pipeline`);
+					assert.equal(redisCalls[2].body[0][0], 'LPUSH');
+					assert.equal(redisCalls[2].body[0][1], 'activity:twitch:events');
+					const stored = JSON.parse(redisCalls[2].body[0][2]);
+					assert.equal(stored.type, 'follow');
+					assert.equal(stored.displayText, 'FreshViewer followed');
+					assert.deepEqual(redisCalls[2].body[3], [
+						'HINCRBY',
+						'activity:twitch:totals',
+						'events_total',
+						'1',
+					]);
+					assert.deepEqual(redisCalls[2].body[4], [
+						'HINCRBY',
+						'activity:twitch:totals',
+						'follows_total',
+						'1',
+					]);
 				}
-
-				throw new Error(`Unexpected Redis URL: ${href}`);
-			}, async () => {
-				const duplicate = await signedPost({
-					messageType: 'notification',
-					messageId: 'dup-1',
-					payload: {
-						subscription: { type: 'channel.follow' },
-						event: { user_name: 'DupViewer', followed_at: '2026-07-05T01:00:00Z' },
-					},
-				});
-				assert.equal(duplicate.statusCode, 200);
-				assert.deepEqual(parseBody(duplicate), { ok: true, duplicate: true });
-				assert.equal(redisCalls.length, 1);
-				assert.equal(redisCalls[0].href, UPSTASH_URL);
-
-				const created = await signedPost({
-					messageType: 'notification',
-					messageId: 'new-1',
-					payload: {
-						subscription: { type: 'channel.follow' },
-						event: { user_name: 'FreshViewer', followed_at: '2026-07-05T02:00:00Z' },
-					},
-				});
-				assert.equal(created.statusCode, 204);
-				assert.equal(created.body, '');
-				assert.equal(redisCalls.length, 3);
-				assert.equal(redisCalls[1].href, UPSTASH_URL);
-				assert.deepEqual(redisCalls[1].body.slice(0, 3), [
-					'SET',
-					'activity:twitch:seen:new-1',
-					'1',
-				]);
-				assert.equal(redisCalls[2].href, `${UPSTASH_URL}/pipeline`);
-				assert.equal(redisCalls[2].body[0][0], 'LPUSH');
-				assert.equal(redisCalls[2].body[0][1], 'activity:twitch:events');
-				const stored = JSON.parse(redisCalls[2].body[0][2]);
-				assert.equal(stored.type, 'follow');
-				assert.equal(stored.displayText, 'FreshViewer followed');
-				assert.deepEqual(redisCalls[2].body[3], [
-					'HINCRBY',
-					'activity:twitch:totals',
-					'events_total',
-					'1',
-				]);
-				assert.deepEqual(redisCalls[2].body[4], [
-					'HINCRBY',
-					'activity:twitch:totals',
-					'follows_total',
-					'1',
-				]);
-			});
+			);
 		}
 	);
 });
