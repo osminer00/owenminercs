@@ -8,6 +8,7 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 
 - Markdown/memory docs have encoding/mojibake in several files. See `MARKDOWN_AUDIT.md`.
 - Agent memory is being consolidated around `AGENTS.md` and `memory/`.
+- **2026-07-25 – Unauthenticated OpenAI proxy (Medium):** `functions/api/site-assistant.js` and `netlify/functions/site-assistant.js` accept unauthenticated POSTs with attacker-controlled `messages` / `knowledgeEntries`, then call OpenAI with `OPENAI_API_KEY`. Impact: billing/quota abuse and general-purpose LLM relay. Remediation: load knowledge server-side only; add auth or strict edge rate limits / per-IP budgets; do not trust client `knowledgeEntries`. Status: needs follow-up.
 
 ## Recurring Patterns
 
