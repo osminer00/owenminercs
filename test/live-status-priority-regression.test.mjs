@@ -119,25 +119,28 @@ test('Cloudflare live-status continues to YouTube after Twitch errors', async ()
 });
 
 test('Netlify live-status collects source errors and falls back when nothing is live', async () => {
-	const { handler, env } = loadNetlifyLiveStatus(async (input) => {
-		const url = String(input);
-		if (url.includes('id.twitch.tv')) {
-			return jsonResponse({ access_token: 'token' });
+	const { handler, env } = loadNetlifyLiveStatus(
+		async (input) => {
+			const url = String(input);
+			if (url.includes('id.twitch.tv')) {
+				return jsonResponse({ access_token: 'token' });
+			}
+			if (url.includes('api.twitch.tv/helix/streams')) {
+				throw new Error('twitch streams down');
+			}
+			if (url.includes('googleapis.com/youtube')) {
+				return jsonResponse({ items: [] });
+			}
+			throw new Error(`Unexpected fetch: ${url}`);
+		},
+		{
+			TWITCH_CLIENT_ID: 'id',
+			TWITCH_CLIENT_SECRET: 'secret',
+			TWITCH_BROADCASTER_ID: '123',
+			YOUTUBE_API_KEY: 'key',
+			YOUTUBE_CHANNEL_ID: 'channel',
 		}
-		if (url.includes('api.twitch.tv/helix/streams')) {
-			throw new Error('twitch streams down');
-		}
-		if (url.includes('googleapis.com/youtube')) {
-			return jsonResponse({ items: [] });
-		}
-		throw new Error(`Unexpected fetch: ${url}`);
-	}, {
-		TWITCH_CLIENT_ID: 'id',
-		TWITCH_CLIENT_SECRET: 'secret',
-		TWITCH_BROADCASTER_ID: '123',
-		YOUTUBE_API_KEY: 'key',
-		YOUTUBE_CHANNEL_ID: 'channel',
-	});
+	);
 
 	const response = await handler({ httpMethod: 'GET' });
 	const body = JSON.parse(response.body);

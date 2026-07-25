@@ -11,7 +11,25 @@ function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
 	assert.notEqual(start, -1, `${functionName} should exist`);
 
-	const braceStart = source.indexOf('{', start);
+	const paramsStart = source.indexOf('(', start);
+	assert.notEqual(paramsStart, -1, `${functionName} should have parameters`);
+
+	let parenDepth = 0;
+	let paramsEnd = -1;
+	for (let i = paramsStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '(') parenDepth += 1;
+		if (char === ')') {
+			parenDepth -= 1;
+			if (parenDepth === 0) {
+				paramsEnd = i;
+				break;
+			}
+		}
+	}
+	assert.notEqual(paramsEnd, -1, `${functionName} parameter list should close`);
+
+	const braceStart = source.indexOf('{', paramsEnd);
 	assert.notEqual(braceStart, -1, `${functionName} should have a body`);
 
 	let depth = 0;
@@ -35,7 +53,6 @@ function loadSocialFeedHelpers() {
 		Boolean,
 		Date,
 		encodeURIComponent,
-		globalThis: {},
 	};
 
 	vm.runInNewContext(
@@ -47,7 +64,7 @@ function loadSocialFeedHelpers() {
 			extractFunction(source, 'extractTag'),
 			extractFunction(source, 'extractAttribute'),
 			extractFunction(source, 'parseYouTubeFeedXml'),
-			`globalThis.__helpers = {
+			`this.__helpers = {
 				parsePositiveInt,
 				truncateText,
 				parseIsoDurationToSeconds,
@@ -58,7 +75,8 @@ function loadSocialFeedHelpers() {
 		sandbox
 	);
 
-	return sandbox.globalThis.__helpers;
+	assert.ok(sandbox.__helpers, 'social-feed helpers should load');
+	return sandbox.__helpers;
 }
 
 test('social-feed parses ISO-8601 durations and truncates text safely', () => {

@@ -11,7 +11,25 @@ function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
 	assert.notEqual(start, -1, `${functionName} should exist`);
 
-	const braceStart = source.indexOf('{', start);
+	const paramsStart = source.indexOf('(', start);
+	assert.notEqual(paramsStart, -1, `${functionName} should have parameters`);
+
+	let parenDepth = 0;
+	let paramsEnd = -1;
+	for (let i = paramsStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '(') parenDepth += 1;
+		if (char === ')') {
+			parenDepth -= 1;
+			if (parenDepth === 0) {
+				paramsEnd = i;
+				break;
+			}
+		}
+	}
+	assert.notEqual(paramsEnd, -1, `${functionName} parameter list should close`);
+
+	const braceStart = source.indexOf('{', paramsEnd);
 	assert.notEqual(braceStart, -1, `${functionName} should have a body`);
 
 	let depth = 0;
@@ -29,19 +47,26 @@ function extractFunction(source, functionName) {
 
 function loadDiscordQaHelpers(relativePath) {
 	const source = readWorkspaceFile(relativePath);
-	const sandbox = { globalThis: {} };
+	const sandbox = {};
 
 	vm.runInNewContext(
 		[
 			extractFunction(source, 'parseMarkdownQA'),
 			extractFunction(source, 'parseEmbedQA'),
 			extractFunction(source, 'normalizeChannelName'),
-			'globalThis.__helpers = { parseMarkdownQA, parseEmbedQA, normalizeChannelName };',
+			'this.__helpers = { parseMarkdownQA, parseEmbedQA, normalizeChannelName };',
 		].join('\n'),
 		sandbox
 	);
 
-	return sandbox.globalThis.__helpers;
+	assert.ok(sandbox.__helpers, `helpers should load from ${relativePath}`);
+	return sandbox.__helpers;
+}
+
+function assertQaPair(actual, expected) {
+	assert.ok(actual, 'expected a parsed Q/A pair');
+	assert.equal(actual.question, expected.question);
+	assert.equal(actual.answer, expected.answer);
 }
 
 for (const runtime of [
@@ -51,13 +76,10 @@ for (const runtime of [
 	test(`${runtime.label} discord-qa parses markdown Q/A pairs and rejects incomplete content`, () => {
 		const { parseMarkdownQA } = loadDiscordQaHelpers(runtime.path);
 
-		assert.deepEqual(
-			parseMarkdownQA('**Q**: How tall are you?\n\n**A**: About 6\'2".'),
-			{
-				question: 'How tall are you?',
-				answer: 'About 6\'2".',
-			}
-		);
+		assertQaPair(parseMarkdownQA('**Q**: How tall are you?\n\n**A**: About 6\'2".'), {
+			question: 'How tall are you?',
+			answer: 'About 6\'2".',
+		});
 		assert.equal(parseMarkdownQA('just a normal message'), null);
 		assert.equal(parseMarkdownQA('**Q**: Missing answer only'), null);
 		assert.equal(parseMarkdownQA(null), null);
@@ -66,14 +88,14 @@ for (const runtime of [
 	test(`${runtime.label} discord-qa parses embed Q/A and normalizes channel names`, () => {
 		const { parseEmbedQA, normalizeChannelName } = loadDiscordQaHelpers(runtime.path);
 
-		assert.deepEqual(
+		assertQaPair(
 			parseEmbedQA([{ title: 'Q: Where do I report bugs?', description: 'Use Discord.' }]),
 			{
 				question: 'Where do I report bugs?',
 				answer: 'Use Discord.',
 			}
 		);
-		assert.deepEqual(parseEmbedQA([{ title: '', description: 'Answer body only' }]), {
+		assertQaPair(parseEmbedQA([{ title: '', description: 'Answer body only' }]), {
 			question: 'Question',
 			answer: 'Answer body only',
 		});

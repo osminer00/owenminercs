@@ -12,7 +12,25 @@ function extractFunction(source, functionName) {
 	const start = source.indexOf(`function ${functionName}`);
 	assert.notEqual(start, -1, `${functionName} should exist`);
 
-	const braceStart = source.indexOf('{', start);
+	const paramsStart = source.indexOf('(', start);
+	assert.notEqual(paramsStart, -1, `${functionName} should have parameters`);
+
+	let parenDepth = 0;
+	let paramsEnd = -1;
+	for (let i = paramsStart; i < source.length; i += 1) {
+		const char = source[i];
+		if (char === '(') parenDepth += 1;
+		if (char === ')') {
+			parenDepth -= 1;
+			if (parenDepth === 0) {
+				paramsEnd = i;
+				break;
+			}
+		}
+	}
+	assert.notEqual(paramsEnd, -1, `${functionName} parameter list should close`);
+
+	const braceStart = source.indexOf('{', paramsEnd);
 	assert.notEqual(braceStart, -1, `${functionName} should have a body`);
 
 	let depth = 0;
@@ -46,12 +64,13 @@ function loadSuggestionHelpers(relativePath) {
 			extractFunction(source, 'cleanText'),
 			extractFunction(source, 'validateSuggestion'),
 			extractFunction(source, 'pickClientIp'),
-			'globalThis.__helpers = { parsePositiveInt, cleanText, validateSuggestion, pickClientIp };',
+			'this.__helpers = { parsePositiveInt, cleanText, validateSuggestion, pickClientIp };',
 		].join('\n'),
 		sandbox
 	);
 
-	return sandbox.globalThis.__helpers;
+	assert.ok(sandbox.__helpers, `helpers should load from ${relativePath}`);
+	return sandbox.__helpers;
 }
 
 for (const runtime of [
@@ -61,19 +80,24 @@ for (const runtime of [
 	test(`${runtime.label} music suggestions reject honeypot and missing song fields`, () => {
 		const { validateSuggestion } = loadSuggestionHelpers(runtime.path);
 
-		assert.deepEqual(validateSuggestion({ songTitle: 'Song', artistName: 'Artist', website: 'bot' }), {
-			error: 'Invalid submission.',
-		});
-		assert.deepEqual(validateSuggestion({ songTitle: '  ', artistName: 'Artist' }), {
-			error: 'Song title and artist are required.',
-		});
-		assert.deepEqual(validateSuggestion({ songTitle: 'Song', artistName: '' }), {
-			error: 'Song title and artist are required.',
-		});
+		assert.equal(
+			validateSuggestion({ songTitle: 'Song', artistName: 'Artist', website: 'bot' }).error,
+			'Invalid submission.'
+		);
+		assert.equal(
+			validateSuggestion({ songTitle: '  ', artistName: 'Artist' }).error,
+			'Song title and artist are required.'
+		);
+		assert.equal(
+			validateSuggestion({ songTitle: 'Song', artistName: '' }).error,
+			'Song title and artist are required.'
+		);
 	});
 
 	test(`${runtime.label} music suggestions normalize text and default anonymous viewers`, () => {
-		const { validateSuggestion, cleanText, parsePositiveInt } = loadSuggestionHelpers(runtime.path);
+		const { validateSuggestion, cleanText, parsePositiveInt } = loadSuggestionHelpers(
+			runtime.path
+		);
 
 		assert.equal(cleanText('  heavy   spaces\n\there  ', 20), 'heavy spaces here');
 		assert.equal(cleanText('abcdefghijklmnopqrstuvwxyz', 10), 'abcdefghij');
@@ -94,7 +118,7 @@ for (const runtime of [
 		assert.equal(suggestion.artistName, 'Bigfoot');
 		assert.equal(suggestion.viewerName, 'Anonymous');
 		assert.equal(suggestion.note, 'please play this');
-		assert.match(suggestion.id, /^[0-9a-f-]{36}$/i);
+		assert.match(String(suggestion.id), /^[0-9a-f-]{36}$/i);
 		assert.ok(Number.isFinite(Date.parse(suggestion.createdAt)));
 	});
 }
