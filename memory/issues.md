@@ -9,6 +9,15 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Markdown/memory docs have encoding/mojibake in several files. See `MARKDOWN_AUDIT.md`.
 - Agent memory is being consolidated around `AGENTS.md` and `memory/`.
 
+### 2026-07-25 - Twitch EventSub retry loss + related regressions
+
+- Symptom: Follow/sub/bits webhooks can be permanently dropped after a Redis persist failure; X sync can wipe `Socials/data/x-top-posts.json` on empty fetch; `/search/` breaks CSS/JS via relative assets.
+- Affected files/pages: `functions/api/twitch-eventsub.js`, `functions/api/_twitch-utils.js`, Netlify twins, `scripts/sync-x-top-posts.py`, `search.html`, `scripts/search-page.js`.
+- Suspected cause: Idempotency key claimed before LPUSH and not released on failure; pipeline ignores per-command `{error}`; sync writes `[]` unconditionally; `/search/` rewrite + relative URLs.
+- Fix attempted: Release claimed key on persist failure; treat pipeline entry errors as failures; fail-closed empty X sync overwrite; root-relative search assets + GET form.
+- Verification: `npm test` regression suites for EventSub/pipeline/X sync/search.
+- Status: needs follow-up (merge PR; prior equivalent PRs #85/#88/#90 were left open)
+
 ## Recurring Patterns
 
 - `initWordBackgroundGlow` wraps words in `<span class="text-word-glow">`. Do not use `display: flex; flex-direction: column` on those containers — each word becomes a flex item and stacks one word per line. Use normal block flow, or `flex-direction: row` with `flex-wrap: wrap` (see `Achievements/achievements.html` `.achievement-card__hint`).
