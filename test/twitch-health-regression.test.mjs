@@ -47,10 +47,7 @@ function loadCloudflareTwitchHealth({ upstashCommand, fetchImpl }) {
 		globalThis: {},
 	};
 
-	vm.runInNewContext(
-		`${source}\nglobalThis.__exports = { onRequestGet, onRequest };`,
-		context
-	);
+	vm.runInNewContext(`${source}\nglobalThis.__exports = { onRequestGet, onRequest };`, context);
 	return context.globalThis.__exports;
 }
 
@@ -206,7 +203,10 @@ test('Netlify twitch-health mirrors missing-env skip and healthy aggregation', a
 	assert.equal(missingBody.ok, false);
 	assert.ok(missingBody.missing.includes('TWITCH_CLIENT_SECRET'));
 	assert.equal(missingBody.checks.upstash.skipped, true);
-	assert.equal(missingBody.callback, 'https://owenminercs.com/.netlify/functions/twitch-eventsub');
+	assert.equal(
+		missingBody.callback,
+		'https://owenminercs.com/.netlify/functions/twitch-eventsub'
+	);
 	assert.equal(upstashCalls, 0);
 	assert.equal(fetchCalls, 0);
 

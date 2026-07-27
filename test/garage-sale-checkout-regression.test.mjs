@@ -218,7 +218,13 @@ test('garage-sale orders shop sections and builds stable cart ids for direct che
 	const ordered = orderedShopProducts([
 		{ id: 'c1', section: 'custom-work', title: 'Custom', status: 'tbd' },
 		{ id: 'p1', section: 'prints', title: 'Print', status: 'tbd' },
-		{ id: 's1', section: 'stickers', title: 'Sticker', status: 'available', paypalUrl: 'https://paypal.me/owen/5' },
+		{
+			id: 's1',
+			section: 'stickers',
+			title: 'Sticker',
+			status: 'available',
+			paypalUrl: 'https://paypal.me/owen/5',
+		},
 		{ id: 's1', section: 'stickers', title: 'Duplicate ignored', status: 'tbd' },
 		{ id: 'other', section: 'mystery', title: 'Skipped section', status: 'tbd' },
 	]);
