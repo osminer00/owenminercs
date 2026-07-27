@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-07-27
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -36,12 +36,15 @@ Key files:
 
 Important areas:
 
-- `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages
+- `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages (nav label **Gaming Setups**)
 - `Socials/` - social hub/cloud/feed work
 - `Donators/`, `Achievements/`, `Referrals/` - support/community features
-- `Gaming/`, `Counter-Strike/` - CS2/gaming content
+- `Gaming/`, `Counter-Strike/` - CS2/gaming content (inventory API: `STEAM_CS2_INVENTORY_RUNBOOK.md`)
+- `search.html` + `data/site-search-index.json` - client-side site search (`SITE_SEARCH_RUNBOOK.md`)
 - `mockups/` - experimental designs, not production unless requested
 - `package/` - vendor/package artifact docs, not project documentation
+
+Focused engineering docs: `SHARED_COMPONENTS_GUIDE.md`, `SOCIAL_DOCK_RUNBOOK.md`, `SITE_SEARCH_RUNBOOK.md`, `STEAM_CS2_INVENTORY_RUNBOOK.md`, `TWITCH_DONATOR_HANDOFF.md`.
 
 ## Work Rules
 

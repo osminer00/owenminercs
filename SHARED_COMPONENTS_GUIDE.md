@@ -81,3 +81,31 @@ capture so later floating gestures use the normal move/rotate/resize behavior.
 5. Double-click empty dock chrome or click **Reset Social Bar**; the dock should
    return to `.site-header-dock-cluster` and remove
    `owenminercs-social-dock-pos`.
+
+## Main navigation labels
+
+Header and footer main-nav pills are built in `SharedHeader` / `SharedFooter`
+inside `scripts/components.js`. Stable `data-nav` keys must stay aligned with
+`applyNavHighlight` / return-helper logic even when visible labels change.
+
+Notable current labels:
+
+| Visible label | `data-nav` | Target |
+| --- | --- | --- |
+| Home | `index.html` | `/` |
+| Gaming Setups | `The Setup` | `The Setup/the-setup` (hub; page copy may still say Bigfoot's Jungle) |
+| Gaming | `Gaming` | `Gaming/gaming` |
+| Programs | `Dev` | `dev/dev-stack` (route casing matters; see `_redirects`) |
+| Content | `Socials` | `Socials/socials` |
+
+Do not rename `data-nav` values casually; highlight and “Back” helpers key off them.
+
+## Site search (shared API)
+
+Search ranking, preview rendering, and the header Search link live in
+`components.js` (`window.owenminercsSiteSearchApi`). The dedicated results page
+is `search.html` + `scripts/search-page.js` over static
+`data/site-search-index.json`.
+
+Operational detail, index shape, ranking rules, and pitfalls:
+`SITE_SEARCH_RUNBOOK.md`.
