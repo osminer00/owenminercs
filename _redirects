@@ -86,10 +86,16 @@ http://www.owenminercs.com/*  https://www.owenminercs.com/:splat  301!
 /The%20Setup/monitors    /The%20Setup/displays   301
 /The%20Setup/monitors.html    /The%20Setup/displays   301
 
-/Keyboard/wooting-60he-v1    /Keyboard/60he-2023    301
-/Keyboard/wooting-60he-v1.html    /Keyboard/60he-2023    301
+/Keyboard/wooting-60he-v1    /The%20Setup/keyboards#build-2023    301
+/Keyboard/wooting-60he-v1.html    /The%20Setup/keyboards#build-2023    301
 /Keyboard/60he    /The%20Setup/keyboards   301
 /Keyboard/60he.html    /The%20Setup/keyboards   301
+/Keyboard/60he-2026    /The%20Setup/keyboards#build-2026    301
+/Keyboard/60he-2026.html    /The%20Setup/keyboards#build-2026    301
+/Keyboard/60he-2025    /The%20Setup/keyboards#build-2025    301
+/Keyboard/60he-2025.html    /The%20Setup/keyboards#build-2025    301
+/Keyboard/60he-2023    /The%20Setup/keyboards#build-2023    301
+/Keyboard/60he-2023.html    /The%20Setup/keyboards#build-2023    301
 
 /The%20Setup/gaming-monitor-tuf-280hz    /The%20Setup/gaming-monitor-tuf-280hz   301
 /The%20Setup/gaming-monitor-tuf-280hz.html    /The%20Setup/gaming-monitor-tuf-280hz   301
