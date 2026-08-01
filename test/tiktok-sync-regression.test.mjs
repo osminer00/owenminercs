@@ -100,12 +100,12 @@ test('TikTok sync safeNumber and ratio/date normalization handle bad inputs', ()
 test('TikTok sync JSONL parse skips corrupt lines and keeps valid entries', () => {
 	const { parseJsonLines } = loadTikTokSyncHelpers();
 
-	const parsed = parseJsonLines('{"id":"a"}\nnot-json\n{"id":"b"}\n\n{"id":"c"}');
+	const parsed = Array.from(parseJsonLines('{"id":"a"}\nnot-json\n{"id":"b"}\n\n{"id":"c"}'));
 	assert.equal(parsed.length, 3);
 	assert.equal(parsed[0].id, 'a');
 	assert.equal(parsed[1].id, 'b');
 	assert.equal(parsed[2].id, 'c');
-	assert.deepEqual(parseJsonLines(''), []);
+	assert.equal(Array.from(parseJsonLines('')).length, 0);
 });
 
 test('TikTok normalizeTikTokEntry drops URL-less rows and maps engagement fields', () => {

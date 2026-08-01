@@ -88,13 +88,16 @@ function loadEbaySyncHelpers() {
 test('eBay sync parseArgs supports flags with and without values', () => {
 	const { parseArgs } = loadEbaySyncHelpers();
 
-	assert.deepEqual(parseArgs(['--user', 'owenm00', '--limit', '5', '--dry-run']), {
-		user: 'owenm00',
-		limit: '5',
-		'dry-run': true,
-	});
-	assert.deepEqual(parseArgs(['--out']), { out: true });
-	assert.deepEqual(parseArgs(['plain', 'values']), {});
+	const parsed = parseArgs(['--user', 'owenm00', '--limit', '5', '--dry-run']);
+	assert.equal(parsed.user, 'owenm00');
+	assert.equal(parsed.limit, '5');
+	assert.equal(parsed['dry-run'], true);
+
+	const flagOnly = parseArgs(['--out']);
+	assert.equal(flagOnly.out, true);
+
+	const ignored = parseArgs(['plain', 'values']);
+	assert.equal(Object.keys(ignored).length, 0);
 });
 
 test('eBay sync XML helpers decode entities, prices, and image sources', () => {

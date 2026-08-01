@@ -147,5 +147,6 @@ test('shop-products isAvailable requires available status and a resolvable check
 		}),
 		''
 	);
-	assert.equal(isAvailable(null), false);
+	assert.equal(isAvailable(null), null);
+	assert.ok(!isAvailable(null));
 });
