@@ -1,6 +1,6 @@
 # Social Dock Runbook
 
-Last verified: 2026-05-04
+Last verified: 2026-08-03
 
 ## Purpose
 
@@ -25,16 +25,20 @@ Keep this document in sync with:
 
 The social link list is generated in this order and also feeds the "grand tour" achievement:
 
-1. X/Twitter
-2. Reddit
-3. YouTube
-4. Twitch
-5. Instagram
-6. Facebook
-7. TikTok
-8. Discord
+| Order | Slot id | URL (from `socialNavMarkup`) | Display tip |
+| --- | --- | --- | --- |
+| 1 | `x` | `https://x.com/OwenMiner` | X (Twitter) `@OwenMiner` |
+| 2 | `reddit` | `https://www.reddit.com/user/OwenMCS` | Reddit `u/OwenMCS` |
+| 3 | `youtube` | `https://www.youtube.com/@OwenMinerCS` | YouTube `Owen Miner` |
+| 4 | `twitch` | `https://www.twitch.tv/owenminercs` | Twitch `owenminercs` |
+| 5 | `instagram` | `https://www.instagram.com/owenminercs/` | Instagram `@owenminercs` |
+| 6 | `facebook` | `https://www.facebook.com/profile.php?id=100095719715453` | Facebook `Owen Miner` |
+| 7 | `tiktok` | `https://www.tiktok.com/@owenminercs` | TikTok `@owenminercs` |
+| 8 | `discord` | `DISCORD_INVITE_URL` in `components.js` | Discord community invite |
 
 When changing a profile URL, verify `socialDockTourSlotFromHref()` still maps that host to the expected achievement slot. New platforms need both a link entry and a stable slot id if they should count toward the achievement.
+
+X handle on public surfaces is `@OwenMiner` / `https://x.com/OwenMiner` (not `@owenminercs`). Local Social Cloud X sync (`scripts/sync-x-top-posts.py`) defaults to `DEFAULT_USERNAME = "OwenMiner"` and should stay aligned with the dock link.
 
 ### Browser storage keys
 
