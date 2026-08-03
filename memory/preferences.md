@@ -1,6 +1,6 @@
 # Preferences
 
-Last reviewed: 2026-05-02
+Last reviewed: 2026-08-03
 
 ## Durable User Preferences
 
@@ -17,7 +17,8 @@ Last reviewed: 2026-05-02
 
 ## UI / Design Preferences
 
-- **Setup hub** (`The Setup/the-setup.html`): `.keep-board--hub` uses normal thumbs + `keep-thumbs.js` album transitions; category titles are **large** type placed in `.keep-card__body` directly under `.keep-card__video-slot` (not overlaid on images).
+- **Setup hub** (`The Setup/the-setup.html`): main-nav label is **Gaming Setups** (stable `data-nav="The Setup"`); hub path/URLs stay under `The Setup/`. `.keep-board--hub` uses normal thumbs + `keep-thumbs.js` album transitions; category titles are **large** type placed in `.keep-card__body` directly under `.keep-card__video-slot` (not overlaid on images).
+- **Keyboard hub** (`Keyboard/60he.html`): intentional chooser for `60he-2025.html` / `60he-2023.html`; do not collapse back into a single monolith without an explicit product request (`KEYBOARD_HUB_RUNBOOK.md`).
 - **Accent colors:** Green glow/fill for non-link UI (hero H1, buttons, social tip chrome, dock fidget FX); keep blue/purple for real link affordances (`a`, `.site-nav-link`, card-ui link hovers).
 - **Site chrome:** Main nav’s first item is **Home** (`/`), not “About”; hover title is “Home — bio, intro, and what’s new”. Full Q&A lives on `QA/qa.html` only.
 - **Under-construction notice:** First visit shows a modal (`components.js` + `owenminercs.css`) with timeline: backend push ~this weekend for testing; design/theme in ~1–2 weeks; new content late May; setup tour video ~July; dismiss stored in `localStorage` key `owenminercs-construction-notice-dismissed-v1`.
