@@ -81,3 +81,37 @@ capture so later floating gestures use the normal move/rotate/resize behavior.
 5. Double-click empty dock chrome or click **Reset Social Bar**; the dock should
    return to `.site-header-dock-cluster` and remove
    `owenminercs-social-dock-pos`.
+
+## Main navigation labels
+
+Header and footer main-nav pills are built in `SharedHeader` / `SharedFooter`
+inside `scripts/components.js`. Stable `data-nav` keys must stay aligned with
+`applyNavHighlight` / return-helper logic even when visible labels change.
+
+Notable current labels:
+
+| Visible label | `data-nav` | Target |
+| --- | --- | --- |
+| Home | `index.html` | `/` |
+| Gaming Setups | `The Setup` | `The Setup/the-setup` (hub; page copy may still say Bigfoot's Jungle) |
+| Gaming | `Gaming` | `Gaming/gaming` |
+| Programs | `Dev` | `dev/dev-stack` (route is lowercase `dev/`; `_redirects` maps old `/Dev/…`) |
+| Content | `Socials` | `Socials/socials` |
+
+Do not rename `data-nav` values casually; highlight and “Back” helpers key off them.
+
+Notes:
+
+- Keyboard (`/Keyboard/…60he…`) and PC pages highlight **Gaming Setups** (`The Setup`), not a separate Keyboard tab. See `KEYBOARD_HUB_RUNBOOK.md`.
+- `MAIN_NAV_TOUR_SLOTS` does not currently include `Dev` / Programs; visiting Programs does not advance the main-nav full-tour achievement.
+- `resolveActiveNavLink` uses case-sensitive `pathname.includes(dataNav)`. Keep `data-nav` tokens aligned with real path casing (or special-case mappings) so active styles stay correct.
+
+## Site search (shared API)
+
+Search ranking, preview rendering, and the header Search link live in
+`components.js` (`window.owenminercsSiteSearchApi`). The dedicated results page
+is `search.html` + `scripts/search-page.js` over static
+`data/site-search-index.json`.
+
+Operational detail, index shape, ranking rules, and pitfalls:
+`SITE_SEARCH_RUNBOOK.md`.

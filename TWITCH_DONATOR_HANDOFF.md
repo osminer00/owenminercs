@@ -34,6 +34,7 @@ Finish wiring real Twitch activity into the donor/support page so `Recent Twitch
 - `TWITCH_CLIENT_ID`
 - `TWITCH_CLIENT_SECRET`
 - `TWITCH_EVENTSUB_SECRET`
+- `TWITCH_REGISTER_SECRET` (optional but preferred; see registration auth below)
 - `TWITCH_BROADCASTER_ID`
 - `PUBLIC_SITE_URL` (example: `https://www.owenminercs.com`)
 - `UPSTASH_REDIS_REST_URL`
@@ -43,7 +44,29 @@ Notes:
 
 - `PUBLIC_SITE_URL` must match your live site origin; it is used to build callback URL:
     - `https://<site>/api/twitch-eventsub`
-- `TWITCH_EVENTSUB_SECRET` must be the same secret used during registration and verification.
+- `TWITCH_EVENTSUB_SECRET` must be the same secret used during subscription creation and webhook HMAC verification.
+- Registration auth secret resolution (Cloudflare + Netlify twins):
+    - Prefer `TWITCH_REGISTER_SECRET`.
+    - If unset, the register endpoint falls back to `TWITCH_EVENTSUB_SECRET`.
+    - If neither is set, `POST` registration returns `503`.
+
+## Registration endpoint auth (required)
+
+`POST /api/twitch-register-eventsub` (and the Netlify twin) is **not** a public open endpoint. Callers must prove knowledge of the register secret with a timing-safe compare (`String()`-normalized) via either:
+
+1. Header `x-twitch-register-secret: <secret>`, or
+2. Header `Authorization: Bearer <secret>`
+
+Missing/wrong credentials → `403 { "error": "Forbidden." }`.
+
+Example (Cloudflare Pages):
+
+```bash
+curl -X POST "https://www.owenminercs.com/api/twitch-register-eventsub" \
+  -H "x-twitch-register-secret: $TWITCH_REGISTER_SECRET"
+```
+
+Keep `TWITCH_REGISTER_SECRET` out of git and rotate it if it leaks. Prefer a dedicated register secret so webhook EventSub traffic can keep using `TWITCH_EVENTSUB_SECRET` without exposing the register credential in the same operational contexts.
 
 ## Verification Checklist
 
@@ -53,6 +76,8 @@ Notes:
 - `GET /api/twitch-feed`
     - Returns JSON with `{ ok: true, events: [...], totals: {...} }`.
 - `POST /api/twitch-register-eventsub`
+    - Must include `x-twitch-register-secret` or `Authorization: Bearer …` (see above).
+    - Unauthenticated calls must return `403`.
     - Returns `ok: true` and per-type results for:
         - `channel.follow`
         - `channel.subscribe`
@@ -83,8 +108,8 @@ Use this prompt with another agent:
 > Context: the UI and functions already exist in `Donators/donators.html`, `scripts/donators.js`, and `functions/api/{twitch-feed.js,twitch-eventsub.js,twitch-register-eventsub.js,_twitch-utils.js}`.  
 > Please:
 >
-> 1. Verify/complete env var wiring for Cloudflare Pages (`TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `TWITCH_EVENTSUB_SECRET`, `TWITCH_BROADCASTER_ID`, `PUBLIC_SITE_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`).
-> 2. Register EventSub subscriptions by calling `/api/twitch-register-eventsub` and confirm all required types are enabled.
+> 1. Verify/complete env var wiring for Cloudflare Pages (`TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `TWITCH_EVENTSUB_SECRET`, optional `TWITCH_REGISTER_SECRET`, `TWITCH_BROADCASTER_ID`, `PUBLIC_SITE_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`).
+> 2. Register EventSub subscriptions by calling `/api/twitch-register-eventsub` with `x-twitch-register-secret` (or Bearer) and confirm all required types are enabled.
 > 3. Validate webhook ingestion (`twitch-eventsub`) and storage (`twitch-feed` + Redis totals).
 > 4. Confirm `Donators/donators.html` displays real activity under `Recent Twitch activity`.
 > 5. If needed, add minimal safe diagnostics (without exposing secrets) and document exactly how to run checks again later.
@@ -102,8 +127,9 @@ Use this prompt with another agent:
 2. Check health endpoint first:
     - `GET https://<your-custom-domain>/api/twitch-health`
     - Do not continue until `ok: true`.
-3. Register EventSub once:
+3. Register EventSub once (authenticated):
     - `POST https://<your-custom-domain>/api/twitch-register-eventsub`
+    - Include `x-twitch-register-secret` or `Authorization: Bearer <secret>`
 4. Validate feed endpoint:
     - `GET https://<your-custom-domain>/api/twitch-feed?limit=40`
 5. Trigger real Twitch events (follow/sub/gift/bits) and refresh `Donators/donators.html`.
