@@ -9,14 +9,14 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Markdown/memory docs have encoding/mojibake in several files. See `MARKDOWN_AUDIT.md`.
 - Agent memory is being consolidated around `AGENTS.md` and `memory/`.
 
-### 2026-08-04 - Twitch EventSub retry loss + related regressions
+### 2026-08-05 - Twitch EventSub retry loss + related regressions
 
 - Symptom: Follow/sub/bits webhooks can be permanently dropped after a Redis persist failure; X sync can wipe `Socials/data/x-top-posts.json` on empty fetch; `/search/` breaks CSS/JS via relative assets.
 - Affected files/pages: `functions/api/twitch-eventsub.js`, `functions/api/_twitch-utils.js`, Netlify twins, `scripts/sync-x-top-posts.py`, `search.html`, `scripts/search-page.js`.
 - Suspected cause: Idempotency key claimed before LPUSH and not released on failure; pipeline ignores per-command `{error}`; sync writes `[]` unconditionally; `/search/` rewrite + relative URLs.
 - Fix attempted: Release claimed key on persist failure; treat pipeline entry errors as failures; fail-closed empty X sync overwrite; root-relative search assets + GET form.
 - Verification: `npm test` regression suites for EventSub/pipeline/X sync/search.
-- Status: needs follow-up (merge PR on `cursor/critical-bug-investigation-44cb`; prior equivalent PRs #85/#88/#90/#92/#94/#96/#98/#100/#102/#104/#106/#107 unmerged)
+- Status: needs follow-up (merge PR on `cursor/critical-bug-investigation-8b87`; prior equivalent PRs #85/#88/#90/#92/#94/#96/#98/#100/#102/#104/#106/#107/#110 unmerged)
 
 ## Recurring Patterns
 
