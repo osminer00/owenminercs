@@ -71,17 +71,17 @@ test('Amazon PA-API response mapper keeps only ASIN display prices', () => {
 		},
 	});
 
-	assert.deepEqual(prices, {
-		B07XYZ1234: '$19.99',
-		B08SECOND00: '$1.00',
-	});
+	// Compare field-by-field: objects from node:vm are cross-realm.
+	assert.equal(Object.keys(prices).sort().join(','), 'B07XYZ1234,B08SECOND00');
+	assert.equal(prices.B07XYZ1234, '$19.99');
+	assert.equal(prices.B08SECOND00, '$1.00');
 });
 
 test('Amazon PA-API response mapper tolerates empty and malformed payloads', () => {
 	const mapPaApiPrices = loadPriceMapper();
 
-	assert.deepEqual(mapPaApiPrices({}), {});
-	assert.deepEqual(mapPaApiPrices({ ItemsResult: {} }), {});
-	assert.deepEqual(mapPaApiPrices({ ItemsResult: { Items: null } }), {});
-	assert.deepEqual(mapPaApiPrices({ ItemsResult: { Items: [] } }), {});
+	assert.equal(Object.keys(mapPaApiPrices({})).length, 0);
+	assert.equal(Object.keys(mapPaApiPrices({ ItemsResult: {} })).length, 0);
+	assert.equal(Object.keys(mapPaApiPrices({ ItemsResult: { Items: null } })).length, 0);
+	assert.equal(Object.keys(mapPaApiPrices({ ItemsResult: { Items: [] } })).length, 0);
 });

@@ -184,19 +184,23 @@ function loadCelebrationHelpers({ reducedMotion = false, matchMediaThrows = fals
 	const timers = [];
 	const rafQueue = [];
 
+	function setTimeout(fn) {
+		timers.push(fn);
+		return timers.length;
+	}
+
+	function requestAnimationFrame(fn) {
+		rafQueue.push(fn);
+		return rafQueue.length;
+	}
+
 	const windowObj = {
 		matchMedia() {
 			if (matchMediaThrows) throw new Error('matchMedia unavailable');
 			return { matches: reducedMotion };
 		},
-		setTimeout(fn) {
-			timers.push(fn);
-			return timers.length;
-		},
-		requestAnimationFrame(fn) {
-			rafQueue.push(fn);
-			return rafQueue.length;
-		},
+		setTimeout,
+		requestAnimationFrame,
 		innerWidth: 1280,
 		innerHeight: 720,
 	};
@@ -205,6 +209,8 @@ function loadCelebrationHelpers({ reducedMotion = false, matchMediaThrows = fals
 		window: windowObj,
 		document: fake.document,
 		performance: { now: () => 0 },
+		setTimeout,
+		requestAnimationFrame,
 		Math,
 		String,
 		Array,

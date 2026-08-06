@@ -120,7 +120,11 @@ test('donators helpers validate tip URLs and build Ko-fi embed query params', ()
 	assert.equal(embed.searchParams.get('hidefeed'), 'true');
 	assert.equal(embed.searchParams.get('widget'), '1');
 	assert.equal(embed.searchParams.get('embed'), '1');
-	assert.equal(kofiPageEmbedUrl('::::'), '::::');
+
+	const relative = new URL(kofiPageEmbedUrl('/owenminer'));
+	assert.equal(relative.pathname.endsWith('/owenminer'), true);
+	assert.equal(relative.searchParams.get('embed'), '1');
+	assert.equal(kofiPageEmbedUrl('http://[::'), 'http://[::');
 });
 
 test('donators helpers normalize platforms/kinds and parse donation amounts safely', () => {
@@ -134,7 +138,8 @@ test('donators helpers normalize platforms/kinds and parse donation amounts safe
 		escapeAttr,
 	} = loadDonatorsHelpers();
 
-	assert.equal(normalizePlatform(' KoFi '), 'other');
+	assert.equal(normalizePlatform(' KoFi '), 'kofi');
+	assert.equal(normalizePlatform('paypal'), 'other');
 	assert.equal(normalizePlatform('kofi'), 'kofi');
 	assert.equal(normalizePlatform('Twitch'), 'twitch');
 	assert.equal(platformIsActive('kofi'), true);
