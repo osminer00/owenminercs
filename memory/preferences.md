@@ -1,6 +1,6 @@
 # Preferences
 
-Last reviewed: 2026-05-02
+Last reviewed: 2026-08-10
 
 ## Durable User Preferences
 
@@ -11,9 +11,11 @@ Last reviewed: 2026-05-02
 - Track issues in a memory file so future chats can diagnose recurring problems.
 - Prefer a practical "growing brain" over isolated assistant-specific notes.
 - On this project, prefer delegating lightweight AI work to local Ollama/GPU first when it will not slow progress; keep cloud models available for harder reasoning and final critical passes to reduce monthly hosted usage.
-- **Programs page** (`dev/dev-stack.html`, nav label **Programs**): sections for coding stack (Cursor Pro+, Codex/VS Code/VS, Claude paused, Antigravity+Gemini, Ollama), Adobe (Premiere, Photoshop, After Effects / projection mapping → Upgrades), GIMP origins, OBS + open-source multi-RTMP (GitHub). Video history on page: Windows bundled editor first → Vegas Movie Studio (Amazon, ~early teens) → YouTube phase → Premiere now.
+- **Programs page** (`dev/dev-stack.html`, nav label **Programs**, `data-nav="Dev"`): sections for coding stack (Cursor Pro+, Codex/VS Code/VS, Claude paused, Antigravity+Gemini, Ollama), Adobe (Premiere, Photoshop, After Effects / projection mapping → Upgrades), GIMP origins, OBS + open-source multi-RTMP (GitHub). Video history on page: Windows bundled editor first → Vegas Movie Studio (Amazon, ~early teens) → YouTube phase → Premiere now. Route is lowercase `dev/dev-stack`; old `/Dev/` redirected.
 - Cursor usage limits are driven mainly by **hosted** chat/agent models; **local Ollama inference does not replace that** unless each chat’s **model picker** is set to a **local/Ollama** model (watch GPU under **`ollama`**, not only `Cursor`). Built-in subagents may still use **automatic/fast cloud** models unless configured otherwise.
 - Cross-workspace memory routing: user-level Cursor hook writes `%USERPROFILE%\.cursor\active-memory-root.txt` when the opened workspace contains `AGENTS.md` + `memory/`; global Cursor rules follow that pointer so non-site repos do not keep pulling OwenMinerCS context.
+- **Main-nav setup label:** visible **Gaming Setups**; stable `data-nav="The Setup"` and path `The Setup/the-setup` remain. Page copy may still say Bigfoot's Jungle.
+- **X/Twitter:** public handle `@OwenMiner` / `https://x.com/OwenMiner` (not `@owenminercs`).
 
 ## UI / Design Preferences
 

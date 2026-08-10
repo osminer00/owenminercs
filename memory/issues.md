@@ -1,6 +1,6 @@
 # Issues And Diagnostics
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-08-10
 
 Use this file for active bugs, recurring failures, and diagnosis patterns future chats should remember.
 
@@ -8,6 +8,9 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 
 - Markdown/memory docs have encoding/mojibake in several files. See `MARKDOWN_AUDIT.md`.
 - Agent memory is being consolidated around `AGENTS.md` and `memory/`.
+- `/search/` trailing-slash rewrite can 404 path-relative CSS/JS on `search.html` until assets are root-relative (see `SITE_SEARCH_RUNBOOK.md`).
+- Twitch EventSub: idempotency `SET NX` before successful persist can drop retried events; Upstash pipeline ignores per-command `{error}` (see `TWITCH_DONATOR_HANDOFF.md`).
+- X sync: `scripts/sync-x-top-posts.py` can overwrite `Socials/data/x-top-posts.json` with `[]` on upstream failure (see `X_TOP_POSTS_SYNC_RUNBOOK.md`).
 
 ## Recurring Patterns
 
@@ -22,6 +25,7 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Local machine config file `.claude/settings.local.json` was once tracked; keep it gitignored and untracked to avoid leaking local command permissions or environment-related references.
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.
+- `Keyboard/60he.html` is an intentional chooser hub (`60he-2025` / `60he-2023`); do not treat as accidental content loss / restore monolith (see `KEYBOARD_HUB_RUNBOOK.md`).
 
 ## Issue Template
 
@@ -35,4 +39,3 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Verification:
 - Status: active | fixed | needs follow-up
 ```
-
