@@ -73,8 +73,13 @@ async function upstashPipeline(env, commands) {
 
 	const text = await response.text();
 	const data = safeJsonParse(text, []);
-	if (!response.ok || !Array.isArray(data)) {
-		throw new Error(`Upstash pipeline failed: ${text || 'Unknown pipeline error'}`);
+	const failedCommand = Array.isArray(data)
+		? data.find((entry) => entry && typeof entry === 'object' && entry.error)
+		: null;
+	if (!response.ok || !Array.isArray(data) || failedCommand) {
+		throw new Error(
+			`Upstash pipeline failed: ${failedCommand?.error || text || 'Unknown pipeline error'}`
+		);
 	}
 	return data;
 }
