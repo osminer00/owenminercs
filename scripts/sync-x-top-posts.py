@@ -215,6 +215,29 @@ def build_top_posts(username: str) -> list[dict]:
     return out[:MAX_ITEMS]
 
 
+def read_existing_posts(target_path: Path) -> list[dict]:
+    if not target_path.exists():
+        return []
+    try:
+        parsed = json.loads(target_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    return parsed if isinstance(parsed, list) else []
+
+
+def write_posts(target_path: Path, posts: list[dict]) -> None:
+    existing_posts = read_existing_posts(target_path)
+    if not posts and existing_posts:
+        raise RuntimeError(
+            f"Refusing to overwrite {target_path} with zero posts; keep existing data."
+        )
+
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.write_text(
+        json.dumps(posts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+
+
 def main() -> None:
     script_dir = Path(__file__).resolve().parent
     repo_root = script_dir.parent
@@ -222,8 +245,7 @@ def main() -> None:
     username = resolve_username_from_nav(repo_root)
 
     posts = build_top_posts(username)
-    target_path.parent.mkdir(parents=True, exist_ok=True)
-    target_path.write_text(json.dumps(posts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_posts(target_path, posts)
 
     print(f"Wrote {len(posts)} post(s) for @{username} to {target_path}")
 
