@@ -16,7 +16,7 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Suspected cause: Idempotency key claimed before LPUSH and not released on failure; pipeline ignores per-command `{error}`; sync writes `[]` unconditionally; `/search/` rewrite + relative URLs.
 - Fix attempted: Release claimed key on persist failure; treat pipeline entry errors as failures; fail-closed empty X sync overwrite; root-relative search assets + GET form.
 - Verification: `npm test` regression suites for EventSub/pipeline/X sync/search.
-- Status: needs follow-up (re-applied on `cursor/critical-bug-investigation-1051`; prior equivalent PRs #85–#120 unmerged)
+- Status: needs follow-up (re-applied on `cursor/critical-bug-investigation-68a1`; prior equivalent PRs #85–#126 unmerged)
 
 ## Recurring Patterns
 
