@@ -46,7 +46,14 @@ function extractFunction(source, functionName) {
 	assert.fail(`${functionName} body should close`);
 }
 
-function loadHandlerFor(stubs) {
+function taggedResponse(name, status) {
+	return new Response(status === 204 ? null : name, {
+		status,
+		headers: { 'x-stub': name },
+	});
+}
+
+function loadHandlerFor() {
 	const calls = [];
 	const sandbox = {
 		JSON,
@@ -54,37 +61,35 @@ function loadHandlerFor(stubs) {
 		process: { env: { TWITCH_LOCAL_PORT: '8789' } },
 		onTwitchFeedGet: async (ctx) => {
 			calls.push(['onTwitchFeedGet', ctx.request]);
-			return stubs.onTwitchFeedGet
-				? stubs.onTwitchFeedGet(ctx)
-				: new Response('feed-get', { status: 200 });
+			return taggedResponse('feed-get', 200);
 		},
 		onTwitchFeedOptions: async (ctx) => {
 			calls.push(['onTwitchFeedOptions', ctx.request]);
-			return new Response('feed-options', { status: 204 });
+			return taggedResponse('feed-options', 204);
 		},
 		onTwitchHealthGet: async (ctx) => {
 			calls.push(['onTwitchHealthGet', ctx.request]);
-			return new Response('health-get', { status: 200 });
+			return taggedResponse('health-get', 200);
 		},
 		onTwitchRegisterPost: async (ctx) => {
 			calls.push(['onTwitchRegisterPost', ctx.request]);
-			return new Response('register-post', { status: 200 });
+			return taggedResponse('register-post', 200);
 		},
 		onTwitchRegisterFallback: async (ctx) => {
 			calls.push(['onTwitchRegisterFallback', ctx.request]);
-			return new Response('register-fallback', { status: 405 });
+			return taggedResponse('register-fallback', 405);
 		},
 		onTwitchEventsubPost: async (ctx) => {
 			calls.push(['onTwitchEventsubPost', ctx.request]);
-			return new Response('eventsub-post', { status: 204 });
+			return taggedResponse('eventsub-post', 204);
 		},
 		onTwitchEventsubOptions: async (ctx) => {
 			calls.push(['onTwitchEventsubOptions', ctx.request]);
-			return new Response('eventsub-options', { status: 204 });
+			return taggedResponse('eventsub-options', 204);
 		},
 		onTwitchEventsubFallback: async (ctx) => {
 			calls.push(['onTwitchEventsubFallback', ctx.request]);
-			return new Response('eventsub-fallback', { status: 405 });
+			return taggedResponse('eventsub-fallback', 405);
 		},
 	};
 
@@ -129,18 +134,18 @@ test('local EventSub server stays on loopback and only advertises the four Twitc
 });
 
 test('handlerFor routes twitch-feed GET/OPTIONS and rejects other methods', async () => {
-	const { handlerFor, calls } = loadHandlerFor({});
+	const { handlerFor, calls } = loadHandlerFor();
 	const request = new Request('http://127.0.0.1:8789/api/twitch-feed');
 
 	const getResponse = await handlerFor('/api/twitch-feed', 'GET', request);
 	assert.equal(getResponse.status, 200);
-	assert.equal(await getResponse.text(), 'feed-get');
+	assert.equal(getResponse.headers.get('x-stub'), 'feed-get');
 	assert.equal(calls[0][0], 'onTwitchFeedGet');
 	assert.equal(calls[0][1], request);
 
 	const optionsResponse = await handlerFor('/api/twitch-feed', 'OPTIONS', request);
 	assert.equal(optionsResponse.status, 204);
-	assert.equal(await optionsResponse.text(), 'feed-options');
+	assert.equal(optionsResponse.headers.get('x-stub'), 'feed-options');
 	assert.equal(calls[1][0], 'onTwitchFeedOptions');
 
 	const postResponse = await handlerFor('/api/twitch-feed', 'POST', request);
@@ -155,12 +160,12 @@ test('handlerFor routes twitch-feed GET/OPTIONS and rejects other methods', asyn
 });
 
 test('handlerFor routes twitch-health GET and rejects other methods', async () => {
-	const { handlerFor, calls } = loadHandlerFor({});
+	const { handlerFor, calls } = loadHandlerFor();
 	const request = new Request('http://127.0.0.1:8789/api/twitch-health');
 
 	const getResponse = await handlerFor('/api/twitch-health', 'GET', request);
 	assert.equal(getResponse.status, 200);
-	assert.equal(await getResponse.text(), 'health-get');
+	assert.equal(getResponse.headers.get('x-stub'), 'health-get');
 	assert.equal(calls[0][0], 'onTwitchHealthGet');
 
 	const postResponse = await handlerFor('/api/twitch-health', 'POST', request);
@@ -171,7 +176,7 @@ test('handlerFor routes twitch-health GET and rejects other methods', async () =
 });
 
 test('handlerFor posts EventSub register/webhook and falls back for other methods', async () => {
-	const { handlerFor, calls } = loadHandlerFor({});
+	const { handlerFor, calls } = loadHandlerFor();
 	const registerRequest = new Request('http://127.0.0.1:8789/api/twitch-register-eventsub', {
 		method: 'POST',
 	});
@@ -184,7 +189,7 @@ test('handlerFor posts EventSub register/webhook and falls back for other method
 		'POST',
 		registerRequest
 	);
-	assert.equal(await registerPost.text(), 'register-post');
+	assert.equal(registerPost.headers.get('x-stub'), 'register-post');
 	assert.equal(calls[0][0], 'onTwitchRegisterPost');
 
 	const registerGet = await handlerFor(
@@ -192,24 +197,26 @@ test('handlerFor posts EventSub register/webhook and falls back for other method
 		'GET',
 		registerRequest
 	);
-	assert.equal(await registerGet.text(), 'register-fallback');
+	assert.equal(registerGet.headers.get('x-stub'), 'register-fallback');
 	assert.equal(calls[1][0], 'onTwitchRegisterFallback');
 
 	const eventsubPost = await handlerFor('/api/twitch-eventsub', 'POST', eventsubRequest);
-	assert.equal(await eventsubPost.text(), 'eventsub-post');
+	assert.equal(eventsubPost.status, 204);
+	assert.equal(eventsubPost.headers.get('x-stub'), 'eventsub-post');
 	assert.equal(calls[2][0], 'onTwitchEventsubPost');
 
 	const eventsubOptions = await handlerFor('/api/twitch-eventsub', 'OPTIONS', eventsubRequest);
-	assert.equal(await eventsubOptions.text(), 'eventsub-options');
+	assert.equal(eventsubOptions.status, 204);
+	assert.equal(eventsubOptions.headers.get('x-stub'), 'eventsub-options');
 	assert.equal(calls[3][0], 'onTwitchEventsubOptions');
 
 	const eventsubGet = await handlerFor('/api/twitch-eventsub', 'GET', eventsubRequest);
-	assert.equal(await eventsubGet.text(), 'eventsub-fallback');
+	assert.equal(eventsubGet.headers.get('x-stub'), 'eventsub-fallback');
 	assert.equal(calls[4][0], 'onTwitchEventsubFallback');
 });
 
 test('handlerFor returns 404 JSON for unknown EventSub local paths', async () => {
-	const { handlerFor, calls } = loadHandlerFor({});
+	const { handlerFor, calls } = loadHandlerFor();
 	const response = await handlerFor(
 		'/api/social-feed',
 		'GET',

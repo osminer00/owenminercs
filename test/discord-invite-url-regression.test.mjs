@@ -93,7 +93,7 @@ test('shared chrome keeps a single Discord invite constant used by dock, footer,
 	);
 	assert.match(
 		componentsSource,
-		/DISCORD_INVITE_URL,\s*" target="_blank" rel="noopener noreferrer" class="site-construction-dialog__discord-link"/
+		/DISCORD_INVITE_URL,\s*'" target="_blank" rel="noopener noreferrer" class="site-construction-dialog__discord-link"/
 	);
 });
 

@@ -112,6 +112,7 @@ function loadBookmarkHelpers(options = {}) {
 		location,
 		document,
 		localStorage,
+		spans,
 	};
 
 	vm.createContext(sandbox);
