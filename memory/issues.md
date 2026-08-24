@@ -1,6 +1,6 @@
 # Issues And Diagnostics
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-08-24
 
 Use this file for active bugs, recurring failures, and diagnosis patterns future chats should remember.
 
@@ -18,7 +18,11 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - `body` sets `justify-content: center` with `min-height: 100vh`; `body.site-card-ui` must override with `justify-content: flex-start` and give the main column (`> .container`, `> main`, `> .calc-container`) `flex: 1 1 auto` so short pages do not vertically center header/content/footer on tall viewports.
 - Worktree is often heavily modified before agent work starts. Always preserve unrelated changes.
 - Some docs and handoffs are stale or duplicated; verify current source files before trusting old handoffs.
-- Netlify/API code may exist in both `functions/api/` and `netlify/functions/`; check both before changing behavior.
+- Netlify/API code may exist in both `functions/api/` and `netlify/functions/`; check both before changing behavior. `social-feed.js` has no Netlify twin. See `PAGES_FUNCTIONS_RUNBOOK.md`.
+- Site search: `/search/` rewrite + path-relative assets in `search.html` still 404 CSS/JS under `/search/…`. No home `#home-site-search-*` markup on `index.html`.
+- `scripts/sync-x-top-posts.py` overwrites `Socials/data/x-top-posts.json` even with `[]`.
+- Twitch EventSub on `main`: `SET NX` idempotency before LPUSH; failed persist does not DEL the seen key; `upstashPipeline` ignores per-command `{error}`. Donator UI `fetchTwitchFeed()` is a stub (paused).
+- `Keyboard/60he.html` is an intentional chooser (`60he-2025` / `60he-2023`); do not restore a monolith.
 - Local machine config file `.claude/settings.local.json` was once tracked; keep it gitignored and untracked to avoid leaking local command permissions or environment-related references.
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.

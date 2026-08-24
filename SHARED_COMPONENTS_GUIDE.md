@@ -81,3 +81,30 @@ capture so later floating gestures use the normal move/rotate/resize behavior.
 5. Double-click empty dock chrome or click **Reset Social Bar**; the dock should
    return to `.site-header-dock-cluster` and remove
    `owenminercs-social-dock-pos`.
+
+## Shared main navigation
+
+Header and footer pills are generated in `SharedHeader` / `SharedFooter`. Visible
+label, `data-nav` id, and route are not always the same string.
+
+| Visible label | `data-nav` | Route helper |
+| --- | --- | --- |
+| Home | `index.html` | `siteRoot` (`/`) |
+| Gaming Setups | `The Setup` | `The Setup/the-setup` |
+| Gaming | `Gaming` | `Gaming/gaming` |
+| Donators | `Donators` | `Donators/donators` |
+| For sale | `garage-sale` | `Garage Sale/garage-sale` |
+| Help Wanted | `Help Wanted` | `Help Wanted/help-wanted` |
+| Q&A | `QA` | `QA/qa` |
+| Programs | `Dev` | `dev/dev-stack` (lowercase; `/Dev/` 301s) |
+| Achievements | `Achievements` | `Achievements/achievements` |
+| Content | `Socials` | `Socials/socials` |
+
+`MAIN_NAV_TOUR_SLOTS` matches those `data-nav` ids **except Programs/`Dev`**, which
+is visible in the bar but does not count toward the full-tour achievement.
+
+Stable setup path/key remains `The Setup/the-setup`. Page copy and titles may
+still say Bigfoot's Jungle. Do not rename that directory unless asked.
+
+Header Search is a separate control (`getSearchPageUrl()` → `/search`). See
+`SITE_SEARCH_RUNBOOK.md`. Social profile URLs: `SOCIAL_DOCK_RUNBOOK.md`.

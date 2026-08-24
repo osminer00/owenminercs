@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-08-24
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -22,24 +22,26 @@ This is the low-token entry point for any coding assistant working in this repo.
 
 ## Project Snapshot
 
-Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript, with Netlify/serverless helpers and local sync scripts.
+Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript. Live hosting is **GitHub + Cloudflare Pages**. Serverless helpers live in `functions/api/` (canonical) with Netlify-shaped twins in `netlify/functions/` — see `PAGES_FUNCTIONS_RUNBOOK.md`.
 
 Key files:
 
 - `index.html` - home page
 - `css/owenminercs.css` - shared global CSS
-- `scripts/components.js` - shared custom elements/header/footer/social dock/achievements
+- `scripts/components.js` - shared custom elements/header/footer/social dock/achievements/search API
+- `search.html` + `data/site-search-index.json` - client-side site search (`SITE_SEARCH_RUNBOOK.md`)
 - `shared/` - reusable head/header snippets
-- `_redirects` - Netlify redirects
+- `_redirects` - Cloudflare/`/_redirects` rewrites (includes `/search` and `/.netlify/functions/:splat` → `/api/:splat`)
 - `sitemap.xml`, `robots.txt` - manually maintained
 - `affiliate-links.json`, `donation-links.json` - support/affiliate data
 
 Important areas:
 
-- `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages
-- `Socials/` - social hub/cloud/feed work
-- `Donators/`, `Achievements/`, `Referrals/` - support/community features
-- `Gaming/`, `Counter-Strike/` - CS2/gaming content
+- `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages (nav label **Gaming Setups**; `Keyboard/60he.html` is a chooser hub — `KEYBOARD_HUB_RUNBOOK.md`)
+- `Socials/` - social hub/cloud/feed work (X sync: `X_TOP_POSTS_SYNC_RUNBOOK.md`)
+- `Donators/`, `Achievements/`, `Referrals/` - support/community features (Twitch: `TWITCH_DONATOR_HANDOFF.md`)
+- `Gaming/`, `Counter-Strike/` - CS2/gaming content (inventory: `STEAM_CS2_INVENTORY_RUNBOOK.md`)
+- `dev/dev-stack.html` - Programs page (`data-nav="Dev"`)
 - `mockups/` - experimental designs, not production unless requested
 - `package/` - vendor/package artifact docs, not project documentation
 
