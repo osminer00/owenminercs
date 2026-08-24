@@ -1,6 +1,6 @@
 # Social Dock Runbook
 
-Last verified: 2026-05-04
+Last verified: 2026-08-24
 
 ## Purpose
 
@@ -25,16 +25,20 @@ Keep this document in sync with:
 
 The social link list is generated in this order and also feeds the "grand tour" achievement:
 
-1. X/Twitter
-2. Reddit
-3. YouTube
-4. Twitch
-5. Instagram
-6. Facebook
-7. TikTok
-8. Discord
+| Order | Brand | Public URL / handle |
+| --- | --- | --- |
+| 1 | X/Twitter | `https://x.com/OwenMiner` (`@OwenMiner`) |
+| 2 | Reddit | `https://www.reddit.com/user/OwenMCS` (`u/OwenMCS`) |
+| 3 | YouTube | `https://www.youtube.com/@OwenMinerCS` |
+| 4 | Twitch | `https://www.twitch.tv/owenminercs` |
+| 5 | Instagram | `https://www.instagram.com/owenminercs/` |
+| 6 | Facebook | `https://www.facebook.com/profile.php?id=100095719715453` |
+| 7 | TikTok | `https://www.tiktok.com/@owenminercs` |
+| 8 | Discord | `https://discord.gg/fA9GbxmAge` (`DISCORD_INVITE_URL`) |
 
 When changing a profile URL, verify `socialDockTourSlotFromHref()` still maps that host to the expected achievement slot. New platforms need both a link entry and a stable slot id if they should count toward the achievement.
+
+`scripts/sync-x-top-posts.py` reads the first `https://x.com/{handle}` in this markup. Changing the X URL changes the Social Cloud sync target (`X_TOP_POSTS_SYNC_RUNBOOK.md`).
 
 ### Browser storage keys
 

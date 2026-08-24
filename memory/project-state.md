@@ -1,14 +1,15 @@
 # Project State
 
-Last reviewed: 2026-05-06
+Last reviewed: 2026-08-24
 
 ## Stack
 
 - Static HTML/CSS/JS site.
-- Hosted/deployed through Netlify-style files (`_redirects`, `netlify/functions/`).
-- Serverless helpers also exist in `functions/api/`; check both paths before changing APIs.
+- Live hosting: **GitHub + Cloudflare Pages** (not Netlify). `_redirects` still used.
+- Canonical APIs: `functions/api/`. Twins: `netlify/functions/` (incomplete; `social-feed.js` is Pages-only). See `PAGES_FUNCTIONS_RUNBOOK.md`.
 - Shared components live in `scripts/components.js`.
 - Shared CSS lives in `css/owenminercs.css`.
+- Site search is static/client-side (`SITE_SEARCH_RUNBOOK.md`).
 
 ## Common Commands
 
@@ -24,7 +25,9 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 
 ## Important Data
 
-- Public setup hub name: Bigfoot's Jungle. Keep existing `The Setup/the-setup.html` paths/routes unless the user asks to rename URLs.
+- Public setup hub path stays `The Setup/the-setup`. Visible nav label is **Gaming Setups**; page copy may still say Bigfoot's Jungle.
+- Site search index: `data/site-search-index.json` (no in-repo builder; update when pages change).
+- X Social Cloud cards: `Socials/data/x-top-posts.json` via `scripts/sync-x-top-posts.py` (`@OwenMiner`).
 - Affiliate products: `affiliate-links.json`; partner network site-verification meta tags belong in `index.html` and are documented in `IMPLEMENTATION_GUIDE.md`.
 - Donation/support links: `donation-links.json`
 - Shop product drops: `Garage Sale/shop-products.json`
@@ -35,7 +38,14 @@ Use only commands relevant to the change. Some scripts need local credentials, l
 
 ## Focused Docs
 
-- `SHARED_COMPONENTS_GUIDE.md` documents `scripts/components.js` + `css/owenminercs.css` shared chrome, including social dock mount/persistence/drag behavior.
+- `SHARED_COMPONENTS_GUIDE.md` — shared chrome, nav label/`data-nav` map, social dock.
+- `SOCIAL_DOCK_RUNBOOK.md` — dock lifecycle + current profile URLs.
+- `SITE_SEARCH_RUNBOOK.md` — client-side search + `/search/` asset pitfall.
+- `STEAM_CS2_INVENTORY_RUNBOOK.md` — CS2 inventory GET + pricing caps.
+- `KEYBOARD_HUB_RUNBOOK.md` — intentional `60he.html` chooser.
+- `X_TOP_POSTS_SYNC_RUNBOOK.md` — X sync + empty-overwrite pitfall.
+- `TWITCH_DONATOR_HANDOFF.md` — EventSub register auth, persist pitfall, paused UI.
+- `PAGES_FUNCTIONS_RUNBOOK.md` — `/api/*` map, env names, dual-path rule.
 
 ## Repo Hygiene
 
