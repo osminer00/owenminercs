@@ -1,6 +1,6 @@
 # Social Dock Runbook
 
-Last verified: 2026-05-04
+Last verified: 2026-09-07
 
 ## Purpose
 
@@ -35,6 +35,21 @@ The social link list is generated in this order and also feeds the "grand tour" 
 8. Discord
 
 When changing a profile URL, verify `socialDockTourSlotFromHref()` still maps that host to the expected achievement slot. New platforms need both a link entry and a stable slot id if they should count toward the achievement.
+
+Current profile hrefs from `socialNavMarkup()`:
+
+| Platform | URL |
+| --- | --- |
+| X/Twitter | `https://x.com/OwenMiner` (`@OwenMiner`) |
+| Reddit | `https://www.reddit.com/user/OwenMCS` |
+| YouTube | `https://www.youtube.com/@OwenMinerCS` |
+| Twitch | `https://www.twitch.tv/owenminercs` |
+| Instagram | `https://www.instagram.com/owenminercs/` |
+| Facebook | `https://www.facebook.com/profile.php?id=100095719715453` |
+| TikTok | `https://www.tiktok.com/@owenminercs` |
+| Discord | `DISCORD_INVITE_URL` in `scripts/components.js` |
+
+`scripts/sync-x-top-posts.py` reads the X handle from the first `https://x.com/…` link in `scripts/components.js`. Changing the handle without running that sync leaves `Socials/data/x-top-posts.json` on the old account. See `SOCIAL_CLOUD_DATA_RUNBOOK.md`.
 
 ### Browser storage keys
 

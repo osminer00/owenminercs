@@ -3,6 +3,27 @@
 Concise notes for maintaining the global browser components in
 `scripts/components.js` and their shared styles in `css/owenminercs.css`.
 
+## Main navigation
+
+Header/footer pills are built in `SharedHeader` / `SharedFooter`. Visible label ≠ `data-nav` id.
+
+| Visible label | `data-nav` | Target |
+| --- | --- | --- |
+| Home | `index.html` | `/` |
+| Gaming Setups | `The Setup` | `The Setup/the-setup` |
+| Gaming | `Gaming` | `Gaming/gaming` |
+| Donators | `Donators` | `Donators/donators` |
+| For sale | `garage-sale` | `Garage Sale/garage-sale` |
+| Help Wanted | `Help Wanted` | `Help Wanted/help-wanted` |
+| Q&A | `QA` | `QA/qa` |
+| Programs | `Dev` | `dev/dev-stack` |
+| Achievements | `Achievements` | `Achievements/achievements` |
+| Content | `Socials` | `Socials/socials` |
+
+`MAIN_NAV_TOUR_SLOTS` omits **Programs** (`Dev`). Visiting only that page will not complete the main-nav tour achievement.
+
+Header Search opens `/search` (see `search.html` / `scripts/search-page.js`). Music (`Music/music.html`) and the site assistant are **not** in this bar; their pretty URLs currently 301 to `/` (`_redirects`).
+
 ## Shared header and social dock
 
 ### Intent

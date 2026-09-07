@@ -1,5 +1,14 @@
 # Twitch Activity Setup Handoff (Donator Page)
 
+## Shipped status (verify before following the checklist below)
+
+Last verified: 2026-09-07 against `scripts/donators.js` and `functions/api/`.
+
+- **Donator Twitch activity UI is paused.** `renderActivity()` always shows “Twitch activity is paused for now” (Ko-fi / StreamElements copy). `fetchTwitchFeed()` is `Promise.resolve(null)` — the page does **not** poll `/api/twitch-feed`.
+- **Registration is not an open POST.** `POST /api/twitch-register-eventsub` requires `x-twitch-register-secret` or `Authorization: Bearer …` matching `TWITCH_REGISTER_SECRET` (fallback `TWITCH_EVENTSUB_SECRET`). Missing secret → 503; mismatch → 403.
+- **EventSub persist pitfall (still on `main`):** `twitch-eventsub.js` `SET`s the idempotency key (`activity:twitch:seen:<id>` NX, 86400s) **before** the LPUSH pipeline. If persist throws after that SET, Twitch retries can be treated as duplicates and the event is lost. Failed persist does **not** delete the seen key. Do not assume unmerged critical-bug PRs are live.
+- Backend Functions (`twitch-feed`, `twitch-eventsub`, `twitch-health`, register) still exist on Pages and Netlify twins. The setup checklist below is valid for **re-enabling** the UI, not a description of current visitor behavior.
+
 ## Goal
 
 Finish wiring real Twitch activity into the donor/support page so `Recent Twitch activity` shows live follows/subs/gift subs/bits from EventSub, and follower totals update correctly (Cloudflare Pages deploy path).
@@ -7,11 +16,9 @@ Finish wiring real Twitch activity into the donor/support page so `Recent Twitch
 ## Current State (already implemented)
 
 - Donator page UI exists in `Donators/donators.html`.
-- Front-end polling/render logic exists in `scripts/donators.js`.
-    - It calls `/api/twitch-feed?limit=40` first (Cloudflare Pages Functions).
-    - It falls back to `/.netlify/functions/twitch-feed?limit=40` for legacy Netlify compatibility.
-    - It auto-refreshes every 20 seconds.
-    - It renders a fallback message when feed is unavailable.
+- Front-end render logic exists in `scripts/donators.js`.
+    - Live `/api/twitch-feed` polling is **stubbed out** (see shipped status).
+    - Static supporters still come from `Donators/donators.json`.
 - Cloudflare Pages Functions exist:
     - `functions/api/twitch-feed.js` (read from Redis)
     - `functions/api/twitch-eventsub.js` (receive/verify Twitch webhooks)
@@ -34,6 +41,7 @@ Finish wiring real Twitch activity into the donor/support page so `Recent Twitch
 - `TWITCH_CLIENT_ID`
 - `TWITCH_CLIENT_SECRET`
 - `TWITCH_EVENTSUB_SECRET`
+- `TWITCH_REGISTER_SECRET` (optional; register auth falls back to `TWITCH_EVENTSUB_SECRET`)
 - `TWITCH_BROADCASTER_ID`
 - `PUBLIC_SITE_URL` (example: `https://www.owenminercs.com`)
 - `UPSTASH_REDIS_REST_URL`
@@ -53,6 +61,7 @@ Notes:
 - `GET /api/twitch-feed`
     - Returns JSON with `{ ok: true, events: [...], totals: {...} }`.
 - `POST /api/twitch-register-eventsub`
+    - Send `x-twitch-register-secret: <TWITCH_REGISTER_SECRET or TWITCH_EVENTSUB_SECRET>` (or Bearer). Unauthenticated calls return 403.
     - Returns `ok: true` and per-type results for:
         - `channel.follow`
         - `channel.subscribe`
@@ -66,11 +75,12 @@ Notes:
 
 ## Important Implementation Notes
 
-- `scripts/donators.js` already merges static supporters (`donators.json`) with live Twitch feed events.
+- `scripts/donators.js` can merge static supporters (`donators.json`) with live Twitch feed events, but `fetchTwitchFeed()` currently returns `null`. Unpause that stub before expecting activity cards.
 - Follower count behavior:
-    - If `followers.twitch` in `Donators/donators.json` is empty, UI falls back to `twitch-feed` total follows.
+    - If `followers.twitch` in `Donators/donators.json` is empty, UI falls back to `twitch-feed` total follows (also unused while the stub is in place).
 - `twitch-eventsub.js` has idempotency protection:
     - Uses key prefix `activity:twitch:seen:` for message IDs.
+    - `SET NX EX 86400` runs **before** LPUSH. A failed pipeline after a successful SET can drop Twitch retries (seen key is not deleted on persist failure).
 - Event age/signature checks are strict:
     - Stale timestamps are rejected.
     - Signature uses `twitch-eventsub-message-*` headers and HMAC SHA-256.
@@ -84,9 +94,9 @@ Use this prompt with another agent:
 > Please:
 >
 > 1. Verify/complete env var wiring for Cloudflare Pages (`TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `TWITCH_EVENTSUB_SECRET`, `TWITCH_BROADCASTER_ID`, `PUBLIC_SITE_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`).
-> 2. Register EventSub subscriptions by calling `/api/twitch-register-eventsub` and confirm all required types are enabled.
+> 2. Register EventSub subscriptions by calling `/api/twitch-register-eventsub` **with** `x-twitch-register-secret` (or Bearer) and confirm all required types are enabled.
 > 3. Validate webhook ingestion (`twitch-eventsub`) and storage (`twitch-feed` + Redis totals).
-> 4. Confirm `Donators/donators.html` displays real activity under `Recent Twitch activity`.
+> 4. Restore `fetchTwitchFeed()` if the activity UI should be live again, then confirm `Donators/donators.html` displays real activity under `Recent Twitch activity`.
 > 5. If needed, add minimal safe diagnostics (without exposing secrets) and document exactly how to run checks again later.
 
 ## Done Definition
@@ -102,8 +112,8 @@ Use this prompt with another agent:
 2. Check health endpoint first:
     - `GET https://<your-custom-domain>/api/twitch-health`
     - Do not continue until `ok: true`.
-3. Register EventSub once:
-    - `POST https://<your-custom-domain>/api/twitch-register-eventsub`
+3. Register EventSub once (authenticated):
+    - `POST https://<your-custom-domain>/api/twitch-register-eventsub` with `x-twitch-register-secret`
 4. Validate feed endpoint:
     - `GET https://<your-custom-domain>/api/twitch-feed?limit=40`
 5. Trigger real Twitch events (follow/sub/gift/bits) and refresh `Donators/donators.html`.
