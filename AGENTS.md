@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-09-07
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -22,7 +22,7 @@ This is the low-token entry point for any coding assistant working in this repo.
 
 ## Project Snapshot
 
-Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript, with Netlify/serverless helpers and local sync scripts.
+Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript. Live deploy is GitHub + Cloudflare Pages; `netlify/functions/` twins and `_redirects` remain for compatibility.
 
 Key files:
 
@@ -37,9 +37,10 @@ Key files:
 Important areas:
 
 - `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages
-- `Socials/` - social hub/cloud/feed work
-- `Donators/`, `Achievements/`, `Referrals/` - support/community features
+- `Socials/` - Content cloud; cards from `Socials/data/` + Reddit, not `/api/social-feed` (`SOCIAL_CLOUD_DATA_RUNBOOK.md`)
+- `Donators/`, `Achievements/`, `Referrals/` - support/community features (Twitch activity UI on Donators is paused)
 - `Gaming/`, `Counter-Strike/` - CS2/gaming content
+- `QA/` - public FAQ + Discord-mirrored answers (`DISCORD_QA_RUNBOOK.md`)
 - `mockups/` - experimental designs, not production unless requested
 - `package/` - vendor/package artifact docs, not project documentation
 
@@ -51,6 +52,15 @@ Important areas:
 - Reuse existing styles/components before adding new systems.
 - Keep global CSS changes conservative.
 - For public media/photo/setup changes, run `node .\dev\media-accessibility-check.mjs` when practical.
+
+## Focused docs
+
+- `SHARED_COMPONENTS_GUIDE.md` / `SOCIAL_DOCK_RUNBOOK.md` — header, nav, social dock
+- `DISCORD_QA_RUNBOOK.md` — Q&A feed + Discord bot env
+- `SOCIAL_CLOUD_DATA_RUNBOOK.md` — Content page data sources
+- `MUSIC_LISTEN_ALONG_RUNBOOK.md` — Spotify/suggestions (pretty `/music` is parked)
+- `SITE_ASSISTANT_RUNBOOK.md` — `/api/site-assistant` (no HTML host on `main`)
+- `TWITCH_DONATOR_HANDOFF.md` — EventSub setup; donator UI currently paused
 
 ## Cross-Platform Pointers
 

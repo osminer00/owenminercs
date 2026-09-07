@@ -1,5 +1,7 @@
 # Social Cloud Content + API Handoff
 
+> **Current shipping (2026-09-07):** Content cards load from `Socials/data/*.json` plus a public Reddit fetch. The cloud **does not** call `/api/social-feed`. See `SOCIAL_CLOUD_DATA_RUNBOOK.md`. The rest of this file is a historical target architecture, not the live data path.
+
 ## Goal
 
 Move the Social Cloud from hardcoded placeholder items to real, auto-updating social posts:

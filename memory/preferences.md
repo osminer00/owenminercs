@@ -1,10 +1,11 @@
 # Preferences
 
-Last reviewed: 2026-05-02
+Last reviewed: 2026-09-07
 
 ## Durable User Preferences
 
 - **Hosting:** The live site is **GitHub + Cloudflare** (not Netlify). Do not tell the user to wait for or check Netlify deploys.
+- **Nav:** First item is **Home**; setup hub visible label is **Gaming Setups** (path still `The Setup/the-setup`). Programs uses `data-nav="Dev"`. Content is `Socials/socials`.
 - User wants a real cross-platform memory layer shared by Codex, Claude, Cursor, Gemini, Antigravity, Ollama, and similar tools.
 - Keep memory token-light: short canonical files, not long duplicated handoffs.
 - Keep memories updated when the user gives durable site facts, bug patterns, design ratios, layout preferences, or workflow rules.

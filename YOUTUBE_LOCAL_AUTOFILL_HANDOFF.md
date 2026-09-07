@@ -1,5 +1,7 @@
 # YouTube Local Autofill Handoff (No API Yet)
 
+> **Current shipping (2026-09-07):** Local JSON ingest is in place. Run `node scripts/sync-youtube-local-feed.mjs` (needs `yt-dlp`) to refresh `Socials/data/youtube-shorts.json` and `youtube-videos.json`. `Socials/scripts/social-cloud.js` reads those files first. `/api/social-feed` is unused by the cloud. See `SOCIAL_CLOUD_DATA_RUNBOOK.md`.
+
 ## Goal
 
 Automatically fill Social Cloud cards with your YouTube Shorts and YouTube Videos using a **local build-time script**, not `/api/social-feed` yet.
