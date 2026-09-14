@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-09-14
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -22,7 +22,7 @@ This is the low-token entry point for any coding assistant working in this repo.
 
 ## Project Snapshot
 
-Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript, with Netlify/serverless helpers and local sync scripts.
+Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript. Live hosting is **GitHub + Cloudflare Pages** (not Netlify), with dual serverless trees in `functions/api/` and `netlify/functions/`.
 
 Key files:
 
@@ -30,18 +30,29 @@ Key files:
 - `css/owenminercs.css` - shared global CSS
 - `scripts/components.js` - shared custom elements/header/footer/social dock/achievements
 - `shared/` - reusable head/header snippets
-- `_redirects` - Netlify redirects
+- `_redirects` - Cloudflare/Netlify-style redirects and function rewrites
 - `sitemap.xml`, `robots.txt` - manually maintained
 - `affiliate-links.json`, `donation-links.json` - support/affiliate data
 
 Important areas:
 
-- `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages
+- `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages (public hub name Bigfoot's Jungle; nav label **Gaming Setups**)
 - `Socials/` - social hub/cloud/feed work
-- `Donators/`, `Achievements/`, `Referrals/` - support/community features
+- `Donators/`, `Achievements/` - support/community features
+- `Garage Sale/` - shop, eBay listings, photography section (referrals page is retired; Mercari lives on the shop intro)
 - `Gaming/`, `Counter-Strike/` - CS2/gaming content
 - `mockups/` - experimental designs, not production unless requested
 - `package/` - vendor/package artifact docs, not project documentation
+
+Parked/unwired public URLs (see `_redirects`): `/music`, `/assistant` → home. `/search` is a static page.
+
+## Focused Docs
+
+- `SHARED_COMPONENTS_GUIDE.md` - shared chrome, dock, Ko-fi overlay, construction notice, word-glow bookmarks
+- `SOCIAL_DOCK_RUNBOOK.md` - dock mount/drag/rotate/fidget spin
+- `ACHIEVEMENTS_RUNBOOK.md` - unlock ids, storage, Mega nerd vs Programs
+- `Garage Sale/SHOP_PAYMENT_SETUP.md` - shop grids, eBay sync, cart, hosted checkout prep
+- `IMPLEMENTATION_GUIDE.md` - affiliate markup, Impact verification, Amazon live-price pitfall
 
 ## Work Rules
 
@@ -62,4 +73,3 @@ Platform-specific files should stay tiny and point here:
 - `GEMINI.md`
 - `ANTIGRAVITY.md`
 - `OLLAMA.md`
-

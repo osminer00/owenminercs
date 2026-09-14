@@ -1,6 +1,6 @@
 # Issues And Diagnostics
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-09-14
 
 Use this file for active bugs, recurring failures, and diagnosis patterns future chats should remember.
 
@@ -11,6 +11,11 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 
 ## Recurring Patterns
 
+- Shop `shop-products.json` rows always render as on-hold cards (`renderHoldCard`). Setting `status: available` does not currently add a Checkout button. Live Checkout CTAs are on eBay listing cards only.
+- Affiliate live Amazon prices call `/.netlify/functions/amazon-price` → `/api/amazon-price`, but the helper lives at `functions/amazon-price.js` as a Netlify handler. Catalog still works from static JSON.
+- Mega nerd (`main-nav-full-tour`) does not include Programs (`data-nav="Dev"`). Achievements page hint still says Bigfoot's Jungle; nav label is Gaming Setups.
+- `resolveActiveNavLink()` treats paths ending in `/` as Home; Mega nerd tour mapping does not. Directory URLs can disagree.
+- Photography is on `Garage Sale/garage-sale.html#photography`. `Photography/photos.json` `years` may be empty (empty-state UI).
 - `initWordBackgroundGlow` wraps words in `<span class="text-word-glow">`. Do not use `display: flex; flex-direction: column` on those containers — each word becomes a flex item and stacks one word per line. Use normal block flow, or `flex-direction: row` with `flex-wrap: wrap` (see `Achievements/achievements.html` `.achievement-card__hint`).
 - Centered main column vs fixed social dock: vertical scrollbar toggling used to shift `margin: auto` layout horizontally while the dock stayed fixed — looked like the dock moved. Fix: `html { scrollbar-gutter: stable; }` plus one `--site-gutter-x` for `.container` and `shared-header` / footer padding (`css/owenminercs.css`).
 - Floating `#site-support-dock` default position must not use header/logo rects: pages differ (`body` `zoom`, scrollbars) and the bar would shift between routes. Default is fixed viewport `(2px, 2px)` after clamp (see `getSocialDockDefaultViewportPosition` in `scripts/components.js`).

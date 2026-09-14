@@ -1,6 +1,6 @@
 # Social Dock Runbook
 
-Last verified: 2026-05-04
+Last verified: 2026-09-14
 
 ## Purpose
 
@@ -94,6 +94,12 @@ Reset is available in two ways:
 - Click `Reset Social Bar` in the header.
 
 Reset clears `owenminercs-social-dock-pos`, removes placed/drag/custom transform state, and re-mounts the dock in `.site-header-dock-cluster` when available.
+
+### Fidget champion spin
+
+Rim-rotate about five full turns in **one** pointer gesture (`FIDGET_FIVE_REV_DEG` = `1800°`, minus `20°` wobble tolerance, counting either one-way travel or net delta). On release, `startFidgetChampionSpin()` runs a 2s turbo spin (`8200°/s`) then coasts, and unlocks achievement `fidget-spinner`.
+
+This is dock chrome, not the Content-page Social Cloud idle spinner (15 minutes with no interaction). Reduced motion skips the turbo visual (`is-fidget-turbo`) but the achievement still unlocks.
 
 ## Styling contract
 

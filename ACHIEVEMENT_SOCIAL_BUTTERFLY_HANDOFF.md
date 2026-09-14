@@ -1,5 +1,9 @@
 # Handoff: Social “Grand tour” fix + renames (Social butterfly / Grand tour)
 
+**Not shipped.** This file is a proposed rename/fix checklist. Current ids, page titles, and unlock paths are in `ACHIEVEMENTS_RUNBOOK.md`.
+
+Shipped today: page title **Social Media Addict** (`social-dock-grand-tour`); toast title for that id is already **Grand tour**. Main-nav achievement page + toast title is **Mega nerd** (`main-nav-full-tour`), not Atlas. Programs (`data-nav="Dev"`) is not in `MAIN_NAV_TOUR_SLOTS`.
+
 ## Goals
 
 1. **Fix** the social-dock achievement so it reliably unlocks after the user has opened each profile from the floating social bar (X, Reddit, YouTube, Twitch, Instagram, Facebook, TikTok, Discord).

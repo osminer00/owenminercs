@@ -81,3 +81,55 @@ capture so later floating gestures use the normal move/rotate/resize behavior.
 5. Double-click empty dock chrome or click **Reset Social Bar**; the dock should
    return to `.site-header-dock-cluster` and remove
    `owenminercs-social-dock-pos`.
+
+## Construction notice
+
+`initConstructionNotice()` in `scripts/components.js` shows a modal on first visit
+until dismissed. Dismiss writes `localStorage` key
+`owenminercs-construction-notice-dismissed-v1` = `"1"`. Escape or **Got it** both
+dismiss. Bug reports in the copy use `DISCORD_INVITE_URL`
+(`https://discord.gg/fA9GbxmAge`). Timeline copy is still the May/July 2026 plan
+from the notice markup — edit there, not in CSS.
+
+## Ko-fi floating donate overlay
+
+`loadKofiOverlayWidget()` injects Ko-fi `overlay-widget.js` and draws account
+`owenminer` as `floating-chat`. `a[data-kofi-link]` clicks call
+`tryOpenKofiWidgetOverlayFromLink()` (public alias
+`window.owenminercsOpenKofiDonateOverlay()`). If the iframe donate button is
+found, the click is prevented and the overlay opens in-page instead of navigating
+away.
+
+Drag the overlay donate button (inside the Ko-fi iframe document). Position
+persists in `owenminercs-kofi-floating-chat-pos` as `{ "left": n, "top": n }`
+only after a move of at least `5px`. The host is clamped to the viewport on
+drag, resize, and restore. Dragging suppresses the following click so a drag
+does not also open the overlay.
+
+Constraints:
+
+- Binding retries for ~30s (`120 * 250ms`) because the iframe is third-party.
+- Same-origin access to `iframe.contentDocument` is required for drag; if Ko-fi
+  serves a cross-origin frame, drag/open-from-link silently no-ops and the
+  `<a data-kofi-link>` navigation proceeds.
+- Do not replace `overlay-widget.js` with Widget_2.js if you still want an
+  in-page overlay; Widget_2 is an external-link control.
+
+## Word-glow bookmarks
+
+`initWordBackgroundGlow()` wraps words in long `p` / `li` text as
+`.text-word-glow`. Click pins `.text-word-glow--bookmark` (neon green). Inside
+links, **Alt+click** pins without following the URL; clicking an already-pinned
+word inside a link clears the pin and does not navigate.
+
+Pins are stored per pathname in `owenminercs-word-glow-bookmarks`. Skip
+selectors include headings, keep-card CTAs, and `[data-no-word-glow]`. First pin
+unlocks achievement `lexicon-pin` (see `ACHIEVEMENTS_RUNBOOK.md`).
+
+Do not use `flex-direction: column` on a wrapper that contains these spans —
+each word becomes a flex item and stacks one per line.
+
+## Related runbooks
+
+- `SOCIAL_DOCK_RUNBOOK.md` — dock mount, drag/rotate, persistence, QA.
+- `ACHIEVEMENTS_RUNBOOK.md` — unlock ids, Mega nerd slots, Programs omission.
