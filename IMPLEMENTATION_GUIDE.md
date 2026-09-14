@@ -310,6 +310,22 @@ Guidelines:
 - Treat verification values like public tokens: they are safe to publish when supplied for HTML verification, but do not invent or guess IDs. Copy them exactly from the partner dashboard.
 - After deployment, verify against the production URL (`https://www.owenminercs.com/`), because most partner crawlers do not check local builds.
 
+## Live Amazon prices (optional overlay)
+
+`scripts/affiliate-links.js` still renders buttons from `affiliate-links.json` first. If a product has an `asin`, it then requests live prices from:
+
+`/.netlify/functions/amazon-price?asins=...` (max 10 ASINs)
+
+`_redirects` rewrites `/.netlify/functions/:splat` → `/api/:splat`, so production looks for **`/api/amazon-price`**.
+
+Current mismatch on `main`:
+
+- The only price helper is `functions/amazon-price.js` (Netlify `exports.handler`, `event.httpMethod` / `event.queryStringParameters`).
+- There is **no** `functions/api/amazon-price.js` Cloudflare Pages Function.
+- Env vars, when used: `AMAZON_PA_ACCESS_KEY`, `AMAZON_PA_SECRET_KEY`, optional `AMAZON_PARTNER_TAG` (default `owenminercs-20`).
+
+Until a Pages Function exists at `/api/amazon-price` (or the client URL matches the Netlify-style file), `fetchLivePrices()` fails quietly and the page keeps static JSON prices. That is expected, not a broken catalog.
+
 ---
 
 ## Deployment Checklist

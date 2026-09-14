@@ -1,6 +1,6 @@
 # Preferences
 
-Last reviewed: 2026-05-02
+Last reviewed: 2026-09-14
 
 ## Durable User Preferences
 
@@ -19,7 +19,7 @@ Last reviewed: 2026-05-02
 
 - **Setup hub** (`The Setup/the-setup.html`): `.keep-board--hub` uses normal thumbs + `keep-thumbs.js` album transitions; category titles are **large** type placed in `.keep-card__body` directly under `.keep-card__video-slot` (not overlaid on images).
 - **Accent colors:** Green glow/fill for non-link UI (hero H1, buttons, social tip chrome, dock fidget FX); keep blue/purple for real link affordances (`a`, `.site-nav-link`, card-ui link hovers).
-- **Site chrome:** Main nav’s first item is **Home** (`/`), not “About”; hover title is “Home — bio, intro, and what’s new”. Full Q&A lives on `QA/qa.html` only.
+- **Site chrome:** Main nav’s first item is **Home** (`/`), not “About”; hover title is “Home — bio, intro, and what’s new”. Setup hub pill label is **Gaming Setups** (`data-nav="The Setup"`); hub copy may still say Bigfoot's Jungle. Programs is `data-nav="Dev"` and is not a Mega nerd tour slot. Full Q&A lives on `QA/qa.html` only.
 - **Under-construction notice:** First visit shows a modal (`components.js` + `owenminercs.css`) with timeline: backend push ~this weekend for testing; design/theme in ~1–2 weeks; new content late May; setup tour video ~July; dismiss stored in `localStorage` key `owenminercs-construction-notice-dismissed-v1`.
 - If the user gives a specific card ratio, component size, layout density, color direction, or interaction rule, add it here.
 - **Socials cloud (`Socials/social-cloud.css` + `Socials/scripts/social-cloud.js`):** published date and the stats line (views / likes / upvotes / comments — whatever `scoreLabel` shows) must stay **on one horizontal row** above the title, separated by a middle dot when both are present. Do not revert to stacking date and stats on separate lines unless the user explicitly changes this.

@@ -1,8 +1,57 @@
 # Shop Payment Setup
 
-Last reviewed: 2026-04-29
+Last reviewed: 2026-09-14
 
-The shop page reads `Garage Sale/shop-products.json` via `scripts/garage-sale.js`, merges sticker / print / custom sewing rows into the **For Sale** grid (`#for-sale`) ahead of `ebay-listings.json`, applies `payment.publicNote`, then sends buyers to hosted PayPal or Stripe checkouts for payment, shipping address collection, receipts, and payment security. The standalone `scripts/shop-products.js` loader is not used on `garage-sale.html`.
+Public shop: `Garage Sale/garage-sale.html` (pretty URLs `/garage-sale` and `/Garage Sale/garage-sale`). Loader: `scripts/garage-sale.js`. The standalone `scripts/shop-products.js` file is **not** used on this page.
+
+## Page architecture (current shipping)
+
+`#for-sale` contains two grids, loaded in parallel:
+
+| Mount | Data | Renderer |
+| --- | --- | --- |
+| `#shop-ebay-garage` | `Garage Sale/ebay-listings.json` `items` whose `section` is not `digital` / `digital-assets` | `renderEbayInstaCard` — Add to cart, optional **Checkout** + **On eBay** |
+| `#shop-drops-hold` | `Garage Sale/shop-products.json` `products` (stickers, prints, custom-work, in that order) | `renderHoldCard` — always badge **On hold — not sold here yet** |
+
+Direct checkout CTAs on **eBay cards** appear when a listing object has an http(s) `buyOnSiteUrl`, `checkoutUrl`, `paypalUrl`, or `stripeUrl`. PayPal wins over generic checkout/buy-on-site; Stripe is the alternate when it differs from the primary.
+
+**Hold cards never render a Checkout button**, even if a shop product is `status: "available"` with a filled `checkoutUrl`. Paste PayPal/Stripe URLs into `shop-products.json` as prep, but visitors cannot buy those rows until the hold renderer (or a merge into the eBay-card path) grows a live CTA.
+
+`#shop-ebay-digital` is queried in JS but **does not exist** in `garage-sale.html`. Listings with `section: "digital"` are parsed into `dataDigital` and then dropped on the floor.
+
+`payment.publicNote` from `shop-products.json` is copied into `#shop-products-payment-note` when present.
+
+## Photography and retired routes
+
+Photography is a section on this same page (`#photography`), not a standalone gallery. `Photography/scripts/photography.js` reads `Photography/photos.json` via `window.OWEN_PHOTOS_JSON`. `years` is currently `[]`, so the empty-state copy shows.
+
+Redirects in `_redirects` (and a meta refresh on `Photography/photography.html`):
+
+- `/Photography/photography` → `/Garage Sale/garage-sale#photography`
+- `/referrals`, `/Referrals/referrals` → `/Garage Sale/garage-sale`
+
+## eBay listings sync
+
+Committed file: `Garage Sale/ebay-listings.json`. Default seller id `owenm00`.
+
+```bash
+node scripts/sync-ebay-listings.mjs
+# optional: --user owenm00 --limit 24 --out "Garage Sale/ebay-listings.json" --paid "Garage Sale/ebay-price-paid.json"
+```
+
+The script fetches `https://www.ebay.com/sch/i.html?_ssn=<user>&rt=nc&_rss=1`, keeps the first `--limit` items (default 24), and copies `paidPrice` from `ebay-price-paid.json` or the previous listings file when titles match (case-insensitive).
+
+Related helpers (offline, not called by the page):
+
+- `scripts/import-ebay-listings-export.mjs` — normalize a local `ebay-export.json` into `ebay-listings.json`
+- `scripts/merge-ebay-images.mjs --source <file>` — merge extra images onto existing rows
+- `scripts/enrich-ebay-images.mjs` — fetch/normalize listing image URLs
+
+## Browser cart
+
+`localStorage` key `owenminercs-ebay-cart-v1`. Line ids prefer the eBay `/itm/<id>/` number; otherwise a hash of direct checkout URL + title. Add to cart is disabled when a row has neither a direct checkout URL nor an `/itm/` eBay URL.
+
+Cart checkout is still hosted (PayPal/Stripe/eBay) in a new tab. There is no in-site payment capture.
 
 ## Current Launch Prices
 
@@ -45,7 +94,7 @@ After creating each hosted PayPal link:
 1. Paste the live URL into that product's `checkoutUrl` in `Garage Sale/shop-products.json`.
 2. Change `status` from `coming-soon` to `available`.
 3. Keep `paymentProvider` as `paypal`.
-4. Test the merged **For Sale** grid in `Garage Sale/garage-sale.html` (#for-sale).
+4. Confirm a Checkout CTA is actually visible. Today `renderHoldCard()` will still show the on-hold badge; either teach that renderer to use `shopIsCheckoutLive()` or put the same URL on the matching eBay listing row (`buyOnSiteUrl` / `checkoutUrl` / `paypalUrl`).
 
 ## Stripe Option
 
@@ -61,9 +110,11 @@ Use Stripe Payment Links if a product needs stronger card-first checkout, requir
 
 ## Product Statuses
 
-- `coming-soon`: public preview card with disabled checkout.
+Statuses and labels are stored on the JSON and shown as `shopAvailabilityText` on hold cards. They do **not** currently switch the hold renderer to a live Checkout button.
+
+- `coming-soon`: public preview (default copy “Coming soon”).
 - `tbd`: public placeholder for ideas that are not ready for orders.
-- `available`: enables the checkout button when `checkoutUrl` is present.
+- `available`: intended live checkout; `shopIsCheckoutLive()` also requires an http(s) PayPal/checkout/buy-on-site/Stripe URL.
 - `sold-out`: keeps the card visible without allowing checkout.
 
 ## Data Fields
@@ -74,5 +125,6 @@ Use Stripe Payment Links if a product needs stronger card-first checkout, requir
 - `summary`: one short customer-facing description.
 - `details`: bullet points shown on the card.
 - `image`: optional relative image path from the JSON file.
-- `checkoutUrl`: hosted PayPal or Stripe payment link.
-- `secondaryUrl` and `secondaryLabel`: optional supporting link.
+- `checkoutUrl`, `paypalUrl`, `stripeUrl`, `buyOnSiteUrl`: hosted payment links. Hold cards ignore these for CTAs; eBay cards use them via `getBuyOnSiteUrl()`.
+- `secondaryUrl` and `secondaryLabel`: optional supporting link on the hold card.
+- `availabilityLabel`: overrides the status-derived availability line.
