@@ -1,18 +1,19 @@
 # Twitch Activity Setup Handoff (Donator Page)
 
+**Shipped UI (2026-09-21):** the public Donators page does **not** poll Twitch. `scripts/donators.js` stubs `fetchTwitchFeed()` to `null`, filters JSON to Ko-fi and StreamElements, and `Donators/donators.html` has no activity/followers mounts. See `DONATORS_PAGE_RUNBOOK.md` for current client behavior. This file is the EventSub **server** restore checklist, not a description of live page polling.
+
 ## Goal
 
 Finish wiring real Twitch activity into the donor/support page so `Recent Twitch activity` shows live follows/subs/gift subs/bits from EventSub, and follower totals update correctly (Cloudflare Pages deploy path).
 
-## Current State (already implemented)
+## Current State (server vs client)
 
-- Donator page UI exists in `Donators/donators.html`.
-- Front-end polling/render logic exists in `scripts/donators.js`.
-    - It calls `/api/twitch-feed?limit=40` first (Cloudflare Pages Functions).
-    - It falls back to `/.netlify/functions/twitch-feed?limit=40` for legacy Netlify compatibility.
-    - It auto-refreshes every 20 seconds.
-    - It renders a fallback message when feed is unavailable.
-- Cloudflare Pages Functions exist:
+- Donator page UI exists in `Donators/donators.html` (Ko-fi / StreamElements / Steam hero + JS supporter cards).
+- Front-end **live Twitch** polling is **paused** in `scripts/donators.js`:
+    - `fetchTwitchFeed()` returns `Promise.resolve(null)` (no `/api/twitch-feed` call).
+    - `ACTIVE_PLATFORMS` is `{ kofi: true, streamelements: true }`.
+    - Follower/activity renderers no-op because the HTML omits `#donators-followers-list` and `#donators-activity-list`.
+- Cloudflare Pages Functions still exist for a future restore:
     - `functions/api/twitch-feed.js` (read from Redis)
     - `functions/api/twitch-eventsub.js` (receive/verify Twitch webhooks)
     - `functions/api/twitch-register-eventsub.js` (create subscriptions)
@@ -26,8 +27,9 @@ Finish wiring real Twitch activity into the donor/support page so `Recent Twitch
 2. Deploy functions and verify `twitch-feed` works.
 3. Run EventSub registration (`twitch-register-eventsub`) once.
 4. Confirm Twitch webhook delivery to `twitch-eventsub`.
-5. Verify events appear on `Donators/donators.html` under `Recent Twitch activity`.
-6. Optional: if no real events are incoming yet, add a temporary test fixture path (dev-only) for easier QA.
+5. Restore the client (un-stub `fetchTwitchFeed`, add activity/followers markup, decide whether `twitch` belongs in `ACTIVE_PLATFORMS`) before expecting events on the page. See `DONATORS_PAGE_RUNBOOK.md`.
+6. Then confirm events appear on `Donators/donators.html` (activity list is not in the current HTML).
+7. Optional: if no real events are incoming yet, add a temporary test fixture path (dev-only) for easier QA.
 
 ## Required Environment Variables (Cloudflare Pages)
 
@@ -66,8 +68,8 @@ Notes:
 
 ## Important Implementation Notes
 
-- `scripts/donators.js` already merges static supporters (`donators.json`) with live Twitch feed events.
-- Follower count behavior:
+- Restore path: `buildSupportEvents()` can merge `donators.json` with a twitch-feed payload, **if** `fetchTwitchFeed()` is un-stubbed. Static JSON rows still require `ACTIVE_PLATFORMS.twitch`. Feed events skip that filter. Followers/activity need `#donators-followers-list` and `#donators-activity-list` in the HTML.
+- Follower count behavior **when restored**:
     - If `followers.twitch` in `Donators/donators.json` is empty, UI falls back to `twitch-feed` total follows.
 - `twitch-eventsub.js` has idempotency protection:
     - Uses key prefix `activity:twitch:seen:` for message IDs.
@@ -80,19 +82,18 @@ Notes:
 Use this prompt with another agent:
 
 > Set up and verify Twitch EventSub activity for the donor page.  
-> Context: the UI and functions already exist in `Donators/donators.html`, `scripts/donators.js`, and `functions/api/{twitch-feed.js,twitch-eventsub.js,twitch-register-eventsub.js,_twitch-utils.js}`.  
+> Context: EventSub functions exist under `functions/api/`. The public page currently stubs Twitch (`DONATORS_PAGE_RUNBOOK.md`). Restore `fetchTwitchFeed` and activity/followers markup in addition to env/registration.
 > Please:
 >
 > 1. Verify/complete env var wiring for Cloudflare Pages (`TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`, `TWITCH_EVENTSUB_SECRET`, `TWITCH_BROADCASTER_ID`, `PUBLIC_SITE_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`).
 > 2. Register EventSub subscriptions by calling `/api/twitch-register-eventsub` and confirm all required types are enabled.
 > 3. Validate webhook ingestion (`twitch-eventsub`) and storage (`twitch-feed` + Redis totals).
-> 4. Confirm `Donators/donators.html` displays real activity under `Recent Twitch activity`.
+> 4. Restore the Donators client (un-stub feed fetch, add `#donators-activity-list` / followers mounts) before expecting `Recent Twitch activity` on the page.
 > 5. If needed, add minimal safe diagnostics (without exposing secrets) and document exactly how to run checks again later.
 
 ## Done Definition
 
-- Live Twitch follow/sub/gift/bits events appear on the donor page.
-- `Refresh` button on donor page returns fresh data from `twitch-feed`.
+- Live Twitch follow/sub/gift/bits events appear on the donor page after the **client** is restored (not with the current stub).
 - No secrets are committed to git.
 - Any added diagnostics are safe and documented.
 

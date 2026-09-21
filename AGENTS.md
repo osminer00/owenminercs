@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-09-21
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -22,7 +22,7 @@ This is the low-token entry point for any coding assistant working in this repo.
 
 ## Project Snapshot
 
-Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript, with Netlify/serverless helpers and local sync scripts.
+Static personal website for Owen Miner / OwenMinerCS. Mostly hand-written HTML, CSS, and browser JavaScript. Live hosting is GitHub + Cloudflare Pages. Netlify-shaped `_redirects` and `netlify/functions/` still exist beside `functions/api/`.
 
 Key files:
 
@@ -36,10 +36,12 @@ Key files:
 
 Important areas:
 
-- `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages
-- `Socials/` - social hub/cloud/feed work
-- `Donators/`, `Achievements/`, `Referrals/` - support/community features
+- `The Setup/`, `Keyboard/`, `PC/` - gear/setup pages (nav label **Gaming Setups**; hub H1 **Bigfoot's Jungle**)
+- `Socials/` - social hub/cloud/feed work (nav label **Content**)
+- `Donators/`, `Achievements/` - support/community features
+- `Garage Sale/` - shop; photography gallery and referrals redirect here
 - `Gaming/`, `Counter-Strike/` - CS2/gaming content
+- `dev/dev-stack.html` - Programs page (lowercase `dev/`)
 - `mockups/` - experimental designs, not production unless requested
 - `package/` - vendor/package artifact docs, not project documentation
 
@@ -50,7 +52,8 @@ Important areas:
 - Make scoped edits and preserve unrelated user changes.
 - Reuse existing styles/components before adding new systems.
 - Keep global CSS changes conservative.
-- For public media/photo/setup changes, run `node .\dev\media-accessibility-check.mjs` when practical.
+- For public media/photo/setup changes, run `node .\dev\media-accessibility-check.mjs` when practical. See `PHOTOGRAPHY_AND_MEDIA_RUNBOOK.md`.
+- Setup hub routing: `SETUP_HUB_RUNBOOK.md`. Donators current UI: `DONATORS_PAGE_RUNBOOK.md` (Twitch EventSub handoff is server-only until the client is restored).
 
 ## Cross-Platform Pointers
 

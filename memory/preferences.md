@@ -1,6 +1,6 @@
 # Preferences
 
-Last reviewed: 2026-05-02
+Last reviewed: 2026-09-21
 
 ## Durable User Preferences
 
@@ -17,7 +17,7 @@ Last reviewed: 2026-05-02
 
 ## UI / Design Preferences
 
-- **Setup hub** (`The Setup/the-setup.html`): `.keep-board--hub` uses normal thumbs + `keep-thumbs.js` album transitions; category titles are **large** type placed in `.keep-card__body` directly under `.keep-card__video-slot` (not overlaid on images).
+- **Setup hub** (`The Setup/the-setup.html`): nav label **Gaming Setups**; page H1 **Bigfoot's Jungle**. Cards use static thumbs + `scripts/setup-cards.js` (`data-href`). There is no `keep-thumbs.js` and no `.keep-board--hub` class. Category titles are **large** type in `.keep-card__body` under `.keep-card__video-slot` (not overlaid on images).
 - **Accent colors:** Green glow/fill for non-link UI (hero H1, buttons, social tip chrome, dock fidget FX); keep blue/purple for real link affordances (`a`, `.site-nav-link`, card-ui link hovers).
 - **Site chrome:** Main nav’s first item is **Home** (`/`), not “About”; hover title is “Home — bio, intro, and what’s new”. Full Q&A lives on `QA/qa.html` only.
 - **Under-construction notice:** First visit shows a modal (`components.js` + `owenminercs.css`) with timeline: backend push ~this weekend for testing; design/theme in ~1–2 weeks; new content late May; setup tour video ~July; dismiss stored in `localStorage` key `owenminercs-construction-notice-dismissed-v1`.
@@ -46,7 +46,7 @@ Last reviewed: 2026-05-02
 - Public profile copy should stay channel/content focused; do not restore the old home-page personal bio block or DMACC/alumni copy on production pages unless the user explicitly asks.
 - Person JSON-LD on production pages should not include `alumniOf` unless there is a new explicit content decision; archived mockups/backups may still contain old bio/DMACC copy.
 - Public FAQ scope is intentionally short: height questions and website bug reporting. Livestream discovery, CS configs, and merch links belong in navigation/Socials/Gaming/content pages, not the embedded FAQ.
-- **Setup Tools page** (`The Setup/tools.html`): physical tools only—links to the cordless drill page and iFixit write-up. CS2 inventory calculator, expensive skins browser, Major merch, and client-side CS tools stay on `Gaming/gaming.html`; OBS multi-camera fit check lives under **Outfits** (`The Setup/clothing.html`) with a shortcut on the hub Outfits card.
+- **Setup tools:** `The Setup/tools.html` is not in the repo. Do not invent that page. CS2 inventory calculator, expensive skins browser, Major merch, and client-side CS tools stay on `Gaming/gaming.html`; OBS multi-camera fit check lives under **Clothing** (`The Setup/clothing.html`) with a shortcut on the hub Clothing card.
 - CS2 skins page preference: focus on expensive/cool skins (not full inventory dump), and include case/container counts.
 - For CS2 Perfect World merch callouts on `Gaming/cs2-merch.html`, use the user's preferred source link: `https://pwrdesports.aliexpress.com/store/1103775565?spm=a2g0o.store_pc_allItems_or_groupList.pcShopHead_2009118762807.0`.
 - Coaching is deferred for later; do not show or add coaching language on public site pages unless the user asks to restore it.

@@ -81,3 +81,22 @@ capture so later floating gestures use the normal move/rotate/resize behavior.
 5. Double-click empty dock chrome or click **Reset Social Bar**; the dock should
    return to `.site-header-dock-cluster` and remove
    `owenminercs-social-dock-pos`.
+
+## Main nav labels vs routes
+
+Header and footer pills are generated in `scripts/components.js`. Visible labels are not always the `data-nav` id or the on-page H1.
+
+| Label | `data-nav` | Route |
+| --- | --- | --- |
+| Home | `index.html` | `/` |
+| Gaming Setups | `The Setup` | `The Setup/the-setup` (page H1: Bigfoot's Jungle) |
+| Gaming | `Gaming` | `Gaming/gaming` |
+| Donators | `Donators` | `Donators/donators` |
+| For sale | `garage-sale` | `Garage Sale/garage-sale` |
+| Help Wanted | `Help Wanted` | `Help Wanted/help-wanted` |
+| Q&A | `QA` | `QA/qa` |
+| Programs | `Dev` | `dev/dev-stack` (lowercase; `/Dev/` redirects) |
+| Achievements | `Achievements` | `Achievements/achievements` |
+| Content | `Socials` | `Socials/socials` |
+
+`MAIN_NAV_TOUR_SLOTS` omits `Dev`. `resolveActiveNavLink()` will not highlight Programs on `/dev/dev-stack` because the path does not contain `Dev`. See `SETUP_HUB_RUNBOOK.md`.
