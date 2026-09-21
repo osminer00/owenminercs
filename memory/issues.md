@@ -1,6 +1,6 @@
 # Issues And Diagnostics
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-09-21
 
 Use this file for active bugs, recurring failures, and diagnosis patterns future chats should remember.
 
@@ -22,6 +22,9 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Local machine config file `.claude/settings.local.json` was once tracked; keep it gitignored and untracked to avoid leaking local command permissions or environment-related references.
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.
+- `TWITCH_DONATOR_HANDOFF.md` described client polling of `/api/twitch-feed`; shipped `scripts/donators.js` stubs that fetch and the HTML has no activity/followers mounts. CSV sync (`dev/sync-donators-from-csv.mjs`) overwrites `followers`.
+- Programs nav (`data-nav="Dev"`) does not highlight on `/dev/dev-stack` and is omitted from `MAIN_NAV_TOUR_SLOTS`.
+- Memory previously cited `keep-thumbs.js` / `.keep-board--hub` and `The Setup/tools.html`; none of those files/classes exist on main.
 
 ## Issue Template
 
