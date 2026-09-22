@@ -56,6 +56,20 @@
 		return base + '.' + ext;
 	}
 
+	/**
+	 * Prefer an explicit per-photo print URL when the field is present (even if blank,
+	 * so a photo can hide the print CTA). Otherwise use the gallery default.
+	 */
+	function resolveSignedPrintUrl(photo, defaultUrl) {
+		if (
+			Object.prototype.hasOwnProperty.call(photo, 'signedPrintUrl') &&
+			photo.signedPrintUrl != null
+		) {
+			return String(photo.signedPrintUrl).trim();
+		}
+		return (defaultUrl || '').trim();
+	}
+
 	function openDialog(photo) {
 		lastFocus = document.activeElement;
 		dlgImg.src = resolvePhotoPath(photo.full || photo.thumb || '');
@@ -67,15 +81,7 @@
 		dlgDownload.href = resolvePhotoPath(photo.full || photo.thumb) || '#';
 		dlgDownload.setAttribute('download', downloadBasename(photo));
 
-		var printUrl;
-		if (
-			Object.prototype.hasOwnProperty.call(photo, 'signedPrintUrl') &&
-			photo.signedPrintUrl != null
-		) {
-			printUrl = String(photo.signedPrintUrl).trim();
-		} else {
-			printUrl = (config.signedPrintDefaultUrl || '').trim();
-		}
+		var printUrl = resolveSignedPrintUrl(photo, config.signedPrintDefaultUrl);
 		if (printUrl) {
 			dlgPrint.href = printUrl;
 			dlgPrint.hidden = false;
