@@ -111,6 +111,12 @@ function buildExistingPaidLookup(data) {
   return lookup;
 }
 
+function attachPaidPrice(item, paidByTitle, existingPaidByTitle) {
+  const key = normalizeTitle(item.title);
+  const paidPrice = paidByTitle.get(key) || existingPaidByTitle.get(key) || "";
+  return paidPrice ? { ...item, paidPrice } : item;
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const user = String(args.user || DEFAULT_USER);
@@ -137,11 +143,9 @@ async function main() {
   ]);
   const paidByTitle = buildPaidLookup(paidData);
   const existingPaidByTitle = buildExistingPaidLookup(existingData);
-  const hydratedItems = items.map((item) => {
-    const key = normalizeTitle(item.title);
-    const paidPrice = paidByTitle.get(key) || existingPaidByTitle.get(key) || "";
-    return paidPrice ? { ...item, paidPrice } : item;
-  });
+  const hydratedItems = items.map((item) =>
+    attachPaidPrice(item, paidByTitle, existingPaidByTitle)
+  );
 
   const payload = {
     source: {
