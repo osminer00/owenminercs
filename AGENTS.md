@@ -1,6 +1,6 @@
 # OwenMinerCS Agent Memory
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-09-28
 
 This is the low-token entry point for any coding assistant working in this repo.
 
@@ -39,7 +39,7 @@ Important areas:
 - `PC/`, `The Setup/`, `Keyboard/` - gear/setup pages
 - `Socials/` - social hub/cloud/feed work
 - `Donators/`, `Achievements/`, `Referrals/` - support/community features
-- `Gaming/`, `Counter-Strike/` - CS2/gaming content
+- `Gaming/`, `Counter-Strike/` - CS2/gaming content (`GAMING_HUB_RUNBOOK.md`, homepage feed in `SITE_FEED_RUNBOOK.md`)
 - `mockups/` - experimental designs, not production unless requested
 - `package/` - vendor/package artifact docs, not project documentation
 

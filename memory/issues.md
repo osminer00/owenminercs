@@ -1,6 +1,6 @@
 # Issues And Diagnostics
 
-Last reviewed: 2026-04-28
+Last reviewed: 2026-09-28
 
 Use this file for active bugs, recurring failures, and diagnosis patterns future chats should remember.
 
@@ -22,6 +22,10 @@ Use this file for active bugs, recurring failures, and diagnosis patterns future
 - Local machine config file `.claude/settings.local.json` was once tracked; keep it gitignored and untracked to avoid leaking local command permissions or environment-related references.
 - Affiliate widgets can over-generate marketplace search buttons from product names; for products without reliable marketplace listings, explicitly disable marketplace buttons and keep official/direct buy links.
 - Paths are case-sensitive on production-style static hosting. When adding shared nav/sitemap/canonical URLs, match the actual directory casing or add redirects for any previously published casing.
+- `initTemporaryInputLockdown()` in `scripts/components.js` disables text-like inputs site-wide, including nodes added later. `Gaming/cs2-price-calc.html` re-enables inputs inside `.calc-container`. The config explainer textarea is also `disabled` in HTML. `[data-owen-site-search]` is the coded exemption and is unused in current HTML.
+- Gaming discovery is inconsistent: config explainer is in the sitemap and search index but the hub card is `.keep-card--static`; `cs2-price-calc` is in the search index and not the sitemap; search index path `Gaming/cs2-dust2-gap-bug` has no HTML file; `cs2-wallpapers` is in the sitemap and missing from the 2026-05-03 search index.
+- `data/site-feed.json` is editorial. The 2026-04-24 entry mentions browser alerts that `scripts/site-feed.js` does not implement. The 2026-04-28 shop sentence does not match on-hold drop cards in `#shop-drops-hold`.
+- `scripts/setup-comparisons.js` never runs: nothing loads the script or mounts `[data-setup-vs]`.
 
 ## Issue Template
 
